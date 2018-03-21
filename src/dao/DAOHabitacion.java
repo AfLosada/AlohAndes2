@@ -104,14 +104,20 @@ public class DAOHabitacion
 	 */
 	public void addHabitacion(Habitacion habitacion) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.Habitacion (id, edad, miembro, nombre, tipo) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.Habitacion (id, edad, miembro, nombre, tipo, idReserva, idOferta, idHotel, idHostal, idPersona, idViviendaU) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
 				USUARIO, 
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
 				habitacion.getPrecio(), 
 				habitacion.getTamanio(),
 				habitacion.getUbicacion(),
-				habitacion.getTipo());
+				habitacion.getTipo(),
+				habitacion.getIdReserva(),
+				habitacion.getIdOferta(),
+				habitacion.getIdHotel(),
+				habitacion.getIdHostal(),
+				habitacion.getIdPersona(),
+				habitacion.getIdViviendaU());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -133,13 +139,19 @@ public class DAOHabitacion
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HABITACION ", USUARIO));
 		sql.append (String.format (
-				"SET CAPACIDAD = '%1$s', ID = '%2$s', PRECIO = '%3$s' , TAMANIO = '%4$s', UBICACION = '%5$s', TIPO = '%6$s'",
+				"SET CAPACIDAD = '%1$s', ID = '%2$s', PRECIO = '%3$s' , TAMANIO = '%4$s', UBICACION = '%5$s', TIPO = '%6$s', IDRESERVA = '%7$s', IDOFERTA = '%8$s', IDHOSTEL = '%9$s', IDHOSTAL = '%10$s', IDPERSONA = '%11$s', IDVIVIENDAU = '%12$s'",
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
 				habitacion.getPrecio(), 
 				habitacion.getTamanio(),
 				habitacion.getUbicacion(),
-				habitacion.getTipo()));
+				habitacion.getTipo(),
+				habitacion.getIdReserva(),
+				habitacion.getIdOferta(),
+				habitacion.getIdHotel(),
+				habitacion.getIdHostal(),
+				habitacion.getIdPersona(),
+				habitacion.getIdViviendaU()));
 		sql.append ("WHERE ID = " + habitacion.getId ());
 		System.out.println(sql);
 
@@ -211,6 +223,12 @@ public class DAOHabitacion
 		String ubicacion = resultSet.getString("ubicacion");
 		String id = resultSet.getString("id");
 		String tipo = resultSet.getString("tipo");
+		String idReserva = resultSet.getString("idReserva");
+		String idOferta = resultSet.getString("idOferta");
+		String idHotel = resultSet.getString("idHotel");
+		String idHostal = resultSet.getString("idHostal");
+		String idPersona = resultSet.getString("idPersona");
+		String idViviendaU = resultSet.getString("idViviendaU");
 		
 		/**
 		 * habitacion.getCapacidad(),
@@ -221,7 +239,7 @@ public class DAOHabitacion
 				habitacion.getTipo());
 		 */
 
-		Habitacion beb = new Habitacion(Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio), Double.parseDouble(tamanio), ubicacion,tipo );
+		Habitacion beb = new Habitacion(Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio), Double.parseDouble(tamanio), ubicacion,tipo, Integer.parseInt(idReserva), Integer.parseInt(idOferta), Integer.parseInt(idHotel), Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idViviendaU));
 
 		return beb;
 	}

@@ -16,19 +16,26 @@ public class Apartamento
 
 	@JsonProperty( value = "precio")
 	private double precio;
+	
+	@JsonProperty (value = "idPersonaNatural")
+	private int idPersonaNatural;
 
+	@JsonProperty ( value = "idOferta")
+	private int idOferta;
 
 
 	//
 	// Constructor
 	//
 
-	public Apartamento(boolean amoblado, int capacidad, int id, double precio) {
+	public Apartamento(boolean amoblado, int capacidad, int id, double precio, int idPersonaNatural, int idOferta) {
 		super();
 		this.amoblado = amoblado;
 		this.capacidad = capacidad;
 		this.id = id;
 		this.precio = precio;
+		this.idPersonaNatural = idPersonaNatural;
+		this.idOferta = idOferta;
 	}
 
 	//
@@ -66,6 +73,34 @@ public class Apartamento
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	/**
+	 * @return the idPersonaNatural
+	 */
+	public int getIdPersonaNatural() {
+		return idPersonaNatural;
+	}
+
+	/**
+	 * @param idPersonaNatural the idPersonaNatural to set
+	 */
+	public void setIdPersonaNatural(int idPersonaNatural) {
+		this.idPersonaNatural = idPersonaNatural;
+	}
+
+	/**
+	 * @return the idOferta
+	 */
+	public int getIdOferta() {
+		return idOferta;
+	}
+
+	/**
+	 * @param idOferta the idOferta to set
+	 */
+	public void setIdOferta(int idOferta) {
+		this.idOferta = idOferta;
 	}
 
 }

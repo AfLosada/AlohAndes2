@@ -3280,8 +3280,65 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
+	
+	/**
+	 * Método que modela la transacción que elimina la reserva que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado la reserva que entra como parámetro
+	 * @param reserva - Reserva a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera eliminando las reservas
+	 */
+	public void cancelarReserva(Reserva reserva) throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			daoReserva.cancelarReserva(reserva);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
 
 	
 	//TODO FIN RESERVA INICIO REQUERIMIENTOS EXTRA
+	
+	
+	public void agregarOfertaHostal(Hostal hostal, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	{
+		DAOHostal daoHostal = new DAOHostal();
+		DAOOferta daoOferta = new DAOOferta();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		
+		oferta.setIdHostal(hostal.getId());
+		daoOferta.updateOferta(oferta);
+		ArrayList<Habitacion> habsdasd = daoHabitacion.getHabitacions();
+		for (int i = 0; i < array.length; i++) 
+		{
+			
+		}
+		
+	}
 	
 }

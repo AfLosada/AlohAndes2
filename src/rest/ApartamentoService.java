@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -60,6 +61,7 @@ public class ApartamentoService <K extends Operador>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
+	@Path("/apartamentos")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getApartamentos() {
 
@@ -84,7 +86,7 @@ public class ApartamentoService <K extends Operador>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@GET
-	@Path( "{id: \\d+}" )
+	@Path( "/apartamentos/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response getApartamentoById( @PathParam( "id" ) Long id )
 	{
@@ -114,6 +116,7 @@ public class ApartamentoService <K extends Operador>
 	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
 	@PUT
+	@Path("/apartamentos")
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addApartamento(Apartamento apartamento) {
@@ -146,7 +149,10 @@ public class ApartamentoService <K extends Operador>
 
 	//TODO Requerimiento 5B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-
+	@PUT
+	@Path("/apartamentos/{id: \\d+}")
+	@Consumes( { MediaType.APPLICATION_JSON } )
+	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response updateApartamento(Apartamento apartamento) {
 		//TODO Requerimiento 5B: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{
@@ -174,7 +180,10 @@ public class ApartamentoService <K extends Operador>
 
 	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-
+	@DELETE
+	@Path("/apartamentos/{id: \\d+}")
+	@Consumes( { MediaType.APPLICATION_JSON } )
+	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response deleteApartamento(Apartamento apartamento) {
 		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{

@@ -135,7 +135,7 @@ public class DAOSala
 				sala.getCosto(),
 				sala.getId(),
 				sala.getProposito(),
-				sala.toString(sala.isTieneCostoAdicional()));
+				sala.toString(sala.isTieneCostoAdicional())));
 		sql.append ("WHERE ID = " + sala.getId());
 		System.out.println(sql);
 

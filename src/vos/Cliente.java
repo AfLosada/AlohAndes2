@@ -11,7 +11,7 @@ public class Cliente
 	// Atributos
 	//
 	
-	@JsonProperty(value = "id")
+	@JsonProperty(value = "idCliente")
 	private int id;
 
 	@JsonProperty(value = "edad")
@@ -99,6 +99,14 @@ public class Cliente
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	public String toString(boolean sisa)
+	{
+		String rta = "F";
+		if(sisa)
+			rta = "T";
+		return rta;
 	}
 	
 }

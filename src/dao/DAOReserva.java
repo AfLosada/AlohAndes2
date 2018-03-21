@@ -1,9 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import vos.Reserva;
@@ -104,6 +108,17 @@ public class DAOReserva {
 	 */
 	public void addReserva(Reserva reserva) throws SQLException, Exception {
 
+		int dur = Integer.parseInt(reserva.getDuracion());
+		
+		if(!(dur < 7 && dur >= 3))
+		{
+			throw new Exception("La duracion debe ser de más de 3 días y menos que una semana");
+		}
+		else if(dur <7 )
+		{
+			throw new Exception ("La duracion debe ser minimo de una semana");
+		}
+		
 		String sql = String.format("INSERT INTO %1$s.RESERVA (confirmada, duracion, fecha, id, pagoAnticipado, tiempoCancelacion, valor, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
 				USUARIO, 
 				reserva.toString(reserva.isConfirmada()),
@@ -138,11 +153,11 @@ public class DAOReserva {
 		sql.append (String.format ("UPDATE %s.RESERVA ", USUARIO));
 		sql.append (String.format (
 				"SET confirmada = '%1$s', duracion = '%2$s', fecha = '%3$s' , id = '%4$s', pagoAnticipado = '%5$s', tiempoCancelacion = '%6$s', valor = '%7$s', idHostal = '%8$s', idPersona = '%9$s', idHotel = '%10$s', idPersona = '%11$s', idHotel = '%12$s', idViviendaU = '%13$s', idCliente = '%14$s'",
-				reserva.isConfirmada(),
+				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
 				reserva.getFecha(),
 				reserva.getId(),
-				reserva.isPagoAnticipado(),
+				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
 				reserva.getIdHostal(),
 				reserva.getIdHotel(),
@@ -172,6 +187,36 @@ public class DAOReserva {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+
+
+	public void cancelarReserva(Reserva reserva) throws ParseException {
+		// TODO Auto-generated method stub
+		String tiempoCanc = reserva.getTiempoCancelacion();
+		Date fecha = new SimpleDateFormat("yyyy/mm/dd").parse(tiempoCanc);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date actual = new Date();
+		dateFormat.format(actual.before(fecha));
+		if(actual.before(fecha))
+		{
+			reserva.setConfirmada(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append (String.format ("UPDATE %s.RESERVA ", USUARIO));
+			sql.append (String.format (
+					"SET confirmada = '%1$s', duracion = '%2$s', fecha = '%3$s' , id = '%4$s', pagoAnticipado = '%5$s', tiempoCancelacion = '%6$s', valor = '%7$s', idHostal = '%8$s', idPersona = '%9$s', idHotel = '%10$s', idPersona = '%11$s', idHotel = '%12$s', idViviendaU = '%13$s', idCliente = '%14$s'",
+					reserva.toString(reserva.isConfirmada()),
+					reserva.getDuracion(),
+					reserva.getFecha(),
+					reserva.getId(),
+					reserva.toString(reserva.isPagoAnticipado()),
+					reserva.getTiempoCancelacion(),
+					reserva.getIdHostal(),
+					reserva.getIdHotel(),
+					reserva.getIdViviendaU(),
+					reserva.getIdCliente()));
+			sql.append ("WHERE ID = " + reserva.getId());
+			System.out.println(sql);
+		}
 	}
 
 

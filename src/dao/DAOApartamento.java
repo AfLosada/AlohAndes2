@@ -110,12 +110,14 @@ public class DAOApartamento
 	 */
 	public void addApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.ApartamentoES (amoblado, capacidad, id, precio) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
+		String sql = String.format("INSERT INTO %1$s.ApartamentoES (amoblado, capacidad, id, precio, idpersonanatural, idoferta) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 									USUARIO, 
 									apartamento.isAmoblado(), 
 									apartamento.getCapacidad(),
 									apartamento.getId(), 
-									apartamento.getPrecio());
+									apartamento.getPrecio(),
+									apartamento.getIdPersonaNatural(),
+									apartamento.getIdOferta());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -137,11 +139,13 @@ public class DAOApartamento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.APARTAMENTO ", USUARIO));
 		sql.append (String.format (
-				"SET AMOBLADO = '%1$s', CAPACIDAD = '%2$s', ID = '%3$s' , PRECIO = '%4$s'",
+				"SET AMOBLADO = '%1$s', CAPACIDAD = '%2$s', ID = '%3$s' , PRECIO = '%4$s', IDPERSONANATURAL = '%5$s', IDOFERTA = '%6$s'",
 				apartamento.isAmoblado(), 
 				apartamento.getCapacidad(),
 				apartamento.getId(), 
-				apartamento.getPrecio()));
+				apartamento.getPrecio(),
+				apartamento.getIdPersonaNatural(),
+				apartamento.getIdOferta()));
 		sql.append ("WHERE ID = " + apartamento.getId ());
 		System.out.println(sql);
 		
@@ -160,6 +164,11 @@ public class DAOApartamento
 	public void deleteApartamento(Apartamento apartamento) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.APARTAMENTO WHERE ID = %3$d", USUARIO, apartamento.getId());
+		
+		if(apartamento.getIdOferta()== 0)
+		{
+			throw new Exception("No se puede borrar porque se encuentra en una oferta");
+		}
 
 		System.out.println(sql);
 		
@@ -215,8 +224,10 @@ public class DAOApartamento
 		String capacidad = resultSet.getString("capacidad");
 		String precio = resultSet.getString("precio");
 		String id = resultSet.getString("id");
+		String idPersona = resultSet.getString("idPersonaNatural");
+		String idOferta = resultSet.getString("idOferta");
 
-		Apartamento beb = new Apartamento(rta, Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio));
+		Apartamento beb = new Apartamento(rta, Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio),Integer.parseInt(idPersona), Integer.parseInt(idOferta));
 
 		return beb;
 	}

@@ -18,6 +18,7 @@ import tm.AlohAndesTransactionManager;
 import vos.Cliente;
 import vos.Operador;
 
+@Path ("/clientes")
 public class ClienteService <K extends Operador>
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +83,7 @@ public class ClienteService <K extends Operador>
 		 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 		 */
 		@GET
-		@Path( "/cliente/{id: \\d+}" )
+		@Path( "/clientes/{id: \\d+}" )
 		@Produces( { MediaType.APPLICATION_JSON } )
 		public Response getClienteById( @PathParam( "id" ) Long id )
 		{

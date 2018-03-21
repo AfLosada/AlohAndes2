@@ -26,6 +26,24 @@ public class Habitacion
 	
 	@JsonProperty( value = "tipo" )
 	private TipoHabitacion tipo;
+
+	@JsonProperty ( value = "idOferta")
+	private int idOferta;
+	
+	@JsonProperty ( value = "idReserva")
+	private int idReserva;
+	
+	@JsonProperty (value = "idHotel")
+	private int idHotel;
+	
+	@JsonProperty (value = "idHostal")
+	private int idHostal;
+	
+	@JsonProperty (value = "idPersona")
+	private int idPersona;
+	
+	@JsonProperty (value = "idViviendaU")
+	private int idViviendaU;
 	
 	
 	private enum TipoHabitacion
@@ -38,7 +56,7 @@ public class Habitacion
 	// Constructor
 	//
 	
-	public Habitacion(int capacidad, int id, int precio, double tamanio, String ubicacion, String tipo) 
+	public Habitacion(int capacidad, int id, int precio, double tamanio, String ubicacion, String tipo, int idReserva, int idOfertax, int idHotel, int idHostal, int idPersona, int idViviendaU) 
 	{
 		super();
 		this.capacidad = capacidad;
@@ -47,6 +65,13 @@ public class Habitacion
 		this.tamanio = tamanio;
 		this.ubicacion = ubicacion;
 		this.tipo = TipoHabitacion.valueOf(tipo);
+		this.idReserva = idReserva;
+		this.idOferta = idOfertax;
+		this.idHotel = idHotel;
+		this.idHostal = idHostal;
+		this.idViviendaU = idViviendaU;
+		this.idPersona = idPersona;
+		
 	}
 	
 	//
@@ -112,6 +137,89 @@ public class Habitacion
 		this.tipo = tipo;
 	}
 
+	/**
+	 * @return the idOferta
+	 */
+	public int getIdOferta() {
+		return idOferta;
+	}
+
+	/**
+	 * @param idOferta the idOferta to set
+	 */
+	public void setIdOferta(int idOferta) {
+		this.idOferta = idOferta;
+	}
+	
+	/**
+	 * @return the idReserva
+	 */
+	public int getIdReserva() {
+		return idReserva;
+	}
+
+	/**
+	 * @param idReserva the idReserva to set
+	 */
+	public void setIdReserva(int idReserva) {
+		this.idReserva = idReserva;
+	}
+
+	/**
+	 * @return the idHotel
+	 */
+	public int getIdHotel() {
+		return idHotel;
+	}
+
+	/**
+	 * @param idHotel the idHotel to set
+	 */
+	public void setIdHotel(int idHotel) {
+		this.idHotel = idHotel;
+	}
+
+	/**
+	 * @return the idHostal
+	 */
+	public int getIdHostal() {
+		return idHostal;
+	}
+
+	/**
+	 * @param idHostal the idHostal to set
+	 */
+	public void setIdHostal(int idHostal) {
+		this.idHostal = idHostal;
+	}
+
+	/**
+	 * @return the idPersona
+	 */
+	public int getIdPersona() {
+		return idPersona;
+	}
+
+	/**
+	 * @param idPersona the idPersona to set
+	 */
+	public void setIdPersona(int idPersona) {
+		this.idPersona = idPersona;
+	}
+
+	/**
+	 * @return the idViviendaU
+	 */
+	public int getIdViviendaU() {
+		return idViviendaU;
+	}
+
+	/**
+	 * @param idViviendaU the idViviendaU to set
+	 */
+	public void setIdViviendaU(int idViviendaU) {
+		this.idViviendaU = idViviendaU;
+	}
 
 	
 }
