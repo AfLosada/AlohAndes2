@@ -47,7 +47,7 @@ public class DAOCliente
 	}
 
 	/**
-	 * Metodo que obtiene la informacion de todos los Clientees en la Base de Datos <br/>
+	 * Metodo que obtiene la informacion de todos los Clientes en la Base de Datos <br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
 	 * @return	lista con la informacion de todos los Clientees que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
@@ -105,13 +105,18 @@ public class DAOCliente
 	 */
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.ClienteS (id, edad, miembro, nombre, tipo) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.ClienteS (id, edad, miembro, tipo, nombre) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s')", 
 				USUARIO, 
 				cliente.getId(),
 				cliente.getEdad(), 
 				cliente.isMiembro(), 
 				cliente.getTipo(),
 				cliente.getNombre());
+		
+		if(cliente.getEdad()<18){
+			throw new Exception();
+		}
+		
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -136,7 +141,7 @@ public class DAOCliente
 				"SET ID = '%1$s', EDAD = '%2$s', MIEMBRO = '%3$s' , TIPO = '%4$s', NOMBRE = '%5$s'",
 				cliente.getId(),
 				cliente.getEdad(), 
-				cliente.isMiembro(), 
+				cliente.toString(cliente.isMiembro()), 
 				cliente.getTipo(),
 				cliente.getNombre()));
 		sql.append ("WHERE ID = " + cliente.getId ());
@@ -204,19 +209,18 @@ public class DAOCliente
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Cliente. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		String miembro = resultSet.getString("amoblado");
+		String miembro = resultSet.getString("MIEMBRO_COMUNIDAD");
 		boolean rta = false;
 		if(miembro.equals(1))
 		{
 			rta = true;
 		}
-		String edad = resultSet.getString("edad");
-		String nombre = resultSet.getString("nombre");
-		String id = resultSet.getString("id");
-		String tipo = resultSet.getString("tipo");
+		String edad = resultSet.getString("EDAD");
+		String nombre = resultSet.getString("NOMBRE");
+		String id = resultSet.getString("ID_CLIENTE");
+		String tipo = resultSet.getString("TIPO_CLIENTE");
 
 		Cliente beb = new Cliente(Integer.parseInt(id), Integer.parseInt(edad), rta, nombre, tipo);
-
 		return beb;
 	}
 }
