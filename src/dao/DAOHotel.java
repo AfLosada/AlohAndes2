@@ -104,8 +104,8 @@ public class DAOHotel
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void addHotel(Hotel hotel) throws SQLException, Exception {
-
-		String sql = String.format("INSERT INTO %1$s.HOTEL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		
+		String sql = String.format("INSERT INTO %1$s.HOTEL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOTEL, ID_HOTEL) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO, 
 				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
@@ -133,7 +133,8 @@ public class DAOHotel
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HOTEL ", USUARIO));
 		sql.append (String.format (
-				"SET camaracomercio = '%1$s', nombreoperador = '%2$s', superintendeciaturismo = '%3$s' , capacidad = '%4$s',id = '%5$s'",
+				
+				"SET CAMARA_COMERCIO = '%1$s',NOMBRE, = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOTEL = '%4$s',ID_HOTEL = '%5$s'",
 
 				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
@@ -209,21 +210,21 @@ public class DAOHotel
 		boolean rta2 = false;
 		boolean rta3 = false;
 
-
-		String camara = resultSet.getString("camara");
+		
+		String camara = resultSet.getString("CAMARA_COMERCIO");
 
 		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("nombre");
-		String superI = resultSet.getString("superIndendenciaFinanciera");
+		String nombre = resultSet.getString("NOMBRE");
+		String superI = resultSet.getString("SUPERINTENDENCIA_TURISMO");
 		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
+		String capacidad = resultSet.getString("CAPACIDAD_HOTEL");
+		String id = resultSet.getString("ID_HOTEL");
 
 		Hotel beb = new Hotel(rta1, nombre, rta2, Integer.parseInt(capacidad), Integer.parseInt(id));
 
