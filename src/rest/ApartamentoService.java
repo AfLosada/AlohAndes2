@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
-import tm.ParranderosTransactionManager;
 import vos.Apartamento;
 import vos.Operador;
 
