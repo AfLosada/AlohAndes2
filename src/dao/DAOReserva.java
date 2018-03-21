@@ -50,7 +50,7 @@ public class DAOReserva {
 	}
 
 	/**
-	 * Metodo que obtiene la informacion de todos los Reservaes en la Base de Datos <br/>
+	 * Metodo que obtiene la informacion de todas las Reservaes en la Base de Datos <br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
 	 * @return	lista con la informacion de todos los Reservaes que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
@@ -112,12 +112,20 @@ public class DAOReserva {
 		
 		if(!(dur < 7 && dur >= 3))
 		{
-			throw new Exception("La duracion debe ser de m·s de 3 dÌas y menos que una semana");
+			throw new Exception("La duracion debe ser de m√°s de 3 d√≠as y menos que una semana");
 		}
 		else if(dur <7 )
 		{
 			throw new Exception ("La duracion debe ser minimo de una semana");
 		}
+	   if(reserva.getIdViviendaU() != 0){
+		   DAOCliente cliente = new DAOCliente();
+		   String tipo = cliente.findClienteById(reserva.getIdCliente()).getTipo();
+		   if( tipo != "ESTUDIANTE" || tipo != "PROFESOR" || tipo != "EMPLEADO" || tipo != "PROFESOR_VISITANTE"){
+			   throw new Exception("El cliente de tipo " + tipo+" no puede reservar una Vivienda Universitaria.");
+		   }
+		   
+	   }
 		
 		String sql = String.format("INSERT INTO %1$s.RESERVA (confirmada, duracion, fecha, id, pagoAnticipado, tiempoCancelacion, valor, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
 				USUARIO, 
