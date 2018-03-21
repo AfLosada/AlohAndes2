@@ -11,11 +11,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
+import dao.DAOApartamento;
+import dao.DAOApartamento;
+import dao.DAOApartamento;
 import dao.DAOHostal;
 import dao.DAOHotel;
 import dao.DAOPersonaNatural;
 import dao.DAOVecino;
 import dao.DAOViviendaUniversitaria;
+import vos.Apartamento;
+import vos.Apartamento;
+import vos.Apartamento;
 import vos.Operador;
 import vos.Operador;
 
@@ -134,34 +140,23 @@ public class AlohAndesTransactionManager <K extends Operador>
 		// METODOS TRANSACCIONALES
 		//----------------------------------------------------------------------------------------------------------------------------------
 		
+		
+		
 		/**
-		 * Metodo que modela la transaccion que retorna todos los operadores de la base de datos. <br/>
-		 * @return List<Operador> - Lista de operadores que contiene el resultado de la consulta.
+		 * Metodo que modela la transaccion que retorna todos los apartamentoes de la base de datos. <br/>
+		 * @return List<Apartamento> - Lista de apartamentoes que contiene el resultado de la consulta.
 		 * @throws Exception -  Cualquier error que se genere durante la transaccion
 		 */
-		public List<K> getAllOperadores() throws Exception {
-			DAOHostal daoHostal = new DAOHostal();
-			DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
-			DAOHotel daoHotel = new DAOHotel();
-			DAOVecino daoVecino = new DAOVecino();
-			DAOViviendaUniversitaria dao = new DAOViviendaUniversitaria();
-			
-			ArrayList<K> operadores;
+		public List<Apartamento> getAllApartamentoes() throws Exception {
+			DAOApartamento daoApartamento = new DAOApartamento();
+			List<Apartamento> apartamento;
 			try 
 			{
 				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				daoPersonaNatural.setConn(conn);
-				daoHotel.setConn(conn);
-				daoVecino.setConn(conn);
-				dao.setConn(conn);
+				daoApartamento.setConn(conn);
 				
 				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				operadores =  (ArrayList<K>) dao.getViviendaUniversitarias();
-				operadores.addAll((Collection) daoHostal.getHostals());
-				operadores.addAll((Collection)daoPersonaNatural.getPersonaNaturals());
-				operadores.addAll((Collection)daoHotel.getHotels());
-				operadores.addAll((Collection)(daoVecino.getVecinos()));
+				apartamento = daoApartamento.getApartamentos();
 			}
 			catch (SQLException sqlException) {
 				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
@@ -175,12 +170,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			} 
 			finally {
 				try {
-					dao.cerrarRecursos();
-					daoHostal.cerrarRecursos();
-					daoPersonaNatural.cerrarRecursos();
-					daoHotel.cerrarRecursos();
-					daoVecino.cerrarRecursos();
-					dao.cerrarRecursos();
+					daoApartamento.cerrarRecursos();
 					if(this.conn!=null){
 						this.conn.close();					
 					}
@@ -191,54 +181,26 @@ public class AlohAndesTransactionManager <K extends Operador>
 					throw exception;
 				}
 			}
-			return operadores;
+			return apartamento;
 		}
-
+		
 		/**
-		 * Metodo que modela la transaccion que busca el operador en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del operador a buscar. id != null
-		 * @return Operador - Operador que se obtiene como resultado de la consulta.
+		 * Metodo que modela la transaccion que busca el apartamento en la base de datos que tiene el ID dado por parametro. <br/>
+		 * @param name -id del apartamento a buscar. id != null
+		 * @return Apartamento - Apartamento que se obtiene como resultado de la consulta.
 		 * @throws Exception -  cualquier error que se genere durante la transaccion
 		 */
-		public K getOperadorById(Long id) throws Exception {
-			
-			getAllOperadores();
-			
-			DAOHostal daoHostal = new DAOHostal();
-			DAOHotel daoHotel = new DAOHotel();
-			DAOVecino daoVecino = new DAOVecino();
-			DAOViviendaUniversitaria daoVivU = new DAOViviendaUniversitaria();
-			DAOPersonaNatural daoPersona = new DAOPersonaNatural();
-			
-			K operador = null;
+		public Apartamento getApartamentoById(Long id) throws Exception {
+			DAOApartamento daoApartamento = new DAOApartamento();
+			Apartamento apartamento = null;
 			try 
 			{
 				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				daoHotel.setConn(conn);
-				daoVecino.setConn(conn);
-				daoVivU.setConn(conn);
-				daoPersona.setConn(conn);
-				operador = (K) daoHostal.findHostalById(id);
-				if(operador == null)
+				daoApartamento.setConn(conn);
+				apartamento = daoApartamento.findApartamentoById(id);
+				if(apartamento == null)
 				{
-					operador = (K) daoHotel.findHotelById(id);
-					if (operador == null)
-					{
-						operador = (K) daoVecino.findVecinoById(id);
-						if (operador == null)
-						{
-							operador = (K) daoVivU.findViviendaUniversitariaById(id);
-							if(operador == null)
-							{
-								operador = (K) daoPersona.findPersonaNaturalById(id);
-								if(operador == null)
-								{
-									throw new Exception( "El operador no pudo seer encontrado");
-								}
-							}
-						}
-					}
+					throw new Exception("El apartamento con el id = " + id + " no se encuentra persistido en la base de datos.");				
 				}
 			} 
 			catch (SQLException sqlException) {
@@ -253,11 +215,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			} 
 			finally {
 				try {
-					daoHostal.cerrarRecursos();
-					daoHotel.cerrarRecursos();
-					daoVecino.cerrarRecursos();
-					daoVivU.cerrarRecursos();
-					daoPersona.cerrarRecursos();
+					daoApartamento.cerrarRecursos();
 					if(this.conn!=null){
 						this.conn.close();					
 					}
@@ -268,17 +226,23 @@ public class AlohAndesTransactionManager <K extends Operador>
 					throw exception;
 				}
 			}
-			return operador;
+			return apartamento;
 		}
 		
-		public void addOperador(K operador) throws Exception {
-			DAOOperador daoOperadors = new DAOOperador();
+		/**
+		 * Método que modela la transacción que agrega un solo video a la base de datos.
+		 * <b> post: </b> se ha agregado el video que entra como parámetro
+		 * @param video - el video a agregar. video != null
+		 * @throws Exception - cualquier error que se genera agregando el video
+		 */
+		public void addApartamento(Apartamento apartamento) throws Exception {
+			DAOApartamento daoApartamentos = new DAOApartamento();
 			try 
 			{
 				//////Transacción
 				this.conn = darConexion();
-				daoOperadors.setConn(conn);
-				daoOperadors.addOperador(operador);
+				daoApartamentos.setConn(conn);
+				daoApartamentos.addApartamento(apartamento);
 				conn.commit();
 
 			} catch (SQLException e) {
@@ -291,7 +255,123 @@ public class AlohAndesTransactionManager <K extends Operador>
 				throw e;
 			} finally {
 				try {
-					daoOperadors.cerrarRecursos();
+					daoApartamentos.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
+
+		/**
+		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+		 * <b> post: </b> se han agregado los videos que entran como parámetro
+		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+		 * @throws Exception - cualquier error que se genera agregando los videos
+		 */
+		public void addApartamentos(ArrayList<Apartamento> apartamentos) throws Exception {
+			DAOApartamento daoApartamentos = new DAOApartamento();
+			try 
+			{
+				//////Transacción - ACID Example
+				this.conn = darConexion();
+				conn.setAutoCommit(false);
+				daoApartamentos.setConn(conn);
+				for(Apartamento apartamento : (apartamentos))
+					daoApartamentos.addApartamento(apartamento);
+				conn.commit();
+			} catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				conn.rollback();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				conn.rollback();
+				throw e;
+			} finally {
+				try {
+					daoApartamentos.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
+		/**
+		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+		 * <b> post: </b> se ha actualizado el video que entra como parámetro
+		 * @param video - Video a actualizar. video != null
+		 * @throws Exception - cualquier error que se genera actualizando los videos
+		 */
+		public void updateApartamento(Apartamento apartamento) throws Exception {
+			DAOApartamento daoApartamento = new DAOApartamento();
+			try 
+			{
+				//////Transacción
+				this.conn = darConexion();
+				daoApartamento.setConn(conn);
+				daoApartamento.updateApartamento(apartamento);
+
+			} catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					daoApartamento.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
+		/**
+		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+		 * <b> post: </b> se ha eliminado el video que entra como parámetro
+		 * @param video - Video a eliminar. video != null
+		 * @throws Exception - cualquier error que se genera actualizando los videos
+		 */
+		public void deleteApartamento(Apartamento apartamento) throws Exception {
+			DAOApartamento daoApartamento = new DAOApartamento();
+			try 
+			{
+				//////Transacción
+				this.conn = darConexion();
+				daoApartamento.setConn(conn);
+				daoApartamento.deleteApartamento(apartamento);
+
+			} catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					daoApartamento.cerrarRecursos();
 					if(this.conn!=null)
 						this.conn.close();
 				} catch (SQLException exception) {
