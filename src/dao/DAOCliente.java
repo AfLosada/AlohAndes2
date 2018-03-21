@@ -105,15 +105,11 @@ public class DAOCliente
 	 */
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
-<<<<<<< HEAD
-		String sql = String.format("INSERT INTO %1$s.ClienteS (id_cliente, edad, miembro_comunidad, nombre_cliente, tipo_cliente) VALUES (%2$s, %3$s, '%4$s', '%5$s', '%6$s')", 
-=======
 		if(cliente.getEdad() < 18){
 			throw new Exception();
 		}
-		
-		String sql = String.format("INSERT INTO %1$s.ClienteS (id, edad, miembro, tipo, nombre) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s')", 
->>>>>>> ff2f5ccc20de63306e5fc2f33dbe67be1e9bfaf8
+
+		String sql = String.format("INSERT INTO %1$s.ClienteS (id_cliente, edad, miembro_comunidad, nombre_cliente, tipo_cliente) VALUES (%2$s, %3$s, '%4$s', '%5$s', '%6$s')", 
 				USUARIO, 
 				cliente.getId(),
 				cliente.getEdad(), 
@@ -214,28 +210,17 @@ public class DAOCliente
 	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Cliente. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
-
-<<<<<<< HEAD
-		String miembro = resultSet.getString("miembro_Comunidad");
-=======
 		String miembro = resultSet.getString("MIEMBRO_COMUNIDAD");
->>>>>>> ff2f5ccc20de63306e5fc2f33dbe67be1e9bfaf8
 		boolean rta = false;
 		if(miembro.equals("T"))
 		{
 			rta = true;
 		}
-<<<<<<< HEAD
-		String edad = resultSet.getString("edad");
-		String nombre = resultSet.getString("nombre_Cliente");
-		String id = resultSet.getString("id_Cliente");
-		String tipo = resultSet.getString("tipo_Cliente");
-=======
+
 		String edad = resultSet.getString("EDAD");
 		String nombre = resultSet.getString("NOMBRE");
 		String id = resultSet.getString("ID_CLIENTE");
 		String tipo = resultSet.getString("TIPO_CLIENTE");
->>>>>>> ff2f5ccc20de63306e5fc2f33dbe67be1e9bfaf8
 
 		Cliente beb = new Cliente(Integer.parseInt(id), Integer.parseInt(edad), rta, nombre, tipo);
 		return beb;
