@@ -3330,14 +3330,18 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
 		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		
 		oferta.setIdHostal(hostal.getId());
 		daoOferta.updateOferta(oferta);
-		ArrayList<Habitacion> habsdasd = daoHabitacion.getHabitacions();
-		for (int i = 0; i < array.length; i++) 
+		for (int i = 0; i < habitaciones.size(); i++) 
 		{
-			
+			habitaciones.get(i).setIdHostal(hostal.getId());
+			daoHabitacion.updateHabitacion(habitaciones.get(i));
+			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(Long.parseLong("" + habitaciones.get(i).getId())).setIdServicioInmobiliario(sIn.getId());;
 		}
+		
+		
 		
 	}
 	

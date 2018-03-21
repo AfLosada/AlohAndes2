@@ -8,19 +8,19 @@ public class Apartamento
 	@JsonProperty( value = "amoblado")
 	private boolean amoblado;
 
-	@JsonProperty( value = "capacidad")
+	@JsonProperty( value = "capacidad_apto")
 	private int capacidad;
 
-	@JsonProperty( value = "id")
+	@JsonProperty( value = "id_apartamento")
 	private int id;
 
-	@JsonProperty( value = "precio")
+	@JsonProperty( value = "precio_apto")
 	private double precio;
 	
-	@JsonProperty (value = "idPersonaNatural")
+	@JsonProperty (value = "id_Persona")
 	private int idPersonaNatural;
 
-	@JsonProperty ( value = "idOferta")
+	@JsonProperty ( value = "id_Oferta")
 	private int idOferta;
 
 
@@ -28,7 +28,9 @@ public class Apartamento
 	// Constructor
 	//
 
-	public Apartamento(boolean amoblado, int capacidad, int id, double precio, int idPersonaNatural, int idOferta) {
+	public Apartamento(@JsonProperty( value = "amoblado") boolean amoblado,@JsonProperty( value = "capacidad_apto") int capacidad,
+			@JsonProperty( value = "id_apartamento") int id, 
+			@JsonProperty( value = "precio_apto")double precio,@JsonProperty (value = "id_Persona") int idPersonaNatural, @JsonProperty ( value = "id_Oferta")int idOferta) {
 		super();
 		this.amoblado = amoblado;
 		this.capacidad = capacidad;
@@ -101,6 +103,15 @@ public class Apartamento
 	 */
 	public void setIdOferta(int idOferta) {
 		this.idOferta = idOferta;
+	}
+
+	public String toString(boolean amoblado2) 
+	{
+		// TODO Auto-generated method stub
+		String rta = "F";
+		if(amoblado2)
+			rta = "T";
+		return rta;
 	}
 
 }

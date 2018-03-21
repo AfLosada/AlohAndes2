@@ -19,7 +19,7 @@ public class DAOCliente
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -57,7 +57,7 @@ public class DAOCliente
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.Cliente WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -105,7 +105,7 @@ public class DAOCliente
 	 */
 	public void addCliente(Cliente cliente) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.ClienteS (id, edad, miembro, nombre, tipo) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.ClienteS (id_cliente, edad, miembro_comunidad, nombre_cliente, tipo_cliente) VALUES (%2$s, %3$s, '%4$s', '%5$s', '%6$s')", 
 				USUARIO, 
 				cliente.getId(),
 				cliente.getEdad(), 
@@ -133,7 +133,7 @@ public class DAOCliente
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.CLIENTE ", USUARIO));
 		sql.append (String.format (
-				"SET ID = '%1$s', EDAD = '%2$s', MIEMBRO = '%3$s' , TIPO = '%4$s', NOMBRE = '%5$s'",
+				"SET ID_cliente = %1$s, EDAD = %2$s, MIEMBRO_comunidad = '%3$s' , TIPO_cliente = '%4$s', NOMBRE_cliente = '%5$s'",
 				cliente.getId(),
 				cliente.getEdad(), 
 				cliente.isMiembro(), 
@@ -204,16 +204,16 @@ public class DAOCliente
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Cliente. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		String miembro = resultSet.getString("amoblado");
+		String miembro = resultSet.getString("miembro_Comunidad");
 		boolean rta = false;
-		if(miembro.equals(1))
+		if(miembro.equals("T"))
 		{
 			rta = true;
 		}
 		String edad = resultSet.getString("edad");
-		String nombre = resultSet.getString("nombre");
-		String id = resultSet.getString("id");
-		String tipo = resultSet.getString("tipo");
+		String nombre = resultSet.getString("nombre_Cliente");
+		String id = resultSet.getString("id_Cliente");
+		String tipo = resultSet.getString("tipo_Cliente");
 
 		Cliente beb = new Cliente(Integer.parseInt(id), Integer.parseInt(edad), rta, nombre, tipo);
 

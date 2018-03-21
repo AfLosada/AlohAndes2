@@ -11,22 +11,22 @@ public class Cliente
 	// Atributos
 	//
 	
-	@JsonProperty(value = "idCliente")
+	@JsonProperty(value = "id_Cliente")
 	private int id;
 
 	@JsonProperty(value = "edad")
 	private int edad;
 	
 
-	@JsonProperty(value = "miembro")
+	@JsonProperty(value = "miembro_comunidad")
 	private boolean miembro;
 	
 
-	@JsonProperty(value = "nombre")
+	@JsonProperty(value = "nombre_cliente")
 	private String nombre;
 	
 
-	@JsonProperty(value = "tipo")
+	@JsonProperty(value = "tipo_cliente")
 	private String tipo;
 	
 	
@@ -38,7 +38,7 @@ public class Cliente
 	
 	
 
-	public Cliente(	@JsonProperty(value = "idCliente") int id2, @JsonProperty(value = "edad")int pEdad, @JsonProperty(value = "miembroComunidadUniversitario")  boolean pMiembroComunidadUniversitario, @JsonProperty(value = "nombre")	 String pnombre, @JsonProperty(value = "tipo")  String ptipo)
+	public Cliente(	@JsonProperty(value = "id_Cliente") int id2, @JsonProperty(value = "edad")int pEdad, @JsonProperty(value = "miembro_comunidad")  boolean pMiembroComunidadUniversitario, @JsonProperty(value = "nombre_cliente")	 String pnombre, @JsonProperty(value = "tipo_cliente")  String ptipo)
 	{
 		this.id = id2;
 		this.edad = pEdad;

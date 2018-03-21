@@ -21,6 +21,7 @@ import tm.AlohAndesTransactionManager;
 import vos.Apartamento;
 import vos.Operador;
 
+@Path( "/apartamentos")
 public class ApartamentoService <K extends Operador>
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +62,6 @@ public class ApartamentoService <K extends Operador>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
-	@Path("/apartamentos")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getApartamentos() {
 
@@ -115,8 +115,7 @@ public class ApartamentoService <K extends Operador>
 
 	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-	@PUT
-	@Path("/apartamentos")
+	@POST
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addApartamento(Apartamento apartamento) {
@@ -150,7 +149,6 @@ public class ApartamentoService <K extends Operador>
 	//TODO Requerimiento 5B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
 	@PUT
-	@Path("/apartamentos/{id: \\d+}")
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response updateApartamento(Apartamento apartamento) {
@@ -181,7 +179,6 @@ public class ApartamentoService <K extends Operador>
 	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
 	@DELETE
-	@Path("/apartamentos/{id: \\d+}")
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response deleteApartamento(Apartamento apartamento) {

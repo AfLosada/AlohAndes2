@@ -24,7 +24,7 @@ public class DAOApartamento
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -62,7 +62,7 @@ public class DAOApartamento
 		ArrayList<Apartamento> apartamentos = new ArrayList<Apartamento>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.Apartamento WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.APARTAMENTO WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -110,9 +110,9 @@ public class DAOApartamento
 	 */
 	public void addApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.ApartamentoES (amoblado, capacidad, id, precio, idpersonanatural, idoferta) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.Apartamento (amoblado, capacidad_apto, id_apartamento, precio_apto, id_persona, id_oferta) VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, %7$s)", 
 									USUARIO, 
-									apartamento.isAmoblado(), 
+									apartamento.toString(apartamento.isAmoblado()), 
 									apartamento.getCapacidad(),
 									apartamento.getId(), 
 									apartamento.getPrecio(),
@@ -139,8 +139,8 @@ public class DAOApartamento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.APARTAMENTO ", USUARIO));
 		sql.append (String.format (
-				"SET AMOBLADO = '%1$s', CAPACIDAD = '%2$s', ID = '%3$s' , PRECIO = '%4$s', IDPERSONANATURAL = '%5$s', IDOFERTA = '%6$s'",
-				apartamento.isAmoblado(), 
+				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = '%2$s', ID_APARTAMENTO = '%3$s' , PRECI_APTOO = '%4$s', ID_PERSONA = '%5$s', ID_OFERTA = '%6$s'",
+				apartamento.toString(apartamento.isAmoblado()), 
 				apartamento.getCapacidad(),
 				apartamento.getId(), 
 				apartamento.getPrecio(),
@@ -217,15 +217,15 @@ public class DAOApartamento
 
 		String amoblado = resultSet.getString("amoblado");
 		boolean rta = false;
-		if(amoblado.equals(1))
+		if(amoblado.equals("T"))
 		{
 			rta = true;
 		}
-		String capacidad = resultSet.getString("capacidad");
-		String precio = resultSet.getString("precio");
-		String id = resultSet.getString("id");
-		String idPersona = resultSet.getString("idPersonaNatural");
-		String idOferta = resultSet.getString("idOferta");
+		String capacidad = resultSet.getString("capacidad_apto");
+		String precio = resultSet.getString("precio_apto");
+		String id = resultSet.getString("id_apartamento");
+		String idPersona = resultSet.getString("id_Persona");
+		String idOferta = resultSet.getString("id_Oferta");
 
 		Apartamento beb = new Apartamento(rta, Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio),Integer.parseInt(idPersona), Integer.parseInt(idOferta));
 
