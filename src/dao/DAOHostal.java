@@ -104,7 +104,7 @@ public class DAOHostal
 	 */
 	public void addHostal(Hostal hostal) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HOSTAL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id, horaApertura, horaCierre, recepcion24horas) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.HOSTAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOSTAL, ID_HOSTAL, HORA_APERTURA, HORA_CIERRE, RECEPCION24_HORAS) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO, 
 				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),
@@ -135,8 +135,7 @@ public class DAOHostal
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HOSTAL ", USUARIO));
 		sql.append (String.format (
-				"SET CAPACIDAD = '%1$s', ID = '%2$s', PRECIO = '%3$s' , TAMANIO = '%4$s', UBICACION = '%5$s', TIPO = '%6$s'",
-
+				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOSTAL = '%4$s', ID_HOSTAL= '%5$s',  HORA_APERTURA = '%6$s', HORA_CIERRE '%7$s',RECEPCION24_HORAS '%8$s'",
 				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),
 				hostal.toString(hostal.isSuperIntendenciaTurismo()),
@@ -215,23 +214,23 @@ public class DAOHostal
 		boolean rta3 = false;
 
 
-		String camara = resultSet.getString("camara");
+		String camara = resultSet.getString("CAMARA_COMERCIO");
 
 		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("nombre");
-		String superI = resultSet.getString("superIndendenciaFinanciera");
+		String nombre = resultSet.getString("NOMBRE");
+		String superI = resultSet.getString("SUPERINTENDENCIA_TURISMO");
 		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
-		String horaA = resultSet.getString("horaApertura");
-		String horaC = resultSet.getString("horaCierra");
-		String recep = resultSet.getString("recepcion24horas");
+		String capacidad = resultSet.getString("CAPACIDAD_HOSTAL");
+		String id = resultSet.getString("ID_HOSTAL");
+		String horaA = resultSet.getString("HORA_APERTURA");
+		String horaC = resultSet.getString("HORA_CIERRRE");
+		String recep = resultSet.getString("RECEPCION24_HORAS");
 		if(recep.equals("T"))
 		{
 			rta3 = true;

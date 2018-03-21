@@ -1,12 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import vos.HabitacionesServicioPublico;
 
-import vos.HabitacionesServiciosInmobiliarios;
 public class DAOHabitacionServicioPublico 
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -51,11 +52,11 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<HabitacionesServiciosInmobiliarios> getHabitacionesServicioPublicos() throws SQLException, Exception {
-		ArrayList<HabitacionesServiciosInmobiliarios> habitacionesServicioPublicos = new ArrayList<HabitacionesServiciosInmobiliarios>();
+	public ArrayList<HabitacionesServicioPublico> getHabitacionesServicioPublicos() throws SQLException, Exception {
+		ArrayList<HabitacionesServicioPublico> habitacionesServicioPublicos = new ArrayList<HabitacionesServicioPublico>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -77,11 +78,11 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public HabitacionesServiciosInmobiliarios findHabitacionesServicioPublicoById(Long id) throws SQLException, Exception 
+	public HabitacionesServicioPublico findHabitacionesServicioPublicoById(Integer id) throws SQLException, Exception 
 	{
-		HabitacionesServiciosInmobiliarios HabitacionesServicioPublico = null;
+		HabitacionesServicioPublico HabitacionesServicioPublico = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -101,11 +102,11 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void addHabitacionesServicioPublico(HabitacionesServiciosInmobiliarios habitacionesServicioPublico) throws SQLException, Exception {
+	public void addHabitacionesServicioPublico(HabitacionesServicioPublico habitacionesServicioPublico) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HabitacionesServicioPublico (idservicioinmobiliario, idhabitacion) VALUES (%2$s, '%3$s')", 
+		String sql = String.format("INSERT INTO %1$s.HABITACIONES_SERVICIOSPUBLICOS (ID_SERVICIO_PUBLICO, ID_HABITACION) VALUES (%2$s, '%3$s')", 
 				USUARIO, 
-				habitacionesServicioPublico.getIdServicioInmobiliario(),
+				habitacionesServicioPublico.getIdServicioPublico(),
 				habitacionesServicioPublico.getIdHabitacion());
 		System.out.println(sql);
 
@@ -123,15 +124,15 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void updateHabitacionesServicioPublico(HabitacionesServiciosInmobiliarios habitacionesServicioPublico) throws SQLException, Exception {
+	public void updateHabitacionesServicioPublico(HabitacionesServicioPublico habitacionesServicioPublico) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE %s.HABITACION ", USUARIO));
+		sql.append (String.format ("UPDATE %s.HABITACIONES_SERVICIOSPUBLICOS ", USUARIO));
 		sql.append (String.format (
-				"SET IDSERVICIOINMOBILIARIO = '%1$s', IDHABITACION = '%2$s'",
-				habitacionesServicioPublico.getIdServicioInmobiliario(),
+				"SET ID_SERVICIO_PUBLICO = '%1$s', ID_HABITACION = '%2$s'",
+				habitacionesServicioPublico.getIdServicioPublico(),
 				habitacionesServicioPublico.getIdHabitacion()));
-		sql.append ("WHERE ID = " + habitacionesServicioPublico.getIdServicioInmobiliario());
+		sql.append ("WHERE ID = " + habitacionesServicioPublico.getIdServicioPublico());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
@@ -146,9 +147,9 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public void deleteHabitacionesServicioPublico(HabitacionesServiciosInmobiliarios habitacionesServicioPublico) throws SQLException, Exception {
+	public void deleteHabitacionesServicioPublico(HabitacionesServicioPublico habitacionesServicioPublico) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.HABITACION WHERE ID = %3$d", USUARIO, "" + habitacionesServicioPublico.getIdServicioInmobiliario() + habitacionesServicioPublico.getIdHabitacion());
+		String sql = String.format("DELETE FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ID = %3$d", USUARIO, "" + habitacionesServicioPublico.getIdServicioPublico() + habitacionesServicioPublico.getIdHabitacion());
 
 		System.out.println(sql);
 
@@ -192,12 +193,12 @@ public class DAOHabitacionServicioPublico
 	 * @return HabitacionesServicioPublico cuyos atributos corresponden a los valores asociados a un registro particular de la tabla HabitacionesServicioPublicoES.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
-	public HabitacionesServiciosInmobiliarios convertResultSetToHabitacionesServicioPublico(ResultSet resultSet) throws SQLException {
+	public HabitacionesServicioPublico convertResultSetToHabitacionesServicioPublico(ResultSet resultSet) throws SQLException {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase HabitacionesServicioPublico. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		String capacidad = resultSet.getString("idhabitacion");
-		String id = resultSet.getString("idservicioinmobiliario");
+		String capacidad = resultSet.getString("ID_HABITACION");
+		String id = resultSet.getString("ID_SERVICIO_PUBLICO");
 
 		/**
 		 * habitacionesServicioPublico.getCapacidad(),
@@ -208,7 +209,7 @@ public class DAOHabitacionServicioPublico
 						habitacionesServicioPublico.getTipo());
 		 */
 
-		HabitacionesServiciosInmobiliarios beb = new HabitacionesServiciosInmobiliarios(Integer.parseInt(id), Integer.parseInt(capacidad));
+		HabitacionesServicioPublico beb = new HabitacionesServicioPublico(Integer.parseInt(id), Integer.parseInt(capacidad));
 
 		return beb;
 	}

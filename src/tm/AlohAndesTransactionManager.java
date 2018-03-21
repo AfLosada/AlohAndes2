@@ -422,7 +422,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Cliente - Cliente que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Cliente getClienteById(Long id) throws Exception {
+	public Cliente getClienteById(Integer id) throws Exception {
 		DAOCliente daoCliente = new DAOCliente();
 		Cliente cliente = null;
 		try 
@@ -1229,8 +1229,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 
 	/**
-	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * Método que modela la transacción que agrega los hoteles que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los hoteles que entran como parámetro
 	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
 	 * @throws Exception - cualquier error que se genera agregando los videos
 	 */
@@ -1584,8 +1584,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 
-	//TODO FIN OFERTA INCIIO PERSONANATURAL
-	
+	//TODO FIN OFERTA INCIO PERSONA_NATURAL
+
 	/**
 	 * Metodo que modela la transaccion que retorna todos los personanaturales de la base de datos. <br/>
 	 * @return List<PersonaNatural> - Lista de personanaturales que contiene el resultado de la consulta.
@@ -1598,7 +1598,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			this.conn = darConexion();
 			daoPersonaNatural.setConn(conn);
-			
+
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			personanatural = daoPersonaNatural.getPersonaNaturals();
 		}
@@ -1627,7 +1627,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return personanatural;
 	}
-	
+
 	/**
 	 * Metodo que modela la transaccion que busca el personanatural en la base de datos que tiene el ID dado por parametro. <br/>
 	 * @param name -id del personanatural a buscar. id != null
@@ -1672,7 +1672,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return personanatural;
 	}
-	
+
 	/**
 	 * Método que modela la transacción que agrega un solo video a la base de datos.
 	 * <b> post: </b> se ha agregado el video que entra como parámetro
@@ -1709,8 +1709,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
@@ -1751,8 +1751,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha actualizado el video que entra como parámetro
@@ -1788,8 +1788,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha eliminado el video que entra como parámetro
@@ -1825,9 +1825,9 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	//TODO FIN PERSONANATURAL INICIO SALA
-	
+
 	/**
 	 * Metodo que modela la transaccion que retorna todos los salaes de la base de datos. <br/>
 	 * @return List<Sala> - Lista de salaes que contiene el resultado de la consulta.
@@ -1840,7 +1840,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			this.conn = darConexion();
 			daoSala.setConn(conn);
-			
+
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			sala = daoSala.getSalas();
 		}
@@ -1869,7 +1869,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return sala;
 	}
-	
+
 	/**
 	 * Metodo que modela la transaccion que busca el sala en la base de datos que tiene el ID dado por parametro. <br/>
 	 * @param name -id del sala a buscar. id != null
@@ -1914,7 +1914,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return sala;
 	}
-	
+
 	/**
 	 * Método que modela la transacción que agrega un solo video a la base de datos.
 	 * <b> post: </b> se ha agregado el video que entra como parámetro
@@ -1951,8 +1951,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
@@ -1993,8 +1993,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha actualizado el video que entra como parámetro
@@ -2030,8 +2030,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha eliminado el video que entra como parámetro
@@ -2067,8 +2067,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	//TODO FIN SALA INICIO SERVICIOINMOBILIARIO
+
+	//TODO FIN SALA INICIO SERVICIO_INMOBILIARIO
 
 	/**
 	 * Metodo que modela la transaccion que retorna todos los servicioinmobiliarioes de la base de datos. <br/>
@@ -2082,7 +2082,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			this.conn = darConexion();
 			daoServicioInmobiliario.setConn(conn);
-			
+
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			servicioinmobiliario = daoServicioInmobiliario.getServicioInmobiliarios();
 		}
@@ -2111,7 +2111,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return servicioinmobiliario;
 	}
-	
+
 	/**
 	 * Metodo que modela la transaccion que busca el servicioinmobiliario en la base de datos que tiene el ID dado por parametro. <br/>
 	 * @param name -id del servicioinmobiliario a buscar. id != null
@@ -2156,7 +2156,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return servicioinmobiliario;
 	}
-	
+
 	/**
 	 * Método que modela la transacción que agrega un solo video a la base de datos.
 	 * <b> post: </b> se ha agregado el video que entra como parámetro
@@ -2193,8 +2193,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
@@ -2235,8 +2235,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha actualizado el video que entra como parámetro
@@ -2272,8 +2272,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha eliminado el video que entra como parámetro
@@ -2309,9 +2309,9 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	//TODO FIN SERVICIOINMOBILIARIO INICIO SERVICIOPUBLICO
-	
+
+	//TODO FIN SERVICIO_INMOBILIARIO INICIO SERVICIO_PUBLICO
+
 	/**
 	 * Metodo que modela la transaccion que retorna todos los serviciopublicoes de la base de datos. <br/>
 	 * @return List<ServicioPublico> - Lista de serviciopublicoes que contiene el resultado de la consulta.
@@ -2324,7 +2324,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			this.conn = darConexion();
 			daoServicioPublico.setConn(conn);
-			
+
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			serviciopublico = daoServicioPublico.getServicioPublicos();
 		}
@@ -2353,7 +2353,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return serviciopublico;
 	}
-	
+
 	/**
 	 * Metodo que modela la transaccion que busca el serviciopublico en la base de datos que tiene el ID dado por parametro. <br/>
 	 * @param name -id del serviciopublico a buscar. id != null
@@ -2398,7 +2398,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return serviciopublico;
 	}
-	
+
 	/**
 	 * Método que modela la transacción que agrega un solo video a la base de datos.
 	 * <b> post: </b> se ha agregado el video que entra como parámetro
@@ -2435,8 +2435,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
@@ -2477,8 +2477,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha actualizado el video que entra como parámetro
@@ -2514,8 +2514,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha eliminado el video que entra como parámetro
@@ -2551,9 +2551,9 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	//TODO FIN SERVICIOPUBLICO INICIO VECINO
-	
+
+	//TODO FIN SERVICIO_PUBLICO INICIO VECINO
+
 	/**
 	 * Metodo que modela la transaccion que retorna todos los vecinoes de la base de datos. <br/>
 	 * @return List<Vecino> - Lista de vecinoes que contiene el resultado de la consulta.
@@ -2566,7 +2566,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			this.conn = darConexion();
 			daoVecino.setConn(conn);
-			
+
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			vecino = daoVecino.getVecinos();
 		}
@@ -2595,7 +2595,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return vecino;
 	}
-	
+
 	/**
 	 * Metodo que modela la transaccion que busca el vecino en la base de datos que tiene el ID dado por parametro. <br/>
 	 * @param name -id del vecino a buscar. id != null
@@ -2640,7 +2640,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 		return vecino;
 	}
-	
+
 	/**
 	 * Método que modela la transacción que agrega un solo video a la base de datos.
 	 * <b> post: </b> se ha agregado el video que entra como parámetro
@@ -2677,8 +2677,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
@@ -2719,8 +2719,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha actualizado el video que entra como parámetro
@@ -2756,8 +2756,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
 	 * <b> post: </b> se ha eliminado el video que entra como parámetro
@@ -2793,9 +2793,9 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	//TODO FIN VECINO INICIO VIVIENDA
-	
+
 	/**
 	 * Metodo que modela la transaccion que retorna todos los viviendaes de la base de datos. <br/>
 	 * @return List<Vivienda> - Lista de viviendaes que contiene el resultado de la consulta.
@@ -3035,12 +3035,12 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	//TODO FIN VIVIENDA INICIO VIVIENDAUNIVERSITARIA
-	
-	
+
+
 	//TODO FIN VIVIENDAUNIVERSITARIA INICIO RESERVA
-	
+
 	/**
 	 * Metodo que modela la transaccion que retorna todas las reservas de la base de datos. <br/>
 	 * @return List<Apartamento> - Lista de apartamentoes que contiene el resultado de la consulta.
@@ -3129,8 +3129,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	/**
-	 * M�todo que modela la transacci�n que agrega una sola reserva a la base de datos.
-	 * <b> post: </b> se ha agregado la reserva que entra como par�metro
+	 * M�todo que modela la transacci�n que agrega una sola reserva a la base de datos.
+	 * <b> post: </b> se ha agregado la reserva que entra como par�metro
 	 * @param reserva - la reserva a agregar. video != null
 	 * @throws Exception - cualquier error que se genera agregando la reserva
 	 */
@@ -3138,7 +3138,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOReserva daoReserva= new DAOReserva();
 		try 
 		{
-			//////Transacci�n
+			//////Transaccion
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
 			daoReserva.addReserva(reserva);
@@ -3168,8 +3168,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 
 	/**
-	 * M�todo que modela la transacci�n que agrega las reservas que entran como par�metro a la base de datos.
-	 * <b> post: </b> se han agregado las reservas que entran como par�metro
+	 * Metodo que modela la transaccion que agrega las reservas que entran como parametro a la base de datos.
+	 * <b> post: </b> se han agregado las reservas que entran como parametro
 	 * @param videos - objeto que modela una lista de reservas y se estas se pretenden agregar. videos != null
 	 * @throws Exception - cualquier error que se genera agregando las reservas
 	 */
@@ -3177,7 +3177,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOReserva daoReserva = new DAOReserva();
 		try 
 		{
-			//////Transacci�n - ACID Example
+			//////Transaccion - ACID Example
 			this.conn = darConexion();
 			conn.setAutoCommit(false);
 			daoReserva.setConn(conn);
@@ -3209,8 +3209,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 
 	/**
-	 * M�todo que modela la transacci�n que actualiza la reserva que entra como par�metro a la base de datos.
-	 * <b> post: </b> se ha actualizado la reserva que entra como par�metro
+	 * Metodo que modela la transaccion que actualiza la reserva que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha actualizado la reserva que entra como parametro
 	 * @param reserva - Reserva a actualizar. reserva != null
 	 * @throws Exception - cualquier error que se genera actualizando las reservas
 	 */
@@ -3218,7 +3218,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOReserva daoReserva = new DAOReserva();
 		try 
 		{
-			//////Transacci�n
+			//////Transaccion
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
 			daoReserva.updateReserva(reserva);
@@ -3246,16 +3246,16 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 
 	/**
-	 * M�todo que modela la transacci�n que elimina la reserva que entra como par�metro a la base de datos.
-	 * <b> post: </b> se ha eliminado la reserva que entra como par�metro
-	 * @param reserva - Reserva a eliminar. video != null
+	 * Metodo que modela la transaccion que elimina la reserva que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado la reserva que entra como parametro
+	 * @param reserva - Reserva a eliminar.reserva != null
 	 * @throws Exception - cualquier error que se genera eliminando las reservas
 	 */
 	public void deleteReserva(Reserva reserva) throws Exception {
 		DAOReserva daoReserva = new DAOReserva();
 		try 
 		{
-			//////Transacci�n
+			//////Transacci�n
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
 			daoReserva.deleteReserva(reserva);
@@ -3280,10 +3280,10 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	/**
-	 * M�todo que modela la transacci�n que elimina la reserva que entra como par�metro a la base de datos.
-	 * <b> post: </b> se ha eliminado la reserva que entra como par�metro
+	 * Metodo que modela la transaccion que elimina la reserva que entra como parametro a la base de datos.
+	 * <b> post: </b> se ha eliminado la reserva que entra como parametro
 	 * @param reserva - Reserva a eliminar. video != null
 	 * @throws Exception - cualquier error que se genera eliminando las reservas
 	 */
@@ -3291,7 +3291,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOReserva daoReserva = new DAOReserva();
 		try 
 		{
-			//////Transacci�n
+			//////Transaccion
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
 			daoReserva.cancelarReserva(reserva);
@@ -3317,12 +3317,13 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 
-	
 
-	
 	//TODO FIN RESERVA INICIO REQUERIMIENTOS EXTRA
-	
-	
+
+
+	/**
+	 * Método para agregar una oferta de un hostal
+	 */
 	public void agregarOfertaHostal(Hostal hostal, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
 	{
 		DAOHostal daoHostal = new DAOHostal();
@@ -3331,18 +3332,112 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
 		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
-		
+		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+
 		oferta.setIdHostal(hostal.getId());
 		daoOferta.updateOferta(oferta);
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
 			habitaciones.get(i).setIdHostal(hostal.getId());
 			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(Long.parseLong("" + habitaciones.get(i).getId())).setIdServicioInmobiliario(sIn.getId());;
+			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
+
 		}
-		
-		
-		
+
+		int numReservas = oferta.getNumReservas();
+		numReservas++;
+		oferta.setNumReservas(numReservas);
+
 	}
 	
+	
+	/**
+	 * Método para agregar una oferta de un hotel
+	 */
+	public void agregarOfertaHotel(Hotel hotel, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	{
+		DAOHotel daoHotel = new DAOHotel();
+		DAOOferta daoOferta = new DAOOferta();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+
+		oferta.setIdHotel(hotel.getIdHotel());
+		daoOferta.updateOferta(oferta);
+		for (int i = 0; i < habitaciones.size(); i++) 
+		{
+			habitaciones.get(i).setIdHotel(hotel.getIdHotel());
+			daoHabitacion.updateHabitacion(habitaciones.get(i));
+			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
+
+		}
+
+		int numReservas = oferta.getNumReservas();
+		numReservas++;
+		oferta.setNumReservas(numReservas);
+
+	}
+	
+	
+	
+	/**
+	 * Método para agregar una oferta de una vivienda universitaria
+	 */
+	public void agregarOfertaViviendaUniversitaria(ViviendaUniversitaria viviendau, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	{
+		DAOViviendaUniversitaria daoViviendau = new DAOViviendaUniversitaria();
+		DAOOferta daoOferta = new DAOOferta();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+
+		oferta.setIdViviendaU(viviendau.getId());
+		daoOferta.updateOferta(oferta);
+		for (int i = 0; i < habitaciones.size(); i++) 
+		{
+			habitaciones.get(i).setIdViviendaU(viviendau.getId());
+			daoHabitacion.updateHabitacion(habitaciones.get(i));
+			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
+
+		}
+
+		int numReservas = oferta.getNumReservas();
+		numReservas++;
+		oferta.setNumReservas(numReservas);
+
+	}
+	
+	/**
+	 * Método para agregar una oferta de una persona natural
+	 */
+	public void agregarOfertaPersonaNatural(PersonaNatural persona, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	{
+		DAOPersonaNatural daoPersona = new DAOPersonaNatural();
+		DAOOferta daoOferta = new DAOOferta();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+
+		oferta.setIdPersona(persona.getId());
+		daoOferta.updateOferta(oferta);
+		for (int i = 0; i < habitaciones.size(); i++) 
+		{
+			habitaciones.get(i).setIdPersona(persona.getId());
+			daoHabitacion.updateHabitacion(habitaciones.get(i));
+			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
+
+		}
+
+		int numReservas = oferta.getNumReservas();
+		numReservas++;
+		oferta.setNumReservas(numReservas);
+
+	}
+
 }
