@@ -109,7 +109,7 @@ public class DAOSala
 				sala.getCosto(),
 				sala.getId(),
 				sala.getProposito(),
-				sala.isTieneCostoAdicional());
+				sala.toString(sala.isTieneCostoAdicional()));
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class DAOSala
 				sala.getCosto(),
 				sala.getId(),
 				sala.getProposito(),
-				sala.isTieneCostoAdicional()));
+				sala.toString(sala.isTieneCostoAdicional()));
 		sql.append ("WHERE ID = " + sala.getId());
 		System.out.println(sql);
 
@@ -208,7 +208,7 @@ public class DAOSala
 
 		String camara = resultSet.getString("tieneCostoAdicional");
 
-		if(camara.equals("1"))
+		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
@@ -217,7 +217,7 @@ public class DAOSala
 		String capacidad = resultSet.getString("capacidad");
 		String id = resultSet.getString("id");
 		String miembro = resultSet.getString("miembro");
-		if(miembro.equals("1"))
+		if(miembro.equals("T"))
 		{
 			rta3 = true;
 		}

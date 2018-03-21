@@ -108,9 +108,9 @@ public class DAOVecino {
 
 		String sql = String.format("INSERT INTO %1$s.VECINO (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO, 
-				vecino.isCamaraComercio(),
+				vecino.toString(vecino.isCamaraComercio()),
 				vecino.getNombreOperador(),
-				vecino.isSuperIntendenciaTurismo(),
+				vecino.toString(vecino.isSuperIntendenciaTurismo()),
 				vecino.getIdVecino());
 		System.out.println(sql);
 
@@ -135,9 +135,9 @@ public class DAOVecino {
 		sql.append (String.format (
 				"SET camaracomercio = '%1$s', nombreoperador = '%2$s', superintendeciaturismo = '%3$s' , capacidad = '%4$s',id = '%5$s', ",
 
-				vecino.isCamaraComercio(),
+				vecino.toString(vecino.isCamaraComercio()),
 				vecino.getNombreOperador(),
-				vecino.isSuperIntendenciaTurismo(),
+				vecino.toString(vecino.isSuperIntendenciaTurismo()),
 				vecino.getIdVecino()));
 		sql.append ("WHERE ID = " + vecino.getIdVecino ());
 		System.out.println(sql);
@@ -211,20 +211,20 @@ public class DAOVecino {
 
 		String camara = resultSet.getString("camara");
 
-		if(camara.equals("1"))
+		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
 		String nombre = resultSet.getString("nombre");
 		String superI = resultSet.getString("superIndendenciaFinanciera");
-		if(superI.equals("1"))
+		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}
 		String capacidad = resultSet.getString("capacidad");
 		String id = resultSet.getString("id");
 		String miembro = resultSet.getString("miembro");
-		if(miembro.equals("1"))
+		if(miembro.equals("T"))
 		{
 			rta3 = true;
 		}

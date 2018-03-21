@@ -2,6 +2,8 @@ package vos;
 
 import java.util.List;
 
+import javax.swing.text.rtf.RTFEditorKit;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Oferta 
@@ -173,6 +175,15 @@ public class Oferta
 	 */
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String toString(boolean vigente2) 
+	{
+		String rta = "F";
+		// TODO Auto-generated method stub
+		if(vigente2)
+			rta = "T";
+		return rta;
 	}
 
 

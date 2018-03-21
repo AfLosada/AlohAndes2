@@ -107,9 +107,9 @@ public class DAOHotel
 
 		String sql = String.format("INSERT INTO %1$s.HOTEL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
 				USUARIO, 
-				hotel.isCamaraComercio(),
+				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
-				hotel.isSuperIntendenciaTurismo(),
+				hotel.toString(hotel.isSuperIntendenciaTurismo()),
 				hotel.getCapacidad(),
 				hotel.getIdHotel());
 		System.out.println(sql);
@@ -135,9 +135,9 @@ public class DAOHotel
 		sql.append (String.format (
 				"SET camaracomercio = '%1$s', nombreoperador = '%2$s', superintendeciaturismo = '%3$s' , capacidad = '%4$s',id = '%5$s'",
 
-				hotel.isCamaraComercio(),
+				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
-				hotel.isSuperIntendenciaTurismo(),
+				hotel.toString(hotel.isSuperIntendenciaTurismo()),
 				hotel.getCapacidad(),
 				hotel.getIdHotel()));
 		sql.append ("WHERE ID = " + hotel.getIdHotel ());
@@ -212,13 +212,13 @@ public class DAOHotel
 
 		String camara = resultSet.getString("camara");
 
-		if(camara.equals("1"))
+		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
 		String nombre = resultSet.getString("nombre");
 		String superI = resultSet.getString("superIndendenciaFinanciera");
-		if(superI.equals("1"))
+		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}

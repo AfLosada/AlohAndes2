@@ -262,4 +262,15 @@ public class Reserva
 
 
 
+	public String toString(boolean confirmada2) {
+		// TODO Auto-generated method stub
+		String rta = "F";
+		if(confirmada2)
+			rta = "T";
+		return rta;
+	}
+
+
+
+
 }

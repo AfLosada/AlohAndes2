@@ -106,12 +106,12 @@ public class DAOPersonaNatural
 
 		String sql = String.format("INSERT INTO %1$s.PERSONANATURAL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id, horaApertura, horaCierre, recepcion24horas) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO, 
-				personaNatural.isCamaraComercio(),
+				personaNatural.toString(personaNatural.isCamaraComercio()),
 				personaNatural.getNombreOperador(),
-				personaNatural.isSuperIntendenciaTurismo(),
+				personaNatural.toString(personaNatural.isSuperIntendenciaTurismo()),
 				personaNatural.getEdad(),
 				personaNatural.getId(),
-				personaNatural.isMiembro());
+				personaNatural.toString(personaNatural.isMiembro()));
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -134,12 +134,12 @@ public class DAOPersonaNatural
 		sql.append (String.format ("UPDATE %s.PERSONANATURAL ", USUARIO));
 		sql.append (String.format (
 				"SET camaracomercio = '%1$s', nombreOperador = '%2$s', superintendenciaturismo = '%3$s' , edad = '%4$s', id = '%5$s', miembro = '%6$s'",
-				personaNatural.isCamaraComercio(),
+				personaNatural.toString(personaNatural.isCamaraComercio()),
 				personaNatural.getNombreOperador(),
-				personaNatural.isSuperIntendenciaTurismo(),
+				personaNatural.toString(personaNatural.isSuperIntendenciaTurismo()),
 				personaNatural.getEdad(),
 				personaNatural.getId(),
-				personaNatural.isMiembro()));
+				personaNatural.toString(personaNatural.isMiembro())));
 		sql.append ("WHERE ID = " + personaNatural.getId());
 		System.out.println(sql);
 

@@ -106,11 +106,11 @@ public class DAOReserva {
 
 		String sql = String.format("INSERT INTO %1$s.RESERVA (confirmada, duracion, fecha, id, pagoAnticipado, tiempoCancelacion, valor, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
 				USUARIO, 
-				reserva.isConfirmada(),
+				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
 				reserva.getFecha(),
 				reserva.getId(),
-				reserva.isPagoAnticipado(),
+				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
 				reserva.getIdHostal(),
 				reserva.getIdHotel(),

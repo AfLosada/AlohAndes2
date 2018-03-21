@@ -106,14 +106,14 @@ public class DAOHostal
 
 		String sql = String.format("INSERT INTO %1$s.HOSTAL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id, horaApertura, horaCierre, recepcion24horas) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
 				USUARIO, 
-				hostal.isCamaraComercio(),
+				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),
-				hostal.isSuperIntendenciaTurismo(),
+				hostal.toString(hostal.isSuperIntendenciaTurismo()),
 				hostal.getCapacidad(),
 				hostal.getId(),
 				hostal.getHoraApertura(),
 				hostal.getHoraCierre(),
-				hostal.isRecepcion24horas());
+				hostal.toString(hostal.isRecepcion24horas()));
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -137,14 +137,14 @@ public class DAOHostal
 		sql.append (String.format (
 				"SET CAPACIDAD = '%1$s', ID = '%2$s', PRECIO = '%3$s' , TAMANIO = '%4$s', UBICACION = '%5$s', TIPO = '%6$s'",
 
-				hostal.isCamaraComercio(),
+				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),
-				hostal.isSuperIntendenciaTurismo(),
+				hostal.toString(hostal.isSuperIntendenciaTurismo()),
 				hostal.getCapacidad(),
 				hostal.getId(),
 				hostal.getHoraApertura(),
 				hostal.getHoraCierre(),
-				hostal.isRecepcion24horas()));
+				hostal.toString(hostal.isRecepcion24horas())));
 		sql.append ("WHERE ID = " + hostal.getId ());
 		System.out.println(sql);
 
@@ -217,13 +217,13 @@ public class DAOHostal
 
 		String camara = resultSet.getString("camara");
 
-		if(camara.equals("1"))
+		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
 		String nombre = resultSet.getString("nombre");
 		String superI = resultSet.getString("superIndendenciaFinanciera");
-		if(superI.equals("1"))
+		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}
@@ -232,7 +232,7 @@ public class DAOHostal
 		String horaA = resultSet.getString("horaApertura");
 		String horaC = resultSet.getString("horaCierra");
 		String recep = resultSet.getString("recepcion24horas");
-		if(recep.equals("1"))
+		if(recep.equals("T"))
 		{
 			rta3 = true;
 		}

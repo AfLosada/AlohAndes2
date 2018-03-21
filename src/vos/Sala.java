@@ -69,5 +69,14 @@ public class Sala
 	public void setTieneCostoAdicional(boolean tieneCostoAdicional) {
 		this.tieneCostoAdicional = tieneCostoAdicional;
 	}
+
+	public String toString(boolean tieneCostoAdicional2) 
+	{
+		String rta = "F";
+		// TODO Auto-generated method stub
+		if(tieneCostoAdicional2)
+			rta = "T";
+		return rta;
+	}
 	
 }
