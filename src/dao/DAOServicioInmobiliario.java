@@ -78,7 +78,7 @@ public class DAOServicioInmobiliario
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ServicioInmobiliario findServicioInmobiliarioById(Long id) throws SQLException, Exception 
+	public ServicioInmobiliario findServicioInmobiliarioById(Integer id) throws SQLException, Exception 
 	{
 		ServicioInmobiliario ServicioInmobiliario = null;
 

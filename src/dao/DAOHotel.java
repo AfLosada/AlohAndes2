@@ -79,7 +79,7 @@ public class DAOHotel
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Hotel findHotelById(Long id) throws SQLException, Exception 
+	public Hotel findHotelById(Integer id) throws SQLException, Exception 
 	{
 		Hotel Hotel = null;
 
@@ -105,7 +105,7 @@ public class DAOHotel
 	 */
 	public void addHotel(Hotel hotel) throws SQLException, Exception {
 		
-		String sql = String.format("INSERT INTO %1$s.HOTEL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOTEL, ID_HOTEL) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.HOTEL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOTEL, ID_HOTEL) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', %7$s)", 
 				USUARIO, 
 				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),

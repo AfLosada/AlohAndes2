@@ -78,7 +78,7 @@ public class DAOServicioPublico
 		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 		 * @throws Exception Si se genera un error dentro del metodo.
 		 */
-		public ServicioPublico findServicioPublicoById(Long id) throws SQLException, Exception 
+		public ServicioPublico findServicioPublicoById(Integer id) throws SQLException, Exception 
 		{
 			ServicioPublico ServicioPublico = null;
 

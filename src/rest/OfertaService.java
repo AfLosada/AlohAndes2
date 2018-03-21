@@ -84,7 +84,7 @@ public class OfertaService <K extends Operador> {
 	@GET
 	@Path( "{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getOfertaById( @PathParam( "id" ) Long id )
+	public Response getOfertaById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

@@ -85,7 +85,7 @@ public class VecinoService <K extends Operador>{
 		@GET
 		@Path( "/vecino/{id: \\d+}" )
 		@Produces( { MediaType.APPLICATION_JSON } )
-		public Response getVecinoById( @PathParam( "id" ) Long id )
+		public Response getVecinoById( @PathParam( "id" ) Integer id )
 		{
 			try{
 				AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
