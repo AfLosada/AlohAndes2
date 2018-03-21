@@ -18,7 +18,7 @@ public class DAOHostal
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -135,7 +135,7 @@ public class DAOHostal
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HOSTAL ", USUARIO));
 		sql.append (String.format (
-				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOSTAL = '%4$s', ID_HOSTAL= '%5$s',  HORA_APERTURA = '%6$s', HORA_CIERRE '%7$s',RECEPCION24_HORAS '%8$s'",
+				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOSTAL = %4$s, ID_HOSTAL= %5$s,  HORA_APERTURA = '%6$s', HORA_CIERRE '%7$s',RECEPCION24_HORAS '%8$s'",
 				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),
 				hostal.toString(hostal.isSuperIntendenciaTurismo()),

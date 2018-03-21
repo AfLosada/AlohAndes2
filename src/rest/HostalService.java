@@ -19,6 +19,7 @@ import tm.AlohAndesTransactionManager;
 import vos.Hostal;
 import vos.Operador;
 
+@Path("/hostales")
 public class HostalService <K extends Operador>
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +84,7 @@ public class HostalService <K extends Operador>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@GET
-	@Path( "{id: \\d+}" )
+	@Path( "/hotales/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response getHostalById( @PathParam( "id" ) Long id )
 	{
