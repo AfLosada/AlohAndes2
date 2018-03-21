@@ -17,1333 +17,3271 @@ import vos.*;
 public class AlohAndesTransactionManager <K extends Operador>
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
-		// CONSTANTES
-		//----------------------------------------------------------------------------------------------------------------------------------
+	// CONSTANTES
+	//----------------------------------------------------------------------------------------------------------------------------------
 
-		/**
-		 * Constante que contiene el path relativo del archivo que tiene los datos de la conexion
-		 */
-		private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
+	/**
+	 * Constante que contiene el path relativo del archivo que tiene los datos de la conexion
+	 */
+	private static final String CONNECTION_DATA_FILE_NAME_REMOTE = "/conexion.properties";
 
-		/**
-		 * Atributo estatico que contiene el path absoluto del archivo que tiene los datos de la conexion
-		 */
-		private static String CONNECTION_DATA_PATH;
-		
-		/**
-		 * Constatne que representa el numero maximo de Operadores que pueden haber en una ciudad
-		 */
-		private final static Integer CANTIDAD_MAXIMA = 345;
+	/**
+	 * Atributo estatico que contiene el path absoluto del archivo que tiene los datos de la conexion
+	 */
+	private static String CONNECTION_DATA_PATH;
 
-		//----------------------------------------------------------------------------------------------------------------------------------
-		// ATRIBUTOS
-		//----------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Constatne que representa el numero maximo de Operadores que pueden haber en una ciudad
+	 */
+	private final static Integer CANTIDAD_MAXIMA = 345;
 
-		/**
-		 * Atributo que guarda el usuario que se va a usar para conectarse a la base de datos.
-		 */
-		private String user;
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// ATRIBUTOS
+	//----------------------------------------------------------------------------------------------------------------------------------
 
-		/**
-		 * Atributo que guarda la clave que se va a usar para conectarse a la base de datos.
-		 */
-		private String password;
+	/**
+	 * Atributo que guarda el usuario que se va a usar para conectarse a la base de datos.
+	 */
+	private String user;
 
-		/**
-		 * Atributo que guarda el URL que se va a usar para conectarse a la base de datos.
-		 */
-		private String url;
+	/**
+	 * Atributo que guarda la clave que se va a usar para conectarse a la base de datos.
+	 */
+	private String password;
 
-		/**
-		 * Atributo que guarda el driver que se va a usar para conectarse a la base de datos.
-		 */
-		private String driver;
-		
-		/**
-		 * Atributo que representa la conexion a la base de datos
-		 */
-		private Connection conn;
+	/**
+	 * Atributo que guarda el URL que se va a usar para conectarse a la base de datos.
+	 */
+	private String url;
 
-		//----------------------------------------------------------------------------------------------------------------------------------
-		// METODOS DE CONEXION E INICIALIZACION
-		//----------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Atributo que guarda el driver que se va a usar para conectarse a la base de datos.
+	 */
+	private String driver;
 
-		/**
-		 * <b>Metodo Contructor de la Clase ParranderosTransactionManager</b> <br/>
-		 * <b>Postcondicion: </b>	Se crea un objeto  ParranderosTransactionManager,
-		 * 						 	Se inicializa el path absoluto del archivo de conexion,
-		 * 							Se inicializna los atributos para la conexion con la Base de Datos
-		 * @param contextPathP Path absoluto que se encuentra en el servidor del contexto del deploy actual
-		 * @throws IOException Se genera una excepcion al tener dificultades con la inicializacion de la conexion<br/>
-		 * @throws ClassNotFoundException 
-		 */
-		public AlohAndesTransactionManager(String contextPathP) {
-			
+	/**
+	 * Atributo que representa la conexion a la base de datos
+	 */
+	private Connection conn;
+
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODOS DE CONEXION E INICIALIZACION
+	//----------------------------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * <b>Metodo Contructor de la Clase ParranderosTransactionManager</b> <br/>
+	 * <b>Postcondicion: </b>	Se crea un objeto  ParranderosTransactionManager,
+	 * 						 	Se inicializa el path absoluto del archivo de conexion,
+	 * 							Se inicializna los atributos para la conexion con la Base de Datos
+	 * @param contextPathP Path absoluto que se encuentra en el servidor del contexto del deploy actual
+	 * @throws IOException Se genera una excepcion al tener dificultades con la inicializacion de la conexion<br/>
+	 * @throws ClassNotFoundException 
+	 */
+	public AlohAndesTransactionManager(String contextPathP) {
+
+		try {
+			CONNECTION_DATA_PATH = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
+			initializeConnectionData();
+		} 
+		catch (ClassNotFoundException e) {			
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Metodo encargado de inicializar los atributos utilizados para la conexion con la Base de Datos.<br/>
+	 * <b>post: </b> Se inicializan los atributos para la conexion<br/>
+	 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura<br/>
+	 * @throws ClassNotFoundException 
+	 */
+	private void initializeConnectionData() throws IOException, ClassNotFoundException {
+
+		FileInputStream fileInputStream = new FileInputStream(new File(AlohAndesTransactionManager.CONNECTION_DATA_PATH));
+		Properties properties = new Properties();
+
+		properties.load(fileInputStream);
+		fileInputStream.close();
+
+		this.url = properties.getProperty("url");
+		this.user = properties.getProperty("usuario");
+		this.password = properties.getProperty("clave");
+		this.driver = properties.getProperty("driver");
+
+		//Class.forName(driver);
+	}
+
+	/**
+	 * Metodo encargado de generar una conexion con la Base de Datos.<br/>
+	 * <b>Precondicion: </b>Los atributos para la conexion con la Base de Datos han sido inicializados<br/>
+	 * @return Objeto Connection, el cual hace referencia a la conexion a la base de datos
+	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
+	 */
+	private Connection darConexion() throws SQLException {
+		System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
+		return DriverManager.getConnection(url, user, password);
+	}
+
+
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODOS TRANSACCIONALES
+	//----------------------------------------------------------------------------------------------------------------------------------
+
+	//TODO INICIO GETS Y PUTS DE TODAS LAS CLASES INDIVIDUALES
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los apartamentoes de la base de datos. <br/>
+	 * @return List<Apartamento> - Lista de apartamentoes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Apartamento> getAllApartamentoes() throws Exception {
+		DAOApartamento daoApartamento = new DAOApartamento();
+		List<Apartamento> apartamento;
+		try 
+		{
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			apartamento = daoApartamento.getApartamentos();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
 			try {
-				CONNECTION_DATA_PATH = contextPathP + CONNECTION_DATA_FILE_NAME_REMOTE;
-				initializeConnectionData();
-			} 
-			catch (ClassNotFoundException e) {			
-				e.printStackTrace();
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
+				daoApartamento.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
 			}
-		}
-
-		/**
-		 * Metodo encargado de inicializar los atributos utilizados para la conexion con la Base de Datos.<br/>
-		 * <b>post: </b> Se inicializan los atributos para la conexion<br/>
-		 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura<br/>
-		 * @throws ClassNotFoundException 
-		 */
-		private void initializeConnectionData() throws IOException, ClassNotFoundException {
-
-			FileInputStream fileInputStream = new FileInputStream(new File(AlohAndesTransactionManager.CONNECTION_DATA_PATH));
-			Properties properties = new Properties();
-			
-			properties.load(fileInputStream);
-			fileInputStream.close();
-			
-			this.url = properties.getProperty("url");
-			this.user = properties.getProperty("usuario");
-			this.password = properties.getProperty("clave");
-			this.driver = properties.getProperty("driver");
-			
-			//Class.forName(driver);
-		}
-
-		/**
-		 * Metodo encargado de generar una conexion con la Base de Datos.<br/>
-		 * <b>Precondicion: </b>Los atributos para la conexion con la Base de Datos han sido inicializados<br/>
-		 * @return Objeto Connection, el cual hace referencia a la conexion a la base de datos
-		 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
-		 */
-		private Connection darConexion() throws SQLException {
-			System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
-			return DriverManager.getConnection(url, user, password);
-		}
-
-		
-		//----------------------------------------------------------------------------------------------------------------------------------
-		// METODOS TRANSACCIONALES
-		//----------------------------------------------------------------------------------------------------------------------------------
-		
-		//TODO INICIO GETS Y PUTS DE TODAS LAS CLASES INDIVIDUALES
-		
-		/**
-		 * Metodo que modela la transaccion que retorna todos los apartamentoes de la base de datos. <br/>
-		 * @return List<Apartamento> - Lista de apartamentoes que contiene el resultado de la consulta.
-		 * @throws Exception -  Cualquier error que se genere durante la transaccion
-		 */
-		public List<Apartamento> getAllApartamentoes() throws Exception {
-			DAOApartamento daoApartamento = new DAOApartamento();
-			List<Apartamento> apartamento;
-			try 
-			{
-				this.conn = darConexion();
-				daoApartamento.setConn(conn);
-				
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				apartamento = daoApartamento.getApartamentos();
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoApartamento.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+			}
+		}
+		return apartamento;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el apartamento en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del apartamento a buscar. id != null
+	 * @return Apartamento - Apartamento que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Apartamento getApartamentoById(Long id) throws Exception {
+		DAOApartamento daoApartamento = new DAOApartamento();
+		Apartamento apartamento = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			apartamento = daoApartamento.findApartamentoById(id);
+			if(apartamento == null)
+			{
+				throw new Exception("El apartamento con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoApartamento.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
-			return apartamento;
-		}
-		
-		/**
-		 * Metodo que modela la transaccion que busca el apartamento en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del apartamento a buscar. id != null
-		 * @return Apartamento - Apartamento que se obtiene como resultado de la consulta.
-		 * @throws Exception -  cualquier error que se genere durante la transaccion
-		 */
-		public Apartamento getApartamentoById(Long id) throws Exception {
-			DAOApartamento daoApartamento = new DAOApartamento();
-			Apartamento apartamento = null;
-			try 
-			{
-				this.conn = darConexion();
-				daoApartamento.setConn(conn);
-				apartamento = daoApartamento.findApartamentoById(id);
-				if(apartamento == null)
-				{
-					throw new Exception("El apartamento con el id = " + id + " no se encuentra persistido en la base de datos.");				
-				}
-			} 
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoApartamento.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
 			}
-			return apartamento;
 		}
-		
-		/**
-		 * Método que modela la transacción que agrega un solo video a la base de datos.
-		 * <b> post: </b> se ha agregado el video que entra como parámetro
-		 * @param video - el video a agregar. video != null
-		 * @throws Exception - cualquier error que se genera agregando el video
-		 */
-		public void addApartamento(Apartamento apartamento) throws Exception {
-			DAOApartamento daoApartamentos = new DAOApartamento();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoApartamentos.setConn(conn);
+		return apartamento;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addApartamento(Apartamento apartamento) throws Exception {
+		DAOApartamento daoApartamentos = new DAOApartamento();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoApartamentos.setConn(conn);
+			daoApartamentos.addApartamento(apartamento);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoApartamentos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addApartamentos(ArrayList<Apartamento> apartamentos) throws Exception {
+		DAOApartamento daoApartamentos = new DAOApartamento();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoApartamentos.setConn(conn);
+			for(Apartamento apartamento : (apartamentos))
 				daoApartamentos.addApartamento(apartamento);
-				conn.commit();
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoApartamentos.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-
-		/**
-		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-		 * <b> post: </b> se han agregado los videos que entran como parámetro
-		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
-		 * @throws Exception - cualquier error que se genera agregando los videos
-		 */
-		public void addApartamentos(ArrayList<Apartamento> apartamentos) throws Exception {
-			DAOApartamento daoApartamentos = new DAOApartamento();
-			try 
-			{
-				//////Transacción - ACID Example
-				this.conn = darConexion();
-				conn.setAutoCommit(false);
-				daoApartamentos.setConn(conn);
-				for(Apartamento apartamento : (apartamentos))
-					daoApartamentos.addApartamento(apartamento);
-				conn.commit();
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} finally {
-				try {
-					daoApartamentos.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha actualizado el video que entra como parámetro
-		 * @param video - Video a actualizar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void updateApartamento(Apartamento apartamento) throws Exception {
-			DAOApartamento daoApartamento = new DAOApartamento();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoApartamento.setConn(conn);
-				daoApartamento.updateApartamento(apartamento);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoApartamento.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha eliminado el video que entra como parámetro
-		 * @param video - Video a eliminar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void deleteApartamento(Apartamento apartamento) throws Exception {
-			DAOApartamento daoApartamento = new DAOApartamento();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoApartamento.setConn(conn);
-				daoApartamento.deleteApartamento(apartamento);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoApartamento.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		//TODO FIN APARTAMENTOS INICIO CLIENTES
-		
-		
-		/**
-		 * Metodo que modela la transaccion que retorna todos los clientees de la base de datos. <br/>
-		 * @return List<Cliente> - Lista de clientees que contiene el resultado de la consulta.
-		 * @throws Exception -  Cualquier error que se genere durante la transaccion
-		 */
-		public List<Cliente> getAllClientes() throws Exception {
-			DAOCliente daoCliente = new DAOCliente();
-			List<Cliente> cliente;
-			try 
-			{
-				this.conn = darConexion();
-				daoCliente.setConn(conn);
-				
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				cliente = daoCliente.getClientes();
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoApartamentos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoCliente.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
 			}
-			return cliente;
 		}
-		
-		/**
-		 * Metodo que modela la transaccion que busca el cliente en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del cliente a buscar. id != null
-		 * @return Cliente - Cliente que se obtiene como resultado de la consulta.
-		 * @throws Exception -  cualquier error que se genere durante la transaccion
-		 */
-		public Cliente getClienteById(Long id) throws Exception {
-			DAOCliente daoCliente = new DAOCliente();
-			Cliente cliente = null;
-			try 
-			{
-				this.conn = darConexion();
-				daoCliente.setConn(conn);
-				cliente = daoCliente.findClienteById(id);
-				if(cliente == null)
-				{
-					throw new Exception("El cliente con el id = " + id + " no se encuentra persistido en la base de datos.");				
-				}
-			} 
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+	}
+
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateApartamento(Apartamento apartamento) throws Exception {
+		DAOApartamento daoApartamento = new DAOApartamento();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			daoApartamento.updateApartamento(apartamento);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoApartamento.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoCliente.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteApartamento(Apartamento apartamento) throws Exception {
+		DAOApartamento daoApartamento = new DAOApartamento();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoApartamento.setConn(conn);
+			daoApartamento.deleteApartamento(apartamento);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoApartamento.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	//TODO FIN APARTAMENTOS INICIO CLIENTES
+
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los clientees de la base de datos. <br/>
+	 * @return List<Cliente> - Lista de clientees que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Cliente> getAllClientes() throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		List<Cliente> cliente;
+		try 
+		{
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			cliente = daoCliente.getClientes();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
-			return cliente;
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
-		
-		/**
-		 * Método que modela la transacción que agrega un solo video a la base de datos.
-		 * <b> post: </b> se ha agregado el video que entra como parámetro
-		 * @param video - el video a agregar. video != null
-		 * @throws Exception - cualquier error que se genera agregando el video
-		 */
-		public void addCliente(Cliente cliente) throws Exception {
-			DAOCliente daoClientes = new DAOCliente();
-			try 
+		return cliente;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el cliente en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del cliente a buscar. id != null
+	 * @return Cliente - Cliente que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Cliente getClienteById(Long id) throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		Cliente cliente = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			cliente = daoCliente.findClienteById(id);
+			if(cliente == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoClientes.setConn(conn);
+				throw new Exception("El cliente con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return cliente;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addCliente(Cliente cliente) throws Exception {
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoClientes.setConn(conn);
+			daoClientes.addCliente(cliente);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addClientes(ArrayList<Cliente> clientes) throws Exception {
+		DAOCliente daoClientes = new DAOCliente();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoClientes.setConn(conn);
+			for(Cliente cliente : (clientes))
 				daoClientes.addCliente(cliente);
-				conn.commit();
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoClientes.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-
-		/**
-		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-		 * <b> post: </b> se han agregado los videos que entran como parámetro
-		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
-		 * @throws Exception - cualquier error que se genera agregando los videos
-		 */
-		public void addClientes(ArrayList<Cliente> clientes) throws Exception {
-			DAOCliente daoClientes = new DAOCliente();
-			try 
-			{
-				//////Transacción - ACID Example
-				this.conn = darConexion();
-				conn.setAutoCommit(false);
-				daoClientes.setConn(conn);
-				for(Cliente cliente : (clientes))
-					daoClientes.addCliente(cliente);
-				conn.commit();
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} finally {
-				try {
-					daoClientes.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha actualizado el video que entra como parámetro
-		 * @param video - Video a actualizar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void updateCliente(Cliente cliente) throws Exception {
-			DAOCliente daoCliente = new DAOCliente();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoCliente.setConn(conn);
-				daoCliente.updateCliente(cliente);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoCliente.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha eliminado el video que entra como parámetro
-		 * @param video - Video a eliminar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void deleteCliente(Cliente cliente) throws Exception {
-			DAOCliente daoCliente = new DAOCliente();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoCliente.setConn(conn);
-				daoCliente.deleteCliente(cliente);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoCliente.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		//TODO FIN CLIENTE INICIO HABITACION
-		
-		/**
-		 * Metodo que modela la transaccion que retorna todos los habitaciones de la base de datos. <br/>
-		 * @return List<Habitacion> - Lista de habitaciones que contiene el resultado de la consulta.
-		 * @throws Exception -  Cualquier error que se genere durante la transaccion
-		 */
-		public List<Habitacion> getAllHabitaciones() throws Exception {
-			DAOHabitacion daoHabitacion = new DAOHabitacion();
-			List<Habitacion> habitacion;
-			try 
-			{
-				this.conn = darConexion();
-				daoHabitacion.setConn(conn);
-
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				habitacion = daoHabitacion.getHabitacions();
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoClientes.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHabitacion.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
 			}
-			return habitacion;
 		}
+	}
 
-		/**
-		 * Metodo que modela la transaccion que busca el habitacion en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del habitacion a buscar. id != null
-		 * @return Habitacion - Habitacion que se obtiene como resultado de la consulta.
-		 * @throws Exception -  cualquier error que se genere durante la transaccion
-		 */
-		public Habitacion getHabitacionById(Long id) throws Exception {
-			DAOHabitacion daoHabitacion = new DAOHabitacion();
-			Habitacion habitacion = null;
-			try 
-			{
-				this.conn = darConexion();
-				daoHabitacion.setConn(conn);
-				habitacion = daoHabitacion.findHabitacionById(id);
-				if(habitacion == null)
-				{
-					throw new Exception("El habitacion con el id = " + id + " no se encuentra persistido en la base de datos.");				
-				}
-			} 
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateCliente(Cliente cliente) throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			daoCliente.updateCliente(cliente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHabitacion.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteCliente(Cliente cliente) throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			daoCliente.deleteCliente(cliente);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	//TODO FIN CLIENTE INICIO HABITACION
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los habitaciones de la base de datos. <br/>
+	 * @return List<Habitacion> - Lista de habitaciones que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Habitacion> getAllHabitaciones() throws Exception {
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		List<Habitacion> habitacion;
+		try 
+		{
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			habitacion = daoHabitacion.getHabitacions();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHabitacion.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
-			return habitacion;
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
+		return habitacion;
+	}
 
-		/**
-		 * Método que modela la transacción que agrega un solo video a la base de datos.
-		 * <b> post: </b> se ha agregado el video que entra como parámetro
-		 * @param video - el video a agregar. video != null
-		 * @throws Exception - cualquier error que se genera agregando el video
-		 */
-		public void addHabitacion(Habitacion habitacion) throws Exception {
-			DAOHabitacion daoHabitacions = new DAOHabitacion();
-			try 
+	/**
+	 * Metodo que modela la transaccion que busca el habitacion en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del habitacion a buscar. id != null
+	 * @return Habitacion - Habitacion que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Habitacion getHabitacionById(Long id) throws Exception {
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		Habitacion habitacion = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+			habitacion = daoHabitacion.findHabitacionById(id);
+			if(habitacion == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHabitacions.setConn(conn);
+				throw new Exception("El habitacion con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHabitacion.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return habitacion;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addHabitacion(Habitacion habitacion) throws Exception {
+		DAOHabitacion daoHabitacions = new DAOHabitacion();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHabitacions.setConn(conn);
+			daoHabitacions.addHabitacion(habitacion);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHabitacions.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addHabitacions(ArrayList<Habitacion> habitacions) throws Exception {
+		DAOHabitacion daoHabitacions = new DAOHabitacion();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoHabitacions.setConn(conn);
+			for(Habitacion habitacion : (habitacions))
 				daoHabitacions.addHabitacion(habitacion);
-				conn.commit();
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHabitacions.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-
-
-
-		/**
-		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-		 * <b> post: </b> se han agregado los videos que entran como parámetro
-		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
-		 * @throws Exception - cualquier error que se genera agregando los videos
-		 */
-		public void addHabitacions(ArrayList<Habitacion> habitacions) throws Exception {
-			DAOHabitacion daoHabitacions = new DAOHabitacion();
-			try 
-			{
-				//////Transacción - ACID Example
-				this.conn = darConexion();
-				conn.setAutoCommit(false);
-				daoHabitacions.setConn(conn);
-				for(Habitacion habitacion : (habitacions))
-					daoHabitacions.addHabitacion(habitacion);
-				conn.commit();
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} finally {
-				try {
-					daoHabitacions.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-
-
-		/**
-		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha actualizado el video que entra como parámetro
-		 * @param video - Video a actualizar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void updateHabitacion(Habitacion habitacion) throws Exception {
-			DAOHabitacion daoHabitacion = new DAOHabitacion();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHabitacion.setConn(conn);
-				daoHabitacion.updateHabitacion(habitacion);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHabitacion.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-
-
-		/**
-		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha eliminado el video que entra como parámetro
-		 * @param video - Video a eliminar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void deleteHabitacion(Habitacion habitacion) throws Exception {
-			DAOHabitacion daoHabitacion = new DAOHabitacion();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHabitacion.setConn(conn);
-				daoHabitacion.deleteHabitacion(habitacion);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHabitacion.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-
-		//TODO FIN HABITACION INICIO HOSTAL
-		
-		/**
-		 * Metodo que modela la transaccion que retorna todos los hostales de la base de datos. <br/>
-		 * @return List<Hostal> - Lista de hostales que contiene el resultado de la consulta.
-		 * @throws Exception -  Cualquier error que se genere durante la transaccion
-		 */
-		public List<Hostal> getAllHostales() throws Exception {
-			DAOHostal daoHostal = new DAOHostal();
-			List<Hostal> hostal;
-			try 
-			{
-				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				hostal = daoHostal.getHostals();
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoHabitacions.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHostal.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
 			}
-			return hostal;
 		}
-		
-		/**
-		 * Metodo que modela la transaccion que busca el hostal en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del hostal a buscar. id != null
-		 * @return Hostal - Hostal que se obtiene como resultado de la consulta.
-		 * @throws Exception -  cualquier error que se genere durante la transaccion
-		 */
-		public Hostal getHostalById(Long id) throws Exception {
-			DAOHostal daoHostal = new DAOHostal();
-			Hostal hostal = null;
-			try 
-			{
-				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				hostal = daoHostal.findHostalById(id);
-				if(hostal == null)
-				{
-					throw new Exception("El hostal con el id = " + id + " no se encuentra persistido en la base de datos.");				
-				}
-			} 
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+	}
+
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateHabitacion(Habitacion habitacion) throws Exception {
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+			daoHabitacion.updateHabitacion(habitacion);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHabitacion.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHostal.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteHabitacion(Habitacion habitacion) throws Exception {
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHabitacion.setConn(conn);
+			daoHabitacion.deleteHabitacion(habitacion);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHabitacion.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	//TODO FIN HABITACION INICIO HOSTAL
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los hostales de la base de datos. <br/>
+	 * @return List<Hostal> - Lista de hostales que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Hostal> getAllHostales() throws Exception {
+		DAOHostal daoHostal = new DAOHostal();
+		List<Hostal> hostal;
+		try 
+		{
+			this.conn = darConexion();
+			daoHostal.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			hostal = daoHostal.getHostals();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHostal.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
-			return hostal;
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
-		
-		/**
-		 * Método que modela la transacción que agrega un solo video a la base de datos.
-		 * <b> post: </b> se ha agregado el video que entra como parámetro
-		 * @param video - el video a agregar. video != null
-		 * @throws Exception - cualquier error que se genera agregando el video
-		 */
-		public void addHostal(Hostal hostal) throws Exception {
-			DAOHostal daoHostals = new DAOHostal();
-			try 
+		return hostal;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el hostal en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del hostal a buscar. id != null
+	 * @return Hostal - Hostal que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Hostal getHostalById(Long id) throws Exception {
+		DAOHostal daoHostal = new DAOHostal();
+		Hostal hostal = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoHostal.setConn(conn);
+			hostal = daoHostal.findHostalById(id);
+			if(hostal == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHostals.setConn(conn);
+				throw new Exception("El hostal con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHostal.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return hostal;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addHostal(Hostal hostal) throws Exception {
+		DAOHostal daoHostals = new DAOHostal();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHostals.setConn(conn);
+			daoHostals.addHostal(hostal);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHostals.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addHostals(ArrayList<Hostal> hostals) throws Exception {
+		DAOHostal daoHostals = new DAOHostal();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoHostals.setConn(conn);
+			for(Hostal hostal : (hostals))
 				daoHostals.addHostal(hostal);
-				conn.commit();
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHostals.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-
-		/**
-		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-		 * <b> post: </b> se han agregado los videos que entran como parámetro
-		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
-		 * @throws Exception - cualquier error que se genera agregando los videos
-		 */
-		public void addHostals(ArrayList<Hostal> hostals) throws Exception {
-			DAOHostal daoHostals = new DAOHostal();
-			try 
-			{
-				//////Transacción - ACID Example
-				this.conn = darConexion();
-				conn.setAutoCommit(false);
-				daoHostals.setConn(conn);
-				for(Hostal hostal : (hostals))
-					daoHostals.addHostal(hostal);
-				conn.commit();
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} finally {
-				try {
-					daoHostals.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha actualizado el video que entra como parámetro
-		 * @param video - Video a actualizar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void updateHostal(Hostal hostal) throws Exception {
-			DAOHostal daoHostal = new DAOHostal();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				daoHostal.updateHostal(hostal);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHostal.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		/**
-		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha eliminado el video que entra como parámetro
-		 * @param video - Video a eliminar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void deleteHostal(Hostal hostal) throws Exception {
-			DAOHostal daoHostal = new DAOHostal();
-			try 
-			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHostal.setConn(conn);
-				daoHostal.deleteHostal(hostal);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHostal.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		
-		//TODO FIN HOSTAL INICIO HOTEL
-		
-		
-		/**
-		 * Metodo que modela la transaccion que retorna todos los hoteles de la base de datos. <br/>
-		 * @return List<Hotel> - Lista de hoteles que contiene el resultado de la consulta.
-		 * @throws Exception -  Cualquier error que se genere durante la transaccion
-		 */
-		public List<Hotel> getAllHoteles() throws Exception {
-			DAOHotel daoHotel = new DAOHotel();
-			List<Hotel> hotel;
-			try 
-			{
-				this.conn = darConexion();
-				daoHotel.setConn(conn);
-
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				hotel = daoHotel.getHotels();
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoHostals.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHotel.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
 			}
-			return hotel;
 		}
+	}
 
-		/**
-		 * Metodo que modela la transaccion que busca el hotel en la base de datos que tiene el ID dado por parametro. <br/>
-		 * @param name -id del hotel a buscar. id != null
-		 * @return Hotel - Hotel que se obtiene como resultado de la consulta.
-		 * @throws Exception -  cualquier error que se genere durante la transaccion
-		 */
-		public Hotel getHotelById(Long id) throws Exception {
-			DAOHotel daoHotel = new DAOHotel();
-			Hotel hotel = null;
-			try 
-			{
-				this.conn = darConexion();
-				daoHotel.setConn(conn);
-				hotel = daoHotel.findHotelById(id);
-				if(hotel == null)
-				{
-					throw new Exception("El hotel con el id = " + id + " no se encuentra persistido en la base de datos.");				
-				}
-			} 
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateHostal(Hostal hostal) throws Exception {
+		DAOHostal daoHostal = new DAOHostal();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHostal.setConn(conn);
+			daoHostal.updateHostal(hostal);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHostal.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
 				exception.printStackTrace();
 				throw exception;
-			} 
-			finally {
-				try {
-					daoHotel.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteHostal(Hostal hostal) throws Exception {
+		DAOHostal daoHostal = new DAOHostal();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHostal.setConn(conn);
+			daoHostal.deleteHostal(hostal);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHostal.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	//TODO FIN HOSTAL INICIO HOTEL
+
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los hoteles de la base de datos. <br/>
+	 * @return List<Hotel> - Lista de hoteles que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Hotel> getAllHoteles() throws Exception {
+		DAOHotel daoHotel = new DAOHotel();
+		List<Hotel> hotel;
+		try 
+		{
+			this.conn = darConexion();
+			daoHotel.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			hotel = daoHotel.getHotels();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
-			return hotel;
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
+		return hotel;
+	}
 
-		/**
-		 * Método que modela la transacción que agrega un solo video a la base de datos.
-		 * <b> post: </b> se ha agregado el video que entra como parámetro
-		 * @param video - el video a agregar. video != null
-		 * @throws Exception - cualquier error que se genera agregando el video
-		 */
-		public void addHotel(Hotel hotel) throws Exception {
-			DAOHotel daoHotels = new DAOHotel();
-			try 
+	/**
+	 * Metodo que modela la transaccion que busca el hotel en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del hotel a buscar. id != null
+	 * @return Hotel - Hotel que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Hotel getHotelById(Long id) throws Exception {
+		DAOHotel daoHotel = new DAOHotel();
+		Hotel hotel = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoHotel.setConn(conn);
+			hotel = daoHotel.findHotelById(id);
+			if(hotel == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHotels.setConn(conn);
+				throw new Exception("El hotel con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return hotel;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addHotel(Hotel hotel) throws Exception {
+		DAOHotel daoHotels = new DAOHotel();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHotels.setConn(conn);
+			daoHotels.addHotel(hotel);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHotels.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addHotels(ArrayList<Hotel> hotels) throws Exception {
+		DAOHotel daoHotels = new DAOHotel();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoHotels.setConn(conn);
+			for(Hotel hotel : (hotels))
 				daoHotels.addHotel(hotel);
-				conn.commit();
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHotels.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoHotels.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
 			}
 		}
+	}
 
 
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateHotel(Hotel hotel) throws Exception {
+		DAOHotel daoHotel = new DAOHotel();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHotel.setConn(conn);
+			daoHotel.updateHotel(hotel);
 
-		/**
-		 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
-		 * <b> post: </b> se han agregado los videos que entran como parámetro
-		 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
-		 * @throws Exception - cualquier error que se genera agregando los videos
-		 */
-		public void addHotels(ArrayList<Hotel> hotels) throws Exception {
-			DAOHotel daoHotels = new DAOHotel();
-			try 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteHotel(Hotel hotel) throws Exception {
+		DAOHotel daoHotel = new DAOHotel();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoHotel.setConn(conn);
+			daoHotel.deleteHotel(hotel);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoHotel.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	//TODO FIN HOTEL INICIO OFERTA
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los ofertaes de la base de datos. <br/>
+	 * @return List<Oferta> - Lista de ofertaes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Oferta> getAllOfertaes() throws Exception {
+		DAOOferta daoOferta = new DAOOferta();
+		List<Oferta> oferta;
+		try 
+		{
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			oferta = daoOferta.getOfertas();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return oferta;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el oferta en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del oferta a buscar. id != null
+	 * @return Oferta - Oferta que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Oferta getOfertaById(Long id) throws Exception {
+		DAOOferta daoOferta = new DAOOferta();
+		Oferta oferta = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+			oferta = daoOferta.findOfertaById(id);
+			if(oferta == null)
 			{
-				//////Transacción - ACID Example
-				this.conn = darConexion();
-				conn.setAutoCommit(false);
-				daoHotels.setConn(conn);
-				for(Hotel hotel : (hotels))
-					daoHotels.addHotel(hotel);
-				conn.commit();
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				conn.rollback();
-				throw e;
-			} finally {
-				try {
-					daoHotels.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+				throw new Exception("El oferta con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
+		return oferta;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addOferta(Oferta oferta) throws Exception {
+		DAOOferta daoOfertas = new DAOOferta();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoOfertas.setConn(conn);
+			daoOfertas.addOferta(oferta);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoOfertas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 
 
-		/**
-		 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha actualizado el video que entra como parámetro
-		 * @param video - Video a actualizar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void updateHotel(Hotel hotel) throws Exception {
-			DAOHotel daoHotel = new DAOHotel();
-			try 
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addOfertas(ArrayList<Oferta> ofertas) throws Exception {
+		DAOOferta daoOfertas = new DAOOferta();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoOfertas.setConn(conn);
+			for(Oferta oferta : (ofertas))
+				daoOfertas.addOferta(oferta);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoOfertas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateOferta(Oferta oferta) throws Exception {
+		DAOOferta daoOferta = new DAOOferta();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+			daoOferta.updateOferta(oferta);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteOferta(Oferta oferta) throws Exception {
+		DAOOferta daoOferta = new DAOOferta();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+			daoOferta.deleteOferta(oferta);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	//TODO FIN OFERTA INCIIO PERSONANATURAL
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los personanaturales de la base de datos. <br/>
+	 * @return List<PersonaNatural> - Lista de personanaturales que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<PersonaNatural> getAllPersonaNaturales() throws Exception {
+		DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
+		List<PersonaNatural> personanatural;
+		try 
+		{
+			this.conn = darConexion();
+			daoPersonaNatural.setConn(conn);
+			
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			personanatural = daoPersonaNatural.getPersonaNaturals();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoPersonaNatural.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return personanatural;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el personanatural en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del personanatural a buscar. id != null
+	 * @return PersonaNatural - PersonaNatural que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public PersonaNatural getPersonaNaturalById(Long id) throws Exception {
+		DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
+		PersonaNatural personanatural = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoPersonaNatural.setConn(conn);
+			personanatural = daoPersonaNatural.findPersonaNaturalById(id);
+			if(personanatural == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHotel.setConn(conn);
-				daoHotel.updateHotel(hotel);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHotel.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+				throw new Exception("El personanatural con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoPersonaNatural.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
+		return personanatural;
+	}
+	
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addPersonaNatural(PersonaNatural personanatural) throws Exception {
+		DAOPersonaNatural daoPersonaNaturals = new DAOPersonaNatural();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoPersonaNaturals.setConn(conn);
+			daoPersonaNaturals.addPersonaNatural(personanatural);
+			conn.commit();
 
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersonaNaturals.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
 
-		/**
-		 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
-		 * <b> post: </b> se ha eliminado el video que entra como parámetro
-		 * @param video - Video a eliminar. video != null
-		 * @throws Exception - cualquier error que se genera actualizando los videos
-		 */
-		public void deleteHotel(Hotel hotel) throws Exception {
-			DAOHotel daoHotel = new DAOHotel();
-			try 
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addPersonaNaturals(ArrayList<PersonaNatural> personanaturals) throws Exception {
+		DAOPersonaNatural daoPersonaNaturals = new DAOPersonaNatural();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoPersonaNaturals.setConn(conn);
+			for(PersonaNatural personanatural : (personanaturals))
+				daoPersonaNaturals.addPersonaNatural(personanatural);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoPersonaNaturals.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updatePersonaNatural(PersonaNatural personanatural) throws Exception {
+		DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoPersonaNatural.setConn(conn);
+			daoPersonaNatural.updatePersonaNatural(personanatural);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersonaNatural.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deletePersonaNatural(PersonaNatural personanatural) throws Exception {
+		DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoPersonaNatural.setConn(conn);
+			daoPersonaNatural.deletePersonaNatural(personanatural);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersonaNatural.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN PERSONANATURAL INICIO SALA
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los salaes de la base de datos. <br/>
+	 * @return List<Sala> - Lista de salaes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Sala> getAllSalaes() throws Exception {
+		DAOSala daoSala = new DAOSala();
+		List<Sala> sala;
+		try 
+		{
+			this.conn = darConexion();
+			daoSala.setConn(conn);
+			
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			sala = daoSala.getSalas();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoSala.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return sala;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el sala en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del sala a buscar. id != null
+	 * @return Sala - Sala que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Sala getSalaById(Long id) throws Exception {
+		DAOSala daoSala = new DAOSala();
+		Sala sala = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoSala.setConn(conn);
+			sala = daoSala.findSalaById(id);
+			if(sala == null)
 			{
-				//////Transacción
-				this.conn = darConexion();
-				daoHotel.setConn(conn);
-				daoHotel.deleteHotel(hotel);
-
-			} catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					daoHotel.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
+				throw new Exception("El sala con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoSala.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
 				}
 			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
 		}
+		return sala;
+	}
+	
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addSala(Sala sala) throws Exception {
+		DAOSala daoSalas = new DAOSala();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoSalas.setConn(conn);
+			daoSalas.addSala(sala);
+			conn.commit();
 
-		//TODO FIN HOTEL INICIO OFERTA
-		
-		
-		
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoSalas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addSalas(ArrayList<Sala> salas) throws Exception {
+		DAOSala daoSalas = new DAOSala();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoSalas.setConn(conn);
+			for(Sala sala : (salas))
+				daoSalas.addSala(sala);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoSalas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateSala(Sala sala) throws Exception {
+		DAOSala daoSala = new DAOSala();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoSala.setConn(conn);
+			daoSala.updateSala(sala);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoSala.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteSala(Sala sala) throws Exception {
+		DAOSala daoSala = new DAOSala();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoSala.setConn(conn);
+			daoSala.deleteSala(sala);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoSala.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN SALA INICIO SERVICIOINMOBILIARIO
+
+	/**
+	 * Metodo que modela la transaccion que retorna todos los servicioinmobiliarioes de la base de datos. <br/>
+	 * @return List<ServicioInmobiliario> - Lista de servicioinmobiliarioes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<ServicioInmobiliario> getAllServicioInmobiliarioes() throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliario = new DAOServicioInmobiliario();
+		List<ServicioInmobiliario> servicioinmobiliario;
+		try 
+		{
+			this.conn = darConexion();
+			daoServicioInmobiliario.setConn(conn);
+			
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			servicioinmobiliario = daoServicioInmobiliario.getServicioInmobiliarios();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoServicioInmobiliario.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return servicioinmobiliario;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el servicioinmobiliario en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del servicioinmobiliario a buscar. id != null
+	 * @return ServicioInmobiliario - ServicioInmobiliario que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public ServicioInmobiliario getServicioInmobiliarioById(Long id) throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliario = new DAOServicioInmobiliario();
+		ServicioInmobiliario servicioinmobiliario = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoServicioInmobiliario.setConn(conn);
+			servicioinmobiliario = daoServicioInmobiliario.findServicioInmobiliarioById(id);
+			if(servicioinmobiliario == null)
+			{
+				throw new Exception("El servicioinmobiliario con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoServicioInmobiliario.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return servicioinmobiliario;
+	}
+	
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliarios = new DAOServicioInmobiliario();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioInmobiliarios.setConn(conn);
+			daoServicioInmobiliarios.addServicioInmobiliario(servicioinmobiliario);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioInmobiliarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addServicioInmobiliarios(ArrayList<ServicioInmobiliario> servicioinmobiliarios) throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliarios = new DAOServicioInmobiliario();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoServicioInmobiliarios.setConn(conn);
+			for(ServicioInmobiliario servicioinmobiliario : (servicioinmobiliarios))
+				daoServicioInmobiliarios.addServicioInmobiliario(servicioinmobiliario);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoServicioInmobiliarios.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliario = new DAOServicioInmobiliario();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioInmobiliario.setConn(conn);
+			daoServicioInmobiliario.updateServicioInmobiliario(servicioinmobiliario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioInmobiliario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) throws Exception {
+		DAOServicioInmobiliario daoServicioInmobiliario = new DAOServicioInmobiliario();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioInmobiliario.setConn(conn);
+			daoServicioInmobiliario.deleteServicioInmobiliario(servicioinmobiliario);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioInmobiliario.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN SERVICIOINMOBILIARIO INICIO SERVICIOPUBLICO
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los serviciopublicoes de la base de datos. <br/>
+	 * @return List<ServicioPublico> - Lista de serviciopublicoes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<ServicioPublico> getAllServicioPublicoes() throws Exception {
+		DAOServicioPublico daoServicioPublico = new DAOServicioPublico();
+		List<ServicioPublico> serviciopublico;
+		try 
+		{
+			this.conn = darConexion();
+			daoServicioPublico.setConn(conn);
+			
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			serviciopublico = daoServicioPublico.getServicioPublicos();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoServicioPublico.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return serviciopublico;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el serviciopublico en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del serviciopublico a buscar. id != null
+	 * @return ServicioPublico - ServicioPublico que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public ServicioPublico getServicioPublicoById(Long id) throws Exception {
+		DAOServicioPublico daoServicioPublico = new DAOServicioPublico();
+		ServicioPublico serviciopublico = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoServicioPublico.setConn(conn);
+			serviciopublico = daoServicioPublico.findServicioPublicoById(id);
+			if(serviciopublico == null)
+			{
+				throw new Exception("El serviciopublico con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoServicioPublico.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return serviciopublico;
+	}
+	
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addServicioPublico(ServicioPublico serviciopublico) throws Exception {
+		DAOServicioPublico daoServicioPublicos = new DAOServicioPublico();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioPublicos.setConn(conn);
+			daoServicioPublicos.addServicioPublico(serviciopublico);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioPublicos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addServicioPublicos(ArrayList<ServicioPublico> serviciopublicos) throws Exception {
+		DAOServicioPublico daoServicioPublicos = new DAOServicioPublico();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoServicioPublicos.setConn(conn);
+			for(ServicioPublico serviciopublico : (serviciopublicos))
+				daoServicioPublicos.addServicioPublico(serviciopublico);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoServicioPublicos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateServicioPublico(ServicioPublico serviciopublico) throws Exception {
+		DAOServicioPublico daoServicioPublico = new DAOServicioPublico();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioPublico.setConn(conn);
+			daoServicioPublico.updateServicioPublico(serviciopublico);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioPublico.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteServicioPublico(ServicioPublico serviciopublico) throws Exception {
+		DAOServicioPublico daoServicioPublico = new DAOServicioPublico();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoServicioPublico.setConn(conn);
+			daoServicioPublico.deleteServicioPublico(serviciopublico);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoServicioPublico.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN SERVICIOPUBLICO INICIO VECINO
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los vecinoes de la base de datos. <br/>
+	 * @return List<Vecino> - Lista de vecinoes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Vecino> getAllVecinoes() throws Exception {
+		DAOVecino daoVecino = new DAOVecino();
+		List<Vecino> vecino;
+		try 
+		{
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			vecino = daoVecino.getVecinos();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vecino;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el vecino en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del vecino a buscar. id != null
+	 * @return Vecino - Vecino que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Vecino getVecinoById(Long id) throws Exception {
+		DAOVecino daoVecino = new DAOVecino();
+		Vecino vecino = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			vecino = daoVecino.findVecinoById(id);
+			if(vecino == null)
+			{
+				throw new Exception("El vecino con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vecino;
+	}
+	
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addVecino(Vecino vecino) throws Exception {
+		DAOVecino daoVecinos = new DAOVecino();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecinos.setConn(conn);
+			daoVecinos.addVecino(vecino);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecinos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addVecinos(ArrayList<Vecino> vecinos) throws Exception {
+		DAOVecino daoVecinos = new DAOVecino();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoVecinos.setConn(conn);
+			for(Vecino vecino : (vecinos))
+				daoVecinos.addVecino(vecino);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoVecinos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateVecino(Vecino vecino) throws Exception {
+		DAOVecino daoVecino = new DAOVecino();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			daoVecino.updateVecino(vecino);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteVecino(Vecino vecino) throws Exception {
+		DAOVecino daoVecino = new DAOVecino();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			daoVecino.deleteVecino(vecino);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN VECINO INICIO VIVIENDA
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todos los viviendaes de la base de datos. <br/>
+	 * @return List<Vivienda> - Lista de viviendaes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Vivienda> getAllViviendaes() throws Exception {
+		DAOVivienda daoVivienda = new DAOVivienda();
+		List<Vivienda> vivienda;
+		try 
+		{
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			vivienda = daoVivienda.getViviendas();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vivienda;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el vivienda en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del vivienda a buscar. id != null
+	 * @return Vivienda - Vivienda que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Vivienda getViviendaById(Long id) throws Exception {
+		DAOVivienda daoVivienda = new DAOVivienda();
+		Vivienda vivienda = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			vivienda = daoVivienda.findViviendaById(id);
+			if(vivienda == null)
+			{
+				throw new Exception("El vivienda con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vivienda;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addVivienda(Vivienda vivienda) throws Exception {
+		DAOVivienda daoViviendas = new DAOVivienda();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoViviendas.setConn(conn);
+			daoViviendas.addVivienda(vivienda);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoViviendas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addViviendas(ArrayList<Vivienda> viviendas) throws Exception {
+		DAOVivienda daoViviendas = new DAOVivienda();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoViviendas.setConn(conn);
+			for(Vivienda vivienda : (viviendas))
+				daoViviendas.addVivienda(vivienda);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoViviendas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateVivienda(Vivienda vivienda) throws Exception {
+		DAOVivienda daoVivienda = new DAOVivienda();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			daoVivienda.updateVivienda(vivienda);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteVivienda(Vivienda vivienda) throws Exception {
+		DAOVivienda daoVivienda = new DAOVivienda();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVivienda.setConn(conn);
+			daoVivienda.deleteVivienda(vivienda);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVivienda.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//TODO FIN VIVIENDA INICIO VIVIENDAUNIVERSITARIA
+	
+	
+	//TODO FIN VIVIENDAUNIVERSITARIA INICIO RESERVA
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todas las reservas de la base de datos. <br/>
+	 * @return List<Apartamento> - Lista de apartamentoes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<Reserva> getAllReservas() throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		List<Reserva> reserva;
+		try 
+		{
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			reserva = daoReserva.getReservas();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return reserva;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca la reserva en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id de la reserva a buscar. id != null
+	 * @return Reserva que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public Reserva getReservaById(Long id) throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		Reserva reserva = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			reserva = daoReserva.findReservaById(id);
+			if(reserva == null)
+			{
+				throw new Exception("La reserva con el id = " + id + " no se encuentra persistida en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return reserva;
+	}
+
+	/**
+	 * M�todo que modela la transacci�n que agrega una sola reserva a la base de datos.
+	 * <b> post: </b> se ha agregado la reserva que entra como par�metro
+	 * @param reserva - la reserva a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando la reserva
+	 */
+	public void addReserva(Reserva reserva) throws Exception {
+		DAOReserva daoReserva= new DAOReserva();
+		try 
+		{
+			//////Transacci�n
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			daoReserva.addReserva(reserva);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * M�todo que modela la transacci�n que agrega las reservas que entran como par�metro a la base de datos.
+	 * <b> post: </b> se han agregado las reservas que entran como par�metro
+	 * @param videos - objeto que modela una lista de reservas y se estas se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando las reservas
+	 */
+	public void addReservas(ArrayList<Reserva> reservas) throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		try 
+		{
+			//////Transacci�n - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoReserva.setConn(conn);
+			for(Reserva reserva : (reservas))
+				daoReserva.addReserva(reserva);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * M�todo que modela la transacci�n que actualiza la reserva que entra como par�metro a la base de datos.
+	 * <b> post: </b> se ha actualizado la reserva que entra como par�metro
+	 * @param reserva - Reserva a actualizar. reserva != null
+	 * @throws Exception - cualquier error que se genera actualizando las reservas
+	 */
+	public void updateReserva(Reserva reserva) throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		try 
+		{
+			//////Transacci�n
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			daoReserva.updateReserva(reserva);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * M�todo que modela la transacci�n que elimina la reserva que entra como par�metro a la base de datos.
+	 * <b> post: </b> se ha eliminado la reserva que entra como par�metro
+	 * @param reserva - Reserva a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera eliminando las reservas
+	 */
+	public void deleteReserva(Reserva reserva) throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		try 
+		{
+			//////Transacci�n
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			daoReserva.deleteReserva(reserva);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	
+	//TODO FIN RESERVA INICIO REQUERIMIENTOS EXTRA
+	
 }

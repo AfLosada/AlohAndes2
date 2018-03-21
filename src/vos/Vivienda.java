@@ -51,11 +51,11 @@ public class Vivienda
 		this.caracteristicasSeguro = caracteristicasSeguro;
 	}
 
-	public String[] getCaracteristicas() {
+	public String getCaracteristicas() {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(String[] caracteristicas) {
+	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 

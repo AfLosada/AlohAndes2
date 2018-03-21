@@ -15,12 +15,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
-import vos.Cliente;
-import vos.Hotel;
+import vos.ServicioInmobiliario;
 import vos.Operador;
 
-public class HotelService <K extends Operador>{
-
+public class ServicioInmobiliarioService <K extends Operador>
+{
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -52,23 +51,23 @@ public class HotelService <K extends Operador>{
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo GET que trae a todos los hoteles en la Base de datos. <br/>
+	 * Metodo GET que trae a todos los servicioinmobiliarioes en la Base de datos. <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/hoteles <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los hoteles que estan en la Base de Datos <br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/servicioinmobiliarioes <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todos los servicioinmobiliarioes que estan en la Base de Datos <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getHotels() {
+	public Response getServicioInmobiliarios() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			List<Hotel> hoteles;
+			List<ServicioInmobiliario> servicioinmobiliarioes;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			hoteles = tm.getAllHoteles();
-			return Response.status(200).entity(hoteles).build();
+			servicioinmobiliarioes = tm.getAllServicioInmobiliarioes();
+			return Response.status(200).entity(servicioinmobiliarioes).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -76,22 +75,22 @@ public class HotelService <K extends Operador>{
 	}
 
 	/**
-	 * Metodo GET que trae al hotel en la Base de Datos con el ID dado por parametro <br/>
+	 * Metodo GET que trae al servicioinmobiliario en la Base de Datos con el ID dado por parametro <br/>
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/hoteles/{id} <br/>
-	 * @return	<b>Response Status 200</b> - JSON Hotel que contiene al hotel cuyo ID corresponda al parametro <br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/servicioinmobiliarioes/{id} <br/>
+	 * @return	<b>Response Status 200</b> - JSON ServicioInmobiliario que contiene al servicioinmobiliario cuyo ID corresponda al parametro <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@GET
-	@Path( "/hotel/{id: \\d+}" )
+	@Path( "/servicioinmobiliario/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getHotelById( @PathParam( "id" ) Long id )
+	public Response getServicioInmobiliarioById( @PathParam( "id" ) Long id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
 
-			Hotel hotel = tm.getHotelById( id );
-			return Response.status( 200 ).entity( hotel ).build( );			
+			ServicioInmobiliario servicioinmobiliario = tm.getServicioInmobiliarioById( id );
+			return Response.status( 200 ).entity( servicioinmobiliario ).build( );			
 		}
 		catch( Exception e )
 		{
@@ -100,12 +99,12 @@ public class HotelService <K extends Operador>{
 	}
 
 	/**
-	 * Metodo que recibe un hotel en formato JSON y lo agrega a la Base de Datos <br/>
+	 * Metodo que recibe un servicioinmobiliario en formato JSON y lo agrega a la Base de Datos <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al hotel. <br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/hoteles <br/>
-	 * @param hotel JSON con la informacion del hotel que se desea agregar
-	 * @return	<b>Response Status 200</b> - JSON que contiene al hotel que ha sido agregado <br/>
+	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al servicioinmobiliario. <br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/servicioinmobiliarioes <br/>
+	 * @param servicioinmobiliario JSON con la informacion del servicioinmobiliario que se desea agregar
+	 * @return	<b>Response Status 200</b> - JSON que contiene al servicioinmobiliario que ha sido agregado <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	//TODO Requerimiento 3A: Identifique e implemente la anotacion correcta para la realizacion del metodo
@@ -115,14 +114,14 @@ public class HotelService <K extends Operador>{
 	@PUT
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response addHotel(Hotel hotel) {
+	public Response addServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) {
 
 		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
 
-			tm.addHotel(hotel);
-			return Response.status( 200 ).entity( hotel ).build( );			
+			tm.addServicioInmobiliario(servicioinmobiliario);
+			return Response.status( 200 ).entity( servicioinmobiliario ).build( );			
 		}
 		catch( Exception e )
 		{
@@ -134,11 +133,11 @@ public class HotelService <K extends Operador>{
 
 
 	/**
-	 * Metodo que recibe un hotel en formato JSON y lo agrega a la Base de Datos <br/>
+	 * Metodo que recibe un servicioinmobiliario en formato JSON y lo agrega a la Base de Datos <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se actualiza la Base de datos con la informacion correspondiente al hotel.<br/>
-	 * @param hotel JSON con la informacion del hotel que se desea agregar
-	 * @return	<b>Response Status 200</b> - JSON que contiene al hotel que se desea modificar <br/>
+	 * <b>Postcondicion: </b> Se actualiza la Base de datos con la informacion correspondiente al servicioinmobiliario.<br/>
+	 * @param servicioinmobiliario JSON con la informacion del servicioinmobiliario que se desea agregar
+	 * @return	<b>Response Status 200</b> - JSON que contiene al servicioinmobiliario que se desea modificar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	//TODO Requerimiento 5A: Identifique e implemente la anotacion correcta para la realizacion del metodo
@@ -148,13 +147,13 @@ public class HotelService <K extends Operador>{
 	@PUT
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response updateHotel(Hotel hotel) {
+	public Response updateServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) {
 		//TODO Requerimiento 5B: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
 
-			tm.updateHotel(hotel);
-			return Response.status( 200 ).entity( hotel ).build( );			
+			tm.updateServicioInmobiliario(servicioinmobiliario);
+			return Response.status( 200 ).entity( servicioinmobiliario ).build( );			
 		}
 		catch( Exception e )
 		{
@@ -163,12 +162,12 @@ public class HotelService <K extends Operador>{
 	}
 
 	/**
-	 * Metodo que recibe un hotel en formato JSON y lo elimina de la Base de Datos <br/>
+	 * Metodo que recibe un servicioinmobiliario en formato JSON y lo elimina de la Base de Datos <br/>
 	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se elimina de la Base de datos al hotel con la informacion correspondiente.<br/>
-	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/hoteles <br/>
-	 * @param hotel JSON con la informacion del hotel que se desea eliminar
-	 * @return	<b>Response Status 200</b> - JSON que contiene al hotel que se desea eliminar <br/>
+	 * <b>Postcondicion: </b> Se elimina de la Base de datos al servicioinmobiliario con la informacion correspondiente.<br/>
+	 * <b>URL: </b> http://localhost:8080/TutorialParranderos/rest/servicioinmobiliarioes <br/>
+	 * @param servicioinmobiliario JSON con la informacion del servicioinmobiliario que se desea eliminar
+	 * @return	<b>Response Status 200</b> - JSON que contiene al servicioinmobiliario que se desea eliminar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	//TODO Requerimiento 6A: Identifique e implemente la anotacion correcta para la realizacion del metodo
@@ -178,18 +177,17 @@ public class HotelService <K extends Operador>{
 
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteHotel(Hotel hotel) {
+	public Response deleteServicioInmobiliario(ServicioInmobiliario servicioinmobiliario) {
 		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
 
-			tm.deleteHotel(hotel);
-			return Response.status( 200 ).entity( hotel ).build( );			
+			tm.deleteServicioInmobiliario(servicioinmobiliario);
+			return Response.status( 200 ).entity( servicioinmobiliario ).build( );			
 		}
 		catch( Exception e )
 		{
 			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 		}
 	}
-	
 }

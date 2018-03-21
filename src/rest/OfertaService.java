@@ -66,7 +66,7 @@ public class OfertaService <K extends Operador> {
 
 			List<Oferta> ofertaes;
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			ofertaes = tm.getAllOfertas();
+			ofertaes = tm.getAllOfertaes();
 			return Response.status(200).entity(ofertaes).build();
 		} 
 		catch (Exception e) {
