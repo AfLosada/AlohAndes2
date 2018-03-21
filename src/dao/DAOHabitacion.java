@@ -104,7 +104,7 @@ public class DAOHabitacion
 	 */
 	public void addHabitacion(Habitacion habitacion) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.Habitacion (capacidad_habitacion, id_Habitacion, precio, tamanio, tipo, ubicion, idReserva, idOferta, idHotel, idHostal, idPersona, idViviendaU) VALUES (%2$s, %3$s, %4$s, %5$s, '%6$s', '%7$s', %8$s, %9$s, %10$s, %11$s, %12$s)", 
+		String sql = String.format("INSERT INTO %1$s.Habitacion (capacidad_habitacion, id_Habitacion, precio, tamanio, tipo, ubicion, id_reserva, id_oferta, id_hotel, id_hostal, id_persona, id_viviendau) VALUES (%2$s, %3$s, %4$s, %5$s, '%6$s', '%7$s', %8$s, %9$s, %10$s, %11$s, %12$s)", 
 				USUARIO, 
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
@@ -139,7 +139,7 @@ public class DAOHabitacion
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HABITACION ", USUARIO));
 		sql.append (String.format (
-				"SET CAPACIDAD_habitacion = %1$s, ID_habitacion = %2$s, PRECIO = %3$s , TAMANIO = %4$s, UBICACION = '%5$s', TIPO = '%6$s', ID_RESERVA = %7$s, ID_OFERTA = %8$s, ID_HOSTEL = %9$s, ID_HOSTAL = %10$s, ID_PERSONA = %11$s, ID_VIVIENDAU = %12$s",
+				"SET CAPACIDAD_HABITACION= %1$s, ID_HABITACION = %2$s, PRECIO = %3$s , TAMANIO = %4$s, UBICACION = '%5$s', TIPO = '%6$s', ID_RESERVA = %7$s, ID_OFERTA = %8$s, ID_HOSTEL = %9$s, ID_HOSTAL = %10$s, ID_PERSONA = %11$s, ID_VIVIENDAU = %12$s",
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
 				habitacion.getPrecio(), 
@@ -223,13 +223,12 @@ public class DAOHabitacion
 		String ubicacion = resultSet.getString("ubicacion");
 		String id = resultSet.getString("id_habitacion");
 		String tipo = resultSet.getString("tipo");
-		String idReserva = resultSet.getString("id_Reserva");
-		String idOferta = resultSet.getString("id_Oferta");
-		String idHotel = resultSet.getString("id_Hotel");
-		String idHostal = resultSet.getString("id_Hostal");
-		String idPersona = resultSet.getString("id_Persona");
-		String idViviendaU = resultSet.getString("id_ViviendaU");
-		
+		String idReserva = resultSet.getString("id_reserva");
+		String idOferta = resultSet.getString("id_oferta");
+		String idHotel = resultSet.getString("id_hotel");
+		String idHostal = resultSet.getString("id_hostal");
+		String idPersona = resultSet.getString("id_persona");
+		String idViviendaU = resultSet.getString("id_viviendau");
 
 		/**
 		 * habitacion.getCapacidad(),

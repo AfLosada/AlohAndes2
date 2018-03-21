@@ -1,17 +1,14 @@
 package dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.Apartamento;
-import vos.Apartamento;
-import vos.Apartamento;
-import vos.Apartamento;
-import vos.Apartamento;
-import vos.Apartamento;
+
 
 public class DAOApartamento 
 {
@@ -110,7 +107,7 @@ public class DAOApartamento
 	 */
 	public void addApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.Apartamento (amoblado, capacidad_apto, id_apartamento, precio_apto, id_persona, id_oferta) VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, %7$s)", 
+		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (amoblado, capacidad_apto, id_apartamento, precio_apto, id_persona, id_oferta) VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, %7$s)", 
 									USUARIO, 
 									apartamento.toString(apartamento.isAmoblado()), 
 									apartamento.getCapacidad(),
@@ -139,7 +136,7 @@ public class DAOApartamento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.APARTAMENTO ", USUARIO));
 		sql.append (String.format (
-				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = %2$s, ID_APARTAMENTO = %3$s , PRECI_APTOO = %4$s, ID_PERSONA = %5$s, ID_OFERTA = %6$s",
+				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = '%2$s', ID_APARTAMENTO = '%3$s' , PRECIO_APTO = '%4$s', ID_PERSONA = '%5$s', ID_OFERTA = '%6$s'",
 				apartamento.toString(apartamento.isAmoblado()), 
 				apartamento.getCapacidad(),
 				apartamento.getId(), 

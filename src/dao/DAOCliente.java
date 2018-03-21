@@ -140,7 +140,7 @@ public class DAOCliente
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.CLIENTE ", USUARIO));
 		sql.append (String.format (
-				"SET ID_cliente = %1$s, EDAD = %2$s, MIEMBRO_comunidad = '%3$s' , TIPO_cliente = '%4$s', NOMBRE_cliente = '%5$s'",
+				"SET ID_CLIENTE = %1$s, EDAD = %2$s, MIEMBRO_COMUNIDAD = '%3$s' , TIPO_CLIENTE = '%4$s', NOMBRE_CLIENTE = '%5$s'",
 				cliente.getId(),
 				cliente.getEdad(), 
 				cliente.toString(cliente.isMiembro()), 

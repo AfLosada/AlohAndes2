@@ -57,7 +57,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 		ArrayList<HabitacionesServiciosInmobiliarios> habitacionesServicioInmobiliarios = new ArrayList<HabitacionesServiciosInmobiliarios>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -79,11 +79,11 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public HabitacionesServiciosInmobiliarios findHabitacionesServicioInmobiliarioById(Long id) throws SQLException, Exception 
+	public HabitacionesServiciosInmobiliarios findHabitacionesServicioInmobiliarioById (Integer id) throws SQLException, Exception 
 	{
 		HabitacionesServiciosInmobiliarios HabitacionesServicioInmobiliario = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -105,7 +105,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 */
 	public void addHabitacionesServicioInmobiliario(HabitacionesServiciosInmobiliarios habitacionesServicioInmobiliario) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HabitacionesServicioInmobiliario (idservicioinmobiliario, idhabitacion) VALUES (%2$s, '%3$s')", 
+		String sql = String.format("INSERT INTO %1$s.HABITACIONES_INMOBILIARIOS (ID_SERVICIO_INMOBILIARIO, ID_HABITACION) VALUES (%2$s, '%3$s')", 
 				USUARIO, 
 				habitacionesServicioInmobiliario.getIdServicioInmobiliario(),
 				habitacionesServicioInmobiliario.getIdHabitacion());
@@ -128,9 +128,9 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	public void updateHabitacionesServicioInmobiliario(HabitacionesServiciosInmobiliarios habitacionesServicioInmobiliario) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE %s.HABITACION ", USUARIO));
+		sql.append (String.format ("UPDATE %s.HABITACIONES_INMOBILIARIOS ", USUARIO));
 		sql.append (String.format (
-				"SET IDSERVICIOINMOBILIARIO = '%1$s', IDHABITACION = '%2$s'",
+				"SET ID_SERVICIO_INMOBILIARIO = '%1$s', ID_HABITACION = '%2$s'",
 				habitacionesServicioInmobiliario.getIdServicioInmobiliario(),
 				habitacionesServicioInmobiliario.getIdHabitacion()));
 		sql.append ("WHERE ID = " + habitacionesServicioInmobiliario.getIdServicioInmobiliario());
@@ -150,7 +150,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 */
 	public void deleteHabitacionesServicioInmobiliario(HabitacionesServiciosInmobiliarios habitacionesServicioInmobiliario) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.HABITACION WHERE ID = %3$d", USUARIO, "" + habitacionesServicioInmobiliario.getIdServicioInmobiliario() + habitacionesServicioInmobiliario.getIdHabitacion());
+		String sql = String.format("DELETE FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ID = %3$d", USUARIO, "" + habitacionesServicioInmobiliario.getIdServicioInmobiliario() + habitacionesServicioInmobiliario.getIdHabitacion());
 
 		System.out.println(sql);
 
@@ -198,18 +198,18 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase HabitacionesServicioInmobiliario. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		String capacidad = resultSet.getString("idhabitacion");
-		String precio = resultSet.getString("precio");
-		String tamanio = resultSet.getString("tamanio");
-		String ubicacion = resultSet.getString("ubicacion");
-		String id = resultSet.getString("idservicioinmobiliario");
-		String tipo = resultSet.getString("tipo");
-		String idReserva = resultSet.getString("idReserva");
-		String idOferta = resultSet.getString("idOferta");
-		String idHotel = resultSet.getString("idHotel");
-		String idHostal = resultSet.getString("idHostal");
-		String idPersona = resultSet.getString("idPersona");
-		String idViviendaU = resultSet.getString("idViviendaU");
+		String capacidad = resultSet.getString("ID_HABITACION");
+//		String precio = resultSet.getString("precio");
+//		String tamanio = resultSet.getString("tamanio");
+//		String ubicacion = resultSet.getString("ubicacion");
+		String id = resultSet.getString("ID_SERVICIO_INMOBILIARIO");
+//		String tipo = resultSet.getString("tipo");
+//		String idReserva = resultSet.getString("idReserva");
+//		String idOferta = resultSet.getString("idOferta");
+//		String idHotel = resultSet.getString("idHotel");
+//		String idHostal = resultSet.getString("idHostal");
+//		String idPersona = resultSet.getString("idPersona");
+//		String idViviendaU = resultSet.getString("idViviendaU");
 
 		/**
 		 * habitacionesServicioInmobiliario.getCapacidad(),
