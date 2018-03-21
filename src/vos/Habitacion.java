@@ -10,13 +10,13 @@ public class Habitacion
 	//
 	
 	@JsonProperty( value = "capacidad_habitacion" )
-	private int capacidad;
+	private Integer capacidad;
 
 	@JsonProperty( value = "id_habitacion" )
-	private int id;
+	private Integer id;
 	
 	@JsonProperty( value = "precio" )
-	private int precio;
+	private Integer precio;
 	
 	@JsonProperty( value = "tamanio" )
 	private double tamanio;
@@ -28,27 +28,27 @@ public class Habitacion
 	private TipoHabitacion tipo;
 
 	@JsonProperty ( value = "id_Oferta")
-	private int idOferta;
+	private Integer idOferta;
 	
 	@JsonProperty ( value = "id_Reserva")
-	private int idReserva;
+	private Integer idReserva;
 	
 	@JsonProperty (value = "id_Hotel")
-	private int idHotel;
+	private Integer idHotel;
 	
 	@JsonProperty (value = "id_Hostal")
-	private int idHostal;
+	private Integer idHostal;
 	
 	@JsonProperty (value = "id_Persona")
-	private int idPersona;
+	private Integer idPersona;
 	
 	@JsonProperty (value = "id_ViviendaU")
-	private int idViviendaU;
+	private Integer idViviendaU;
 	
 	
 	private enum TipoHabitacion
 	{
-		Compartida, Individual, Suite, SemiSuite, Estandar;
+		COMPARTIDA, INDIVIDUAL, SUITE, SEMISUITE, ESTANDAR;
 	}
 	
 	
@@ -56,7 +56,7 @@ public class Habitacion
 	// Constructor
 	//
 	
-	public Habitacion(int capacidad, int id, int precio, double tamanio, String ubicacion, String tipo, int idReserva, int idOfertax, int idHotel, int idHostal, int idPersona, int idViviendaU) 
+	public Habitacion(Integer capacidad, Integer id, Integer precio, double tamanio, String ubicacion, String tipo, Integer idReserva, Integer idOfertax, Integer idHotel, Integer idHostal, Integer idPersona, Integer idViviendaU) 
 	{
 		super();
 		this.capacidad = capacidad;
@@ -78,32 +78,32 @@ public class Habitacion
 	// Getters y Setters
 	//
 	
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 
 
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
-	public int getPrecio() {
+	public Integer getPrecio() {
 		return precio;
 	}
 
 
-	public void setPrecio(int precio) {
+	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
 
@@ -140,84 +140,84 @@ public class Habitacion
 	/**
 	 * @return the idOferta
 	 */
-	public int getIdOferta() {
+	public Integer getIdOferta() {
 		return idOferta;
 	}
 
 	/**
 	 * @param idOferta the idOferta to set
 	 */
-	public void setIdOferta(int idOferta) {
+	public void setIdOferta(Integer idOferta) {
 		this.idOferta = idOferta;
 	}
 	
 	/**
 	 * @return the idReserva
 	 */
-	public int getIdReserva() {
+	public Integer getIdReserva() {
 		return idReserva;
 	}
 
 	/**
 	 * @param idReserva the idReserva to set
 	 */
-	public void setIdReserva(int idReserva) {
+	public void setIdReserva(Integer idReserva) {
 		this.idReserva = idReserva;
 	}
 
 	/**
 	 * @return the idHotel
 	 */
-	public int getIdHotel() {
+	public Integer getIdHotel() {
 		return idHotel;
 	}
 
 	/**
 	 * @param idHotel the idHotel to set
 	 */
-	public void setIdHotel(int idHotel) {
+	public void setIdHotel(Integer idHotel) {
 		this.idHotel = idHotel;
 	}
 
 	/**
 	 * @return the idHostal
 	 */
-	public int getIdHostal() {
+	public Integer getIdHostal() {
 		return idHostal;
 	}
 
 	/**
 	 * @param idHostal the idHostal to set
 	 */
-	public void setIdHostal(int idHostal) {
+	public void setIdHostal(Integer idHostal) {
 		this.idHostal = idHostal;
 	}
 
 	/**
 	 * @return the idPersona
 	 */
-	public int getIdPersona() {
+	public Integer getIdPersona() {
 		return idPersona;
 	}
 
 	/**
 	 * @param idPersona the idPersona to set
 	 */
-	public void setIdPersona(int idPersona) {
+	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 
 	/**
 	 * @return the idViviendaU
 	 */
-	public int getIdViviendaU() {
+	public Integer getIdViviendaU() {
 		return idViviendaU;
 	}
 
 	/**
 	 * @param idViviendaU the idViviendaU to set
 	 */
-	public void setIdViviendaU(int idViviendaU) {
+	public void setIdViviendaU(Integer idViviendaU) {
 		this.idViviendaU = idViviendaU;
 	}
 

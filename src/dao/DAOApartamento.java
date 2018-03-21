@@ -139,7 +139,7 @@ public class DAOApartamento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.APARTAMENTO ", USUARIO));
 		sql.append (String.format (
-				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = '%2$s', ID_APARTAMENTO = '%3$s' , PRECI_APTOO = '%4$s', ID_PERSONA = '%5$s', ID_OFERTA = '%6$s'",
+				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = %2$s, ID_APARTAMENTO = %3$s , PRECI_APTOO = %4$s, ID_PERSONA = %5$s, ID_OFERTA = %6$s",
 				apartamento.toString(apartamento.isAmoblado()), 
 				apartamento.getCapacidad(),
 				apartamento.getId(), 

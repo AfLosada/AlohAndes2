@@ -217,18 +217,19 @@ public class DAOHabitacion
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Habitacion. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		String capacidad = resultSet.getString("capacidad");
+		String capacidad = resultSet.getString("capacidad_habitacion");
 		String precio = resultSet.getString("precio");
 		String tamanio = resultSet.getString("tamanio");
 		String ubicacion = resultSet.getString("ubicacion");
-		String id = resultSet.getString("id");
+		String id = resultSet.getString("id_habitacion");
 		String tipo = resultSet.getString("tipo");
-		String idReserva = resultSet.getString("idReserva");
-		String idOferta = resultSet.getString("idOferta");
-		String idHotel = resultSet.getString("idHotel");
-		String idHostal = resultSet.getString("idHostal");
-		String idPersona = resultSet.getString("idPersona");
-		String idViviendaU = resultSet.getString("idViviendaU");
+		String idReserva = resultSet.getString("id_Reserva");
+		String idOferta = resultSet.getString("id_Oferta");
+		String idHotel = resultSet.getString("id_Hotel");
+		String idHostal = resultSet.getString("id_Hostal");
+		String idPersona = resultSet.getString("id_Persona");
+		String idViviendaU = resultSet.getString("id_ViviendaU");
+		
 
 		/**
 		 * habitacion.getCapacidad(),
