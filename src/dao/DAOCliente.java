@@ -109,7 +109,7 @@ public class DAOCliente
 			throw new Exception();
 		}
 
-		String sql = String.format("INSERT INTO %1$s.Cliente (id_cliente, edad, miembro_comunidad, nombre_cliente, tipo_cliente) VALUES (%2$s, %3$s, '%4$s', '%5$s', '%6$s')", 
+		String sql = String.format("INSERT INTO %1$s.Cliente (id_cliente, edad, miembro_comunidad, tipo_cliente, nombre_cliente) VALUES (%2$s, %3$s, '%4$s', '%5$s', '%6$s')", 
 				USUARIO, 
 				cliente.getId(),
 				cliente.getEdad(), 
@@ -218,7 +218,7 @@ public class DAOCliente
 		}
 
 		String edad = resultSet.getString("EDAD");
-		String nombre = resultSet.getString("NOMBRE");
+		String nombre = resultSet.getString("NOMBRE_CLIENTE");
 		String id = resultSet.getString("ID_CLIENTE");
 		String tipo = resultSet.getString("TIPO_CLIENTE");
 

@@ -3340,14 +3340,13 @@ public class AlohAndesTransactionManager <K extends Operador>
 		{
 			habitaciones.get(i).setIdHostal(hostal.getId());
 			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
-
+			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
+			sisa.setIdServicioInmobiliario(sIn.getId());
+			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
+			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i).getId());
+			noka.setIdServicioPublico(sPub.getId());
+			daoHabitacionSerPub.updateHabitacionesServicioPublico(noka);
 		}
-
-		int numReservas = oferta.getNumReservas();
-		numReservas++;
-		oferta.setNumReservas(numReservas);
-
 	}
 	
 	

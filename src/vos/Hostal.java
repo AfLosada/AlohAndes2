@@ -10,16 +10,16 @@ public class Hostal extends Operador
 	@JsonProperty( value = "capacidad")
 	private int capacidad;
 
-	@JsonProperty( value = "id")
+	@JsonProperty( value = "id_hostal")
 	private int id;
 
-	@JsonProperty( value = "horaApertura")
+	@JsonProperty( value = "hora_Apertura")
 	private String horaApertura;
 
-	@JsonProperty( value = "horaCierre")
+	@JsonProperty( value = "hora_Cierre")
 	private String horaCierre;
 
-	@JsonProperty( value = "recepcion24horas")
+	@JsonProperty( value = "recepcion24_horas")
 	private boolean recepcion24horas;
 	
 
@@ -28,8 +28,8 @@ public class Hostal extends Operador
 	//
 
 
-	public Hostal(boolean camaraComercio, String nombreOperador, boolean superIntendenciaTurismo, int capacidad, int id,
-			String horaApertura, String horaCierre, boolean recepcion24horas) {
+	public Hostal(@JsonProperty( value = "camara_comercio")boolean camaraComercio,@JsonProperty( value = "nombre") String nombreOperador,@JsonProperty( value = "superintendencia_turismo") boolean superIntendenciaTurismo,@JsonProperty( value = "capacidad_hostal") int capacidad,@JsonProperty( value = "id_Hostal") int id,
+			@JsonProperty( value = "hora_Apertura")String horaApertura,@JsonProperty( value = "hora_cierre") String horaCierre,@JsonProperty( value = "recepcion24_horas") boolean recepcion24horas) {
 		super(camaraComercio, nombreOperador, superIntendenciaTurismo);
 		this.capacidad = capacidad;
 		this.id = id;
