@@ -106,7 +106,7 @@ public class DAOOferta
 	 */
 	public void addOferta(Oferta oferta) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.OFERTA (id, numReservas, vigente, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s')", 
+		String sql = String.format("INSERT INTO %1$s.OFERTA (id, numReservas, vigente, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, %3$s, '%4$s', %5$s, %6$s, %7$s, %8$s, %9$s)", 
 				USUARIO, 
 				oferta.getId(),
 				oferta.getNumReservas(),

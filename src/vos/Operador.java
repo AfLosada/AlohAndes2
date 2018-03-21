@@ -11,13 +11,13 @@ public class Operador
 	// Atributos
 	//
 	
-	@JsonProperty( value = "camaraComercio" )
+	@JsonProperty( value = "camara_Comercio" )
 	private boolean camaraComercio;
 
-	@JsonProperty( value = "nombreOperador" )
+	@JsonProperty( value = "nombre" )
 	private String nombreOperador;
 	
-	@JsonProperty( value = "superIntendenciaTurismo" )
+	@JsonProperty( value = "superIntendencia_Turismo" )
 	private boolean superIntendenciaTurismo;
 	
 	//

@@ -104,7 +104,7 @@ public class DAOHostal
 	 */
 	public void addHostal(Hostal hostal) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.HOSTAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOSTAL, ID_HOSTAL, HORA_APERTURA, HORA_CIERRE, RECEPCION24_HORAS) VALUES (%2$s, '%3$s', '%4$s', %5$s, %6$s, '%7$s', '%8$s', '%9$s')", 
+		String sql = String.format("INSERT INTO HOSTAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOSTAL, ID_HOSTAL, HORA_APERTURA, HORA_CIERRE, RECEPCION24_HORAS) VALUES ('%2$s', '%3$s', '%4$s',%5$s, %6$s, '%7$s', '%8$s', '%9$s')", 
 				USUARIO, 
 				hostal.toString(hostal.isCamaraComercio()),
 				hostal.getNombreOperador(),

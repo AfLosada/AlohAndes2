@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -19,6 +20,7 @@ import vos.Cliente;
 import vos.Hotel;
 import vos.Operador;
 
+@Path("/hoteles")
 public class HotelService <K extends Operador>{
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -112,7 +114,7 @@ public class HotelService <K extends Operador>{
 
 	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-	@PUT
+	@POST
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addHotel(Hotel hotel) {

@@ -19,7 +19,7 @@ public class DAOHotel
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -72,7 +72,7 @@ public class DAOHotel
 
 	/**
 	 * Metodo que obtiene la informacion del Hotel en la Base de Datos que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
 	 * @param id el identificador del Hotel
 	 * @return la informacion del Hotel que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe el Hotel conlos criterios establecidos
@@ -105,7 +105,7 @@ public class DAOHotel
 	 */
 	public void addHotel(Hotel hotel) throws SQLException, Exception {
 		
-		String sql = String.format("INSERT INTO %1$s.HOTEL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOTEL, ID_HOTEL) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.HOTEL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_HOTEL, ID_HOTEL) VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s)", 
 				USUARIO, 
 				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
@@ -134,7 +134,7 @@ public class DAOHotel
 		sql.append (String.format ("UPDATE %s.HOTEL ", USUARIO));
 		sql.append (String.format (
 				
-				"SET CAMARA_COMERCIO = '%1$s',NOMBRE, = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOTEL = '%4$s',ID_HOTEL = '%5$s'",
+				"SET CAMARA_COMERCIO = '%1$s',NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , CAPACIDAD_HOTEL = %4$s, ID_HOTEL = %5$s",
 
 				hotel.toString(hotel.isCamaraComercio()),
 				hotel.getNombreOperador(),
