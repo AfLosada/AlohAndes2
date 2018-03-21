@@ -238,8 +238,40 @@ public class DAOHabitacion
 				habitacion.getUbicacion(),
 				habitacion.getTipo());
 		 */
-
-		Habitacion beb = new Habitacion(Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio), Double.parseDouble(tamanio), ubicacion,tipo, Integer.parseInt(idReserva), Integer.parseInt(idOferta), Integer.parseInt(idHotel), Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idViviendaU));
+		
+		Integer rta1 = null;
+		Integer rta2 = null;
+		Integer rta3 = null;
+		Integer rta4 = null;
+		Integer rta5 = null;
+		Integer rta6 = null;
+		
+		if(idReserva != null )
+		{
+			rta1 = Integer.parseInt(idReserva);
+		}
+		if(idOferta != null )
+		{
+			rta1 = Integer.parseInt(idOferta);
+		}
+		if(idHotel != null )
+		{
+			rta1 = Integer.parseInt(idHotel);
+		}
+		if(idHostal != null )
+		{
+			rta1 = Integer.parseInt(idHostal);
+		}
+		if(idPersona != null )
+		{
+			rta1 = Integer.parseInt(idPersona);
+		}
+		if(idViviendaU != null )
+		{
+			rta1 = Integer.parseInt(idViviendaU);
+		}
+		
+		Habitacion beb = new Habitacion(Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio), Double.parseDouble(tamanio), ubicacion,tipo, rta1, rta2, rta3, rta4, rta5, rta6);
 
 		return beb;
 	}

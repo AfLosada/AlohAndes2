@@ -4,59 +4,59 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Habitacion 
 {
-	
+
 	//
 	// Atributos
 	//
-	
+
 	@JsonProperty( value = "capacidad_habitacion" )
 	private Integer capacidad;
 
 	@JsonProperty( value = "id_habitacion" )
 	private Integer id;
-	
-	@JsonProperty( value = "precio" )
+
+	@JsonProperty( value = "precio_habitacion" )
 	private Integer precio;
-	
+
 	@JsonProperty( value = "tamanio" )
 	private double tamanio;
-	
+
 	@JsonProperty( value = "ubicacion" )
 	private String ubicacion;
-	
+
 	@JsonProperty( value = "tipo" )
 	private TipoHabitacion tipo;
 
 	@JsonProperty ( value = "id_Oferta")
 	private Integer idOferta;
-	
+
 	@JsonProperty ( value = "id_Reserva")
 	private Integer idReserva;
-	
+
 	@JsonProperty (value = "id_Hotel")
 	private Integer idHotel;
-	
+
 	@JsonProperty (value = "id_Hostal")
 	private Integer idHostal;
-	
+
 	@JsonProperty (value = "id_Persona")
 	private Integer idPersona;
-	
+
 	@JsonProperty (value = "id_ViviendaU")
 	private Integer idViviendaU;
-	
-	
+
+
 	private enum TipoHabitacion
 	{
-		COMPARTIDA, INDIVIDUAL, SUITE, SEMISUITE, ESTANDAR;
+		COMPARTIDA, INDIVIDUAL, SUITE, SEMISUITE, ESTANDAR, DOBLE;
 	}
-	
-	
+
+
 	//
 	// Constructor
 	//
-	
-	public Habitacion(Integer capacidad, Integer id, Integer precio, double tamanio, String ubicacion, String tipo, Integer idReserva, Integer idOfertax, Integer idHotel, Integer idHostal, Integer idPersona, Integer idViviendaU) 
+
+	public Habitacion(@JsonProperty( value = "capacidad_habitacion" )Integer capacidad, @JsonProperty( value = "id_habitacion" )Integer id,@JsonProperty( value = "precio_habitacion" ) Integer precio,@JsonProperty( value = "precio" ) double tamanio,@JsonProperty( value = "ubicacion" ) String ubicacion,@JsonProperty( value = "tipo" ) String tipo,@JsonProperty( value = "id_Reserva" ) Integer idReserva,@JsonProperty( value = "id_Oferta" ) Integer idOfertax,@JsonProperty( value = "id_Hotel" ) Integer idHotel,@JsonProperty( value = "id_Hostal" ) Integer idHostal,@JsonProperty( value = "id_Persona" ) Integer idPersona,@JsonProperty( value = "id_ViviendaU" ) Integer idViviendaU) 
 	{
 		super();
 		this.capacidad = capacidad;
@@ -71,13 +71,13 @@ public class Habitacion
 		this.idHostal = idHostal;
 		this.idViviendaU = idViviendaU;
 		this.idPersona = idPersona;
-		
+
 	}
-	
+
 	//
 	// Getters y Setters
 	//
-	
+
 	public Integer getCapacidad() {
 		return capacidad;
 	}
@@ -150,7 +150,7 @@ public class Habitacion
 	public void setIdOferta(Integer idOferta) {
 		this.idOferta = idOferta;
 	}
-	
+
 	/**
 	 * @return the idReserva
 	 */
@@ -221,5 +221,5 @@ public class Habitacion
 		this.idViviendaU = idViviendaU;
 	}
 
-	
+
 }
