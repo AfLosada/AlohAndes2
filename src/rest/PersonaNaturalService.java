@@ -84,7 +84,7 @@ public class PersonaNaturalService <K extends Operador>{
 	@GET
 	@Path( "/personanatural/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getPersonaNaturalById( @PathParam( "id" ) Long id )
+	public Response getPersonaNaturalById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

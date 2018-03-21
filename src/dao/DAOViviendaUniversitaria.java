@@ -85,7 +85,7 @@ public class DAOViviendaUniversitaria
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ViviendaUniversitaria findViviendaUniversitariaById(Long id) throws SQLException, Exception 
+	public ViviendaUniversitaria findViviendaUniversitariaById(Integer id) throws SQLException, Exception 
 	{
 		ViviendaUniversitaria ViviendaUniversitaria = null;
 

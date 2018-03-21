@@ -56,7 +56,7 @@ public class DAOPersonaNatural
 		ArrayList<PersonaNatural> personaNaturals = new ArrayList<PersonaNatural>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.PersonaNatural WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.PERSONA_NATURAL WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -78,11 +78,11 @@ public class DAOPersonaNatural
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public PersonaNatural findPersonaNaturalById(Long id) throws SQLException, Exception 
+	public PersonaNatural findPersonaNaturalById(Integer id) throws SQLException, Exception 
 	{
 		PersonaNatural PersonaNatural = null;
 
-		String sql = String.format("SELECT * FROM %1$s.PERSONANATURAL WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.PERSONA_NATURAL WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -103,8 +103,7 @@ public class DAOPersonaNatural
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void addPersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
-
-		String sql = String.format("INSERT INTO %1$s.PERSONANATURAL (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id, horaApertura, horaCierre, recepcion24horas) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s')", 
+		String sql = String.format("INSERT INTO %1$s.PERSONA_NATURAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO,  EDAD, ID_PERSONA, MIEMBRO_COMUNIDAD) VALUES ('%2$s', '%3$s', '%4$s', '%5$s', %6$s, '%7$s' ", 
 				USUARIO, 
 				personaNatural.toString(personaNatural.isCamaraComercio()),
 				personaNatural.getNombreOperador(),
@@ -131,9 +130,9 @@ public class DAOPersonaNatural
 	public void updatePersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE %s.PERSONANATURAL ", USUARIO));
+		sql.append (String.format ("UPDATE %s.PERSONA_NATURAL ", USUARIO));
 		sql.append (String.format (
-				"SET camaracomercio = '%1$s', nombreOperador = '%2$s', superintendenciaturismo = '%3$s' , edad = '%4$s', id = '%5$s', miembro = '%6$s'",
+				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s' , EDAD = '%4$s', ID_PERSONA = '%5$s', MIEMBRO_COMUNIDAD = '%6$s'",
 				personaNatural.toString(personaNatural.isCamaraComercio()),
 				personaNatural.getNombreOperador(),
 				personaNatural.toString(personaNatural.isSuperIntendenciaTurismo()),
@@ -157,7 +156,7 @@ public class DAOPersonaNatural
 	 */
 	public void deletePersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.PERSONANATURAL WHERE ID = %3$d", USUARIO, personaNatural.getId());
+		String sql = String.format("DELETE FROM %1$s.PERSONA_NATURAL WHERE ID = %3$d", USUARIO, personaNatural.getId());
 
 		System.out.println(sql);
 
@@ -209,28 +208,28 @@ public class DAOPersonaNatural
 		boolean rta2 = false;
 		boolean rta3 = false;
 
-
-		String camara = resultSet.getString("camara");
+		
+		String camara = resultSet.getString("CAMARA_COMERCIO");
 
 		if(camara.equals("1"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("nombre");
-		String superI = resultSet.getString("superIndendenciaFinanciera");
+		String nombre = resultSet.getString("NOMBRE");
+		String superI = resultSet.getString("SUPERINTENDENCIA_TURISMO");
 		if(superI.equals("1"))
 		{
 			rta2 = true;
 		}
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
-		String miembro = resultSet.getString("miembro");
+		String edad = resultSet.getString("EDAD");
+		String id = resultSet.getString("ID_PERSONA");
+		String miembro = resultSet.getString("MIEMBRO_COMUNIDAD");
 		if(miembro.equals("1"))
 		{
 			rta3 = true;
 		}
 
-		PersonaNatural beb = new PersonaNatural(rta1, nombre, rta2, Integer.parseInt(capacidad), Integer.parseInt(id), rta3);
+		PersonaNatural beb = new PersonaNatural(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(id), rta3);
 
 		return beb;
 	}

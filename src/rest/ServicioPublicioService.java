@@ -85,7 +85,7 @@ public class ServicioPublicioService <K extends Operador>
 	@GET
 	@Path( "/serviciopublico/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getServicioPublicoById( @PathParam( "id" ) Long id )
+	public Response getServicioPublicoById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

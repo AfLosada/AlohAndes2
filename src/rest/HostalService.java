@@ -86,7 +86,7 @@ public class HostalService <K extends Operador>
 	@GET
 	@Path( "/hotales/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getHostalById( @PathParam( "id" ) Long id )
+	public Response getHostalById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

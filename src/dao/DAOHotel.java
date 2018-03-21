@@ -79,7 +79,7 @@ public class DAOHotel
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Hotel findHotelById(Long id) throws SQLException, Exception 
+	public Hotel findHotelById(Integer id) throws SQLException, Exception 
 	{
 		Hotel Hotel = null;
 

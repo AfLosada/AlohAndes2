@@ -84,7 +84,7 @@ public class SalaService <K extends Operador>
 	@GET
 	@Path( "/sala/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getSalaById( @PathParam( "id" ) Long id )
+	public Response getSalaById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

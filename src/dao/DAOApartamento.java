@@ -81,7 +81,7 @@ public class DAOApartamento
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Apartamento findApartamentoById(Long id) throws SQLException, Exception 
+	public Apartamento findApartamentoById(Integer id) throws SQLException, Exception 
 	{
 		Apartamento Apartamento = null;
 

@@ -80,7 +80,7 @@ public class DAOOferta
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Oferta findOfertaById(Long id) throws SQLException, Exception 
+	public Oferta findOfertaById(Integer id) throws SQLException, Exception 
 	{
 		Oferta Oferta = null;
 
@@ -105,8 +105,8 @@ public class DAOOferta
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void addOferta(Oferta oferta) throws SQLException, Exception {
+		String sql = String.format("INSERT INTO %1$s.OFERTA (ID_OFERTA, NUM_RESERVAS, VIGENTE,ID_HOSTAL, ID_PERSONA, ID_HOTEL, ID_VIVIENDAU) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s')", 
 
-		String sql = String.format("INSERT INTO %1$s.OFERTA (id, numReservas, vigente, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, %3$s, '%4$s', %5$s, %6$s, %7$s, %8$s, %9$s)", 
 				USUARIO, 
 				oferta.getId(),
 				oferta.getNumReservas(),
@@ -114,8 +114,7 @@ public class DAOOferta
 				oferta.getIdHostal(),
 				oferta.getIdPersona(),
 				oferta.getIdHotel(),
-				oferta.getIdViviendaU(),
-				oferta.getIdCliente());
+				oferta.getIdViviendaU());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -137,15 +136,14 @@ public class DAOOferta
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.OFERTA ", USUARIO));
 		sql.append (String.format (
-				"SET ID = '%1$s', numReservas = '%2$s', vigente = '%3$s' , idHostal = '%4$s', idPersona = '%5$s', idViviendaU = '%6$s', idCliente = '%7$s'",
+				"SET ID_OFERTA = '%1$s', NUM_RESERVAS = '%2$s', VIGENTE = '%3$s' , ID_HOSTAL = '%4$s', ID_PERSONA = '%5$s', ID_HOTEL = '%6$s', ID_VIVIENDAU = '%7$s'",
 				oferta.getId(),
 				oferta.getNumReservas(),
 				oferta.toString(oferta.isVigente()),
 				oferta.getIdHostal(),
 				oferta.getIdPersona(),
 				oferta.getIdHotel(),
-				oferta.getIdViviendaU(),
-				oferta.getIdCliente()));
+				oferta.getIdViviendaU()));
 		sql.append ("WHERE ID = " + oferta.getId());
 		System.out.println(sql);
 
@@ -236,26 +234,25 @@ public class DAOOferta
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
+		
+		String id = resultSet.getString("ID_OFERTA");
 
-
-		String id = resultSet.getString("id");
-
-		String vigente = resultSet.getString("vigente");
+		String vigente = resultSet.getString("VIGENTE");
 
 		if(vigente.equals("1"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("numReservas");
-		String idHostal = resultSet.getString("idHostal");
-		String idPersona = resultSet.getString("idPersona");
-		String idHotel = resultSet.getString("idHotel");
-		String idViviendaU = resultSet.getString("idViviendaU");
-		String idCliente = resultSet.getString("idCliente");
+		String nombre = resultSet.getString("NUM_RESERVAS");
+		String idHostal = resultSet.getString("ID_HOSTAL");
+		String idPersona = resultSet.getString("ID_PERSONA");
+		String idHotel = resultSet.getString("ID_HOTEL");
+		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
 
-		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idHotel), Integer.parseInt(idViviendaU), Integer.parseInt(idCliente));
+		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idHotel), Integer.parseInt(idViviendaU));
 
 		return beb;
 	}
 
 }
+

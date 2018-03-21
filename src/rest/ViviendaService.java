@@ -85,7 +85,7 @@ public class ViviendaService <K extends Operador>{
 	@GET
 	@Path( "/vivienda/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response getViviendaById( @PathParam( "id" ) Long id )
+	public Response getViviendaById( @PathParam( "id" ) Integer id )
 	{
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

@@ -45,10 +45,8 @@ public class Oferta
 	 * @param idPersona
 	 * @param idHotel
 	 * @param idViviendaU
-	 * @param idCliente
 	 */
-	public Oferta(int id, int numReservas, boolean vigente, int idHostal, int idPersona, int idHotel, int idViviendaU,
-			int idCliente) {
+	public Oferta(int id, int numReservas, boolean vigente, int idHostal, int idPersona, int idHotel, int idViviendaU) {
 		super();
 		this.id = id;
 		this.numReservas = numReservas;
@@ -57,7 +55,7 @@ public class Oferta
 		this.idPersona = idPersona;
 		this.idHotel = idHotel;
 		this.idViviendaU = idViviendaU;
-		this.idCliente = idCliente;
+
 	}
 	
 	//
@@ -161,21 +159,6 @@ public class Oferta
 
 
 
-	/**
-	 * @return the idCliente
-	 */
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-
-
-	/**
-	 * @param idCliente the idCliente to set
-	 */
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
 
 	public String toString(boolean vigente2) 
 	{

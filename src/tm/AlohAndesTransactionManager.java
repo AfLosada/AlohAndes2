@@ -179,7 +179,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Apartamento - Apartamento que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Apartamento getApartamentoById(Long id) throws Exception {
+	public Apartamento getApartamentoById(Integer id) throws Exception {
 		DAOApartamento daoApartamento = new DAOApartamento();
 		Apartamento apartamento = null;
 		try 
@@ -664,7 +664,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Habitacion - Habitacion que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Habitacion getHabitacionById(Long id) throws Exception {
+	public Habitacion getHabitacionById(Integer id) throws Exception {
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		Habitacion habitacion = null;
 		try 
@@ -906,7 +906,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Hostal - Hostal que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Hostal getHostalById(Long id) throws Exception {
+	public Hostal getHostalById(Integer id) throws Exception {
 		DAOHostal daoHostal = new DAOHostal();
 		Hostal hostal = null;
 		try 
@@ -1150,7 +1150,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Hotel - Hotel que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Hotel getHotelById(Long id) throws Exception {
+	public Hotel getHotelById(Integer id) throws Exception {
 		DAOHotel daoHotel = new DAOHotel();
 		Hotel hotel = null;
 		try 
@@ -1392,7 +1392,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Oferta - Oferta que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Oferta getOfertaById(Long id) throws Exception {
+	public Oferta getOfertaById(Integer id) throws Exception {
 		DAOOferta daoOferta = new DAOOferta();
 		Oferta oferta = null;
 		try 
@@ -1634,7 +1634,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return PersonaNatural - PersonaNatural que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public PersonaNatural getPersonaNaturalById(Long id) throws Exception {
+	public PersonaNatural getPersonaNaturalById(Integer id) throws Exception {
 		DAOPersonaNatural daoPersonaNatural = new DAOPersonaNatural();
 		PersonaNatural personanatural = null;
 		try 
@@ -1876,7 +1876,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Sala - Sala que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Sala getSalaById(Long id) throws Exception {
+	public Sala getSalaById(Integer id) throws Exception {
 		DAOSala daoSala = new DAOSala();
 		Sala sala = null;
 		try 
@@ -2118,7 +2118,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return ServicioInmobiliario - ServicioInmobiliario que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public ServicioInmobiliario getServicioInmobiliarioById(Long id) throws Exception {
+	public ServicioInmobiliario getServicioInmobiliarioById(Integer id) throws Exception {
 		DAOServicioInmobiliario daoServicioInmobiliario = new DAOServicioInmobiliario();
 		ServicioInmobiliario servicioinmobiliario = null;
 		try 
@@ -2360,7 +2360,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return ServicioPublico - ServicioPublico que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public ServicioPublico getServicioPublicoById(Long id) throws Exception {
+	public ServicioPublico getServicioPublicoById(Integer id) throws Exception {
 		DAOServicioPublico daoServicioPublico = new DAOServicioPublico();
 		ServicioPublico serviciopublico = null;
 		try 
@@ -2602,7 +2602,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Vecino - Vecino que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Vecino getVecinoById(Long id) throws Exception {
+	public Vecino getVecinoById(Integer id) throws Exception {
 		DAOVecino daoVecino = new DAOVecino();
 		Vecino vecino = null;
 		try 
@@ -2844,7 +2844,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Vivienda - Vivienda que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Vivienda getViviendaById(Long id) throws Exception {
+	public Vivienda getViviendaById(Integer id) throws Exception {
 		DAOVivienda daoVivienda = new DAOVivienda();
 		Vivienda vivienda = null;
 		try 
@@ -3089,7 +3089,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Reserva que se obtiene como resultado de la consulta.
 	 * @throws Exception -  cualquier error que se genere durante la transaccion
 	 */
-	public Reserva getReservaById(Long id) throws Exception {
+	public Reserva getReservaById(Integer id) throws Exception {
 		DAOReserva daoReserva = new DAOReserva();
 		Reserva reserva = null;
 		try 
