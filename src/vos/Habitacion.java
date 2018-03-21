@@ -9,10 +9,10 @@ public class Habitacion
 	// Atributos
 	//
 	
-	@JsonProperty( value = "capacidad" )
+	@JsonProperty( value = "capacidad_habitacion" )
 	private int capacidad;
 
-	@JsonProperty( value = "id" )
+	@JsonProperty( value = "id_habitacion" )
 	private int id;
 	
 	@JsonProperty( value = "precio" )
@@ -27,22 +27,22 @@ public class Habitacion
 	@JsonProperty( value = "tipo" )
 	private TipoHabitacion tipo;
 
-	@JsonProperty ( value = "idOferta")
+	@JsonProperty ( value = "id_Oferta")
 	private int idOferta;
 	
-	@JsonProperty ( value = "idReserva")
+	@JsonProperty ( value = "id_Reserva")
 	private int idReserva;
 	
-	@JsonProperty (value = "idHotel")
+	@JsonProperty (value = "id_Hotel")
 	private int idHotel;
 	
-	@JsonProperty (value = "idHostal")
+	@JsonProperty (value = "id_Hostal")
 	private int idHostal;
 	
-	@JsonProperty (value = "idPersona")
+	@JsonProperty (value = "id_Persona")
 	private int idPersona;
 	
-	@JsonProperty (value = "idViviendaU")
+	@JsonProperty (value = "id_ViviendaU")
 	private int idViviendaU;
 	
 	

@@ -18,7 +18,7 @@ public class DAOHabitacion
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -82,7 +82,7 @@ public class DAOHabitacion
 	{
 		Habitacion Habitacion = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID_Habitacion = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -104,7 +104,7 @@ public class DAOHabitacion
 	 */
 	public void addHabitacion(Habitacion habitacion) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.Habitacion (id, edad, miembro, nombre, tipo, idReserva, idOferta, idHotel, idHostal, idPersona, idViviendaU) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
+		String sql = String.format("INSERT INTO %1$s.Habitacion (capacidad_habitacion, id_Habitacion, precio, tamanio, tipo, ubicion, idReserva, idOferta, idHotel, idHostal, idPersona, idViviendaU) VALUES (%2$s, %3$s, %4$s, %5$s, '%6$s', '%7$s', %8$s, %9$s, %10$s, %11$s, %12$s)", 
 				USUARIO, 
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
@@ -139,7 +139,7 @@ public class DAOHabitacion
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.HABITACION ", USUARIO));
 		sql.append (String.format (
-				"SET CAPACIDAD = '%1$s', ID = '%2$s', PRECIO = '%3$s' , TAMANIO = '%4$s', UBICACION = '%5$s', TIPO = '%6$s', IDRESERVA = '%7$s', IDOFERTA = '%8$s', IDHOSTEL = '%9$s', IDHOSTAL = '%10$s', IDPERSONA = '%11$s', IDVIVIENDAU = '%12$s'",
+				"SET CAPACIDAD_habitacion = %1$s, ID_habitacion = %2$s, PRECIO = %3$s , TAMANIO = %4$s, UBICACION = '%5$s', TIPO = '%6$s', ID_RESERVA = %7$s, ID_OFERTA = %8$s, ID_HOSTEL = %9$s, ID_HOSTAL = %10$s, ID_PERSONA = %11$s, ID_VIVIENDAU = %12$s",
 				habitacion.getCapacidad(),
 				habitacion.getId(), 
 				habitacion.getPrecio(), 
@@ -229,7 +229,7 @@ public class DAOHabitacion
 		String idHostal = resultSet.getString("idHostal");
 		String idPersona = resultSet.getString("idPersona");
 		String idViviendaU = resultSet.getString("idViviendaU");
-		
+
 		/**
 		 * habitacion.getCapacidad(),
 				habitacion.getId(), 

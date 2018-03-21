@@ -18,6 +18,7 @@ import tm.AlohAndesTransactionManager;
 import vos.Habitacion;
 import vos.Operador;
 
+@Path("/habitaciones")
 public class HabitacionService <K extends Operador>
 {
 
@@ -60,7 +61,6 @@ public class HabitacionService <K extends Operador>
 		 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 		 */			
 		@GET
-		@Path( "/habitacion")
 		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getHabitacions() {
 
