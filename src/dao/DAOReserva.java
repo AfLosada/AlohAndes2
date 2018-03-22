@@ -112,7 +112,7 @@ public class DAOReserva {
 		
 		if(!(dur < 7 && dur >= 3))
 		{
-			throw new Exception("La duracion debe ser de m√°s de 3 d√≠as y menos que una semana");
+			throw new Exception("La duracion debe ser de m·s de 3 dÌas y menos que una semana");
 		}
 		else if(dur <7 )
 		{
@@ -125,8 +125,10 @@ public class DAOReserva {
 			   throw new Exception("El cliente de tipo " + tipo+" no puede reservar una Vivienda Universitaria.");
 		   }
 	   }
+	   
 	
-		String sql = String.format("INSERT INTO %1$s.RESERVA (confirmada, duracion, fecha, id, pagoAnticipado, tiempoCancelacion, valor, idHostal, idPersona, idHotel, idViviendaU, idCliente) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
+	
+		String sql = String.format("INSERT INTO %1$s.RESERVA (CONFIRMADA, DURACION, FECHA, ID_RESERVA , PAGO_ANTICIPADO, TIEMPO_CANCELACION, VALOR , ID_HOSTAL, ID_PERSONA, ID_HOTEL, ID_VIVIENDAU, ID_CLIENTE) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
 				USUARIO, 
 				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
@@ -159,7 +161,7 @@ public class DAOReserva {
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.RESERVA ", USUARIO));
 		sql.append (String.format (
-				"SET confirmada = '%1$s', duracion = '%2$s', fecha = '%3$s' , id = '%4$s', pagoAnticipado = '%5$s', tiempoCancelacion = '%6$s', valor = '%7$s', idHostal = '%8$s', idPersona = '%9$s', idHotel = '%10$s', idPersona = '%11$s', idHotel = '%12$s', idViviendaU = '%13$s', idCliente = '%14$s'",
+				"SET CONFIRMADA = '%1$s', DURACION = '%2$s', FECHA = '%3$s' , ID_RESERVA = '%4$s', PAGO_ANTICIPADO = '%5$s', TIEMPO_CANCELACION = '%6$s', ID_HOSTAL = %7$s, ID_PERSONA = %8$s, ID_HOTEL = %9$s, ID_PERSONA = %10$s, ID_HOTEL = %11$s, ID_VIVIENDAU = %12$s, ID_CLIENTE = %13$s",
 				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
 				reserva.getFecha(),
@@ -200,8 +202,8 @@ public class DAOReserva {
 	public void cancelarReserva(Reserva reserva) throws ParseException {
 		// TODO Auto-generated method stub
 		String tiempoCanc = reserva.getTiempoCancelacion();
-		Date fecha = new SimpleDateFormat("yyyy/mm/dd").parse(tiempoCanc);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date fecha = new SimpleDateFormat("mmdd-mm-yyyy").parse(tiempoCanc);
+		DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
 		Date actual = new Date();
 		dateFormat.format(actual.before(fecha));
 		if(actual.before(fecha))
@@ -210,7 +212,8 @@ public class DAOReserva {
 			StringBuilder sql = new StringBuilder();
 			sql.append (String.format ("UPDATE %s.RESERVA ", USUARIO));
 			sql.append (String.format (
-					"SET confirmada = '%1$s', duracion = '%2$s', fecha = '%3$s' , id = '%4$s', pagoAnticipado = '%5$s', tiempoCancelacion = '%6$s', valor = '%7$s', idHostal = '%8$s', idPersona = '%9$s', idHotel = '%10$s', idPersona = '%11$s', idHotel = '%12$s', idViviendaU = '%13$s', idCliente = '%14$s'",
+					
+					"SET CONFIRMADA = '%1$s', DURACION = %2$s, FECHA = '%3$s' , ID_RESERVA = %4$s, PAGO_ANTICIPADO= '%5$s', TIEMPO_CANCELACION = '%6$s', VALOR  = %7$s, ID_HOSTAL = %8$s, ID_PERSONA = %9$s, ID_HOTEL = %10$s, ID_VIVIENDAU = %11$s, ID_CLIENTE = %12$s",
 					reserva.toString(reserva.isConfirmada()),
 					reserva.getDuracion(),
 					reserva.getFecha(),
@@ -268,29 +271,28 @@ public class DAOReserva {
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
+		
+		String confirmada = resultSet.getString("CONFIRMADA");
 
-
-		String confirmada = resultSet.getString("confirmada");
-
-		if(confirmada.equals("T"))
+		if(confirmada.equals("1"))
 		{
 			rta1 = true;
 		}
-		String duracion = resultSet.getString("duracion");
-		String fecha = resultSet.getString("fecha");
-		String pagoAnticipado = resultSet.getString("pagoAnticipado");
-		if(pagoAnticipado.equals("T"))
+		String duracion = resultSet.getString("DURACION");
+		String fecha = resultSet.getString("FECHA");
+		String pagoAnticipado = resultSet.getString("PAGO_ANTICIPADO");
+		if(pagoAnticipado.equals("1"))
 		{
 			rta2 = true;
 		}
-		String id = resultSet.getString("id");
-		String tiempoCancelacion = resultSet.getString("tiempoCancelacion");
-		String valor = resultSet.getString("valor");
-		String idHostal = resultSet.getString("idHostal");
-		String idPersona = resultSet.getString("idPersona");
-		String idHotel = resultSet.getString("idHotel");
-		String idViviendaU = resultSet.getString("idViviendaU");
-		String idCliente = resultSet.getString("idCliente");
+		String id = resultSet.getString("ID_RESERVA");
+		String tiempoCancelacion = resultSet.getString("TIEMPO_CANCELACION");
+		String valor = resultSet.getString("VALOR ");
+		String idHostal = resultSet.getString("ID_HOSTAL");
+		String idPersona = resultSet.getString("ID_PERSONA");
+		String idHotel = resultSet.getString("ID_HOTEL");
+		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
+		String idCliente = resultSet.getString("ID_CLIENTE");
 
 		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idHotel), Integer.parseInt(idViviendaU), Integer.parseInt(idCliente));
 

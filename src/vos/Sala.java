@@ -1,6 +1,9 @@
 package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import vos.*;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Sala 
 {
@@ -22,16 +25,20 @@ public class Sala
 	@JsonProperty( value = "tieneCostoAdicional")
 	private boolean tieneCostoAdicional;
 	
+	@JsonProperty( value = "idViviendaU")
+	private int idViviendaU;
+	
 	//
 	// Constructor
 	//
 	
-	public Sala(double costo, int id, String proposito, boolean tieneCostoAdicional) {
+	public Sala(double costo, int id, String proposito, boolean tieneCostoAdicional, int idViviendaU) {
 		super();
 		this.costo = costo;
 		this.id = id;
 		this.proposito = proposito;
 		this.tieneCostoAdicional = tieneCostoAdicional;
+		this.idViviendaU = idViviendaU;
 	}
 
 	//
@@ -77,6 +84,14 @@ public class Sala
 		if(tieneCostoAdicional2)
 			rta = "T";
 		return rta;
+	}
+	
+	public int getIdViviendaU(){
+		return idViviendaU;
+	}
+	
+	public void setIdViviendaU(int id){
+		idViviendaU = id;
 	}
 	
 }

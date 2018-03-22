@@ -56,7 +56,7 @@ public class DAOServicioInmobiliario
 		ArrayList<ServicioInmobiliario> servicioInmobiliarios = new ArrayList<ServicioInmobiliario>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.SERVICIOINMOBILIARIO WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -82,7 +82,7 @@ public class DAOServicioInmobiliario
 	{
 		ServicioInmobiliario ServicioInmobiliario = null;
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIOINMOBILIARIO WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -104,7 +104,7 @@ public class DAOServicioInmobiliario
 	 */
 	public void addServicioInmobiliario(ServicioInmobiliario servicioInmobiliario) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.SERVICIOINMOBILIARIO (costo, id, tipo) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.SERVICIOINMOBILIARIO (COSTO_SERVICIO_INMOBILIARIO, ID_SERVICIO_INMOBILIARIO, TIPO_SERVICIO_INMOBILIARIO) VALUES (%2$s, %3$s, '%4$s')", 
 				USUARIO, 
 				servicioInmobiliario.getCosto(),
 				servicioInmobiliario.getId(),
@@ -130,7 +130,7 @@ public class DAOServicioInmobiliario
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.SERVICIOINMOBILIARIO ", USUARIO));
 		sql.append (String.format (
-				"SET comercio = '%1$s', id = '%2$s', proposito = '%3$s' , tieneCostoAdicional = '%4$s'",
+				"SET COSTO_SERVICIO_INMOBILIARIO = %1$s, ID_SERVICIO_INMOBILIARIO = %2$s, TIPO_SERVICIO_INMOBILIARIO = '%3$s'",
 				servicioInmobiliario.getCosto(),
 				servicioInmobiliario.getId(),
 				servicioInmobiliario.getTipo()));
@@ -151,7 +151,7 @@ public class DAOServicioInmobiliario
 	 */
 	public void deleteServicioInmobiliario(ServicioInmobiliario servicioInmobiliario) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.SERVICIOINMOBILIARIO WHERE ID = %3$d", USUARIO, servicioInmobiliario.getId());
+		String sql = String.format("DELETE FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID = %3$d", USUARIO, servicioInmobiliario.getId());
 
 		System.out.println(sql);
 
@@ -204,19 +204,14 @@ public class DAOServicioInmobiliario
 		boolean rta3 = false;
 
 
-		String tipo = resultSet.getString("tipo");
-		String proposito = resultSet.getString("proposito");
-		String costo = resultSet.getString("costo");
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
-		String miembro = resultSet.getString("miembro");
-		if(miembro.equals("1"))
-		{
-			rta3 = true;
-		}
+		String tipo = resultSet.getString("TIPO_SERVICIO_INMOBILIARIO");
+		String costo = resultSet.getString("COSTO_SERVICIO_INMOBILIARIO");
+		String id = resultSet.getString("ID_SERVICIO_INMOBILIARIO");
+
 
 		ServicioInmobiliario beb = new ServicioInmobiliario(Double.parseDouble(costo), Integer.parseInt(id), tipo);
 
 		return beb;
 	}
+
 }

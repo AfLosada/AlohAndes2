@@ -3440,11 +3440,11 @@ public class AlohAndesTransactionManager <K extends Operador>
 	
 	//TODO FIN OFERTA INICIO RESERVA
 	
-	public void agregarReservaHotel(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones) throws SQLException, Exception
+	public void agregarReservaHotel(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Hotel hotel) throws SQLException, Exception
 	{
-		DAOCliente daoCliente = new DAOCliente();
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOOferta daoOferta = new DAOOferta();
 		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
@@ -3455,6 +3455,136 @@ public class AlohAndesTransactionManager <K extends Operador>
 		reserva.setIdCliente(cliente.getId());
 		daoReserva.updateReserva(reserva);
 		
+		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
+		boolean tru = false;
+		for(int i = 0; i < ofertas.size() && tru; i++)
+		{
+			Oferta oferta = ofertas.get(i);
+			if(oferta.getIdHotel() == hotel.getIdHotel())
+			{
+				oferta.setNumReservas(oferta.getNumReservas() +1);
+				tru = true;
+				daoOferta.updateOferta(oferta);
+			}
+		}
 	}
 
+	public void agregarReservaHostal(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Hostal hotel) throws SQLException, Exception
+	{
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOOferta daoOferta = new DAOOferta();
+		
+		for(int  i = 0; i<habitaciones.size();i++)
+		{
+			Habitacion sisa = habitaciones.get(i);
+			sisa.setIdReserva(reserva.getId());
+			daoHabitacion.updateHabitacion(sisa);
+		}
+		reserva.setIdCliente(cliente.getId());
+		daoReserva.updateReserva(reserva);
+		
+		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
+		boolean tru = false;
+		for(int i = 0; i < ofertas.size() && tru; i++)
+		{
+			Oferta oferta = ofertas.get(i);
+			if(oferta.getIdHostal() == hotel.getId())
+			{
+				oferta.setNumReservas(oferta.getNumReservas() +1);
+				tru = true;
+				daoOferta.updateOferta(oferta);
+			}
+		}
+	}
+	
+	public void agregarReservaPersonaNatural(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, PersonaNatural hotel) throws SQLException, Exception
+	{
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOOferta daoOferta = new DAOOferta();
+		
+		for(int  i = 0; i<habitaciones.size();i++)
+		{
+			Habitacion sisa = habitaciones.get(i);
+			sisa.setIdReserva(reserva.getId());
+			daoHabitacion.updateHabitacion(sisa);
+		}
+		reserva.setIdCliente(cliente.getId());
+		daoReserva.updateReserva(reserva);
+		
+		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
+		boolean tru = false;
+		for(int i = 0; i < ofertas.size() && tru; i++)
+		{
+			Oferta oferta = ofertas.get(i);
+			if(oferta.getIdPersona() == hotel.getId())
+			{
+				oferta.setNumReservas(oferta.getNumReservas() +1);
+				tru = true;
+				daoOferta.updateOferta(oferta);
+			}
+		}
+	}
+	
+	public void agregarReservaVecino(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Vecino hotel) throws SQLException, Exception
+	{
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOOferta daoOferta = new DAOOferta();
+		
+		for(int  i = 0; i<habitaciones.size();i++)
+		{
+			Habitacion sisa = habitaciones.get(i);
+			sisa.setIdReserva(reserva.getId());
+			daoHabitacion.updateHabitacion(sisa);
+		}
+		reserva.setIdCliente(cliente.getId());
+		daoReserva.updateReserva(reserva);
+		
+		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
+		boolean tru = false;
+		for(int i = 0; i < ofertas.size() && tru; i++)
+		{
+			Oferta oferta = ofertas.get(i);
+			if(oferta.getIdPersona() == hotel.getId())
+			{
+				oferta.setNumReservas(oferta.getNumReservas() +1);
+				tru = true;
+				daoOferta.updateOferta(oferta);
+			}
+		}
+	}
+	
+	public void agregarReservaViviendaUniversitaria(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, ViviendaUniversitaria hotel) throws SQLException, Exception
+	{
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		DAOOferta daoOferta = new DAOOferta();
+		
+		for(int  i = 0; i<habitaciones.size();i++)
+		{
+			Habitacion sisa = habitaciones.get(i);
+			sisa.setIdReserva(reserva.getId());
+			daoHabitacion.updateHabitacion(sisa);
+		}
+		reserva.setIdCliente(cliente.getId());
+		daoReserva.updateReserva(reserva);
+		
+		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
+		boolean tru = false;
+		for(int i = 0; i < ofertas.size() && tru; i++)
+		{
+			Oferta oferta = ofertas.get(i);
+			if(oferta.getIdViviendaU() == hotel.getId())
+			{
+				oferta.setNumReservas(oferta.getNumReservas() +1);
+				tru = true;
+				daoOferta.updateOferta(oferta);
+			}
+		}
+	}
+	
+	//TODO 
+	
 }

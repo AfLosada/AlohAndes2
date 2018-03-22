@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import vos.Sala;
+import vos.*;
 
 public class DAOSala 
 {
@@ -104,12 +104,13 @@ public class DAOSala
 	 */
 	public void addSala(Sala sala) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.SALA (costo, id, proposito, tieneCostoAdicional) VALUES (%2$s, '%3$s', '%4$s', '%5$s')", 
+		String sql = String.format("INSERT INTO %1$s.SALA (COSTO, ID_SALA, PROPOSITO, TIENE_COSTO_ADICIONAL, ID_VIVIENDAU) VALUES (%2$s, %3$s, '%4$s', '%5$s', %6$s)", 
 				USUARIO, 
 				sala.getCosto(),
 				sala.getId(),
 				sala.getProposito(),
-				sala.toString(sala.isTieneCostoAdicional()));
+				sala.toString(sala.isTieneCostoAdicional()), sala.getIdViviendaU() );
+
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -131,11 +132,12 @@ public class DAOSala
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.SALA ", USUARIO));
 		sql.append (String.format (
-				"SET comercio = '%1$s', id = '%2$s', proposito = '%3$s' , tieneCostoAdicional = '%4$s'",
+				"SET COSTO = %1$s, ID_SALA = %2$s, PROPOSITO = '%3$s' , TIENE_COSTO_ADICIONAL = '%4$s', ID_VIVIENDAU = %5$s ",
 				sala.getCosto(),
 				sala.getId(),
 				sala.getProposito(),
-				sala.toString(sala.isTieneCostoAdicional())));
+				sala.toString(sala.isTieneCostoAdicional()), 
+				sala.getIdViviendaU()));
 		sql.append ("WHERE ID = " + sala.getId());
 		System.out.println(sql);
 
@@ -204,25 +206,20 @@ public class DAOSala
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
-
-
-		String camara = resultSet.getString("tieneCostoAdicional");
+		
+		String camara = resultSet.getString(" TIENE_COSTO_ADICIONAL");
 
 		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
-		String proposito = resultSet.getString("proposito");
-		String costo = resultSet.getString("costo");
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
-		String miembro = resultSet.getString("miembro");
-		if(miembro.equals("T"))
-		{
-			rta3 = true;
-		}
+		String proposito = resultSet.getString(" PROPOSITO");
+		String costo = resultSet.getString("COSTO");
+		String idSala = resultSet.getString("ID_SALA");
+		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
 
-		Sala beb = new Sala(Double.parseDouble(costo), Integer.parseInt(id), proposito, rta1);
+
+		Sala beb = new Sala(Double.parseDouble(costo), Integer.parseInt(idSala), proposito, rta1, Integer.parseInt(idViviendaU));
 
 		return beb;
 	}
