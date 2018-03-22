@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,6 +19,7 @@ import tm.AlohAndesTransactionManager;
 import vos.Oferta;
 import vos.Operador;
 
+@Path("/ofertas")
 public class OfertaService <K extends Operador> {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -111,7 +113,7 @@ public class OfertaService <K extends Operador> {
 
 	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-	@PUT
+	@POST
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addOferta(Oferta oferta) {
@@ -174,7 +176,9 @@ public class OfertaService <K extends Operador> {
 
 	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-
+	@DELETE
+	@Consumes( { MediaType.APPLICATION_JSON } )
+	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response deleteOferta(Oferta oferta) {
 		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{

@@ -20,7 +20,7 @@ public class DAOOferta
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -248,8 +248,33 @@ public class DAOOferta
 		String idPersona = resultSet.getString("ID_PERSONA");
 		String idHotel = resultSet.getString("ID_HOTEL");
 		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
+		
+		Integer rta4 = null;
+		Integer rta5 = null;
+		Integer rta6 = null;
+		Integer rta7 = null;
+		Integer rta8 = null;
+		
+		if(idHotel != null )
+		{
+			rta4 = Integer.parseInt(idHotel);
+		}
+		if(idHostal != null )
+		{
+			rta5 = Integer.parseInt(idHostal);
+		}
+		if(idPersona != null )
+		{
+			rta6 = Integer.parseInt(idPersona);
+		}
+		if(idViviendaU != null )
+		{
+			rta7 = Integer.parseInt(idViviendaU);
+		}
+		
+		
 
-		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idHotel), Integer.parseInt(idViviendaU));
+		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, rta4, rta6, rta5, rta7);
 
 		return beb;
 	}

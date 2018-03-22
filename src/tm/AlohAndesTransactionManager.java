@@ -3436,7 +3436,25 @@ public class AlohAndesTransactionManager <K extends Operador>
 		int numReservas = oferta.getNumReservas();
 		numReservas++;
 		oferta.setNumReservas(numReservas);
-
+	}
+	
+	//TODO FIN OFERTA INICIO RESERVA
+	
+	public void agregarReservaHotel(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones) throws SQLException, Exception
+	{
+		DAOCliente daoCliente = new DAOCliente();
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		
+		for(int  i = 0; i<habitaciones.size();i++)
+		{
+			Habitacion sisa = habitaciones.get(i);
+			sisa.setIdReserva(reserva.getId());
+			daoHabitacion.updateHabitacion(sisa);
+		}
+		reserva.setIdCliente(cliente.getId());
+		daoReserva.updateReserva(reserva);
+		
 	}
 
 }

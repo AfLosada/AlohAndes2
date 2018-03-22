@@ -8,29 +8,29 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Oferta 
 {
-	@JsonProperty( value = "id")
-	private int id;
+	@JsonProperty( value = "id_Oferta")
+	private Integer id;
 
-	@JsonProperty( value = "numReservas")
-	private int numReservas;
+	@JsonProperty( value = "num_Reservas")
+	private Integer numReservas;
 
 	@JsonProperty( value = "vigente")
 	private boolean vigente;
 
-	@JsonProperty ( value = "idHostal" )
-	private int idHostal;
+	@JsonProperty ( value = "id_Hostal" )
+	private Integer idHostal;
 
-	@JsonProperty ( value = "idPersona" )
-	private int idPersona;
+	@JsonProperty ( value = "id_Persona" )
+	private Integer idPersona;
 
-	@JsonProperty ( value = "idHotel" )
-	private int idHotel;
+	@JsonProperty ( value = "id_Hotel" )
+	private Integer idHotel;
 
-	@JsonProperty ( value = "idViviendaU" )
-	private int idViviendaU;
+	@JsonProperty ( value = "id_ViviendaU" )
+	private Integer idViviendaU;
 
-	@JsonProperty ( value = "idCliente" )
-	private int idCliente;
+	@JsonProperty ( value = "id_Cliente" )
+	private Integer idCliente;
 
 	//
 	// Constructor
@@ -46,7 +46,13 @@ public class Oferta
 	 * @param idHotel
 	 * @param idViviendaU
 	 */
-	public Oferta(int id, int numReservas, boolean vigente, int idHostal, int idPersona, int idHotel, int idViviendaU) {
+	public Oferta(@JsonProperty( value = "id_Oferta")Integer id, 
+			@JsonProperty( value = "num_Reservas")Integer numReservas, 
+			@JsonProperty( value = "vigente")boolean vigente,
+			@JsonProperty ( value = "id_Hostal" )Integer idHostal,
+			@JsonProperty ( value = "id_Persona" )Integer idPersona,
+			@JsonProperty ( value = "id_Hotel" )Integer idHotel, 
+			@JsonProperty ( value = "id_Hotel" )Integer idViviendaU) {
 		super();
 		this.id = id;
 		this.numReservas = numReservas;
@@ -63,19 +69,19 @@ public class Oferta
 	//
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getNumReservas() {
+	public Integer getNumReservas() {
 		return numReservas;
 	}
 
-	public void setNumReservas(int numReservas) {
+	public void setNumReservas(Integer numReservas) {
 		this.numReservas = numReservas;
 	}
 
@@ -90,7 +96,7 @@ public class Oferta
 	/**
 	 * @return the idHostal
 	 */
-	public int getIdHostal() {
+	public Integer getIdHostal() {
 		return idHostal;
 	}
 
@@ -99,7 +105,7 @@ public class Oferta
 	/**
 	 * @param idHostal the idHostal to set
 	 */
-	public void setIdHostal(int idHostal) {
+	public void setIdHostal(Integer idHostal) {
 		this.idHostal = idHostal;
 	}
 
@@ -108,7 +114,7 @@ public class Oferta
 	/**
 	 * @return the idPersona
 	 */
-	public int getIdPersona() {
+	public Integer getIdPersona() {
 		return idPersona;
 	}
 
@@ -117,7 +123,7 @@ public class Oferta
 	/**
 	 * @param idPersona the idPersona to set
 	 */
-	public void setIdPersona(int idPersona) {
+	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 
@@ -126,7 +132,7 @@ public class Oferta
 	/**
 	 * @return the idHotel
 	 */
-	public int getIdHotel() {
+	public Integer getIdHotel() {
 		return idHotel;
 	}
 
@@ -135,7 +141,7 @@ public class Oferta
 	/**
 	 * @param idHotel the idHotel to set
 	 */
-	public void setIdHotel(int idHotel) {
+	public void setIdHotel(Integer idHotel) {
 		this.idHotel = idHotel;
 	}
 
@@ -144,7 +150,7 @@ public class Oferta
 	/**
 	 * @return the idViviendaU
 	 */
-	public int getIdViviendaU() {
+	public Integer getIdViviendaU() {
 		return idViviendaU;
 	}
 
@@ -153,7 +159,7 @@ public class Oferta
 	/**
 	 * @param idViviendaU the idViviendaU to set
 	 */
-	public void setIdViviendaU(int idViviendaU) {
+	public void setIdViviendaU(Integer idViviendaU) {
 		this.idViviendaU = idViviendaU;
 	}
 

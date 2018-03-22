@@ -252,23 +252,23 @@ public class DAOHabitacion
 		}
 		if(idOferta != null )
 		{
-			rta1 = Integer.parseInt(idOferta);
+			rta2 = Integer.parseInt(idOferta);
 		}
 		if(idHotel != null )
 		{
-			rta1 = Integer.parseInt(idHotel);
+			rta3 = Integer.parseInt(idHotel);
 		}
 		if(idHostal != null )
 		{
-			rta1 = Integer.parseInt(idHostal);
+			rta4 = Integer.parseInt(idHostal);
 		}
 		if(idPersona != null )
 		{
-			rta1 = Integer.parseInt(idPersona);
+			rta5 = Integer.parseInt(idPersona);
 		}
 		if(idViviendaU != null )
 		{
-			rta1 = Integer.parseInt(idViviendaU);
+			rta6 = Integer.parseInt(idViviendaU);
 		}
 		
 		Habitacion beb = new Habitacion(Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio), Double.parseDouble(tamanio), ubicacion,tipo, rta1, rta2, rta3, rta4, rta5, rta6);

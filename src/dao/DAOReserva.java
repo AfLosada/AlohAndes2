@@ -272,14 +272,14 @@ public class DAOReserva {
 
 		String confirmada = resultSet.getString("confirmada");
 
-		if(confirmada.equals("1"))
+		if(confirmada.equals("T"))
 		{
 			rta1 = true;
 		}
 		String duracion = resultSet.getString("duracion");
 		String fecha = resultSet.getString("fecha");
 		String pagoAnticipado = resultSet.getString("pagoAnticipado");
-		if(pagoAnticipado.equals("1"))
+		if(pagoAnticipado.equals("T"))
 		{
 			rta2 = true;
 		}
