@@ -12,10 +12,10 @@ public class PersonaNatural extends Operador
 	@JsonProperty( value = "edad" )
 	private int edad;
 
-	@JsonProperty( value = "id" )
+	@JsonProperty( value = "id_persona" )
 	private int id;
 	
-	@JsonProperty( value = "miembro" )
+	@JsonProperty( value = "miembro_comunidad" )
 	private boolean miembro;
 	
 	

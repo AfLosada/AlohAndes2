@@ -11,17 +11,14 @@ public class ServicioPublico
 	// Atributos
 	//
 
-	@JsonProperty( value = "costo")
+	@JsonProperty( value = "costo_servicio_publico")
 	private double costo;
 
-	@JsonProperty( value = "id")
+	@JsonProperty( value = "id_servicio_publico")
 	private int id;
 
-	@JsonProperty( value = "habitaciones")
+	@JsonProperty( value = "tipo_Servicio_Publico")
 	private String tipo;
-
-	@JsonProperty( value = "habitaciones")
-	private List<Habitacion> habitaciones;
 	
 	
 	//
@@ -62,14 +59,7 @@ public class ServicioPublico
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	public List<Habitacion> getHabitaciones() {
-		return habitaciones;
-	}
 
-	public void setHabitaciones(List<Habitacion> habitaciones) {
-		this.habitaciones = habitaciones;
-	}
 
 	
 }

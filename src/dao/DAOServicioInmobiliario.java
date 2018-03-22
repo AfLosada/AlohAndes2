@@ -18,7 +18,7 @@ public class DAOServicioInmobiliario
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS

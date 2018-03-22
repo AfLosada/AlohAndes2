@@ -25,7 +25,7 @@ public class DAOViviendaUniversitaria
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -63,7 +63,7 @@ public class DAOViviendaUniversitaria
 		ArrayList<ViviendaUniversitaria> viviendaUniversitarias = new ArrayList<ViviendaUniversitaria>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.VIVIENDAUNIVERSITARIA WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.VIVIENDA_UNIVERSITARIA WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -89,7 +89,7 @@ public class DAOViviendaUniversitaria
 	{
 		ViviendaUniversitaria ViviendaUniversitaria = null;
 
-		String sql = String.format("SELECT * FROM %1$s.VIVIENDAUNIVERSITARIA WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.VIVIENDA_UNIVERSITARIA WHERE ID = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -111,8 +111,11 @@ public class DAOViviendaUniversitaria
 	 */
 	public void addViviendaUniversitaria(ViviendaUniversitaria viviendaUniversitaria) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.VIVIENDAUNIVERSITARIA (capacidad, id, duracion, amoblamiento) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.VIVIENDA_UNIVERSITARIA (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_VIVIENDAU, ID_VIVIENDAU, DURACION_SERVICIO, AMOBLAMIENTO) VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s, %7$s, '%8$s')", 
 				USUARIO, 
+				viviendaUniversitaria.isCamaraComercio(),
+				viviendaUniversitaria.getNombreOperador(),
+				viviendaUniversitaria.isSuperIntendenciaTurismo(),
 				viviendaUniversitaria.getCapacidad(),
 				viviendaUniversitaria.getId(),
 				viviendaUniversitaria.getDuracion(),
@@ -138,7 +141,11 @@ public class DAOViviendaUniversitaria
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.VIVIENDAUNIVERSITARIA ", USUARIO));
 		sql.append (String.format (
-				"SET capacidad = '%1$s', caracteristicasSeguro = '%2$s', caracteristicas = '%3$s'",
+				
+				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO = '%3$s', CAPACIDAD_VIVIENDAU = %4$s, ID_VIVIENDAU = %5$s, DURACION_SERVICIO = %6$s, AMOBLAMIENTO = '%7$s'",
+				viviendaUniversitaria.isCamaraComercio(),
+				viviendaUniversitaria.getNombreOperador(),
+				viviendaUniversitaria.isSuperIntendenciaTurismo(),
 				viviendaUniversitaria.getCapacidad(),
 				viviendaUniversitaria.getId(),
 				viviendaUniversitaria.getDuracion(),
@@ -160,7 +167,7 @@ public class DAOViviendaUniversitaria
 	 */
 	public void deleteViviendaUniversitaria(ViviendaUniversitaria viviendaUniversitaria) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.VIVIENDAUNIVERSITARIA WHERE ID = %3$d", USUARIO, viviendaUniversitaria.getId());
+		String sql = String.format("DELETE FROM %1$s.VIVIENDA_UNIVERSITARIA WHERE ID = %3$d", USUARIO, viviendaUniversitaria.getId());
 
 		System.out.println(sql);
 
@@ -208,34 +215,35 @@ public class DAOViviendaUniversitaria
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase ViviendaUniversitaria. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
+		
+
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
 		
-		String camara = resultSet.getString("camara");
+		String camara = resultSet.getString("CAMARA_COMERCIO");
 
 		if(camara.equals("1"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("nombre");
-		String superI = resultSet.getString("superIndendenciaFinanciera");
+		String nombre = resultSet.getString("NOMBRE");
+		String superI = resultSet.getString("SUPERINTENDENCIA_TURISMO");
 		if(superI.equals("1"))
 		{
 			rta2 = true;
 		}
 
-		String capacidad = resultSet.getString("capacidad");
-		String caracteristicasSeguro = resultSet.getString("caracteristicasSeguro");
-		String amoblamiento = resultSet.getString("amoblamiento");
-		String id = resultSet.getString("id");
-		String duracion = resultSet.getString("duracion");
+		String capacidad = resultSet.getString("CAPACIDAD_VIVIENDAU");
+		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
+		String amoblamiento = resultSet.getString("AMOBLAMIENTO");
+		String duracion = resultSet.getString("DURACION_SERVICIO");
 		if(amoblamiento.equals("T"))
 		{
 			rta3 = true;
 		}
 
-		ViviendaUniversitaria beb = new ViviendaUniversitaria(rta1, nombre, rta2,Integer.parseInt(capacidad), Integer.parseInt(id),Double.parseDouble(duracion), rta3);
+		ViviendaUniversitaria beb = new ViviendaUniversitaria(rta1, nombre, rta2,Integer.parseInt(capacidad), Integer.parseInt(idViviendaU),Double.parseDouble(duracion), rta3);
 
 		return beb;
 	}

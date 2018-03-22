@@ -13,7 +13,7 @@ public class Vecino extends PersonaNatural
 	// Atributos
 	//
 	
-	
+	@JsonProperty("id_Vecino")
 	private int idVecino;
 
 	

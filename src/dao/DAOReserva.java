@@ -25,7 +25,7 @@ public class DAOReserva {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -290,7 +290,7 @@ public class DAOReserva {
 		}
 		String id = resultSet.getString("ID_RESERVA");
 		String tiempoCancelacion = resultSet.getString("TIEMPO_CANCELACION");
-		String valor = resultSet.getString("VALOR ");
+		String valor = resultSet.getString("VALOR");
 		String idHostal = resultSet.getString("ID_HOSTAL");
 		String idPersona = resultSet.getString("ID_PERSONA");
 		String idHotel = resultSet.getString("ID_HOTEL");

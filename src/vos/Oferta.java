@@ -8,29 +8,26 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Oferta 
 {
-	@JsonProperty( value = "id_Oferta")
-	private Integer id;
+	@JsonProperty( value = "id_oferta")
+	private int id;
 
-	@JsonProperty( value = "num_Reservas")
-	private Integer numReservas;
+	@JsonProperty( value = "numReservas")
+	private int numReservas;
 
 	@JsonProperty( value = "vigente")
 	private boolean vigente;
 
 	@JsonProperty ( value = "id_Hostal" )
-	private Integer idHostal;
+	private int idHostal;
 
 	@JsonProperty ( value = "id_Persona" )
-	private Integer idPersona;
+	private int idPersona;
 
 	@JsonProperty ( value = "id_Hotel" )
-	private Integer idHotel;
+	private int idHotel;
 
 	@JsonProperty ( value = "id_ViviendaU" )
-	private Integer idViviendaU;
-
-	@JsonProperty ( value = "id_Cliente" )
-	private Integer idCliente;
+	private int idViviendaU;
 
 	//
 	// Constructor

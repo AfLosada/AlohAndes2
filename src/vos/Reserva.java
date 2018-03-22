@@ -21,34 +21,33 @@ public class Reserva
 	@JsonProperty( value = "fecha")
 	private String fecha;
 
-	@JsonProperty( value = "id")
+	@JsonProperty( value = "id_reserva")
 	private int id;
 
-	@JsonProperty( value = "pagoAnticipado")
+	@JsonProperty( value = "pago_Anticipado")
 	private boolean pagoAnticipado;
 
-	@JsonProperty ( value = "tiempoCancelacion")
+	@JsonProperty ( value = "tiempo_Cancelacion")
 	private String tiempoCancelacion;
 
 	@JsonProperty ( value = "valor")
 	private double valor;
 
 
-	@JsonProperty ( value = "idHostal" )
+	@JsonProperty ( value = "id_Hostal" )
 	private int idHostal;
 
-	@JsonProperty ( value = "idPersona" )
+	@JsonProperty ( value = "id_Persona" )
 	private int idPersona;
 
-	@JsonProperty ( value = "idHotel" )
+	@JsonProperty ( value = "id_Hotel" )
 	private int idHotel;
 
-	@JsonProperty ( value = "idViviendaU" )
+	@JsonProperty ( value = "id_ViviendaU" )
 	private int idViviendaU;
 
-	@JsonProperty ( value = "idCliente" )
+	@JsonProperty ( value = "id_Cliente" )
 	private int idCliente;
-
 
 
 	//

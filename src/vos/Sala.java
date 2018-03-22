@@ -16,16 +16,16 @@ public class Sala
 	@JsonProperty( value = "costo")
 	private double costo;
 
-	@JsonProperty( value = "id")
+	@JsonProperty( value = "id_sala")
 	private int id;
 
 	@JsonProperty( value = "proposito")
 	private String proposito;
 
-	@JsonProperty( value = "tieneCostoAdicional")
+	@JsonProperty( value = "tiene_Costo_Adicional")
 	private boolean tieneCostoAdicional;
 	
-	@JsonProperty( value = "idViviendaU")
+	@JsonProperty( value = "id_ViviendaU")
 	private int idViviendaU;
 	
 	//
