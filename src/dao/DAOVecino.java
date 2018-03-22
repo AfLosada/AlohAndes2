@@ -106,12 +106,15 @@ public class DAOVecino {
 	 */
 	public void addVecino(Vecino vecino) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.VECINO (camaraComercio, nombreOperador, superIntendenciaTurismo, capacidad, id) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s')", 
+		String sql = String.format("INSERT INTO %1$s.VECINO (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, ID_VECINO, ID_PERSONA,EDAD, MIEMBRO_COMUNIDAD) VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s, %7$s, '%8$s')", 
 				USUARIO, 
 				vecino.toString(vecino.isCamaraComercio()),
 				vecino.getNombreOperador(),
 				vecino.toString(vecino.isSuperIntendenciaTurismo()),
-				vecino.getIdVecino());
+				vecino.getIdVecino(),
+				vecino.getId(),
+				vecino.getEdad(),
+				vecino.isMiembro());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -133,12 +136,15 @@ public class DAOVecino {
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.VECINO ", USUARIO));
 		sql.append (String.format (
-				"SET camaracomercio = '%1$s', nombreoperador = '%2$s', superintendeciaturismo = '%3$s' , capacidad = '%4$s',id = '%5$s', ",
+					
+				"SET CAMARA_COMERCIO = '%1$s', NOMBRE = '%2$s', SUPERINTENDENCIA_TURISMO= '%3$s' , ID_VECINO = %4$s,ID_PERSONA = %5$s, EDAD = %6$s , MIEMBRO_COMUNIDAD = %7$s ",
 
 				vecino.toString(vecino.isCamaraComercio()),
 				vecino.getNombreOperador(),
 				vecino.toString(vecino.isSuperIntendenciaTurismo()),
-				vecino.getIdVecino()));
+				vecino.getIdVecino(),
+				vecino.getEdad(),
+				vecino.isMiembro()));
 		sql.append ("WHERE ID = " + vecino.getIdVecino ());
 		System.out.println(sql);
 
@@ -207,30 +213,31 @@ public class DAOVecino {
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
+	
 
 
-		String camara = resultSet.getString("camara");
+		String camara = resultSet.getString("CAMARA_COMERCIO");
 
 		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
-		String nombre = resultSet.getString("nombre");
-		String superI = resultSet.getString("superIndendenciaFinanciera");
+		String nombre = resultSet.getString("NOMBRE");
+		String superI = resultSet.getString("SUPERINTENDENCIA_TURISMO");
 		if(superI.equals("T"))
 		{
 			rta2 = true;
 		}
-		String capacidad = resultSet.getString("capacidad");
-		String id = resultSet.getString("id");
-		String miembro = resultSet.getString("miembro");
+		String idVecino = resultSet.getString("ID_VECINO");
+		String idPersona = resultSet.getString("ID_PERSONA");
+		String miembro = resultSet.getString(" MIEMBRO_COMUNIDAD");
 		if(miembro.equals("T"))
 		{
 			rta3 = true;
 		}
-		String idVecino = resultSet.getString("idVecino");
+		String edad = resultSet.getString("EDAD,");
 
-		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(capacidad), Integer.parseInt(id), rta3, Integer.parseInt(idVecino));
+		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(idPersona), rta3, Integer.parseInt(idVecino));
 
 		return beb;
 	}

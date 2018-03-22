@@ -1,8 +1,10 @@
 package rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.swing.plaf.FontUIResource;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,6 +24,9 @@ import vos.PersonaNatural;
 import vos.Reserva;
 import vos.ServicioInmobiliario;
 import vos.ServicioPublico;
+import vos.VOExtraHotel;
+import vos.VOExtraPersona;
+import vos.VOExtraViviendaUniversitaria;
 import vos.Vecino;
 import vos.ViviendaUniversitaria;
 @Path("/requerimientos")
@@ -201,6 +206,57 @@ public class RequerimientosService <K extends Operador>
 
 			tm.agregarReservaVecino(cliente, reserva, habitaciones, hotel);
 			return Response.status(200).entity(reserva).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	
+	//TODO REQ CONSULTA
+	
+	@POST
+	@Path("/requerimientos/20ofertas")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOfertasCool() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<Oferta> sisa = tm.operadoresMejores();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	
+	@POST
+	@Path("/requerimientos/cosasoperadores")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getCosasOperadores() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList sisa = tm.operadoresConCosas1();
+			ArrayList<VOExtraHotel> b = tm.operadoresConCosas2();
+			ArrayList<VOExtraPersona> c = tm.operadoresConCosas3();
+			ArrayList<VOExtraViviendaUniversitaria> d = tm.operadoresConCosas4();
+			for(int i = 0; i<b.size(); i++)
+			{
+				sisa.add(b.get(i));
+			}
+			for(int i = 0; i<c.size(); i++)
+			{
+				sisa.add(c.get(i));
+			}
+			for(int i = 0; i<d.size(); i++)
+			{
+				sisa.add(d.get(i));
+			}
+			return Response.status(200).entity(sisa).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

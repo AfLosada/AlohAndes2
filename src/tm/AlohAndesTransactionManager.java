@@ -3585,6 +3585,41 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 	
-	//TODO 
+	//TODO REQUERIMIENTOS DE CONSULTA
+	
+	public ArrayList<Oferta> operadoresMejores() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<vos.Oferta> rta = daoRequerimientos.get20Ofertas();
+		return rta;		
+	}
+	
+	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOHostalExtra> rta1 = daoRequerimientos.getCosasHostal();
+		return rta1;
+	}
+	
+	public ArrayList<VOExtraHotel> operadoresConCosas2() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraHotel> rta1 = daoRequerimientos.getCosasHotel();
+		return rta1;
+	}
+	
+	public ArrayList<VOExtraPersona> operadoresConCosas3() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraPersona> rta1 = daoRequerimientos.getCosasPersona();
+		return rta1;
+	}
+	
+	public ArrayList<VOExtraViviendaUniversitaria> operadoresConCosas4() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraViviendaUniversitaria> rta1 = daoRequerimientos.getCosasViviendaUniversitaria();
+		return rta1;
+	}
 	
 }

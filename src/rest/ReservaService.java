@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import tm.AlohAndesTransactionManager;
 import vos.Operador;
 import vos.Reserva;
-
+@Path("/reservas")
 public class ReservaService <K extends Operador>{
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ public class ReservaService <K extends Operador>{
 
 	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
 
-	@GET
+	@POST
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addReserva(Reserva reserva) {

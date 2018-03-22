@@ -2,33 +2,48 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import vos.*;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Vivienda 
 {
 
 	//
 	// Atributos
 	//
-	@JsonProperty( value = "capacidad")
+	@JsonProperty( value = "CAPACIDAD")
 	private int capacidad;
 
-	@JsonProperty( value = "caracteristicasSeguro")
+	@JsonProperty( value = "CARACTERISTICAS_SEGURO")
 	private String caracteristicasSeguro;
 
-	@JsonProperty( value = "caracteristicas")
+	@JsonProperty( value = "CARACTERISTICAS_VIVIENDA")
 	private String caracteristicas;
 	
-	private int id;
+	@JsonProperty( value = "ID_VIVIENDA")
+	private int idVivienda;
+	
+	@JsonProperty( value = "PRECIO_VIVIENDA")
+	private double precioVivienda;
+	
+	@JsonProperty( value = "ID_VECINO")
+	private int idVecino;
+	
 	
 	//
 	// Constructor
 	//
 	
-	public Vivienda(int capacidad, String caracteristicasSeguro, String caracteristicas, int id) {
-		super();
+	public Vivienda(int capacidad, String caracteristicasSeguro, String caracteristicas, int idVivienda, 
+			double precioVivienda, int idVecino){
+	
 		this.capacidad = capacidad;
 		this.caracteristicasSeguro = caracteristicasSeguro;
 		this.caracteristicas = caracteristicas;
-		this.id = id;
+		this.idVivienda = idVivienda;
+		this.precioVivienda = precioVivienda;
+		this.idVecino = idVecino;
 	}
 
 	//
@@ -59,12 +74,28 @@ public class Vivienda
 		this.caracteristicas = caracteristicas;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdVivienda() {
+		return idVivienda;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdVivienda(int idVivienda) {
+		this.idVivienda = idVivienda;
+	}
+
+	public double getPrecioVivienda() {
+		return precioVivienda;
+	}
+
+	public void setPrecioVivienda(double precioVivienda) {
+		this.precioVivienda = precioVivienda;
+	}
+
+	public int getIdVecino() {
+		return idVecino;
+	}
+
+	public void setIdVecino(int idVecino) {
+		this.idVecino = idVecino;
 	}
 	
 	

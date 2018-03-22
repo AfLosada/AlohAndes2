@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 import vos.Habitacion;
 import vos.Oferta;
+import vos.VOExtraHotel;
+import vos.VOExtraPersona;
+import vos.VOExtraViviendaUniversitaria;
+import vos.VOHostalExtra;
 
 public class DAORequerimientosenSQL 
 {
@@ -57,6 +61,136 @@ public class DAORequerimientosenSQL
 		}
 		return habitacions;
 	}
+	
+	//TODO TODO DE LOS OPERADORES
+	
+	public ArrayList<VOHostalExtra> getCosasHostal() throws SQLException, Exception {
+		ArrayList<VOHostalExtra> habitacions = new ArrayList<VOHostalExtra>();
+
+		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		String sql = String.format(	"SELECT ID_HOSTAL, VALOR\r\n" + 
+				"FROM RESERVA\r\n" + 
+				"WHERE ID_HOSTAL IS NOT NULL AND CONFIRMADA = 'T';", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			habitacions.add(convertResultSetToVOExtra(rs));
+		}
+		return habitacions;
+	}
+
+
+
+	public ArrayList<VOExtraHotel> getCosasHotel() throws SQLException, Exception {
+		ArrayList<VOExtraHotel> habitacions = new ArrayList<VOExtraHotel>();
+
+		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		String sql = String.format(	"SELECT ID_HOSTAL, VALOR\r\n" + 
+				"FROM RESERVA\r\n" + 
+				"WHERE ID_HOSTAL IS NOT NULL AND CONFIRMADA = 'T';", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			habitacions.add(convertResultSetToExtraHotel(rs));
+		}
+		return habitacions;
+	}
+	
+	public ArrayList<VOExtraPersona> getCosasPersona() throws SQLException, Exception {
+		ArrayList<VOExtraPersona> habitacions = new ArrayList<VOExtraPersona>();
+
+		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		String sql = String.format(	"SELECT ID_PERSONA, VALOR\r\n" + 
+				"FROM RESERVA\r\n" + 
+				"WHERE ID_PERSONA IS NOT NULL AND CONFIRMADA = 'T';", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			habitacions.add(convertResultSetToExtraPersona(rs));
+		}
+		return habitacions;
+	}
+	
+	
+	public ArrayList<VOExtraViviendaUniversitaria> getCosasViviendaUniversitaria() throws SQLException, Exception {
+		ArrayList<VOExtraViviendaUniversitaria> habitacions = new ArrayList<VOExtraViviendaUniversitaria>();
+
+		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		String sql = String.format(	"SELECT ID_PERSONA, VALOR\r\n" + 
+				"FROM RESERVA\r\n" + 
+				"WHERE ID_PERSONA IS NOT NULL AND CONFIRMADA = 'T';", USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			habitacions.add(convertResultSetToExtraViviendaUniversitaria(rs));
+		}
+		return habitacions;
+	}
+	
+	
+	
+	private VOExtraPersona convertResultSetToExtraPersona(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		String nombre = rs.getString("valor");
+		String idHostal = rs.getString("ID_PERSONA");
+
+		VOExtraPersona rta;
+		return rta = new VOExtraPersona(Integer.parseInt(idHostal), Integer.parseInt(nombre));
+	}
+	
+	
+	
+	
+	
+	
+
+	private VOExtraViviendaUniversitaria convertResultSetToExtraViviendaUniversitaria(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		String nombre = rs.getString("valor");
+		String idHostal = rs.getString("ID_VIVIENDAUNIVERSITARIA");
+
+		VOExtraViviendaUniversitaria rta;
+		return rta = new VOExtraViviendaUniversitaria(Integer.parseInt(idHostal), Integer.parseInt(nombre));
+	}
+	
+	
+	private VOHostalExtra convertResultSetToVOExtra(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		String nombre = rs.getString("valor");
+		String idHostal = rs.getString("ID_HOSTAL");
+
+		VOHostalExtra rta;
+		return rta = new VOHostalExtra(Integer.parseInt(idHostal), Integer.parseInt(nombre));
+	}
+	
+	
+	
+	private VOExtraHotel convertResultSetToExtraHotel(ResultSet rs) throws SQLException 
+	{
+		// TODO Auto-generated method stub
+
+		String nombre = rs.getString("valor");
+		String idHostal = rs.getString("ID_Hotel");
+		
+		VOExtraHotel rta;
+		return rta = new VOExtraHotel(Integer.parseInt(idHostal), Integer.parseInt(nombre));
+		
+	}
+
+
+	//TODO EXTRAS PARA QUE FUNCIONE
 	
 	public Oferta convertResultSetToOferta(ResultSet resultSet) throws SQLException {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Oferta. 

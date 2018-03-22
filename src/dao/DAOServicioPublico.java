@@ -56,7 +56,7 @@ public class DAOServicioPublico
 			ArrayList<ServicioPublico> servicioPublicos = new ArrayList<ServicioPublico>();
 
 			//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			String sql = String.format("SELECT * FROM %1$s.SERVICIOPUBLICO WHERE ROWNUM <= 50", USUARIO);
+			String sql = String.format("SELECT * FROM %1$s.SERVICIO_PUBLICO WHERE ROWNUM <= 50", USUARIO);
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -82,7 +82,7 @@ public class DAOServicioPublico
 		{
 			ServicioPublico ServicioPublico = null;
 
-			String sql = String.format("SELECT * FROM %1$s.SERVICIOPUBLICO WHERE ID = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.SERVICIO_PUBLICO WHERE ID = %2$d", USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -104,7 +104,7 @@ public class DAOServicioPublico
 		 */
 		public void addServicioPublico(ServicioPublico servicioPublico) throws SQLException, Exception {
 
-			String sql = String.format("INSERT INTO %1$s.SERVICIOPUBLICO (costo, id, tipo) VALUES (%2$s, '%3$s', '%4$s')", 
+			String sql = String.format("INSERT INTO %1$s.SERVICIO_PUBLICO (COSTO_SERVICIO_PUBLICO, ID_SERVICIO_PUBLICO, TIPO_SERVICIO_PUBLICO) VALUES (%2$s, %3$s, '%4$s')", 
 					USUARIO, 
 					servicioPublico.getCosto(),
 					servicioPublico.getId(),
@@ -130,7 +130,7 @@ public class DAOServicioPublico
 			StringBuilder sql = new StringBuilder();
 			sql.append (String.format ("UPDATE %s.SERVICIOPUBLICO ", USUARIO));
 			sql.append (String.format (
-					"SET comercio = '%1$s', id = '%2$s', proposito = '%3$s' , tieneCostoAdicional = '%4$s'",
+					"SET COSTO_SERVICIO_PUBLICO = %1$s, ID_SERVICIO_PUBLICO = %2$s, TIPO_SERVICIO_PUBLICO = '%3$s' ",
 					servicioPublico.getCosto(),
 					servicioPublico.getId(),
 					servicioPublico.getTipo()));
@@ -151,7 +151,7 @@ public class DAOServicioPublico
 		 */
 		public void deleteServicioPublico(ServicioPublico servicioPublico) throws SQLException, Exception {
 
-			String sql = String.format("DELETE FROM %1$s.SERVICIOPUBLICO WHERE ID = %3$d", USUARIO, servicioPublico.getId());
+			String sql = String.format("DELETE FROM %1$s.SERVICIO_PUBLICO WHERE ID = %3$d", USUARIO, servicioPublico.getId());
 
 			System.out.println(sql);
 
@@ -204,17 +204,10 @@ public class DAOServicioPublico
 			boolean rta3 = false;
 
 
-			String tipo = resultSet.getString("tipo");
-			String proposito = resultSet.getString("proposito");
-			String costo = resultSet.getString("costo");
-			String capacidad = resultSet.getString("capacidad");
-			String id = resultSet.getString("id");
-			String miembro = resultSet.getString("miembro");
-			if(miembro.equals("1"))
-			{
-				rta3 = true;
-			}
-
+			String tipo = resultSet.getString("TIPO_SERVICIO_PUBLICO");
+			String costo = resultSet.getString("COSTO_SERVICIO_PUBLICO");
+			String id = resultSet.getString("ID_SERVICIO_PUBLICO");
+			
 			ServicioPublico beb = new ServicioPublico(Double.parseDouble(costo), Integer.parseInt(id), tipo);
 
 			return beb;

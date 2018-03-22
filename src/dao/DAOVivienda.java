@@ -56,7 +56,7 @@ public class DAOVivienda
 		ArrayList<Vivienda> viviendas = new ArrayList<Vivienda>();
 
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT * FROM %1$s.VIVIENDA WHERE ROWNUM <= 50", USUARIO);
+		String sql = String.format("SELECT * FROM %1$s. VIVIENDA WHERE ROWNUM <= 50", USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -104,11 +104,14 @@ public class DAOVivienda
 	 */
 	public void addVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.VIVIENDA (capacidad, caracteristicasSeguro, caracteristicas) VALUES (%2$s, '%3$s', '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.VIVIENDA (CAPACIDAD, CARACTERISTICAS_SEGURO, CARACTERISTICAS_VIVIENDA, PRECIO_VIVIENDA, ID_VECINO, ID_VIVIENDA) VALUES (%2$s, '%3$s', '%4$s', %5$s, %6$s, %7$s)", 
 				USUARIO, 
 				vivienda.getCapacidad(),
 				vivienda.getCaracteristicasSeguro(),
-				vivienda.getCaracteristicas());
+				vivienda.getCaracteristicas(),
+				vivienda.getPrecioVivienda(),
+				vivienda.getIdVecino(),
+				vivienda.getIdVivienda());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -133,8 +136,11 @@ public class DAOVivienda
 				"SET capacidad = '%1$s', caracteristicasSeguro = '%2$s', caracteristicas = '%3$s'",
 				vivienda.getCapacidad(),
 				vivienda.getCaracteristicasSeguro(),
-				vivienda.getCaracteristicas()));
-		sql.append ("WHERE ID = " + vivienda.getId());
+				vivienda.getCaracteristicas(),
+				vivienda.getPrecioVivienda(),
+				vivienda.getIdVecino(),
+				vivienda.getIdVivienda()));
+		sql.append ("WHERE ID = " + vivienda.getIdVivienda());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
@@ -151,7 +157,7 @@ public class DAOVivienda
 	 */
 	public void deleteVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.VIVIENDA WHERE ID = %3$d", USUARIO, vivienda.getId());
+		String sql = String.format("DELETE FROM %1$s.VIVIENDA WHERE ID = %3$d", USUARIO, vivienda.getIdVivienda());
 
 		System.out.println(sql);
 
@@ -202,19 +208,19 @@ public class DAOVivienda
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
+	
 
-		String capacidad = resultSet.getString("capacidad");
-		String caracteristicasSeguro = resultSet.getString("caracteristicasSeguro");
-		String caracteristicas = resultSet.getString("caracteristicas");
-		String id = resultSet.getString("id");
-		String miembro = resultSet.getString("miembro");
-		if(miembro.equals("1"))
-		{
-			rta3 = true;
-		}
+		String capacidad = resultSet.getString("CAPACIDAD");
+		String caracteristicasSeguro = resultSet.getString(" CARACTERISTICAS_SEGURO");
+		String caracteristicas = resultSet.getString("CARACTERISTICAS_VIVIENDA");
+		String idVecino = resultSet.getString("ID_VECINO");
+		String precio = resultSet.getString("PRECIO_VIVIENDA");
+		String vivienda = resultSet.getString("ID_VIVIENDA");
 
-		Vivienda beb = new Vivienda(Integer.parseInt(capacidad), caracteristicasSeguro,caracteristicas, Integer.parseInt(id));
+
+		Vivienda beb = new Vivienda(Integer.parseInt(capacidad), caracteristicasSeguro,caracteristicas, Integer.parseInt(vivienda),Double.parseDouble(precio), Integer.parseInt(idVecino));
 
 		return beb;
 	}
 }
+

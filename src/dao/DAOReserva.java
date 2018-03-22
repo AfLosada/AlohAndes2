@@ -2,6 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.util.Date;
+
+import javax.ws.rs.Path;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import vos.Reserva;
-
+@Path("/reservas")
 public class DAOReserva {
 
 	//----------------------------------------------------------------------------------------------------------------------------------
