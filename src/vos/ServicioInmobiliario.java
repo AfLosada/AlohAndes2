@@ -10,13 +10,13 @@ public class ServicioInmobiliario {
 	// Atributos
 	//
 
-	@JsonProperty( value = "costo_servicio_inmobiliario")
+	@JsonProperty( value = "costoServicioInmobiliario")
 	private double costo;
 
-	@JsonProperty( value = "id_servicio_inmobiliario")
+	@JsonProperty( value = "idServicioInmobiliario")
 	private int id;
 
-	@JsonProperty( value = "tipo_servicio_inmobiliario")
+	@JsonProperty( value = "tipoServicioInmobiliario")
 	private String tipo;
 	
 	
@@ -25,12 +25,12 @@ public class ServicioInmobiliario {
 	//
 
 	public ServicioInmobiliario(
-			@JsonProperty( value = "costo_servicio_inmobiliario")double costo,
-			@JsonProperty( value = "id_servicio_inmobiliario") int id_servicio_inmobiliario, 
-			@JsonProperty( value = "tipo_servicio_inmobiliario")String tipo) {
+			@JsonProperty( value = "costoServicioInmobiliario")double costo,
+			@JsonProperty( value = "idServicioInmobiliario") int id_servicio_inmobiliario, 
+			@JsonProperty( value = "tipoServicioInmobiliario")String tipo) {
 		super();
 		this.costo = costo;
-		this.id = id;
+		this.id = id_servicio_inmobiliario;
 		this.tipo = tipo;
 	}
 	
