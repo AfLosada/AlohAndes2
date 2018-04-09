@@ -32,7 +32,12 @@ public class Sala
 	// Constructor
 	//
 	
-	public Sala(double costo, int id, String proposito, boolean tieneCostoAdicional, int idViviendaU) {
+	public Sala(
+			@JsonProperty( value = "costo") double costo,
+			@JsonProperty( value = "id_sala") int id,
+			@JsonProperty( value = "proposito") String proposito,
+			@JsonProperty( value = "tiene_costo_adicional") boolean tieneCostoAdicional,
+			@JsonProperty( value = "id_viviendau") int idViviendaU) {
 		super();
 		this.costo = costo;
 		this.id = id;

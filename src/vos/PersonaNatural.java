@@ -23,8 +23,13 @@ public class PersonaNatural extends Operador
 	// Constructor
 	//
 	
-	public PersonaNatural(boolean camaraComercio, String nombreOperador, boolean superIntendenciaTurismo, int edad,
-			int id, boolean miembro) 
+	public PersonaNatural(
+			@JsonProperty( value = "camara_comercio" )boolean camaraComercio, 
+			@JsonProperty( value = "nombre_operador" )String nombreOperador, 
+			@JsonProperty( value = "edad" )boolean superIntendenciaTurismo,
+			@JsonProperty( value = "edad" ) int edad,
+			@JsonProperty( value = "id_persona" )int id, 
+			@JsonProperty( value = "miembro_comunidad" )boolean miembro) 
 	{
 		super(camaraComercio, nombreOperador, superIntendenciaTurismo);
 		this.edad = edad;

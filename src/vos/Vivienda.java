@@ -35,8 +35,13 @@ public class Vivienda
 	// Constructor
 	//
 	
-	public Vivienda(int capacidad, String caracteristicasSeguro, String caracteristicas, int idVivienda, 
-			double precioVivienda, int idVecino){
+	public Vivienda(
+			@JsonProperty( value = "CAPACIDAD")int capacidad, 
+			@JsonProperty( value = "CARACTERISTICAS_SEGURO")String caracteristicasSeguro,
+			@JsonProperty( value = "CARACTERISTICAS_VIVIENDA") String caracteristicas, 
+			@JsonProperty( value = "ID_VIVIENDA")int idVivienda, 
+			@JsonProperty( value = "PRECIO_VIVIENDA")double precioVivienda, 
+			@JsonProperty( value = "ID_VECINO")int idVecino){
 	
 		this.capacidad = capacidad;
 		this.caracteristicasSeguro = caracteristicasSeguro;

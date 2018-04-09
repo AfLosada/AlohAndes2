@@ -235,9 +235,11 @@ public class DAOVecino {
 		{
 			rta3 = true;
 		}
-		String edad = resultSet.getString("EDAD,");
+		String edad = resultSet.getString("EDAD");
+		
+		String idVivienda = resultSet.getString("ID_VIVIENDA");
 
-		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(idPersona), rta3, Integer.parseInt(idVecino));
+		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(idPersona), rta3, Integer.parseInt(idVecino), Integer.parseInt(idVivienda));
 
 		return beb;
 	}

@@ -25,7 +25,10 @@ public class ServicioPublico
 	// Constructor
 	//
 
-	public ServicioPublico(double costo, int id, String tipo) {
+	public ServicioPublico(
+			@JsonProperty( value = "costo_servicio_publico")double costo, 
+			@JsonProperty( value = "id_servicio_publico")int id,
+			@JsonProperty( value = "tipo_servicio_publico") String tipo) {
 		super();
 		this.costo = costo;
 		this.id = id;

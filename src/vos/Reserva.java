@@ -54,9 +54,19 @@ public class Reserva
 	// Constructor
 	//
 
-	public Reserva(boolean confirmada, String duracion, String fecha, int id, boolean pagoAnticipado,
-			String tiempoCancelacion, double valor, int idHostal, int idPersona, int idHotel, int idViviendaU,
-			int idCliente) {
+	public Reserva(
+			@JsonProperty( value = "confirmada" )boolean confirmada,
+			@JsonProperty( value = "duracion" ) String duracion,
+			@JsonProperty( value = "fecha" ) String fecha,
+			@JsonProperty( value = "id_Reserva" ) int id,
+			@JsonProperty( value = "pago_anticipado" ) boolean pagoAnticipado,
+			@JsonProperty( value = "tiempo_cancelacion" ) String tiempoCancelacion, 
+			@JsonProperty( value = "valor" ) double valor,
+			@JsonProperty( value = "id_hostal" ) int idHostal,
+			@JsonProperty( value = "id_persona" ) int idPersona,
+			@JsonProperty( value = "id_hotel" ) int idHotel,
+			@JsonProperty( value = "id_viviendau" ) int idViviendaU,
+			@JsonProperty( value = "id_cliente" )	int idCliente) {
 		super();
 		this.confirmada = confirmada;
 		this.duracion = duracion;
