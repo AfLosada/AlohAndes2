@@ -11,12 +11,12 @@ public class ViviendaUniversitaria extends Operador
 	// Atributos
 	//
 	
-	@JsonProperty( value = "capacidad_viviendau")
+	@JsonProperty( value = "capacidadViviendau")
 	private int capacidad;
-	@JsonProperty( value = "id_viviendaU")
+	@JsonProperty( value = "idViviendaU")
 	private int id;
 
-	@JsonProperty( value = "duracion_servicio")
+	@JsonProperty( value = "duracionServicio")
 	private double duracion;
 	
 	@JsonProperty( value = "amoblamiento")
@@ -27,12 +27,12 @@ public class ViviendaUniversitaria extends Operador
 	//
 	
 	public ViviendaUniversitaria(
-			@JsonProperty( value = "camara_comercio")boolean camaraComercio,
+			@JsonProperty( value = "camaraComercio")boolean camaraComercio,
 			@JsonProperty( value = "nombre") String nombreOperador,
-			@JsonProperty( value = "superintendecia_turismo") boolean superIntendenciaTurismo, 
-			@JsonProperty( value = "capacidad_viviendau")int capacidad,
-			@JsonProperty( value = "id_viviendau") int id,
-			@JsonProperty( value = "duracion_servicio")double duracion,
+			@JsonProperty( value = "superintendeciaTurismo") boolean superIntendenciaTurismo, 
+			@JsonProperty( value = "capacidadViviendau")int capacidad,
+			@JsonProperty( value = "idViviendau") int id,
+			@JsonProperty( value = "duracionServicio")double duracion,
 			@JsonProperty( value = "amoblamiento") boolean amoblamiento) {
 		super(camaraComercio, nombreOperador, superIntendenciaTurismo);
 		this.capacidad = capacidad;

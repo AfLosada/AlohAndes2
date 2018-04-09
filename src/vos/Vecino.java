@@ -13,10 +13,10 @@ public class Vecino extends PersonaNatural
 	// Atributos
 	//
 	
-	@JsonProperty("id_Vecino")
+	@JsonProperty("idVecino")
 	private int idVecino;
 
-	@JsonProperty("id_Vivienda")
+	@JsonProperty("idVivienda")
 	private int idVivienda;
 
 	
@@ -25,14 +25,14 @@ public class Vecino extends PersonaNatural
 	//
 	
 	public Vecino(
-			@JsonProperty("camara_comercio")boolean camaraComercio, 
+			@JsonProperty("camaraComercio")boolean camaraComercio, 
 			@JsonProperty("nombre")String nombreOperador, 
-			@JsonProperty("superintendecia_turismo")boolean superIntendenciaTurismo, 
+			@JsonProperty("superintendeciaTurismo")boolean superIntendenciaTurismo, 
 			@JsonProperty("edad")int edad, 
-			@JsonProperty("id_persona")int id,
-			@JsonProperty("miembro_comunidad")boolean miembro, 
-			@JsonProperty("id_Vecino")int idVecino,
-			@JsonProperty("id_Vivienda") int idVivienda) {
+			@JsonProperty("idPersona")int id,
+			@JsonProperty("miembroComunidad")boolean miembro, 
+			@JsonProperty("idVecino")int idVecino,
+			@JsonProperty("idVivienda") int idVivienda) {
 		super(camaraComercio, nombreOperador, superIntendenciaTurismo, edad, id, miembro);
 		this.idVecino = idVecino;
 		this.idVivienda = idVivienda;

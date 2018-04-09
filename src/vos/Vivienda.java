@@ -12,22 +12,22 @@ public class Vivienda
 	//
 	// Atributos
 	//
-	@JsonProperty( value = "CAPACIDAD")
+	@JsonProperty( value = "capacidad")
 	private int capacidad;
 
-	@JsonProperty( value = "CARACTERISTICAS_SEGURO")
+	@JsonProperty( value = "caracteristicasSeguro")
 	private String caracteristicasSeguro;
 
-	@JsonProperty( value = "CARACTERISTICAS_VIVIENDA")
+	@JsonProperty( value = "caracteristicasVivienda")
 	private String caracteristicas;
 	
-	@JsonProperty( value = "ID_VIVIENDA")
+	@JsonProperty( value = "idVivienda")
 	private int idVivienda;
 	
-	@JsonProperty( value = "PRECIO_VIVIENDA")
+	@JsonProperty( value = "precioVivienda")
 	private double precioVivienda;
 	
-	@JsonProperty( value = "ID_VECINO")
+	@JsonProperty( value = "idVecino")
 	private int idVecino;
 	
 	
@@ -36,12 +36,12 @@ public class Vivienda
 	//
 	
 	public Vivienda(
-			@JsonProperty( value = "CAPACIDAD")int capacidad, 
-			@JsonProperty( value = "CARACTERISTICAS_SEGURO")String caracteristicasSeguro,
-			@JsonProperty( value = "CARACTERISTICAS_VIVIENDA") String caracteristicas, 
-			@JsonProperty( value = "ID_VIVIENDA")int idVivienda, 
-			@JsonProperty( value = "PRECIO_VIVIENDA")double precioVivienda, 
-			@JsonProperty( value = "ID_VECINO")int idVecino){
+			@JsonProperty( value = "capacidad")int capacidad, 
+			@JsonProperty( value = "caracteristicasSeguro")String caracteristicasSeguro,
+			@JsonProperty( value = "caracteristicasVivienda") String caracteristicas, 
+			@JsonProperty( value = "IidVivienda")int idVivienda, 
+			@JsonProperty( value = "precioVivienda")double precioVivienda, 
+			@JsonProperty( value = "idVecino")int idVecino){
 	
 		this.capacidad = capacidad;
 		this.caracteristicasSeguro = caracteristicasSeguro;

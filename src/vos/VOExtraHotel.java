@@ -7,7 +7,7 @@ public class VOExtraHotel {
 	@JsonProperty("valor")
 	private Integer valor;
 
-	@JsonProperty("id_Hotel")
+	@JsonProperty("idHotel")
 	private Integer id_Hotel;
 	
 	/**

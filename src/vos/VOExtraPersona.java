@@ -9,7 +9,7 @@ public class VOExtraPersona {
 	@JsonProperty("valor")
 	private Integer valor;
 
-	@JsonProperty("id_Persona")
+	@JsonProperty("idPersona")
 	private Integer id_Persona;
 	
 	/**

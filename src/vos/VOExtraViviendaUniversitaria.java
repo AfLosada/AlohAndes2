@@ -7,7 +7,7 @@ public class VOExtraViviendaUniversitaria
 	@JsonProperty("valor")
 	private Integer valor;
 
-	@JsonProperty("id_ViviendaUniversitaria")
+	@JsonProperty("idViviendaUniversitaria")
 	private Integer id_ViviendaUniversitaria;
 	
 	/**

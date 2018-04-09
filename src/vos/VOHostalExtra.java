@@ -9,7 +9,7 @@ public class VOHostalExtra
 	@JsonProperty("valor")
 	private Integer valor;
 
-	@JsonProperty("id_Hostal")
+	@JsonProperty("idHostal")
 	private Integer id_Hostal;
 	
 	/**
