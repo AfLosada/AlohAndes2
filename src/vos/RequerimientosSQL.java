@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class RequerimientosSQL 
 {
 	@JsonProperty("20ofertas")
-	private List<Oferta> ofertasMásPopulares;
+	private List<Oferta> ofertasMasPopulares;
 	
 	
 	public RequerimientosSQL()
@@ -16,18 +16,18 @@ public class RequerimientosSQL
 	}
 	
 	/**
-	 * @return the ofertasMásPopulares
+	 * @return the ofertasMï¿½sPopulares
 	 */
-	public List<Oferta> getOfertasMásPopulares() {
-		return ofertasMásPopulares;
+	public List<Oferta> getOfertasMasPopulares() {
+		return ofertasMasPopulares;
 	}
 
 
 	/**
-	 * @param ofertasMásPopulares the ofertasMásPopulares to set
+	 * @param ofertasMï¿½sPopulares the ofertasMï¿½sPopulares to set
 	 */
-	public void setOfertasMásPopulares(List<Oferta> ofertasMásPopulares) {
-		this.ofertasMásPopulares = ofertasMásPopulares;
+	public void setOfertasMasPopulares(List<Oferta> ofertasMasPopulares) {
+		this.ofertasMasPopulares = ofertasMasPopulares;
 	}
 	
 	

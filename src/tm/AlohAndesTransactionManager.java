@@ -3556,7 +3556,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 	
-	public void agregarReservaViviendaUniversitaria(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, ViviendaUniversitaria hotel) throws SQLException, Exception
+	public void agregarReservaViviendaUniversitaria(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, ViviendaUniversitaria vivienda) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
@@ -3576,7 +3576,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdViviendaU() == hotel.getId())
+			if(oferta.getIdViviendaU() == vivienda.getId())
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;
