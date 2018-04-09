@@ -11,13 +11,13 @@ public class ServicioPublico
 	// Atributos
 	//
 
-	@JsonProperty( value = "costoServicioPublico")
+	@JsonProperty( value = "costo")
 	private double costo;
 
-	@JsonProperty( value = "idServicioPublico")
+	@JsonProperty( value = "id")
 	private int id;
 
-	@JsonProperty( value = "tipoServicioPublico")
+	@JsonProperty( value = "tipo")
 	private String tipo;
 	
 	
@@ -26,9 +26,9 @@ public class ServicioPublico
 	//
 
 	public ServicioPublico(
-			@JsonProperty( value = "costoServicioPublico")double costo, 
-			@JsonProperty( value = "idServicioPublico")int id,
-			@JsonProperty( value = "tipoServicioPublico") String tipo) {
+			@JsonProperty( value = "costo")double costo, 
+			@JsonProperty( value = "id")int id,
+			@JsonProperty( value = "tipo") String tipo) {
 		super();
 		this.costo = costo;
 		this.id = id;
