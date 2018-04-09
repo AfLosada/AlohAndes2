@@ -21,33 +21,33 @@ public class Reserva
 	@JsonProperty( value = "fecha")
 	private String fecha;
 
-	@JsonProperty( value = "id_reserva")
-	private int id;
+	@JsonProperty( value = "idReserva")
+	private Integer id;
 
-	@JsonProperty( value = "pago_Anticipado")
+	@JsonProperty( value = "pagoAnticipado")
 	private boolean pagoAnticipado;
 
-	@JsonProperty ( value = "tiempo_Cancelacion")
+	@JsonProperty ( value = "tiempoCancelacion")
 	private String tiempoCancelacion;
 
 	@JsonProperty ( value = "valor")
 	private double valor;
 
 
-	@JsonProperty ( value = "id_Hostal" )
-	private int idHostal;
+	@JsonProperty ( value = "idHostal" )
+	private Integer idHostal;
 
-	@JsonProperty ( value = "id_Persona" )
-	private int idPersona;
+	@JsonProperty ( value = "idPersona" )
+	private Integer idPersona;
 
-	@JsonProperty ( value = "id_Hotel" )
-	private int idHotel;
+	@JsonProperty ( value = "idHotel" )
+	private Integer idHotel;
 
-	@JsonProperty ( value = "id_ViviendaU" )
-	private int idViviendaU;
+	@JsonProperty ( value = "idViviendaU" )
+	private Integer idViviendaU;
 
-	@JsonProperty ( value = "id_Cliente" )
-	private int idCliente;
+	@JsonProperty ( value = "idCliente" )
+	private Integer idCliente;
 
 
 	//
@@ -58,15 +58,15 @@ public class Reserva
 			@JsonProperty( value = "confirmada" )boolean confirmada,
 			@JsonProperty( value = "duracion" ) String duracion,
 			@JsonProperty( value = "fecha" ) String fecha,
-			@JsonProperty( value = "id_Reserva" ) int id,
-			@JsonProperty( value = "pago_anticipado" ) boolean pagoAnticipado,
-			@JsonProperty( value = "tiempo_cancelacion" ) String tiempoCancelacion, 
+			@JsonProperty( value = "idReserva" ) Integer id,
+			@JsonProperty( value = "pagoAnticipado" ) boolean pagoAnticipado,
+			@JsonProperty( value = "tiempoCancelacion" ) String tiempoCancelacion, 
 			@JsonProperty( value = "valor" ) double valor,
-			@JsonProperty( value = "id_hostal" ) int idHostal,
-			@JsonProperty( value = "id_persona" ) int idPersona,
-			@JsonProperty( value = "id_hotel" ) int idHotel,
-			@JsonProperty( value = "id_viviendau" ) int idViviendaU,
-			@JsonProperty( value = "id_cliente" )	int idCliente) {
+			@JsonProperty( value = "idHostal" ) Integer idHostal,
+			@JsonProperty( value = "idPersona" ) Integer idPersona,
+			@JsonProperty( value = "idHotel" ) Integer idHotel,
+			@JsonProperty( value = "idViviendaU" ) Integer idViviendaU,
+			@JsonProperty( value = "idCliente" )	Integer idCliente) {
 		super();
 		this.confirmada = confirmada;
 		this.duracion = duracion;
@@ -125,13 +125,13 @@ public class Reserva
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -174,7 +174,7 @@ public class Reserva
 	/**
 	 * @return the idHostal
 	 */
-	public int getIdHostal() {
+	public Integer getidHostal() {
 		return idHostal;
 	}
 
@@ -184,7 +184,7 @@ public class Reserva
 	/**
 	 * @param idHostal the idHostal to set
 	 */
-	public void setIdHostal(int idHostal) {
+	public void setidHostal(Integer idHostal) {
 		this.idHostal = idHostal;
 	}
 
@@ -194,7 +194,7 @@ public class Reserva
 	/**
 	 * @return the idPersona
 	 */
-	public int getIdPersona() {
+	public Integer getIdPersona() {
 		return idPersona;
 	}
 
@@ -204,7 +204,7 @@ public class Reserva
 	/**
 	 * @param idPersona the idPersona to set
 	 */
-	public void setIdPersona(int idPersona) {
+	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 
@@ -214,7 +214,7 @@ public class Reserva
 	/**
 	 * @return the idHotel
 	 */
-	public int getIdHotel() {
+	public Integer getIdHotel() {
 		return idHotel;
 	}
 
@@ -224,7 +224,7 @@ public class Reserva
 	/**
 	 * @param idHotel the idHotel to set
 	 */
-	public void setIdHotel(int idHotel) {
+	public void setIdHotel(Integer idHotel) {
 		this.idHotel = idHotel;
 	}
 
@@ -234,7 +234,7 @@ public class Reserva
 	/**
 	 * @return the idViviendaU
 	 */
-	public int getIdViviendaU() {
+	public Integer getIdViviendaU() {
 		return idViviendaU;
 	}
 
@@ -244,7 +244,7 @@ public class Reserva
 	/**
 	 * @param idViviendaU the idViviendaU to set
 	 */
-	public void setIdViviendaU(int idViviendaU) {
+	public void setIdViviendaU(Integer idViviendaU) {
 		this.idViviendaU = idViviendaU;
 	}
 
@@ -254,7 +254,7 @@ public class Reserva
 	/**
 	 * @return the idCliente
 	 */
-	public int getIdCliente() {
+	public Integer getIdCliente() {
 		return idCliente;
 	}
 
@@ -264,7 +264,7 @@ public class Reserva
 	/**
 	 * @param idCliente the idCliente to set
 	 */
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}
 

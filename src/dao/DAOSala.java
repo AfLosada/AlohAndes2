@@ -207,13 +207,13 @@ public class DAOSala
 		boolean rta2 = false;
 		boolean rta3 = false;
 		
-		String camara = resultSet.getString(" TIENE_COSTO_ADICIONAL");
+		String camara = resultSet.getString("TIENE_COSTO_ADICIONAL");
 
 		if(camara.equals("T"))
 		{
 			rta1 = true;
 		}
-		String proposito = resultSet.getString(" PROPOSITO");
+		String proposito = resultSet.getString("PROPOSITO");
 		String costo = resultSet.getString("COSTO");
 		String idSala = resultSet.getString("ID_SALA");
 		String idViviendaU = resultSet.getString("ID_VIVIENDAU");

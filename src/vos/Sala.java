@@ -16,16 +16,16 @@ public class Sala
 	@JsonProperty( value = "costo")
 	private double costo;
 
-	@JsonProperty( value = "id_sala")
+	@JsonProperty( value = "idSala")
 	private int id;
 
 	@JsonProperty( value = "proposito")
 	private String proposito;
 
-	@JsonProperty( value = "tiene_Costo_Adicional")
+	@JsonProperty( value = "tieneCostoAdicional")
 	private boolean tieneCostoAdicional;
 	
-	@JsonProperty( value = "id_ViviendaU")
+	@JsonProperty( value = "idViviendaU")
 	private int idViviendaU;
 	
 	//
@@ -34,10 +34,10 @@ public class Sala
 	
 	public Sala(
 			@JsonProperty( value = "costo") double costo,
-			@JsonProperty( value = "id_sala") int id,
+			@JsonProperty( value = "idSala") int id,
 			@JsonProperty( value = "proposito") String proposito,
-			@JsonProperty( value = "tiene_costo_adicional") boolean tieneCostoAdicional,
-			@JsonProperty( value = "id_viviendau") int idViviendaU) {
+			@JsonProperty( value = "tieneCostoAdicional") boolean tieneCostoAdicional,
+			@JsonProperty( value = "idViviendaU") int idViviendaU) {
 		super();
 		this.costo = costo;
 		this.id = id;

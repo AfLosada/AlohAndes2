@@ -139,7 +139,7 @@ public class DAOReserva {
 				reserva.getId(),
 				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
-				reserva.getIdHostal(),
+				reserva.getidHostal(),
 				reserva.getIdHotel(),
 				reserva.getIdViviendaU(),
 				reserva.getIdCliente());
@@ -171,7 +171,7 @@ public class DAOReserva {
 				reserva.getId(),
 				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
-				reserva.getIdHostal(),
+				reserva.getidHostal(),
 				reserva.getIdHotel(),
 				reserva.getIdViviendaU(),
 				reserva.getIdCliente()));
@@ -223,7 +223,7 @@ public class DAOReserva {
 					reserva.getId(),
 					reserva.toString(reserva.isPagoAnticipado()),
 					reserva.getTiempoCancelacion(),
-					reserva.getIdHostal(),
+					reserva.getidHostal(),
 					reserva.getIdHotel(),
 					reserva.getIdViviendaU(),
 					reserva.getIdCliente()));
@@ -289,15 +289,44 @@ public class DAOReserva {
 			rta2 = true;
 		}
 		String id = resultSet.getString("ID_RESERVA");
+		
 		String tiempoCancelacion = resultSet.getString("TIEMPO_CANCELACION");
 		String valor = resultSet.getString("VALOR");
 		String idHostal = resultSet.getString("ID_HOSTAL");
+		Integer rta10 = null;
+		if(idHostal != null)
+		{
+			rta10 =Integer.parseInt(idHostal);
+		}
 		String idPersona = resultSet.getString("ID_PERSONA");
+		Integer rta11 = null;
+		if(idPersona != null)
+		{
+			rta11 =Integer.parseInt(idPersona);
+		}
 		String idHotel = resultSet.getString("ID_HOTEL");
+
+		Integer rta12 = null;
+		if(idHotel != null)
+		{
+			rta12 =Integer.parseInt(idHotel);
+		}
 		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
+
+		Integer rta13 = null;
+		if(idViviendaU != null)
+		{
+			rta13 =Integer.parseInt(idViviendaU);
+		}
 		String idCliente = resultSet.getString("ID_CLIENTE");
 
-		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), Integer.parseInt(idHostal), Integer.parseInt(idPersona), Integer.parseInt(idHotel), Integer.parseInt(idViviendaU), Integer.parseInt(idCliente));
+		Integer rta14 = null;
+		if(idCliente != null)
+		{
+			rta14 =Integer.parseInt(idCliente);
+		}
+
+		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14);
 
 		return beb;
 	}
