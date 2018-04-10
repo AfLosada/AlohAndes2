@@ -14,10 +14,10 @@ public class Vecino extends PersonaNatural
 	//
 	
 	@JsonProperty("idVecino")
-	private int idVecino;
+	private Integer idVecino;
 
 	@JsonProperty("idVivienda")
-	private int idVivienda;
+	private Integer idVivienda;
 
 	
 	//
@@ -27,13 +27,13 @@ public class Vecino extends PersonaNatural
 	public Vecino(
 			@JsonProperty("camaraComercio")boolean camaraComercio, 
 			@JsonProperty("nombre")String nombreOperador, 
-			@JsonProperty("superintendeciaTurismo")boolean superIntendenciaTurismo, 
-			@JsonProperty("edad")int edad, 
-			@JsonProperty("idPersona")int id,
-			@JsonProperty("miembroComunidad")boolean miembro, 
-			@JsonProperty("idVecino")int idVecino,
-			@JsonProperty("idVivienda") int idVivienda) {
-		super(camaraComercio, nombreOperador, superIntendenciaTurismo, edad, id, miembro);
+			@JsonProperty("superIntegerendeciaTurismo")boolean superIntegerendenciaTurismo, 
+			@JsonProperty("edad")Integer edad, 
+			@JsonProperty("idPersona")Integer id,
+			@JsonProperty("miembro")boolean miembro, 
+			@JsonProperty("idVecino")Integer idVecino,
+			@JsonProperty("idVivienda") Integer idVivienda) {
+		super(camaraComercio, nombreOperador, superIntegerendenciaTurismo, edad, id, miembro);
 		this.idVecino = idVecino;
 		this.idVivienda = idVivienda;
 	}
@@ -46,7 +46,7 @@ public class Vecino extends PersonaNatural
 	/**
 	 * @return the idVecino
 	 */
-	public int getIdVecino() {
+	public Integer getIdVecino() {
 		return idVecino;
 	}
 
@@ -54,14 +54,14 @@ public class Vecino extends PersonaNatural
 	/**
 	 * @param idVecino the idVecino to set
 	 */
-	public void setIdVecino(int idVecino) {
+	public void setIdVecino(Integer idVecino) {
 		this.idVecino = idVecino;
 	}
 	
 	/**
 	 * @return the idVivienda
 	 */
-	public int getIdVivienda() {
+	public Integer getIdVivienda() {
 		return idVivienda;
 	}
 
@@ -69,7 +69,7 @@ public class Vecino extends PersonaNatural
 	/**
 	 * @param idVivienda the idVivienda to set
 	 */
-	public void setIdVivienda(int idVivienda) {
+	public void setIdVivienda(Integer idVivienda) {
 		this.idVivienda = idVivienda;
 	}
 

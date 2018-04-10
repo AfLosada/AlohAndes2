@@ -13,7 +13,7 @@ public class Vivienda
 	// Atributos
 	//
 	@JsonProperty( value = "capacidad")
-	private int capacidad;
+	private Integer capacidad;
 
 	@JsonProperty( value = "caracteristicasSeguro")
 	private String caracteristicasSeguro;
@@ -22,13 +22,13 @@ public class Vivienda
 	private String caracteristicas;
 	
 	@JsonProperty( value = "idVivienda")
-	private int idVivienda;
+	private Integer idVivienda;
 	
 	@JsonProperty( value = "precioVivienda")
 	private double precioVivienda;
 	
 	@JsonProperty( value = "idVecino")
-	private int idVecino;
+	private Integer idVecino;
 	
 	
 	//
@@ -36,12 +36,12 @@ public class Vivienda
 	//
 	
 	public Vivienda(
-			@JsonProperty( value = "capacidad")int capacidad, 
+			@JsonProperty( value = "capacidad")Integer capacidad, 
 			@JsonProperty( value = "caracteristicasSeguro")String caracteristicasSeguro,
 			@JsonProperty( value = "caracteristicasVivienda") String caracteristicas, 
-			@JsonProperty( value = "IidVivienda")int idVivienda, 
+			@JsonProperty( value = "IidVivienda")Integer idVivienda, 
 			@JsonProperty( value = "precioVivienda")double precioVivienda, 
-			@JsonProperty( value = "idVecino")int idVecino){
+			@JsonProperty( value = "idVecino")Integer idVecino){
 	
 		this.capacidad = capacidad;
 		this.caracteristicasSeguro = caracteristicasSeguro;
@@ -55,11 +55,11 @@ public class Vivienda
 	// Getters y Setters 
 	//
 	
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
@@ -79,11 +79,11 @@ public class Vivienda
 		this.caracteristicas = caracteristicas;
 	}
 
-	public int getIdVivienda() {
+	public Integer getIdVivienda() {
 		return idVivienda;
 	}
 
-	public void setIdVivienda(int idVivienda) {
+	public void setIdVivienda(Integer idVivienda) {
 		this.idVivienda = idVivienda;
 	}
 
@@ -95,11 +95,11 @@ public class Vivienda
 		this.precioVivienda = precioVivienda;
 	}
 
-	public int getIdVecino() {
+	public Integer getIdVecino() {
 		return idVecino;
 	}
 
-	public void setIdVecino(int idVecino) {
+	public void setIdVecino(Integer idVecino) {
 		this.idVecino = idVecino;
 	}
 	

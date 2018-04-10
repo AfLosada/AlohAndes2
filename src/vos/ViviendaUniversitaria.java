@@ -12,9 +12,9 @@ public class ViviendaUniversitaria extends Operador
 	//
 	
 	@JsonProperty( value = "capacidadViviendau")
-	private int capacidad;
+	private Integer capacidad;
 	@JsonProperty( value = "idViviendaU")
-	private int id;
+	private Integer id;
 
 	@JsonProperty( value = "duracionServicio")
 	private double duracion;
@@ -29,12 +29,12 @@ public class ViviendaUniversitaria extends Operador
 	public ViviendaUniversitaria(
 			@JsonProperty( value = "camaraComercio")boolean camaraComercio,
 			@JsonProperty( value = "nombre") String nombreOperador,
-			@JsonProperty( value = "superintendeciaTurismo") boolean superIntendenciaTurismo, 
-			@JsonProperty( value = "capacidadViviendau")int capacidad,
-			@JsonProperty( value = "idViviendau") int id,
+			@JsonProperty( value = "superIntegerendeciaTurismo") boolean superIntegerendenciaTurismo, 
+			@JsonProperty( value = "capacidadViviendau")Integer capacidad,
+			@JsonProperty( value = "idViviendau") Integer id,
 			@JsonProperty( value = "duracionServicio")double duracion,
 			@JsonProperty( value = "amoblamiento") boolean amoblamiento) {
-		super(camaraComercio, nombreOperador, superIntendenciaTurismo);
+		super(camaraComercio, nombreOperador, superIntegerendenciaTurismo);
 		this.capacidad = capacidad;
 		this.id = id;
 		this.duracion = duracion;
@@ -45,19 +45,19 @@ public class ViviendaUniversitaria extends Operador
 	// Getters y Setters 
 	//
 	
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 	
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

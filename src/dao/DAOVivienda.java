@@ -209,16 +209,25 @@ public class DAOVivienda
 		boolean rta2 = false;
 		boolean rta3 = false;
 	
-
 		String capacidad = resultSet.getString("CAPACIDAD");
-		String caracteristicasSeguro = resultSet.getString(" CARACTERISTICAS_SEGURO");
+		Integer rtax = null;
+		if(capacidad != null)
+		{
+			rtax = Integer.parseInt(capacidad);
+		}
+		String caracteristicasSeguro = resultSet.getString("CARACTERISTICAS_SEGURO");
 		String caracteristicas = resultSet.getString("CARACTERISTICAS_VIVIENDA");
 		String idVecino = resultSet.getString("ID_VECINO");
+		Integer rtaxd = null;
+		if(idVecino != null)
+		{
+			rtaxd = Integer.parseInt(idVecino);
+		}
 		String precio = resultSet.getString("PRECIO_VIVIENDA");
 		String vivienda = resultSet.getString("ID_VIVIENDA");
 
 
-		Vivienda beb = new Vivienda(Integer.parseInt(capacidad), caracteristicasSeguro,caracteristicas, Integer.parseInt(vivienda),Double.parseDouble(precio), Integer.parseInt(idVecino));
+		Vivienda beb = new Vivienda(rtax, caracteristicasSeguro,caracteristicas, Integer.parseInt(vivienda),Double.parseDouble(precio), rtaxd);
 
 		return beb;
 	}

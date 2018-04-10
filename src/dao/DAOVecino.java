@@ -230,7 +230,7 @@ public class DAOVecino {
 		}
 		String idVecino = resultSet.getString("ID_VECINO");
 		String idPersona = resultSet.getString("ID_PERSONA");
-		String miembro = resultSet.getString(" MIEMBRO_COMUNIDAD");
+		String miembro = resultSet.getString("MIEMBRO_COMUNIDAD");
 		if(miembro.equals("T"))
 		{
 			rta3 = true;
@@ -238,8 +238,13 @@ public class DAOVecino {
 		String edad = resultSet.getString("EDAD");
 		
 		String idVivienda = resultSet.getString("ID_VIVIENDA");
+		Integer rtaxd = null;
+		if(idVivienda !=null)
+		{
+			rtaxd = Integer.parseInt(idVivienda);
+		}
 
-		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(idPersona), rta3, Integer.parseInt(idVecino), Integer.parseInt(idVivienda));
+		Vecino beb = new Vecino(rta1, nombre, rta2, Integer.parseInt(edad), Integer.parseInt(idPersona), rta3, Integer.parseInt(idVecino), rtaxd);
 
 		return beb;
 	}
