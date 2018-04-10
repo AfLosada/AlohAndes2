@@ -104,7 +104,7 @@ public class DAOServicioInmobiliario
 	 */
 	public void addServicioInmobiliario(ServicioInmobiliario servicioInmobiliario) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.SERVICIOINMOBILIARIO (COSTO_SERVICIO_INMOBILIARIO, ID_SERVICIO_INMOBILIARIO, TIPO_SERVICIO_INMOBILIARIO) VALUES (%2$s, %3$s, '%4$s')", 
+		String sql = String.format("INSERT INTO %1$s.SERVICIO_INMOBILIARIO (COSTO_SERVICIO_INMOBILIARIO, ID_SERVICIO_INMOBILIARIO, TIPO_SERVICIO_INMOBILIARIO) VALUES (%2$s, %3$s, '%4$s')", 
 				USUARIO, 
 				servicioInmobiliario.getCosto(),
 				servicioInmobiliario.getId(),

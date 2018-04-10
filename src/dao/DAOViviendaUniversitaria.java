@@ -113,9 +113,9 @@ public class DAOViviendaUniversitaria
 
 		String sql = String.format("INSERT INTO %1$s.VIVIENDA_UNIVERSITARIA (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO, CAPACIDAD_VIVIENDAU, ID_VIVIENDAU, DURACION_SERVICIO, AMOBLAMIENTO) VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s, %7$s, '%8$s')", 
 				USUARIO, 
-				viviendaUniversitaria.isCamaraComercio(),
+				viviendaUniversitaria.toString(viviendaUniversitaria.isCamaraComercio()),
 				viviendaUniversitaria.getNombreOperador(),
-				viviendaUniversitaria.isSuperIntendenciaTurismo(),
+				viviendaUniversitaria.toString(viviendaUniversitaria.isSuperIntendenciaTurismo()),
 				viviendaUniversitaria.getCapacidad(),
 				viviendaUniversitaria.getId(),
 				viviendaUniversitaria.getDuracion(),

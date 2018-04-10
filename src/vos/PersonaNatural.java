@@ -26,7 +26,7 @@ public class PersonaNatural extends Operador
 	public PersonaNatural(
 			@JsonProperty( value = "camara_comercio" )boolean camaraComercio, 
 			@JsonProperty( value = "nombre_operador" )String nombreOperador, 
-			@JsonProperty( value = "edad" )boolean superIntendenciaTurismo,
+			@JsonProperty( value = "superIntendenciaTurismo" )boolean superIntendenciaTurismo,
 			@JsonProperty( value = "edad" ) int edad,
 			@JsonProperty( value = "id_persona" )int id, 
 			@JsonProperty( value = "miembro_comunidad" )boolean miembro) 

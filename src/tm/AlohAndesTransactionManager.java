@@ -3038,7 +3038,245 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 	//TODO FIN VIVIENDA INICIO VIVIENDAUNIVERSITARIA
 
+	/**
+	 * Metodo que modela la transaccion que retorna todos los vecinoes de la base de datos. <br/>
+	 * @return List<Vecino> - Lista de vecinoes que contiene el resultado de la consulta.
+	 * @throws Exception -  Cualquier error que se genere durante la transaccion
+	 */
+	public List<ViviendaUniversitaria> getAllViviendaUniversiatia() throws Exception {
+		DAOViviendaUniversitaria daoVecino = new DAOViviendaUniversitaria();
+		List<ViviendaUniversitaria> vecino;
+		try 
+		{
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
 
+			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+			vecino = daoVecino.getViviendaUniversitarias();
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vecino;
+	}
+
+	/**
+	 * Metodo que modela la transaccion que busca el vecino en la base de datos que tiene el ID dado por parametro. <br/>
+	 * @param name -id del vecino a buscar. id != null
+	 * @return Vecino - Vecino que se obtiene como resultado de la consulta.
+	 * @throws Exception -  cualquier error que se genere durante la transaccion
+	 */
+	public ViviendaUniversitaria getViviendaUniversitariaById(Integer id) throws Exception {
+		DAOViviendaUniversitaria daoVecino = new DAOViviendaUniversitaria();
+		ViviendaUniversitaria vecino = null;
+		try 
+		{
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			vecino = daoVecino.findViviendaUniversitariaById(id);
+			if(vecino == null)
+			{
+				throw new Exception("El vecino con el id = " + id + " no se encuentra persistido en la base de datos.");				
+			}
+		} 
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return vecino;
+	}
+
+	/**
+	 * Método que modela la transacción que agrega un solo video a la base de datos.
+	 * <b> post: </b> se ha agregado el video que entra como parámetro
+	 * @param video - el video a agregar. video != null
+	 * @throws Exception - cualquier error que se genera agregando el video
+	 */
+	public void addViviendaUniversitaria(ViviendaUniversitaria vecino) throws Exception {
+		DAOViviendaUniversitaria daoVecinos = new DAOViviendaUniversitaria();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecinos.setConn(conn);
+			daoVecinos.addViviendaUniversitaria(vecino);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecinos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+
+	/**
+	 * Método que modela la transacción que agrega los videos que entran como parámetro a la base de datos.
+	 * <b> post: </b> se han agregado los videos que entran como parámetro
+	 * @param videos - objeto que modela una lista de videos y se estos se pretenden agregar. videos != null
+	 * @throws Exception - cualquier error que se genera agregando los videos
+	 */
+	public void addViviendaUniversitarias(ArrayList<ViviendaUniversitaria> vecinos) throws Exception {
+		DAOViviendaUniversitaria daoVecinos = new DAOViviendaUniversitaria();
+		try 
+		{
+			//////Transacción - ACID Example
+			this.conn = darConexion();
+			conn.setAutoCommit(false);
+			daoVecinos.setConn(conn);
+			for(ViviendaUniversitaria vecino : (vecinos))
+				daoVecinos.addViviendaUniversitaria(vecino);
+			conn.commit();
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			conn.rollback();
+			throw e;
+		} finally {
+			try {
+				daoVecinos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que actualiza el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha actualizado el video que entra como parámetro
+	 * @param video - Video a actualizar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void updateViviendaUniversitaria(ViviendaUniversitaria vecino) throws Exception {
+		DAOViviendaUniversitaria daoVecino = new DAOViviendaUniversitaria();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			daoVecino.updateViviendaUniversitaria(vecino);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+
+	/**
+	 * Método que modela la transacción que elimina el video que entra como parámetro a la base de datos.
+	 * <b> post: </b> se ha eliminado el video que entra como parámetro
+	 * @param video - Video a eliminar. video != null
+	 * @throws Exception - cualquier error que se genera actualizando los videos
+	 */
+	public void deleteViviendaUniversitaria(ViviendaUniversitaria vecino) throws Exception {
+		DAOViviendaUniversitaria daoVecino = new DAOViviendaUniversitaria();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoVecino.setConn(conn);
+			daoVecino.deleteViviendaUniversitaria(vecino);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVecino.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 	//TODO FIN VIVIENDAUNIVERSITARIA INICIO RESERVA
 
 	/**

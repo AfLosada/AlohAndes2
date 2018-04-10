@@ -103,7 +103,7 @@ public class DAOPersonaNatural
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void addPersonaNatural(PersonaNatural personaNatural) throws SQLException, Exception {
-		String sql = String.format("INSERT INTO %1$s.PERSONA_NATURAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO,  EDAD, ID_PERSONA, MIEMBRO_COMUNIDAD) VALUES ('%2$s', '%3$s', '%4$s', '%5$s', %6$s, '%7$s' ", 
+		String sql = String.format("INSERT INTO %1$s.PERSONA_NATURAL (CAMARA_COMERCIO, NOMBRE, SUPERINTENDENCIA_TURISMO,  EDAD, ID_PERSONA, MIEMBRO_COMUNIDAD) VALUES ('%2$s', '%3$s', '%4$s', %5$s, %6$s, '%7$s') ", 
 				USUARIO, 
 				personaNatural.toString(personaNatural.isCamaraComercio()),
 				personaNatural.getNombreOperador(),
