@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import java.sql.Connection;
 import java.util.Date;
 
@@ -113,9 +114,9 @@ public class DAOReserva {
 
 		int dur = Integer.parseInt(reserva.getDuracion());
 		
-		if(!(dur < 7 && dur >= 3))
+		if(dur <= 3)
 		{
-			throw new Exception("La duracion debe ser de más de 3 días y menos que una semana");
+			throw new Exception("La duracion debe ser de más de 3 días");
 		}
 		else if(dur <7 )
 		{
@@ -265,9 +266,10 @@ public class DAOReserva {
 	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla ReservaES) en una instancia de la clase Reserva.
 	 * @param resultSet ResultSet con la informacion de un Reserva que se obtuvo de la base de datos.
 	 * @return Reserva cuyos atributos corresponden a los valores asociados a un registro particular de la tabla ReservaES.
-	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 * @throws Exception 
+	 * @throws NumberFormatException 
 	 */
-	public Reserva convertResultSetToReserva(ResultSet resultSet) throws SQLException {
+	public Reserva convertResultSetToReserva(ResultSet resultSet) throws NumberFormatException, Exception {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Reserva. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
@@ -325,8 +327,10 @@ public class DAOReserva {
 		{
 			rta14 =Integer.parseInt(idCliente);
 		}
+		
+		
 
-		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14);
+		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14, new ArrayList<Integer>());
 
 		return beb;
 	}

@@ -1,8 +1,12 @@
 package vos;
 
+import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+
+import dao.DAOHabitacion;
 
 public class Reserva 
 {
@@ -49,6 +53,10 @@ public class Reserva
 	@JsonProperty ( value = "idCliente" )
 	private Integer idCliente;
 
+	
+	@JsonProperty (value = "habitaciones")
+	private List<Habitacion> habitaciones;
+
 
 	//
 	// Constructor
@@ -66,7 +74,8 @@ public class Reserva
 			@JsonProperty( value = "idPersona" ) Integer idPersona,
 			@JsonProperty( value = "idHotel" ) Integer idHotel,
 			@JsonProperty( value = "idViviendaU" ) Integer idViviendaU,
-			@JsonProperty( value = "idCliente" )	Integer idCliente) {
+			@JsonProperty( value = "idCliente" )	Integer idCliente,
+			@JsonProperty (value = "habitaciones") List<Integer> habitaciones) throws SQLException, Exception {
 		super();
 		this.confirmada = confirmada;
 		this.duracion = duracion;
@@ -80,6 +89,13 @@ public class Reserva
 		this.idHotel = idHotel;
 		this.idViviendaU = idViviendaU;
 		this.idCliente = idCliente;
+		
+		DAOHabitacion daoHab = new DAOHabitacion();
+		for (Integer integer : habitaciones) {
+
+			this.habitaciones.add(daoHab.findHabitacionById(idCliente));
+		}
+		
 	}
 
 
@@ -277,6 +293,20 @@ public class Reserva
 		if(confirmada2)
 			rta = "T";
 		return rta;
+	}
+
+
+
+	/**
+	 * @return the habitaciones
+	 */
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+	
+	public void setHabitaciones(List<Habitacion> xd)
+	{
+		this.habitaciones = xd;
 	}
 
 

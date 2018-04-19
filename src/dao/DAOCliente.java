@@ -83,7 +83,7 @@ public class DAOCliente
 	{
 		Cliente Cliente = null;
 
-		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID_CLIENTE = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

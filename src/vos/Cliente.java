@@ -12,10 +12,10 @@ public class Cliente
 	//
 	
 	@JsonProperty(value = "id_Cliente")
-	private int id;
+	private Integer id;
 
 	@JsonProperty(value = "edad")
-	private int edad;
+	private Integer edad;
 	
 
 	@JsonProperty(value = "miembro_comunidad")
@@ -38,7 +38,7 @@ public class Cliente
 	
 	
 
-	public Cliente(	@JsonProperty(value = "id_Cliente") int id2, @JsonProperty(value = "edad")int pEdad, @JsonProperty(value = "miembro_comunidad")  boolean pMiembroComunidadUniversitario, @JsonProperty(value = "nombre_cliente")	 String pnombre, @JsonProperty(value = "tipo_cliente")  String ptipo)
+	public Cliente(	@JsonProperty(value = "id_Cliente") Integer id2, @JsonProperty(value = "edad")Integer pEdad, @JsonProperty(value = "miembro_comunidad")  boolean pMiembroComunidadUniversitario, @JsonProperty(value = "nombre_cliente")	 String pnombre, @JsonProperty(value = "tipo_cliente")  String ptipo)
 	{
 		this.id = id2;
 		this.edad = pEdad;
@@ -52,22 +52,22 @@ public class Cliente
 	//
 	
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
 
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 

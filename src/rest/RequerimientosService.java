@@ -1,4 +1,4 @@
-package rest;
+	package rest;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.swing.plaf.FontUIResource;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -75,7 +76,7 @@ public class RequerimientosService <K extends Operador>
 	// METODOS REST
 	// --------------------------------------------------------------------------------------
 
-	public Oferta getOfertaByID(int id){
+	public Oferta getOfertaByID(Integer id){
 		DAOOferta dao = new DAOOferta();
 		Oferta resp = null;
 		try {
@@ -87,7 +88,7 @@ public class RequerimientosService <K extends Operador>
 		}
 		return resp;
 	}
-	public Reserva getReservaByID(int id){
+	public Reserva getReservaByID(Integer id){
 		DAOReserva dao = new DAOReserva();
 		Reserva resp= null;
 		try {
@@ -100,7 +101,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Cliente getClienteByID(int id){
+	public Cliente getClienteByID(Integer id){
 		DAOCliente dao = new DAOCliente();
 		Cliente resp= null;
 		try {
@@ -112,7 +113,7 @@ public class RequerimientosService <K extends Operador>
 		}
 		return resp; 
 	}
-	public ServicioPublico getServicioPublicoByID(int id){
+	public ServicioPublico getServicioPublicoByID(Integer id){
 		DAOServicioPublico dao = new DAOServicioPublico();
 		ServicioPublico resp= null;
 		try {
@@ -125,7 +126,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public ServicioInmobiliario getServicioInmobiliarioByID(int id){
+	public ServicioInmobiliario getServicioInmobiliarioByID(Integer id){
 		DAOServicioInmobiliario dao = new DAOServicioInmobiliario();
 		ServicioInmobiliario resp= null;
 		try {
@@ -138,7 +139,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Hostal getHostalByID(int id){
+	public Hostal getHostalByID(Integer id){
 		DAOHostal dao = new DAOHostal();
 		Hostal resp= null;
 		try {
@@ -151,7 +152,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Hotel getHotellByID(int id){
+	public Hotel getHotellByID(Integer id){
 		DAOHotel dao = new DAOHotel();
 		Hotel resp= null;
 		try {
@@ -164,7 +165,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Habitacion getHabitacionByID(int id){
+	public Habitacion getHabitacionByID(Integer id){
 		DAOHabitacion dao = new DAOHabitacion();
 		Habitacion resp= null;
 		try {
@@ -177,7 +178,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public PersonaNatural getPersonaByID(int id){
+	public PersonaNatural getPersonaByID(Integer id){
 		DAOPersonaNatural dao = new DAOPersonaNatural();
 		PersonaNatural resp= null;
 		try {
@@ -190,7 +191,7 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public ViviendaUniversitaria getViviendaUByID(int id){
+	public ViviendaUniversitaria getViviendaUByID(Integer id){
 		DAOViviendaUniversitaria dao = new DAOViviendaUniversitaria();
 		ViviendaUniversitaria resp= null;
 		try {
@@ -202,7 +203,7 @@ public class RequerimientosService <K extends Operador>
 		}
 		return resp; 
 	}
-	public Vecino getVecinoByID(int id){
+	public Vecino getVecinoByID(Integer id){
 		DAOVecino dao = new DAOVecino();
 		Vecino resp= null;
 		try {
@@ -217,17 +218,17 @@ public class RequerimientosService <K extends Operador>
 
 
 	@POST
-	@Path("/requerimientos/oferta/hotel")
+	@Path("/oferta/hostal/")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHostal(int idHostal, int idOferta, List<Integer> identificadores, int idSPub, int idSIn) {
+	public Response createOfertaHostal(Integer idHostal, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
 
 		Hostal hostal = getHostalByID(idHostal);
 		Oferta oferta = getOfertaByID(idOferta);
 		ServicioPublico sPub = getServicioPublicoByID(idSPub);
 		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -244,16 +245,17 @@ public class RequerimientosService <K extends Operador>
 
 
 	@POST
-	@Path("/requerimientos/oferta/hotel")
+	@Path("/oferta/hotel")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHotel(int idHotel, int idOferta, List<Integer> identificadores, int idSPub, int idSIn) {
+	public Response createOfertaHotel(Integer idHotel, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
 		Hotel hotel = getHotellByID(idHotel);
 		Oferta oferta = getOfertaByID(idOferta);
 		ServicioPublico sPub = getServicioPublicoByID(idSPub);
 		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -271,15 +273,16 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/oferta/PersonaNatural")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaPersonaNatural(int idPersona, int idOferta, List<Integer> identificadores, int idSPub, int idSIn) {
+	public Response createOfertaPersonaNatural(Integer idPersona, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
 		PersonaNatural persona = getPersonaByID(idPersona);
 		Oferta oferta = getOfertaByID(idOferta);
 		ServicioPublico sPub = getServicioPublicoByID(idSPub);
 		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}	
@@ -296,15 +299,16 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/oferta/viviendaUniversitaria")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaViviendaUniversitaria(int idViviendaU, int idOferta, List<Integer> identificadores, int idSPub, int idSIn) {
+	public Response createOfertaViviendaUniversitaria(Integer idViviendaU, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
 		ViviendaUniversitaria viviendaU = getViviendaUByID(idViviendaU);
 		Oferta oferta = getOfertaByID(idOferta);
 		ServicioPublico sPub = getServicioPublicoByID(idSPub);
 		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}	
@@ -323,14 +327,15 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/reserva/hotel")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHotel(int idHotel, int idReserva, List<Integer> identificadores, int idCliente) {
+	public Response createReservaHotel(Integer idHotel, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
 		Hotel hotel = getHotellByID(idHotel);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -347,14 +352,15 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/reserva/Hostal")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHostal(int idHostal, int idReserva, List<Integer> identificadores, int idCliente) {
+	public Response createReservaHostal(Integer idHostal, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
 		Hostal hostal = getHostalByID(idHostal);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -371,15 +377,16 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/reserva/viviendauniversitaria")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaViviendaUniversitaria(int idVivienda, int idReserva, List<Integer> identificadores, int idCliente) {
+	public Response createReservaViviendaUniversitaria(Integer idVivienda, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
 
 		ViviendaUniversitaria vivienda = getViviendaUByID(idVivienda);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -396,15 +403,16 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/reserva/personanatural")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaPersonaNatural(int idPersona, int idReserva, List<Integer> identificadores, int idCliente) {
+	public Response createReservaPersonaNatural(Integer idPersona, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
 
 		PersonaNatural persona = getPersonaByID(idPersona);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -421,15 +429,16 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/reserva/viviendauniversitaria")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaVecino(int idVecino, int idReserva, List<Integer> identificadores, int idCliente) {
+	public Response createReservaVecino(Integer idVecino, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
 
 		Vecino vecino = getVecinoByID(idVecino);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
 		List<Habitacion> habitaciones = new ArrayList<>();
-		for (int i = 0; i < identificadores.size(); i++) {
-			int id = identificadores.get(i);
+		for (Integer i = 0; i < identificadores.size(); i++) {
+			Integer id = identificadores.get(i);
 			Habitacion hab = getHabitacionByID(id);
 			habitaciones.add(hab);
 		}
@@ -449,6 +458,7 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/20ofertas")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getOfertasCool() {
 		
@@ -467,6 +477,7 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/requerimientos/cosasoperadores")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getCosasOperadores() {
 
@@ -477,15 +488,15 @@ public class RequerimientosService <K extends Operador>
 			ArrayList<VOExtraHotel> b = tm.operadoresConCosas2();
 			ArrayList<VOExtraPersona> c = tm.operadoresConCosas3();
 			ArrayList<VOExtraViviendaUniversitaria> d = tm.operadoresConCosas4();
-			for(int i = 0; i<b.size(); i++)
+			for(Integer i = 0; i<b.size(); i++)
 			{
 				sisa.add(b.get(i));
 			}
-			for(int i = 0; i<c.size(); i++)
+			for(Integer i = 0; i<c.size(); i++)
 			{
 				sisa.add(c.get(i));
 			}
-			for(int i = 0; i<d.size(); i++)
+			for(Integer i = 0; i<d.size(); i++)
 			{
 				sisa.add(d.get(i));
 			}
