@@ -9,6 +9,7 @@ import javax.swing.plaf.FontUIResource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -218,7 +219,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 
-	@POST
+	@PUT
 	@Path("/oferta/hostal/")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -248,7 +249,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 
-	@POST
+	@PUT
 	@Path("/oferta/hotel/")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaHotel(VOOfertaHabitaciones vohab) {
@@ -276,8 +277,8 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	@POST
-	@Path("/requerimientos/oferta/PersonaNatural")
+	@PUT
+	@Path("/oferta/PersonaNatural")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaPersonaNatural(VOOfertaHabitaciones vohab) {
@@ -304,8 +305,8 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	@POST
-	@Path("/requerimientos/oferta/viviendaUniversitaria")
+	@PUT
+	@Path("/oferta/viviendaUniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) {

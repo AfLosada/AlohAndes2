@@ -3496,6 +3496,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			//////Transacci�n
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
+			
 			daoReserva.deleteReserva(reserva);
 
 		} catch (SQLException e) {
