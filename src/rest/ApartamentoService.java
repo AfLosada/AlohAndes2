@@ -64,7 +64,6 @@ public class ApartamentoService <K extends Operador>
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getApartamentos() {
-
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
@@ -119,7 +118,6 @@ public class ApartamentoService <K extends Operador>
 	@Consumes( { MediaType.APPLICATION_JSON } )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response addApartamento(Apartamento apartamento) {
-
 		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );

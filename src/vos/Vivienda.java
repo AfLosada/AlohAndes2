@@ -30,6 +30,12 @@ public class Vivienda
 	@JsonProperty( value = "idVecino")
 	private Integer idVecino;
 	
+	@JsonProperty( value = "tiempoUso")
+	private Integer tiempoUso;
+	
+	@JsonProperty( value = "ubicacion")
+	private String ubicacion;
+	
 	
 	//
 	// Constructor
@@ -41,7 +47,9 @@ public class Vivienda
 			@JsonProperty( value = "caracteristicasVivienda") String caracteristicas, 
 			@JsonProperty( value = "IidVivienda")Integer idVivienda, 
 			@JsonProperty( value = "precioVivienda")double precioVivienda, 
-			@JsonProperty( value = "idVecino")Integer idVecino){
+			@JsonProperty( value = "idVecino")Integer idVecino,
+			@JsonProperty( value = "tiempoUso")String ubicacion,
+			@JsonProperty( value = "ubicacion")Integer tiempoUso){
 	
 		this.capacidad = capacidad;
 		this.caracteristicasSeguro = caracteristicasSeguro;
@@ -49,11 +57,28 @@ public class Vivienda
 		this.idVivienda = idVivienda;
 		this.precioVivienda = precioVivienda;
 		this.idVecino = idVecino;
+		this.tiempoUso = tiempoUso;
+		this.ubicacion = ubicacion;
 	}
 
 	//
 	// Getters y Setters 
 	//
+	public Integer getTiempoUso(){
+		return tiempoUso;
+	}
+	
+	public void setTiempoUso( Integer tiempo){
+		this.tiempoUso = tiempoUso;
+	}
+	
+	public String getUbicacion(){
+		return ubicacion;
+	}
+	
+	public void setUbicacion(){
+		this.ubicacion = ubicacion;
+	}
 	
 	public Integer getCapacidad() {
 		return capacidad;

@@ -107,14 +107,15 @@ public class DAOApartamento
 	 */
 	public void addApartamento(Apartamento apartamento) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (amoblado, capacidad_apto, id_apartamento, precio_apto, id_persona, id_oferta) VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, %7$s)", 
+		String sql = String.format("INSERT INTO %1$s.APARTAMENTO (AMOBLADO, CAPACIDAD_APTO, ID_APARTAMENTO, PRECIO_APTO, ID_PERSONA, ID_OFERTA, INCLUYE_SERVICIOS) VALUES ('%2$s', %3$s, %4$s, %5$s, %6$s, %7$s, '%8$s')", 
 									USUARIO, 
 									apartamento.toString(apartamento.isAmoblado()), 
 									apartamento.getCapacidad(),
 									apartamento.getId(), 
 									apartamento.getPrecio(),
 									apartamento.getIdPersonaNatural(),
-									apartamento.getIdOferta());
+									apartamento.getIdOferta(),
+									apartamento.getIncluyeServicios());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -136,13 +137,14 @@ public class DAOApartamento
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.APARTAMENTO ", USUARIO));
 		sql.append (String.format (
-				"SET AMOBLADO = '%1$s', CAPACIDAD_APTO = '%2$s', ID_APARTAMENTO = '%3$s' , PRECIO_APTO = '%4$s', ID_PERSONA = '%5$s', ID_OFERTA = '%6$s'",
+				"SET amoblado = '%1$s', capacidad_apto = %2$s, id_apartamento = %3$s , precio_apto = %4$s, id_persona = %5$s, id_oferta = %6$s, incluye_servicios ='%7$s'",
 				apartamento.toString(apartamento.isAmoblado()), 
 				apartamento.getCapacidad(),
 				apartamento.getId(), 
 				apartamento.getPrecio(),
 				apartamento.getIdPersonaNatural(),
-				apartamento.getIdOferta()));
+				apartamento.getIdOferta(),
+				apartamento.getIncluyeServicios()));
 		sql.append ("WHERE ID = " + apartamento.getId ());
 		System.out.println(sql);
 		
@@ -213,7 +215,7 @@ public class DAOApartamento
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
 		String amoblado = resultSet.getString("amoblado");
-		boolean rta = false;
+		Boolean rta = false;
 		if(amoblado.equals("T"))
 		{
 			rta = true;
@@ -223,9 +225,12 @@ public class DAOApartamento
 		String id = resultSet.getString("id_apartamento");
 		String idPersona = resultSet.getString("id_Persona");
 		String idOferta = resultSet.getString("id_Oferta");
-
-		Apartamento beb = new Apartamento(rta, Integer.parseInt(capacidad), Integer.parseInt(id), Integer.parseInt(precio),Integer.parseInt(idPersona), Integer.parseInt(idOferta));
-
+		String incluye = resultSet.getString("incluye_servicios");
+		Boolean resp = false;
+		if(incluye.equals("T")){
+			resp = true;
+		}
+		Apartamento beb = new Apartamento(rta, Integer.parseInt(capacidad), Integer.parseInt(id), Double.parseDouble(precio),Integer.parseInt(idPersona), Integer.parseInt(idOferta), resp);
 		return beb;
 	}
 	

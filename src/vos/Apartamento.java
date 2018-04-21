@@ -6,46 +6,60 @@ public class Apartamento
 {
 
 	@JsonProperty( value = "amoblado")
-	private boolean amoblado;
+	private Boolean amoblado;
 
 	@JsonProperty( value = "capacidad_apto")
-	private int capacidad;
+	private Integer capacidad_apto;
 
 	@JsonProperty( value = "id_apartamento")
-	private int id;
+	private Integer id_apartamento;
 
 	@JsonProperty( value = "precio_apto")
-	private double precio;
+	private Double precio_apto;
 	
 	@JsonProperty (value = "id_Persona")
-	private int idPersonaNatural;
+	private Integer id_persona;
 
 	@JsonProperty ( value = "id_Oferta")
-	private int idOferta;
+	private Integer id_oferta;
+	
+	@JsonProperty( value = "incluye_servicios")
+	private Boolean incluye_servicios;
 
 
 	//
 	// Constructor
 	//
 
-	public Apartamento(@JsonProperty( value = "amoblado") boolean amoblado,@JsonProperty( value = "capacidad_apto") int capacidad,
-			@JsonProperty( value = "id_apartamento") int id, 
-			@JsonProperty( value = "precio_apto")double precio,@JsonProperty (value = "id_Persona") int idPersonaNatural, @JsonProperty ( value = "id_Oferta")int idOferta) {
+	public Apartamento(@JsonProperty( value = "amoblado") Boolean amoblado,
+			@JsonProperty( value = "capacidad_apto") Integer capacidad,
+			@JsonProperty( value = "id_apartamento") Integer id, 
+			@JsonProperty( value = "precio_apto") Double precio,
+			@JsonProperty (value = "id_Persona") Integer idPersonaNatural,
+			@JsonProperty ( value = "id_Oferta") Integer idOferta,
+			@JsonProperty( value = "incluyeServicios") Boolean incluyeServicios) {
 		super();
 		this.amoblado = amoblado;
-		this.capacidad = capacidad;
-		this.id = id;
-		this.precio = precio;
-		this.idPersonaNatural = idPersonaNatural;
-		this.idOferta = idOferta;
+		this.capacidad_apto= capacidad;
+		this.id_apartamento = id;
+		this.precio_apto = precio;
+		this.id_persona = idPersonaNatural;
+		this.id_oferta = idOferta;
+		this.incluye_servicios = incluyeServicios;
 	}
 
 	//
 	// Getters y Setters
 	// 
+	public Boolean getIncluyeServicios(){
+		return incluye_servicios;
+	}
+	
+	public void setIncluyeServicios(){
+		this.incluye_servicios = incluye_servicios;
+	}
 
-
-	public boolean isAmoblado() {
+	public Boolean isAmoblado(){
 		return amoblado;
 	}
 
@@ -53,61 +67,60 @@ public class Apartamento
 		this.amoblado = amoblado;
 	}
 
-	public int getCapacidad() {
-		return capacidad;
+	public Integer getCapacidad() {
+		return  capacidad_apto;
 	}
 
 	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
+		this.capacidad_apto = capacidad;
 	}
 
-	public int getId() {
-		return id;
+	public Integer getId() {
+		return id_apartamento;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.id_apartamento = id;
 	}
 
-	public double getPrecio() {
-		return precio;
+	public Double getPrecio() {
+		return precio_apto;
 	}
 
 	public void setPrecio(double precio) {
-		this.precio = precio;
+		this.precio_apto = precio;
 	}
 	
 	/**
 	 * @return the idPersonaNatural
 	 */
-	public int getIdPersonaNatural() {
-		return idPersonaNatural;
+	public Integer getIdPersonaNatural() {
+		return id_persona;
 	}
 
 	/**
 	 * @param idPersonaNatural the idPersonaNatural to set
 	 */
 	public void setIdPersonaNatural(int idPersonaNatural) {
-		this.idPersonaNatural = idPersonaNatural;
+		this.id_persona = idPersonaNatural;
 	}
 
 	/**
 	 * @return the idOferta
 	 */
-	public int getIdOferta() {
-		return idOferta;
+	public Integer getIdOferta() {
+		return id_oferta;
 	}
 
 	/**
 	 * @param idOferta the idOferta to set
 	 */
 	public void setIdOferta(int idOferta) {
-		this.idOferta = idOferta;
+		this.id_oferta = idOferta;
 	}
 
 	public String toString(boolean amoblado2) 
 	{
-		// TODO Auto-generated method stub
 		String rta = "F";
 		if(amoblado2)
 			rta = "T";

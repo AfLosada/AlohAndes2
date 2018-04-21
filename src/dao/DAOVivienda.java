@@ -104,14 +104,16 @@ public class DAOVivienda
 	 */
 	public void addVivienda(Vivienda vivienda) throws SQLException, Exception {
 
-		String sql = String.format("INSERT INTO %1$s.VIVIENDA (CAPACIDAD, CARACTERISTICAS_SEGURO, CARACTERISTICAS_VIVIENDA, PRECIO_VIVIENDA, ID_VECINO, ID_VIVIENDA) VALUES (%2$s, '%3$s', '%4$s', %5$s, %6$s, %7$s)", 
+		String sql = String.format("INSERT INTO %1$s.VIVIENDA (CAPACIDAD, CARACTERISTICAS_SEGURO, CARACTERISTICAS_VIVIENDA, PRECIO_VIVIENDA, ID_VECINO, ID_VIVIENDA, UBICACION, TIEMPO_USO) VALUES (%2$s, '%3$s', '%4$s', %5$s, %6$s, %7$s,'%8$s, %9$s)", 
 				USUARIO, 
 				vivienda.getCapacidad(),
 				vivienda.getCaracteristicasSeguro(),
 				vivienda.getCaracteristicas(),
 				vivienda.getPrecioVivienda(),
 				vivienda.getIdVecino(),
-				vivienda.getIdVivienda());
+				vivienda.getIdVivienda(),
+				vivienda.getUbicacion(),
+				vivienda.getTiempoUso());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -133,13 +135,15 @@ public class DAOVivienda
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.VIVIENDA ", USUARIO));
 		sql.append (String.format (
-				"SET capacidad = '%1$s', caracteristicasSeguro = '%2$s', caracteristicas = '%3$s'",
+				"SET capacidad = %1$s, caracteristicasSeguro = '%2$s', caracteristicas = '%3$s', precioVivienda = %4$s, idVecino = %5$s, idVivienda = %6$s  , ubicacion = '%7$s' , tiempoUso= %8$s ",
 				vivienda.getCapacidad(),
 				vivienda.getCaracteristicasSeguro(),
 				vivienda.getCaracteristicas(),
 				vivienda.getPrecioVivienda(),
 				vivienda.getIdVecino(),
-				vivienda.getIdVivienda()));
+				vivienda.getIdVivienda(),
+				vivienda.getUbicacion(),
+				vivienda.getTiempoUso()));
 		sql.append ("WHERE ID = " + vivienda.getIdVivienda());
 		System.out.println(sql);
 
@@ -225,9 +229,11 @@ public class DAOVivienda
 		}
 		String precio = resultSet.getString("PRECIO_VIVIENDA");
 		String vivienda = resultSet.getString("ID_VIVIENDA");
+		String ubicacion = resultSet.getString("UBICACION");
+		String tiempo = resultSet.getString("TIEMPO_USO");
 
 
-		Vivienda beb = new Vivienda(rtax, caracteristicasSeguro,caracteristicas, Integer.parseInt(vivienda),Double.parseDouble(precio), rtaxd);
+		Vivienda beb = new Vivienda(rtax, caracteristicasSeguro,caracteristicas, Integer.parseInt(vivienda),Double.parseDouble(precio), rtaxd, ubicacion, Integer.parseInt(tiempo));
 
 		return beb;
 	}
