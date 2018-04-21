@@ -84,7 +84,7 @@ public class HostalService <K extends Operador>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@GET
-	@Path( "/hotales/{id: \\d+}" )
+	@Path( "/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response getHostalById( @PathParam( "id" ) Integer id )
 	{

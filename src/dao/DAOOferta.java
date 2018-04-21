@@ -84,7 +84,7 @@ public class DAOOferta
 	{
 		Oferta Oferta = null;
 
-		String sql = String.format("SELECT * FROM %1$s.OFERTA WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -134,9 +134,9 @@ public class DAOOferta
 	public void updateOferta(Oferta oferta) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE %s.OFERTA ", USUARIO));
+		sql.append (String.format ("UPDATE %1$s.OFERTA ", USUARIO));
 		sql.append (String.format (
-				"SET ID_OFERTA = '%1$s', NUM_RESERVAS = '%2$s', VIGENTE = '%3$s' , ID_HOSTAL = '%4$s', ID_PERSONA = '%5$s', ID_HOTEL = '%6$s', ID_VIVIENDAU = '%7$s'",
+				"SET ID_OFERTA = %1$s, NUM_RESERVAS = %2$s, VIGENTE = '%3$s' , ID_HOSTAL = %4$s, ID_PERSONA = %5$s, ID_HOTEL = %6$s, ID_VIVIENDAU = %7$s",
 				oferta.getId(),
 				oferta.getNumReservas(),
 				oferta.toString(oferta.isVigente()),
@@ -144,7 +144,7 @@ public class DAOOferta
 				oferta.getIdPersona(),
 				oferta.getIdHotel(),
 				oferta.getIdViviendaU()));
-		sql.append ("WHERE ID = " + oferta.getId());
+		sql.append (" WHERE ID_OFERTA = " + oferta.getId());
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
@@ -161,19 +161,19 @@ public class DAOOferta
 	 */
 	public void deleteOferta(Oferta oferta) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.OFERTA WHERE ID = %3$d", USUARIO, oferta.getId());
-		
+		String sql = String.format("DELETE FROM %1$s.OFERTA WHERE ID_OFERTA = %3$d", USUARIO, oferta.getId());
+
 		DAOHabitacion sisa = new DAOHabitacion();
 		DAOApartamento ap = new DAOApartamento();
 		ArrayList<Habitacion> habs = sisa.getHabitacions();
 		for (int i = 0; i< habs.size(); i++) 
 		{
 			if(habs.get(i).getIdOferta() == oferta.getId())
-				{
-					habs.get(i).setIdOferta(0);
-				}
+			{
+				habs.get(i).setIdOferta(0);
+			}
 		}
-		
+
 		ArrayList<Apartamento> aps = ap.getApartamentos();
 		for(int i = 0; i< aps.size(); i++)
 		{
@@ -182,7 +182,7 @@ public class DAOOferta
 				aps.get(i).setIdOferta(0);
 			}
 		}
-		
+
 		oferta.getId();
 
 		System.out.println(sql);
@@ -234,7 +234,7 @@ public class DAOOferta
 		boolean rta1 = false;
 		boolean rta2 = false;
 		boolean rta3 = false;
-		
+
 		String id = resultSet.getString("ID_OFERTA");
 
 		String vigente = resultSet.getString("VIGENTE");
@@ -248,13 +248,13 @@ public class DAOOferta
 		String idPersona = resultSet.getString("ID_PERSONA");
 		String idHotel = resultSet.getString("ID_HOTEL");
 		String idViviendaU = resultSet.getString("ID_VIVIENDAU");
-		
+
 		Integer rta4 = null;
 		Integer rta5 = null;
 		Integer rta6 = null;
 		Integer rta7 = null;
 		Integer rta8 = null;
-		
+
 		if(idHotel != null )
 		{
 			rta4 = Integer.parseInt(idHotel);
@@ -271,10 +271,8 @@ public class DAOOferta
 		{
 			rta7 = Integer.parseInt(idViviendaU);
 		}
-		
-		
 
-		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, rta4, rta6, rta5, rta7);
+		Oferta beb = new Oferta(Integer.parseInt(id), Integer.parseInt(nombre), rta1, rta5, rta6, rta4, rta7);
 
 		return beb;
 	}

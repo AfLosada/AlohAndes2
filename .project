@@ -3,6 +3,7 @@
 	<name>AlohAndes</name>
 	<comment></comment>
 	<projects>
+		<project>TutorialParranderos</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

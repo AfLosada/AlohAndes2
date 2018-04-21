@@ -1,5 +1,6 @@
 	package rest;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,8 @@ public class RequerimientosService <K extends Operador>
 	 */
 	@Context
 	private ServletContext context;
+	
+	AlohAndesTransactionManager<Operador> tm;
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE INICIALIZACION
@@ -78,8 +81,9 @@ public class RequerimientosService <K extends Operador>
 	// METODOS REST
 	// --------------------------------------------------------------------------------------
 
-	public Oferta getOfertaByID(Integer id){
+	public Oferta getOfertaByID(Integer id) throws SQLException{
 		DAOOferta dao = new DAOOferta();
+		dao.setConn(tm.darConexion());
 		Oferta resp = null;
 		try {
 			resp = dao.findOfertaById(id);
@@ -90,8 +94,9 @@ public class RequerimientosService <K extends Operador>
 		}
 		return resp;
 	}
-	public Reserva getReservaByID(Integer id){
+	public Reserva getReservaByID(Integer id) throws SQLException{
 		DAOReserva dao = new DAOReserva();
+		dao.setConn(tm.darConexion());
 		Reserva resp= null;
 		try {
 			resp = dao.findReservaById(id);
@@ -103,8 +108,9 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Cliente getClienteByID(Integer id){
+	public Cliente getClienteByID(Integer id) throws SQLException{
 		DAOCliente dao = new DAOCliente();
+		dao.setConn(tm.darConexion());
 		Cliente resp= null;
 		try {
 			resp = dao.findClienteById(id);
@@ -115,8 +121,9 @@ public class RequerimientosService <K extends Operador>
 		}
 		return resp; 
 	}
-	public ServicioPublico getServicioPublicoByID(Integer id){
+	public ServicioPublico getServicioPublicoByID(Integer id) throws SQLException{
 		DAOServicioPublico dao = new DAOServicioPublico();
+		dao.setConn(tm.darConexion());
 		ServicioPublico resp= null;
 		try {
 			resp = dao.findServicioPublicoById(id);
@@ -128,8 +135,9 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public ServicioInmobiliario getServicioInmobiliarioByID(Integer id){
+	public ServicioInmobiliario getServicioInmobiliarioByID(Integer id) throws SQLException{
 		DAOServicioInmobiliario dao = new DAOServicioInmobiliario();
+		dao.setConn(tm.darConexion());
 		ServicioInmobiliario resp= null;
 		try {
 			resp = dao.findServicioInmobiliarioById(id);
@@ -141,8 +149,9 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Hostal getHostalByID(Integer id){
+	public Hostal getHostalByID(Integer id) throws SQLException{
 		DAOHostal dao = new DAOHostal();
+		dao.setConn(tm.darConexion());
 		Hostal resp= null;
 		try {
 			resp = dao.findHostalById(id);
@@ -154,8 +163,9 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Hotel getHotellByID(Integer id){
+	public Hotel getHotellByID(Integer id) throws SQLException{
 		DAOHotel dao = new DAOHotel();
+		dao.setConn(tm.darConexion());
 		Hotel resp= null;
 		try {
 			resp = dao.findHotelById(id);
@@ -167,8 +177,9 @@ public class RequerimientosService <K extends Operador>
 		return resp; 
 	}
 
-	public Habitacion getHabitacionByID(Integer id){
+	public Habitacion getHabitacionByID(Integer id) throws SQLException{
 		DAOHabitacion dao = new DAOHabitacion();
+		dao.setConn(tm.darConexion());
 		Habitacion resp= null;
 		try {
 			resp = dao.findHabitacionById(id);
@@ -223,25 +234,18 @@ public class RequerimientosService <K extends Operador>
 	@Path("/oferta/hostal/")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHostal(VOOfertaHabitaciones vohab) {
+	public Response createOfertaHostal(VOOfertaHabitaciones vohab) throws SQLException {
 
-		Hostal hostal = getHostalByID(vohab.getIdProv());
-		Oferta oferta = getOfertaByID(vohab.getIdOferta());
-		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		Integer hostal = vohab.getIdProv();
+		Integer oferta = vohab.getIdOferta();
+		Integer sPub = vohab.getIdSPub();
+		Integer sIn = vohab.getIdSIn();
 		List<Integer> habitaciones = vohab.getHabitaciones();
-		List<Habitacion> listaTrue = new ArrayList<>();
-		for (Integer i = 0; i < habitaciones.size(); i++) 
-		{
-			Integer sisa = habitaciones.get(i);
-			getHabitacionByID(sisa).setIdOferta(oferta.getId());
-			listaTrue.add(getHabitacionByID(sisa));
-		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaHostal(hostal, oferta, listaTrue, sPub, sIn);
-			return Response.status(200).entity(oferta).build();
+			tm.agregarOfertaHostal(hostal, oferta, habitaciones, sPub, sIn);
+			return Response.status(200).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -252,7 +256,7 @@ public class RequerimientosService <K extends Operador>
 	@PUT
 	@Path("/oferta/hotel/")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHotel(VOOfertaHabitaciones vohab) {
+	public Response createOfertaHotel(VOOfertaHabitaciones vohab) throws SQLException {
 
 		Hotel hostal = getHotellByID(vohab.getIdProv());
 		Oferta oferta = getOfertaByID(vohab.getIdOferta());
@@ -281,7 +285,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/oferta/PersonaNatural")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaPersonaNatural(VOOfertaHabitaciones vohab) {
+	public Response createOfertaPersonaNatural(VOOfertaHabitaciones vohab) throws SQLException {
 		PersonaNatural hostal = getPersonaByID(vohab.getIdProv());
 		Oferta oferta = getOfertaByID(vohab.getIdOferta());
 		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
@@ -309,7 +313,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/oferta/viviendaUniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) {
+	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) throws SQLException {
 		ViviendaUniversitaria viviendaU = getViviendaUByID(vohab.getIdProv());
 		Oferta oferta = getOfertaByID(vohab.getIdOferta());
 		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
@@ -339,7 +343,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHotel(Integer idHotel, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
+	public Response createReservaHotel(Integer idHotel, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
 		Hotel hotel = getHotellByID(idHotel);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
@@ -364,7 +368,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/Hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHostal(Integer idHostal, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
+	public Response createReservaHostal(Integer idHostal, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
 		Hostal hostal = getHostalByID(idHostal);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
@@ -389,7 +393,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/viviendauniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaViviendaUniversitaria(Integer idVivienda, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
+	public Response createReservaViviendaUniversitaria(Integer idVivienda, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
 
 		ViviendaUniversitaria vivienda = getViviendaUByID(idVivienda);
 		Reserva reserva = getReservaByID(idReserva);
@@ -415,7 +419,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/personanatural")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaPersonaNatural(Integer idPersona, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
+	public Response createReservaPersonaNatural(Integer idPersona, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
 
 		PersonaNatural persona = getPersonaByID(idPersona);
 		Reserva reserva = getReservaByID(idReserva);
@@ -441,7 +445,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/viviendauniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaVecino(Integer idVecino, Integer idReserva, List<Integer> identificadores, Integer idCliente) {
+	public Response createReservaVecino(Integer idVecino, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
 
 		Vecino vecino = getVecinoByID(idVecino);
 		Reserva reserva = getReservaByID(idReserva);

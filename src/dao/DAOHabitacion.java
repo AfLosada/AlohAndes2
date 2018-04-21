@@ -152,7 +152,7 @@ public class DAOHabitacion
 				habitacion.getIdHostal(),
 				habitacion.getIdPersona(),
 				habitacion.getIdViviendaU()));
-		sql.append ("WHERE ID = " + habitacion.getId ());
+		sql.append ("WHERE ID = " + habitacion.getId () + ";");
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());

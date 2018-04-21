@@ -82,7 +82,7 @@ public class DAOHostal
 	{
 		Hostal Hostal = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HOSTAL WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HOSTAL WHERE ID_HOSTAL = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

@@ -97,7 +97,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura<br/>
 	 * @throws ClassNotFoundException 
 	 */
-	private void initializeConnectionData() throws IOException, ClassNotFoundException {
+	public void initializeConnectionData() throws IOException, ClassNotFoundException {
 
 		FileInputStream fileInputStream = new FileInputStream(new File(AlohAndesTransactionManager.CONNECTION_DATA_PATH));
 		Properties properties = new Properties();
@@ -119,7 +119,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Objeto Connection, el cual hace referencia a la conexion a la base de datos
 	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
 	 */
-	private Connection darConexion() throws SQLException {
+	public Connection darConexion() throws SQLException {
 		System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
 		return DriverManager.getConnection(url, user, password);
 	}
@@ -3563,28 +3563,36 @@ public class AlohAndesTransactionManager <K extends Operador>
 	/**
 	 * Método para agregar una oferta de un hostal
 	 */
-	public void agregarOfertaHostal(Hostal hostal, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	public void agregarOfertaHostal(Integer hostal, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
-		DAOHostal daoHostal = new DAOHostal();
+		this.conn = darConexion();
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
-		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
-		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		daoHabitacion.setConn(conn);
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+		daoHabitacionesSer.setConn(conn);
 
-		oferta.setIdHostal(hostal.getId());
-		daoOferta.updateOferta(oferta);
+		
+		Oferta ofertaF = daoOferta.findOfertaById(oferta);
+		
+		ofertaF.setIdHostal(hostal);
+		daoOferta.updateOferta(ofertaF);
+		
+		List<Habitacion> habs = new ArrayList<>();
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
-			habitaciones.get(i).setIdHostal(hostal.getId());
-			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
-			sisa.setIdServicioInmobiliario(sIn.getId());
+			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			act.setIdOferta(oferta);
+			act.setIdHostal(hostal);
+			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			sisa.setIdServicioInmobiliario(sIn);
 			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
-			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i).getId());
-			noka.setIdServicioPublico(sPub.getId());
-			daoHabitacionSerPub.updateHabitacionesServicioPublico(noka);
+			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			noka.setIdServicioPublico(sPub);
+			daoHabitacion.updateHabitacion(act);
 		}
 	}
 	
