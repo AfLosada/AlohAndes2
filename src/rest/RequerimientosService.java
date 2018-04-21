@@ -40,6 +40,7 @@ import vos.ServicioPublico;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
 import vos.VOExtraViviendaUniversitaria;
+import vos.VOOfertaHabitaciones;
 import vos.Vecino;
 import vos.ViviendaUniversitaria;
 @Path("/requerimientos")
@@ -219,23 +220,26 @@ public class RequerimientosService <K extends Operador>
 
 	@POST
 	@Path("/oferta/hostal/")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHostal(Integer idHostal, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
+	public Response createOfertaHostal(VOOfertaHabitaciones vohab) {
 
-		Hostal hostal = getHostalByID(idHostal);
-		Oferta oferta = getOfertaByID(idOferta);
-		ServicioPublico sPub = getServicioPublicoByID(idSPub);
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
+		Hostal hostal = getHostalByID(vohab.getIdProv());
+		Oferta oferta = getOfertaByID(vohab.getIdOferta());
+		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
+		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		List<Integer> habitaciones = vohab.getHabitaciones();
+		List<Habitacion> listaTrue = new ArrayList<>();
+		for (Integer i = 0; i < habitaciones.size(); i++) 
+		{
+			Integer sisa = habitaciones.get(i);
+			getHabitacionByID(sisa).setIdOferta(oferta.getId());
+			listaTrue.add(getHabitacionByID(sisa));
 		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaHostal(hostal, oferta, habitaciones, sPub, sIn);
+			tm.agregarOfertaHostal(hostal, oferta, listaTrue, sPub, sIn);
 			return Response.status(200).entity(oferta).build();
 		} 
 		catch (Exception e) {
@@ -245,25 +249,26 @@ public class RequerimientosService <K extends Operador>
 
 
 	@POST
-	@Path("/oferta/hotel")
-	@Consumes({ MediaType.APPLICATION_JSON })
+	@Path("/oferta/hotel/")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaHotel(Integer idHotel, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
-		Hotel hotel = getHotellByID(idHotel);
-		Oferta oferta = getOfertaByID(idOferta);
-		ServicioPublico sPub = getServicioPublicoByID(idSPub);
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}
+	public Response createOfertaHotel(VOOfertaHabitaciones vohab) {
 
+		Hotel hostal = getHotellByID(vohab.getIdProv());
+		Oferta oferta = getOfertaByID(vohab.getIdOferta());
+		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
+		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		List<Integer> habitaciones = vohab.getHabitaciones();
+		List<Habitacion> listaTrue = new ArrayList<>();
+		for (Integer i = 0; i < habitaciones.size(); i++) 
+		{
+			Integer sisa = habitaciones.get(i);
+			getHabitacionByID(sisa).setIdOferta(oferta.getId());
+			listaTrue.add(getHabitacionByID(sisa));
+		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaHotel(hotel, oferta, habitaciones, sPub, sIn);
+			tm.agregarOfertaHotel(hostal, oferta, listaTrue, sPub, sIn);
 			return Response.status(200).entity(oferta).build();
 		} 
 		catch (Exception e) {
@@ -275,21 +280,23 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/oferta/PersonaNatural")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaPersonaNatural(Integer idPersona, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
-		PersonaNatural persona = getPersonaByID(idPersona);
-		Oferta oferta = getOfertaByID(idOferta);
-		ServicioPublico sPub = getServicioPublicoByID(idSPub);
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}	
+	public Response createOfertaPersonaNatural(VOOfertaHabitaciones vohab) {
+		PersonaNatural hostal = getPersonaByID(vohab.getIdProv());
+		Oferta oferta = getOfertaByID(vohab.getIdOferta());
+		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
+		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		List<Integer> habitaciones = vohab.getHabitaciones();
+		List<Habitacion> listaTrue = new ArrayList<>();
+		for (Integer i = 0; i < habitaciones.size(); i++) 
+		{
+			Integer sisa = habitaciones.get(i);
+			getHabitacionByID(sisa).setIdOferta(oferta.getId());
+			listaTrue.add(getHabitacionByID(sisa));
+		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaPersonaNatural(persona, oferta, habitaciones, sPub, sIn);
+			tm.agregarOfertaPersonaNatural(hostal, oferta, listaTrue, sPub, sIn);
 			return Response.status(200).entity(oferta).build();
 		} 
 		catch (Exception e) {
@@ -301,21 +308,23 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/oferta/viviendaUniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createOfertaViviendaUniversitaria(Integer idViviendaU, Integer idOferta, List<Integer> identificadores, Integer idSPub, Integer idSIn) {
-		ViviendaUniversitaria viviendaU = getViviendaUByID(idViviendaU);
-		Oferta oferta = getOfertaByID(idOferta);
-		ServicioPublico sPub = getServicioPublicoByID(idSPub);
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(idSIn);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}	
+	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) {
+		ViviendaUniversitaria viviendaU = getViviendaUByID(vohab.getIdProv());
+		Oferta oferta = getOfertaByID(vohab.getIdOferta());
+		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
+		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		List<Integer> habitaciones = vohab.getHabitaciones();
+		List<Habitacion> listaTrue = new ArrayList<>();
+		for (Integer i = 0; i < habitaciones.size(); i++) 
+		{
+			Integer sisa = habitaciones.get(i);
+			getHabitacionByID(sisa).setIdOferta(oferta.getId());
+			listaTrue.add(getHabitacionByID(sisa));
+		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaViviendaUniversitaria(viviendaU, oferta, habitaciones, sPub, sIn);
+			tm.agregarOfertaViviendaUniversitaria(viviendaU, oferta, listaTrue, sPub, sIn);
 			return Response.status(200).entity(oferta).build();
 		} 
 		catch (Exception e) {
@@ -507,5 +516,7 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
+	
+	
 
 }

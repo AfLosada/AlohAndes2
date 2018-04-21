@@ -119,7 +119,8 @@ public class OfertaService <K extends Operador> {
 	public Response addOferta(Oferta oferta) {
 
 		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		try{
+		try
+		{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>( getPath( ) );
 
 			tm.addOferta(oferta);
