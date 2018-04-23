@@ -3496,7 +3496,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			//////Transacci�n
 			this.conn = darConexion();
 			daoReserva.setConn(conn);
-			
+
 			daoReserva.deleteReserva(reserva);
 
 		} catch (SQLException e) {
@@ -3575,12 +3575,12 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 		daoHabitacionesSer.setConn(conn);
 
-		
+
 		Oferta ofertaF = daoOferta.findOfertaById(oferta);
-		
+
 		ofertaF.setIdHostal(hostal);
 		daoOferta.updateOferta(ofertaF);
-		
+
 		List<Habitacion> habs = new ArrayList<>();
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
@@ -3595,8 +3595,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			daoHabitacion.updateHabitacion(act);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Método para agregar una oferta de un hotel
 	 */
@@ -3610,7 +3610,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 
-		
+
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdHotel(hostal);
 		daoOferta.updateOferta(ofertta);
@@ -3633,9 +3633,9 @@ public class AlohAndesTransactionManager <K extends Operador>
 		daoOferta.updateOferta(ofertta);
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Método para agregar una oferta de una vivienda universitaria
 	 */
@@ -3670,7 +3670,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		ofertta.setNumReservas(numReservas);
 		daoOferta.updateOferta(ofertta);
 	}
-	
+
 	/**
 	 * Método para agregar una oferta de una persona natural
 	 */
@@ -3705,16 +3705,16 @@ public class AlohAndesTransactionManager <K extends Operador>
 		ofertta.setNumReservas(numReservas);
 		daoOferta.updateOferta(ofertta);
 	}
-	
+
 	//TODO FIN OFERTA INICIO RESERVA
-	
+
 	public void agregarReservaHotel(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
-		
-		
+
+
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
 			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
@@ -3724,7 +3724,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Reserva sisax = daoReserva.findReservaById(reserva);
 		sisax.setIdCliente(cliente);
 		daoReserva.updateReserva(sisax);
-		
+
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
@@ -3744,8 +3744,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
-		
-		
+
+
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
 			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
@@ -3755,7 +3755,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Reserva sisax = daoReserva.findReservaById(reserva);
 		sisax.setIdCliente(cliente);
 		daoReserva.updateReserva(sisax);
-		
+
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
@@ -3769,14 +3769,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	public void agregarReservaPersonaNatural(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
-		
-		
+
+
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
 			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
@@ -3786,7 +3786,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Reserva sisax = daoReserva.findReservaById(reserva);
 		sisax.setIdCliente(cliente);
 		daoReserva.updateReserva(sisax);
-		
+
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
@@ -3800,14 +3800,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	public void agregarReservaVecino(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
-		
-		
+
+
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
 			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
@@ -3817,7 +3817,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Reserva sisax = daoReserva.findReservaById(reserva);
 		sisax.setIdCliente(cliente);
 		daoReserva.updateReserva(sisax);
-		
+
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
@@ -3831,14 +3831,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	public void agregarReservaViviendaUniversitaria(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
-		
-		
+
+
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
 			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
@@ -3848,7 +3848,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Reserva sisax = daoReserva.findReservaById(reserva);
 		sisax.setIdCliente(cliente);
 		daoReserva.updateReserva(sisax);
-		
+
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
@@ -3862,42 +3862,77 @@ public class AlohAndesTransactionManager <K extends Operador>
 			}
 		}
 	}
-	
+
 	//TODO REQUERIMIENTOS DE CONSULTA
-	
+
 	public ArrayList<Oferta> operadoresMejores() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<vos.Oferta> rta = daoRequerimientos.get20Ofertas();
 		return rta;		
 	}
-	
+
 	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<VOHostalExtra> rta1 = daoRequerimientos.getCosasHostal();
 		return rta1;
 	}
-	
+
 	public ArrayList<VOExtraHotel> operadoresConCosas2() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<VOExtraHotel> rta1 = daoRequerimientos.getCosasHotel();
 		return rta1;
 	}
-	
+
 	public ArrayList<VOExtraPersona> operadoresConCosas3() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<VOExtraPersona> rta1 = daoRequerimientos.getCosasPersona();
 		return rta1;
 	}
-	
+
 	public ArrayList<VOExtraViviendaUniversitaria> operadoresConCosas4() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<VOExtraViviendaUniversitaria> rta1 = daoRequerimientos.getCosasViviendaUniversitaria();
 		return rta1;
+	}
+
+	//TODO DESHABILITAR RESERVA
+
+	public String cancelarReserva(Integer id)
+	{
+		try
+		{
+			DAOHabitacion daoHabs = new DAOHabitacion();
+			List<Habitacion> listaHabs = daoHabs.getHabitacions();
+			for (Habitacion habitacion2 : listaHabs) 
+			{
+				if(habitacion2.getIdReserva() == id)
+				{
+					habitacion2.setIdReserva(null);
+					daoHabs.updateHabitacion(habitacion2);
+				}
+			}
+			return "Se deshabilit� la reserva";
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return e.getMessage();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+
+	//TODO ACTIVAR-DESHABILITAR OFERTAS
+	public String cancelarOferta(Integer id)
+	{
+		
 	}
 	
 }

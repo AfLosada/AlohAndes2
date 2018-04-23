@@ -64,7 +64,7 @@ public class RequerimientosService <K extends Operador>
 	private ServletContext context;
 
 	AlohAndesTransactionManager<Operador> tm;
-	
+
 	private Map<Integer,ReservaColectiva> hashDeReservasColectivas;
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -560,63 +560,65 @@ public class RequerimientosService <K extends Operador>
 				for (int i = 0; i <= cantidad; i++) 
 				{
 					Habitacion actual = listaSirven.get(i);
+					actual.setIdReserva(idReserva);
 					daoHabs.updateHabitacion(actual);
 				}
-			}
-			reCo.setHabitaciones(rtaFinal);
-			
-			List<Integer> listaHostal = new ArrayList<>();
-			List<Integer> listaHotel = new ArrayList<>();
-			List<Integer> listaPersona = new ArrayList<>();
-			List<Integer> listaViviendaUniversitaria = new ArrayList<>();
-			
-			for (int i = 0; i < rtaFinal.size(); i++) 
-			{
-				Habitacion actual = rtaFinal.get(i);
-				if(actual.getIdHostal() != null)
+
+				reCo.setHabitaciones(rtaFinal);
+
+				List<Integer> listaHostal = new ArrayList<>();
+				List<Integer> listaHotel = new ArrayList<>();
+				List<Integer> listaPersona = new ArrayList<>();
+				List<Integer> listaViviendaUniversitaria = new ArrayList<>();
+
+				for (int i = 0; i < rtaFinal.size(); i++) 
 				{
-					listaHostal.add(actual.getId());
+					Habitacion actual = rtaFinal.get(i);
+					if(actual.getIdHostal() != null)
+					{
+						listaHostal.add(actual.getId());
+					}
+					else if (actual.getIdHotel() != null)
+					{
+						listaHotel.add(actual.getId());
+					}
+					else if (actual.getIdPersona() != null)
+					{
+						listaPersona.add(actual.getId());
+					}
+					else
+					{
+						listaViviendaUniversitaria.add(actual.getId());
+					}
 				}
-				else if (actual.getIdHotel() != null)
+
+
+				List<Reserva> reserva = new ArrayList<>();
+
+				for (int i = 0; i < listaHostal.size(); i++) 
 				{
-					listaHotel.add(actual.getId());
+					Habitacion actual = daoHabs.findHabitacionById(listaHostal.get(i));
+					createReservaHostal(new VOReservaHabitaciones( listaHostal, actual.getIdHostal(), idReserva, idCliente));
+
 				}
-				else if (actual.getIdPersona() != null)
+				for (int i = 0; i < listaHotel.size(); i++) 
 				{
-					listaPersona.add(actual.getId());
+					Habitacion actual = daoHabs.findHabitacionById(listaHotel.get(i));
+					createReservaHotel(new VOReservaHabitaciones( listaHotel, actual.getIdHotel(), idReserva, idCliente));
 				}
-				else
+				for (int i = 0; i < listaPersona.size(); i++) 
 				{
-					listaViviendaUniversitaria.add(actual.getId());
+					Habitacion actual = daoHabs.findHabitacionById(listaPersona.get(i));
+					createReservaPersonaNatural( actual.getIdPersona(), idReserva, listaPersona, idCliente);
 				}
+				for (int i = 0; i < listaViviendaUniversitaria.size(); i++) 
+				{
+					Habitacion actual = daoHabs.findHabitacionById(listaViviendaUniversitaria.get(i));
+					createReservaViviendaUniversitaria(actual.getIdViviendaU(), idReserva, listaViviendaUniversitaria, idCliente);
+				}
+
+				hashDeReservasColectivas.put(reCo.getId(), reCo);
 			}
-			
-			
-			List<Reserva> reserva = new ArrayList<>();
-			
-			for (int i = 0; i < listaHostal.size(); i++) 
-			{
-				Habitacion actual = daoHabs.findHabitacionById(listaHostal.get(i));
-				createReservaHostal(new VOReservaHabitaciones( listaHostal, actual.getIdHostal(), null, idCliente));
-				
-			}
-			for (int i = 0; i < listaHotel.size(); i++) 
-			{
-				Habitacion actual = daoHabs.findHabitacionById(listaHotel.get(i));
-				createReservaHotel(new VOReservaHabitaciones( listaHotel, actual.getIdHotel(), null, idCliente));
-			}
-			for (int i = 0; i < listaPersona.size(); i++) 
-			{
-				Habitacion actual = daoHabs.findHabitacionById(listaPersona.get(i));
-				createReservaPersonaNatural( actual.getIdPersona(), null, listaPersona, idCliente);
-			}
-			for (int i = 0; i < listaViviendaUniversitaria.size(); i++) 
-			{
-				Habitacion actual = daoHabs.findHabitacionById(listaViviendaUniversitaria.get(i));
-				createReservaViviendaUniversitaria(actual.getIdViviendaU(), null, listaViviendaUniversitaria, idCliente);
-			}
-			
-			hashDeReservasColectivas.put(reCo.getId(), reCo);
 
 			return Response.status(200).entity(reCo).build();
 		}
@@ -625,15 +627,35 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-	
+
 	//TODO Requerimiento RF8
-	
+
 	@PUT
 	@Path( "/RF8/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response requerimientoRF8( @PathParam(" id") Integer id)
 	{
-		ReservaColectiva asdf = hashDeReservasColectivas.get(id);
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		try 
+		{
+			Reserva reservita = daoReserva.findReservaById(id);
+			ArrayList<Habitacion> habs = daoHabitacion.getHabitacions();
+			for (Habitacion habitacion : habs) 
+			{
+				if(habitacion.getIdReserva() == id)
+				{
+					delete
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
