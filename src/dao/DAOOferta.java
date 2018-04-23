@@ -134,7 +134,7 @@ public class DAOOferta
 	public void updateOferta(Oferta oferta) throws SQLException, Exception {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE %1$s.OFERTA ", USUARIO));
+		sql.append (String.format ("UPDATE $s.OFERTA ", USUARIO));
 		sql.append (String.format (
 				"SET ID_OFERTA = %1$s, NUM_RESERVAS = %2$s, VIGENTE = '%3$s' , ID_HOSTAL = %4$s, ID_PERSONA = %5$s, ID_HOTEL = %6$s, ID_VIVIENDAU = %7$s",
 				oferta.getId(),

@@ -46,7 +46,7 @@ public class Habitacion
 	private Integer idViviendaU;
 
 
-	private enum TipoHabitacion
+	public enum TipoHabitacion
 	{
 		COMPARTIDA, INDIVIDUAL, SUITE, SEMISUITE, ESTANDAR, DOBLE;
 	}
@@ -56,7 +56,19 @@ public class Habitacion
 	// Constructor
 	//
 
-	public Habitacion(@JsonProperty( value = "capacidad_habitacion" )Integer capacidad, @JsonProperty( value = "id_habitacion" )Integer id,@JsonProperty( value = "precio_habitacion" ) Integer precio,@JsonProperty( value = "precio" ) double tamanio,@JsonProperty( value = "ubicacion" ) String ubicacion,@JsonProperty( value = "tipo" ) String tipo,@JsonProperty( value = "id_Reserva" ) Integer idReserva,@JsonProperty( value = "id_Oferta" ) Integer idOfertax,@JsonProperty( value = "id_Hotel" ) Integer idHotel,@JsonProperty( value = "id_Hostal" ) Integer idHostal,@JsonProperty( value = "id_Persona" ) Integer idPersona,@JsonProperty( value = "id_ViviendaU" ) Integer idViviendaU) 
+	public Habitacion(
+			@JsonProperty( value = "capacidad_habitacion" )Integer capacidad,
+			@JsonProperty( value = "id_habitacion" )Integer id,
+			@JsonProperty( value = "precio_habitacion" ) Integer precio,
+			@JsonProperty( value = "precio" ) double tamanio,
+			@JsonProperty( value = "ubicacion" ) String ubicacion,
+			@JsonProperty( value = "tipo" ) String tipo,
+			@JsonProperty( value = "id_Reserva" ) Integer idReserva,
+			@JsonProperty( value = "id_Oferta" ) Integer idOfertax,
+			@JsonProperty( value = "id_Hotel" ) Integer idHotel,
+			@JsonProperty( value = "id_Hostal" ) Integer idHostal,
+			@JsonProperty( value = "id_Persona" ) Integer idPersona,
+			@JsonProperty( value = "id_ViviendaU" ) Integer idViviendaU) 
 	{
 		super();
 		this.capacidad = capacidad;

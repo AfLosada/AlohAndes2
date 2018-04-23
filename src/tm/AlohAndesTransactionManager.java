@@ -3600,7 +3600,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	/**
 	 * Método para agregar una oferta de un hotel
 	 */
-	public void agregarOfertaHotel(Hotel hotel, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	public void agregarOfertaHotel(Integer hostal, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
 		DAOHotel daoHotel = new DAOHotel();
 		DAOOferta daoOferta = new DAOOferta();
@@ -3610,19 +3610,27 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 
-		oferta.setIdHotel(hotel.getIdHotel());
-		daoOferta.updateOferta(oferta);
+		
+		Oferta ofertta = daoOferta.findOfertaById(oferta);
+		ofertta.setIdHotel(hostal);
+		daoOferta.updateOferta(ofertta);
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
-			habitaciones.get(i).setIdHotel(hotel.getIdHotel());
-			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
-
+			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			act.setIdOferta(oferta);
+			act.setIdHostal(hostal);
+			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			sisa.setIdServicioInmobiliario(sIn);
+			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
+			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			noka.setIdServicioPublico(sPub);
+			daoHabitacion.updateHabitacion(act);
 		}
 
-		int numReservas = oferta.getNumReservas();
+		int numReservas = ofertta.getNumReservas();
 		numReservas++;
-		oferta.setNumReservas(numReservas);
+		ofertta.setNumReservas(numReservas);
+		daoOferta.updateOferta(ofertta);
 
 	}
 	
@@ -3631,7 +3639,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	/**
 	 * Método para agregar una oferta de una vivienda universitaria
 	 */
-	public void agregarOfertaViviendaUniversitaria(ViviendaUniversitaria viviendau, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	public void agregarOfertaViviendaUniversitaria(Integer viviendau, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
 		DAOViviendaUniversitaria daoViviendau = new DAOViviendaUniversitaria();
 		DAOOferta daoOferta = new DAOOferta();
@@ -3641,26 +3649,32 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 
-		oferta.setIdViviendaU(viviendau.getId());
-		daoOferta.updateOferta(oferta);
+		Oferta ofertta = daoOferta.findOfertaById(oferta);
+		ofertta.setIdViviendaU(viviendau);
+		daoOferta.updateOferta(ofertta);
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
-			habitaciones.get(i).setIdViviendaU(viviendau.getId());
-			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
-
+			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			act.setIdOferta(oferta);
+			act.setIdViviendaU(viviendau);
+			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			sisa.setIdServicioInmobiliario(sIn);
+			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
+			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			noka.setIdServicioPublico(sPub);
+			daoHabitacion.updateHabitacion(act);
 		}
 
-		int numReservas = oferta.getNumReservas();
+		int numReservas = ofertta.getNumReservas();
 		numReservas++;
-		oferta.setNumReservas(numReservas);
-
+		ofertta.setNumReservas(numReservas);
+		daoOferta.updateOferta(ofertta);
 	}
 	
 	/**
 	 * Método para agregar una oferta de una persona natural
 	 */
-	public void agregarOfertaPersonaNatural(PersonaNatural persona, Oferta oferta, List<Habitacion> habitaciones, ServicioPublico sPub, ServicioInmobiliario sIn) throws SQLException, Exception
+	public void agregarOfertaPersonaNatural(Integer persona, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
 		DAOPersonaNatural daoPersona = new DAOPersonaNatural();
 		DAOOferta daoOferta = new DAOOferta();
@@ -3670,44 +3684,53 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 
-		oferta.setIdPersona(persona.getId());
-		daoOferta.updateOferta(oferta);
+		Oferta ofertta = daoOferta.findOfertaById(oferta);
+		ofertta.setIdPersona(persona);
+		daoOferta.updateOferta(ofertta);
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
-			habitaciones.get(i).setIdPersona(persona.getId());
-			daoHabitacion.updateHabitacion(habitaciones.get(i));
-			daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i).getId());
-
+			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			act.setIdOferta(oferta);
+			act.setIdPersona(persona);
+			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			sisa.setIdServicioInmobiliario(sIn);
+			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
+			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			noka.setIdServicioPublico(sPub);
+			daoHabitacion.updateHabitacion(act);
 		}
 
-		int numReservas = oferta.getNumReservas();
+		int numReservas = ofertta.getNumReservas();
 		numReservas++;
-		oferta.setNumReservas(numReservas);
+		ofertta.setNumReservas(numReservas);
+		daoOferta.updateOferta(ofertta);
 	}
 	
 	//TODO FIN OFERTA INICIO RESERVA
 	
-	public void agregarReservaHotel(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Hotel hotel) throws SQLException, Exception
+	public void agregarReservaHotel(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
 		
+		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
-			Habitacion sisa = habitaciones.get(i);
-			sisa.setIdReserva(reserva.getId());
+			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			sisa.setIdReserva(reserva);
 			daoHabitacion.updateHabitacion(sisa);
 		}
-		reserva.setIdCliente(cliente.getId());
-		daoReserva.updateReserva(reserva);
+		Reserva sisax = daoReserva.findReservaById(reserva);
+		sisax.setIdCliente(cliente);
+		daoReserva.updateReserva(sisax);
 		
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdHotel() == hotel.getIdHotel())
+			if(oferta.getIdHotel() == hotel)
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;
@@ -3716,27 +3739,29 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 
-	public void agregarReservaHostal(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Hostal hotel) throws SQLException, Exception
+	public void agregarReservaHostal(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
 		
+		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
-			Habitacion sisa = habitaciones.get(i);
-			sisa.setIdReserva(reserva.getId());
+			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			sisa.setIdReserva(reserva);
 			daoHabitacion.updateHabitacion(sisa);
 		}
-		reserva.setIdCliente(cliente.getId());
-		daoReserva.updateReserva(reserva);
+		Reserva sisax = daoReserva.findReservaById(reserva);
+		sisax.setIdCliente(cliente);
+		daoReserva.updateReserva(sisax);
 		
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdHostal() == hotel.getId())
+			if(oferta.getIdHostal() == hotel)
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;
@@ -3745,27 +3770,29 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 	
-	public void agregarReservaPersonaNatural(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, PersonaNatural hotel) throws SQLException, Exception
+	public void agregarReservaPersonaNatural(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
 		
+		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
-			Habitacion sisa = habitaciones.get(i);
-			sisa.setIdReserva(reserva.getId());
+			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			sisa.setIdReserva(reserva);
 			daoHabitacion.updateHabitacion(sisa);
 		}
-		reserva.setIdCliente(cliente.getId());
-		daoReserva.updateReserva(reserva);
+		Reserva sisax = daoReserva.findReservaById(reserva);
+		sisax.setIdCliente(cliente);
+		daoReserva.updateReserva(sisax);
 		
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdPersona() == hotel.getId())
+			if(oferta.getIdPersona() == hotel)
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;
@@ -3774,27 +3801,29 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 	
-	public void agregarReservaVecino(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, Vecino hotel) throws SQLException, Exception
+	public void agregarReservaVecino(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
 		
+		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
-			Habitacion sisa = habitaciones.get(i);
-			sisa.setIdReserva(reserva.getId());
+			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			sisa.setIdReserva(reserva);
 			daoHabitacion.updateHabitacion(sisa);
 		}
-		reserva.setIdCliente(cliente.getId());
-		daoReserva.updateReserva(reserva);
+		Reserva sisax = daoReserva.findReservaById(reserva);
+		sisax.setIdCliente(cliente);
+		daoReserva.updateReserva(sisax);
 		
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdPersona() == hotel.getId())
+			if(oferta.getIdViviendaU()== hotel)
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;
@@ -3803,27 +3832,29 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 	
-	public void agregarReservaViviendaUniversitaria(Cliente cliente, Reserva reserva, List<Habitacion> habitaciones, ViviendaUniversitaria vivienda) throws SQLException, Exception
+	public void agregarReservaViviendaUniversitaria(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
 		DAOOferta daoOferta = new DAOOferta();
 		
+		
 		for(int  i = 0; i<habitaciones.size();i++)
 		{
-			Habitacion sisa = habitaciones.get(i);
-			sisa.setIdReserva(reserva.getId());
+			Habitacion sisa = daoHabitacion.findHabitacionById(habitaciones.get(i));
+			sisa.setIdReserva(reserva);
 			daoHabitacion.updateHabitacion(sisa);
 		}
-		reserva.setIdCliente(cliente.getId());
-		daoReserva.updateReserva(reserva);
+		Reserva sisax = daoReserva.findReservaById(reserva);
+		sisax.setIdCliente(cliente);
+		daoReserva.updateReserva(sisax);
 		
 		ArrayList<Oferta> ofertas = daoOferta.getOfertas();
 		boolean tru = false;
 		for(int i = 0; i < ofertas.size() && tru; i++)
 		{
 			Oferta oferta = ofertas.get(i);
-			if(oferta.getIdViviendaU() == vivienda.getId())
+			if(oferta.getIdViviendaU()== hotel)
 			{
 				oferta.setNumReservas(oferta.getNumReservas() +1);
 				tru = true;

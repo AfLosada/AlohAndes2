@@ -68,6 +68,31 @@ public class DAOServicioInmobiliario
 		return servicioInmobiliarios;
 	}
 
+	/**
+	 * Metodo que obtiene la informacion del ServicioInmobiliario en la Base de Datos que tiene el identificador dado por parametro<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+	 * @param id el identificador del ServicioInmobiliario
+	 * @return la informacion del ServicioInmobiliario que cumple con los criterios de la sentecia SQL
+	 * 			Null si no existe el ServicioInmobiliario conlos criterios establecidos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ServicioInmobiliario findServicioInmobiliarioByHab(Integer id) throws SQLException, Exception 
+	{
+		ServicioInmobiliario ServicioInmobiliario = null;
+
+		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID = %2$d", USUARIO, id); 
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+			ServicioInmobiliario = convertResultSetToServicioInmobiliario(rs);
+		}
+
+		return ServicioInmobiliario;
+	}
 
 	/**
 	 * Metodo que obtiene la informacion del ServicioInmobiliario en la Base de Datos que tiene el identificador dado por parametro<br/>

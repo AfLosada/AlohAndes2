@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -37,12 +38,14 @@ import vos.Oferta;
 import vos.Operador;
 import vos.PersonaNatural;
 import vos.Reserva;
+import vos.ReservaColectiva;
 import vos.ServicioInmobiliario;
 import vos.ServicioPublico;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
 import vos.VOExtraViviendaUniversitaria;
 import vos.VOOfertaHabitaciones;
+import vos.VOReservaHabitaciones;
 import vos.Vecino;
 import vos.ViviendaUniversitaria;
 @Path("/requerimientos")
@@ -258,23 +261,16 @@ public class RequerimientosService <K extends Operador>
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaHotel(VOOfertaHabitaciones vohab) throws SQLException {
 
-		Hotel hostal = getHotellByID(vohab.getIdProv());
-		Oferta oferta = getOfertaByID(vohab.getIdOferta());
-		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		Integer hostal = vohab.getIdProv();
+		Integer oferta = vohab.getIdOferta();
+		Integer sPub = vohab.getIdSPub();
+		Integer sIn = vohab.getIdSIn();
 		List<Integer> habitaciones = vohab.getHabitaciones();
-		List<Habitacion> listaTrue = new ArrayList<>();
-		for (Integer i = 0; i < habitaciones.size(); i++) 
-		{
-			Integer sisa = habitaciones.get(i);
-			getHabitacionByID(sisa).setIdOferta(oferta.getId());
-			listaTrue.add(getHabitacionByID(sisa));
-		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaHotel(hostal, oferta, listaTrue, sPub, sIn);
-			return Response.status(200).entity(oferta).build();
+			tm.agregarOfertaHotel(hostal, oferta, habitaciones, sPub, sIn);
+			return Response.status(200).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -286,23 +282,16 @@ public class RequerimientosService <K extends Operador>
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaPersonaNatural(VOOfertaHabitaciones vohab) throws SQLException {
-		PersonaNatural hostal = getPersonaByID(vohab.getIdProv());
-		Oferta oferta = getOfertaByID(vohab.getIdOferta());
-		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		Integer hostal = vohab.getIdProv();
+		Integer oferta = vohab.getIdOferta();
+		Integer sPub = vohab.getIdSPub();
+		Integer sIn = vohab.getIdSIn();
 		List<Integer> habitaciones = vohab.getHabitaciones();
-		List<Habitacion> listaTrue = new ArrayList<>();
-		for (Integer i = 0; i < habitaciones.size(); i++) 
-		{
-			Integer sisa = habitaciones.get(i);
-			getHabitacionByID(sisa).setIdOferta(oferta.getId());
-			listaTrue.add(getHabitacionByID(sisa));
-		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaPersonaNatural(hostal, oferta, listaTrue, sPub, sIn);
-			return Response.status(200).entity(oferta).build();
+			tm.agregarOfertaPersonaNatural(hostal, oferta, habitaciones, sPub, sIn);
+			return Response.status(200).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -314,23 +303,16 @@ public class RequerimientosService <K extends Operador>
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) throws SQLException {
-		ViviendaUniversitaria viviendaU = getViviendaUByID(vohab.getIdProv());
-		Oferta oferta = getOfertaByID(vohab.getIdOferta());
-		ServicioPublico sPub = getServicioPublicoByID(vohab.getIdSPub());
-		ServicioInmobiliario sIn = getServicioInmobiliarioByID(vohab.getIdSIn());
+		Integer hostal = vohab.getIdProv();
+		Integer oferta = vohab.getIdOferta();
+		Integer sPub = vohab.getIdSPub();
+		Integer sIn = vohab.getIdSIn();
 		List<Integer> habitaciones = vohab.getHabitaciones();
-		List<Habitacion> listaTrue = new ArrayList<>();
-		for (Integer i = 0; i < habitaciones.size(); i++) 
-		{
-			Integer sisa = habitaciones.get(i);
-			getHabitacionByID(sisa).setIdOferta(oferta.getId());
-			listaTrue.add(getHabitacionByID(sisa));
-		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarOfertaViviendaUniversitaria(viviendaU, oferta, listaTrue, sPub, sIn);
-			return Response.status(200).entity(oferta).build();
+			tm.agregarOfertaPersonaNatural(hostal, oferta, habitaciones, sPub, sIn);
+			return Response.status(200).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
@@ -343,20 +325,15 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHotel(Integer idHotel, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
-		Hotel hotel = getHotellByID(idHotel);
-		Reserva reserva = getReservaByID(idReserva);
-		Cliente cliente = getClienteByID(idCliente);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}
+	public Response createReservaHotel(VOReservaHabitaciones voRe) throws SQLException {
+		Hotel hotel = getHotellByID(voRe.getIdProv());
+		Reserva reserva = getReservaByID(voRe.getIdReserva());
+		Cliente cliente = getClienteByID(voRe.getIdCliente());
+		List<Integer> habitaciones = voRe.getHabitaciones();
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarReservaHotel(cliente, reserva, habitaciones, hotel);
+			tm.agregarReservaHotel(cliente.getId(), reserva.getId(), habitaciones, hotel.getIdHotel());
 			return Response.status(200).entity(reserva).build();
 		} 
 		catch (Exception e) {
@@ -368,20 +345,15 @@ public class RequerimientosService <K extends Operador>
 	@Path("/requerimientos/reserva/Hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response createReservaHostal(Integer idHostal, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
-		Hostal hostal = getHostalByID(idHostal);
-		Reserva reserva = getReservaByID(idReserva);
-		Cliente cliente = getClienteByID(idCliente);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}
+	public Response createReservaHostal(VOReservaHabitaciones voRe) throws SQLException {
+		Hostal hotel = getHostalByID(voRe.getIdProv());
+		Reserva reserva = getReservaByID(voRe.getIdReserva());
+		Cliente cliente = getClienteByID(voRe.getIdCliente());
+		List<Integer> habitaciones = voRe.getHabitaciones();
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarReservaHostal(cliente, reserva, habitaciones, hostal);
+			tm.agregarReservaHotel(cliente.getId(), reserva.getId(), habitaciones, hotel.getId());
 			return Response.status(200).entity(reserva).build();
 		} 
 		catch (Exception e) {
@@ -407,7 +379,7 @@ public class RequerimientosService <K extends Operador>
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarReservaViviendaUniversitaria(cliente, reserva, habitaciones, vivienda);
+			tm.agregarReservaViviendaUniversitaria(cliente.getId(), reserva.getId(), identificadores, vivienda.getId());
 			return Response.status(200).entity(reserva).build();
 		} 
 		catch (Exception e) {
@@ -424,16 +396,10 @@ public class RequerimientosService <K extends Operador>
 		PersonaNatural persona = getPersonaByID(idPersona);
 		Reserva reserva = getReservaByID(idReserva);
 		Cliente cliente = getClienteByID(idCliente);
-		List<Habitacion> habitaciones = new ArrayList<>();
-		for (Integer i = 0; i < identificadores.size(); i++) {
-			Integer id = identificadores.get(i);
-			Habitacion hab = getHabitacionByID(id);
-			habitaciones.add(hab);
-		}
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarReservaPersonaNatural(cliente, reserva, habitaciones, persona);
+			tm.agregarReservaPersonaNatural(cliente.getId(), reserva.getId(), identificadores, persona.getId());
 			return Response.status(200).entity(reserva).build();
 		} 
 		catch (Exception e) {
@@ -459,7 +425,7 @@ public class RequerimientosService <K extends Operador>
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			tm.agregarReservaVecino(cliente, reserva, habitaciones, vecino);
+			tm.agregarReservaVecino(cliente.getId(), reserva.getId(), identificadores, vecino.getId());
 			return Response.status(200).entity(reserva).build();
 		} 
 		catch (Exception e) {
@@ -521,7 +487,38 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
+	//TODO RF7
 	
+	public Response requerimientoRF7(ReservaColectiva reCo) throws SQLException, Exception
+	{
+		Integer id = reCo.getId();
+		List<Integer> servicioIn = reCo.getIdSInm();
+		List<Integer> servicioPub = reCo.getIdSPub();
+		Integer cantidad = reCo.getCantidad();
+		
+		ArrayList<Reserva> reservas = new ArrayList<>();
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabs = new DAOHabitacion();
+		DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
+		DAOServicioPublico daoSPub = new DAOServicioPublico();
+		
+		ArrayList<Reserva> xd2 = daoReserva.getReservas();
+		ArrayList<Habitacion> habs = daoHabs.getHabitacions();
+		
+		
+		
+		for (int i = 0; i < habs.size(); i++) 
+		{
+			Habitacion actual = habs.get(i);
+			if(actual.getTipo().equals(reCo.getTipo()))
+			{
+				
+			}
+		}
+		
+		
+		
+	}
 	
 
 }
