@@ -1,10 +1,11 @@
-	package rest;
+package rest;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.swing.plaf.FontUIResource;
@@ -13,6 +14,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -60,8 +62,10 @@ public class RequerimientosService <K extends Operador>
 	 */
 	@Context
 	private ServletContext context;
-	
+
 	AlohAndesTransactionManager<Operador> tm;
+	
+	private Map<Integer,ReservaColectiva> hashDeReservasColectivas;
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE INICIALIZACION
@@ -441,7 +445,7 @@ public class RequerimientosService <K extends Operador>
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getOfertasCool() {
-		
+
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
@@ -488,37 +492,148 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	//TODO RF7
-	
-	public Response requerimientoRF7(ReservaColectiva reCo) throws SQLException, Exception
+	@PUT
+	@Path("/requerimientos/RF7")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response requerimientoRF7(ReservaColectiva reCo)
 	{
-		Integer id = reCo.getId();
-		List<Integer> servicioIn = reCo.getIdSInm();
-		List<Integer> servicioPub = reCo.getIdSPub();
-		Integer cantidad = reCo.getCantidad();
-		
-		ArrayList<Reserva> reservas = new ArrayList<>();
-		DAOReserva daoReserva = new DAOReserva();
-		DAOHabitacion daoHabs = new DAOHabitacion();
-		DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
-		DAOServicioPublico daoSPub = new DAOServicioPublico();
-		
-		ArrayList<Reserva> xd2 = daoReserva.getReservas();
-		ArrayList<Habitacion> habs = daoHabs.getHabitacions();
-		
-		
-		
-		for (int i = 0; i < habs.size(); i++) 
+		try
 		{
-			Habitacion actual = habs.get(i);
-			if(actual.getTipo().equals(reCo.getTipo()))
+			Integer id = reCo.getId();
+			List<Integer> servicioIn = reCo.getIdSInm();
+			List<Integer> servicioPub = reCo.getIdSPub();
+			Integer cantidad = reCo.getCantidad();
+			Integer idReserva = reCo.getId();
+			Integer idCliente = reCo.getIdCliente();
+
+			ArrayList<Reserva> reservas = new ArrayList<>();
+			DAOReserva daoReserva = new DAOReserva();
+			DAOHabitacion daoHabs = new DAOHabitacion();
+			DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
+			DAOServicioPublico daoSPub = new DAOServicioPublico();
+
+			ArrayList<Reserva> xd2 = daoReserva.getReservas();
+			ArrayList<Habitacion> habs = daoHabs.getHabitacions();
+
+			ArrayList<Habitacion> listaSirven = new ArrayList<>();
+
+			List<Boolean> seEnc = new ArrayList<>();
+			List<Boolean> seEnc2 = new ArrayList<>();
+
+			for (int i = 0; i < habs.size(); i++) 
 			{
+				Habitacion actual = habs.get(i);
+				List<ServicioPublico> xd = daoSPub.findServicioPublicoByHab(actual.getId());
+				List<ServicioInmobiliario> xd1 = daoSIn.findServicioInmobiliariosByHab(actual.getId());
+
+				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
+				{
+					for (Integer laLegit: servicioPub) 
+					{
+						for (ServicioPublico servicioPubli : xd) 
+						{
+							if(laLegit == servicioPubli.getId())
+							{
+								seEnc.add(true);
+							}
+						}
+					}
+					for (Integer laLegit: servicioPub) 
+					{
+						for (ServicioInmobiliario servicioInmobiliario : xd1) 
+						{
+							if(laLegit == servicioInmobiliario.getId())
+							{
+								seEnc2.add(true);
+							}
+						}
+					}
+				}
+				listaSirven.add(actual);
+			}
+
+			List<Habitacion> rtaFinal = new ArrayList<>();
+
+			if(listaSirven.size() >= cantidad)
+			{
+				for (int i = 0; i <= cantidad; i++) 
+				{
+					Habitacion actual = listaSirven.get(i);
+					daoHabs.updateHabitacion(actual);
+				}
+			}
+			reCo.setHabitaciones(rtaFinal);
+			
+			List<Integer> listaHostal = new ArrayList<>();
+			List<Integer> listaHotel = new ArrayList<>();
+			List<Integer> listaPersona = new ArrayList<>();
+			List<Integer> listaViviendaUniversitaria = new ArrayList<>();
+			
+			for (int i = 0; i < rtaFinal.size(); i++) 
+			{
+				Habitacion actual = rtaFinal.get(i);
+				if(actual.getIdHostal() != null)
+				{
+					listaHostal.add(actual.getId());
+				}
+				else if (actual.getIdHotel() != null)
+				{
+					listaHotel.add(actual.getId());
+				}
+				else if (actual.getIdPersona() != null)
+				{
+					listaPersona.add(actual.getId());
+				}
+				else
+				{
+					listaViviendaUniversitaria.add(actual.getId());
+				}
+			}
+			
+			
+			List<Reserva> reserva = new ArrayList<>();
+			
+			for (int i = 0; i < listaHostal.size(); i++) 
+			{
+				Habitacion actual = daoHabs.findHabitacionById(listaHostal.get(i));
+				createReservaHostal(new VOReservaHabitaciones( listaHostal, actual.getIdHostal(), null, idCliente));
 				
 			}
+			for (int i = 0; i < listaHotel.size(); i++) 
+			{
+				Habitacion actual = daoHabs.findHabitacionById(listaHotel.get(i));
+				createReservaHotel(new VOReservaHabitaciones( listaHotel, actual.getIdHotel(), null, idCliente));
+			}
+			for (int i = 0; i < listaPersona.size(); i++) 
+			{
+				Habitacion actual = daoHabs.findHabitacionById(listaPersona.get(i));
+				createReservaPersonaNatural( actual.getIdPersona(), null, listaPersona, idCliente);
+			}
+			for (int i = 0; i < listaViviendaUniversitaria.size(); i++) 
+			{
+				Habitacion actual = daoHabs.findHabitacionById(listaViviendaUniversitaria.get(i));
+				createReservaViviendaUniversitaria(actual.getIdViviendaU(), null, listaViviendaUniversitaria, idCliente);
+			}
+			
+			hashDeReservasColectivas.put(reCo.getId(), reCo);
+
+			return Response.status(200).entity(reCo).build();
 		}
-		
-		
-		
+		catch(Exception e)
+		{
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
 	}
 	
+	//TODO Requerimiento RF8
+	
+	@PUT
+	@Path( "/RF8/{id: \\d+}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response requerimientoRF8( @PathParam(" id") Integer id)
+	{
+		ReservaColectiva asdf = hashDeReservasColectivas.get(id);
+	}
 
 }

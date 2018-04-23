@@ -9,9 +9,6 @@ public class ReservaColectiva
 
 	@JsonProperty ( value = "id_ReservaColectiva")
 	Integer id;
-	
-	@JsonProperty ( value = "reserva")
-	List<Integer> reserva;
 
 	@JsonProperty ( value = "id_ServicioPublico")
 	List<Integer> idSPub;
@@ -24,6 +21,50 @@ public class ReservaColectiva
 
 	@JsonProperty ( value = "cantidad")
 	Integer cantidad;
+	
+	@JsonProperty ( value = "fecha")
+	String fecha;
+	
+	@JsonProperty ( value = "duracion")
+	String duracion;
+	
+	@JsonProperty ( value = "habitaciones")
+	List<Habitacion> habitaciones;
+	
+	@JsonProperty ( value = "id_Cliente")
+	Integer idCliente;
+	
+	@JsonProperty ( value = "reservas" )
+	List<Reserva> reservas;
+	
+	/**
+	 * @param id
+	 * @param reserva
+	 * @param idSPub
+	 * @param idSInm
+	 * @param tipo
+	 * @param cantidad
+	 */
+	public ReservaColectiva(
+			@JsonProperty ( value = "id_ReservaColectiva")Integer id,
+			@JsonProperty ( value = "id_ServicioPublico")List<Integer> idSPub, 
+			@JsonProperty ( value = "id_ServicioInmobiliario")List<Integer> idSInm, 
+			@JsonProperty ( value = "tipo")String tipo,
+			@JsonProperty ( value = "cantidad")Integer cantidad, 
+			@JsonProperty ( value = "fecha")String fecha,
+			@JsonProperty ( value = "duracion") String duracion,
+			@JsonProperty ( value = "id_Cliente") Integer idCliente,
+			@JsonProperty ( value = "reservas" ) List<Reserva> reservas) {
+		super();
+		this.id = id;
+		this.idSPub = idSPub;
+		this.idSInm = idSInm;
+		this.tipo = tipo;
+		this.cantidad = cantidad;
+		this.fecha = fecha;
+		this.idCliente = idCliente;
+		this.reservas = reservas;
+	}
 
 	/**
 	 * @return the id
@@ -38,31 +79,7 @@ public class ReservaColectiva
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	/**
-	 * @return the reserva
-	 */
-	public List<Integer> getReserva() {
-		return reserva;
-	}
-
-	/**
-	 * @param reserva the reserva to set
-	 */
-	public void setReserva(List<Integer> reserva) {
-		this.reserva = reserva;
-	}
-
-	/**
-	 * @param id
-	 * @param reserva
-	 */
-	public ReservaColectiva(Integer id, List<Integer> reserva) {
-		super();
-		this.id = id;
-		this.reserva = reserva;
-	}
-
+	
 	/**
 	 * @return the idSPub
 	 */
@@ -120,21 +137,74 @@ public class ReservaColectiva
 	}
 
 	/**
-	 * @param id
-	 * @param reserva
-	 * @param idSPub
-	 * @param idSInm
-	 * @param tipo
-	 * @param cantidad
+	 * @return the fecha
 	 */
-	public ReservaColectiva(Integer id, List<Integer> reserva, List<Integer> idSPub, List<Integer> idSInm, String tipo,
-			Integer cantidad) {
-		super();
-		this.id = id;
-		this.reserva = reserva;
-		this.idSPub = idSPub;
-		this.idSInm = idSInm;
-		this.tipo = tipo;
-		this.cantidad = cantidad;
+	public String getFecha() {
+		return fecha;
 	}
+
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	/**
+	 * @return the duracion
+	 */
+	public String getDuracion() {
+		return duracion;
+	}
+
+	/**
+	 * @param duracion the duracion to set
+	 */
+	public void setDuracion(String duracion) {
+		this.duracion = duracion;
+	}
+
+	/**
+	 * @return the habitaciones
+	 */
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	/**
+	 * @param habitaciones the habitaciones to set
+	 */
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	/**
+	 * @return the idCliente
+	 */
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	/**
+	 * @param idCliente the idCliente to set
+	 */
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	/**
+	 * @return the reservas
+	 */
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	/**
+	 * @param reservas the reservas to set
+	 */
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	
 }

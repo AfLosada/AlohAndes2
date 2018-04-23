@@ -1,10 +1,12 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vos.ServicioInmobiliario;
 
@@ -77,18 +79,18 @@ public class DAOServicioInmobiliario
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ServicioInmobiliario findServicioInmobiliarioByHab(Integer id) throws SQLException, Exception 
+	public 	List<ServicioInmobiliario> findServicioInmobiliariosByHab(Integer id) throws SQLException, Exception 
 	{
-		ServicioInmobiliario ServicioInmobiliario = null;
+		List<ServicioInmobiliario> ServicioInmobiliario = new ArrayList<>();
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIO WHERE ID_HABITACION = %2$d ORDER BY ID_HABITACION DESC", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
+		
 		if(rs.next()) {
-			ServicioInmobiliario = convertResultSetToServicioInmobiliario(rs);
+			ServicioInmobiliario.add(convertResultSetToServicioInmobiliario(rs));
 		}
 
 		return ServicioInmobiliario;

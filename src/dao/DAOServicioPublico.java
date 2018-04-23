@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import vos.ServicioInmobiliario;
 import vos.ServicioPublico;
 
 public class DAOServicioPublico 
@@ -94,6 +96,35 @@ public class DAOServicioPublico
 
 			return ServicioPublico;
 		}
+		
+		/**
+		 * Metodo que obtiene la informacion del ServicioInmobiliario en la Base de Datos que tiene el identificador dado por parametro<br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+		 * @param id el identificador del ServicioInmobiliario
+		 * @return la informacion del ServicioInmobiliario que cumple con los criterios de la sentecia SQL
+		 * 			Null si no existe el ServicioInmobiliario conlos criterios establecidos
+		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public List<ServicioPublico> findServicioPublicoByHab(Integer id) throws SQLException, Exception 
+		{
+			List<ServicioPublico> ServicioInmobiliario = new ArrayList<>();
+
+			String sql = String.format("SELECT * FROM %1$s.HABITACIONES_PUBLICO WHERE ID_HABITACION = %2$d", USUARIO, id); 
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			
+			if(rs.next()) {
+				ServicioInmobiliario.add(convertResultSetToServicioPublico(rs));
+			}
+
+			return ServicioInmobiliario;
+		}
+		
 
 		/**
 		 * Metodo que agregar la informacion de un nuevo ServicioPublico en la Base de Datos a partir del parametro ingresado<br/>
