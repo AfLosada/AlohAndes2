@@ -662,5 +662,43 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
+	
+	//TODO Requerimiento RF9
+	
 
+	@PUT
+	@Path( "/RF9/{id: \\d+}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response requerimientoRF9(@PathParam ("id")Integer id)
+	{
+		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+		Oferta reservas;
+		//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		reservas = tm.cancelarOferta(id);
+		return Response.status(200).entity(reservas).build();
+	}
+	
+	//TODO Requerimiento RF10
+	
+	@PUT
+	@Path( "/RF9/{id: \\d+}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response requerimientoRF10(@PathParam ("id") Integer id)
+	{
+		Oferta reservas = null;
+		try
+		{
+		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+		DAOOferta daoOferta = new DAOOferta();
+		//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		reservas = tm.activarOferta(daoOferta.findOfertaById(id));
+		return Response.status(200).entity(reservas).build();
+		}
+		catch (Exception e)
+		{
+			return Response.status(500).entity(reservas).build();
+		}
+	}
 }

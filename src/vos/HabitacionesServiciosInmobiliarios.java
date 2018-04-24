@@ -1,14 +1,16 @@
 package vos;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class HabitacionesServiciosInmobiliarios 
 {
 	//
 	// Atributos
 	//
-	
-	private int idServicioInmobiliario;
-	
-	private int idHabitacion;
+	@JsonProperty( value = "id_servicioIn")
+	private Integer idServicioInmobiliario;
+	@JsonProperty ( value = "id_hab")
+	private Integer idHabitacion;
 	
 	
 	//
@@ -19,7 +21,9 @@ public class HabitacionesServiciosInmobiliarios
 	 * @param idServicioInmobiliario
 	 * @param idHabitacion
 	 */
-	public HabitacionesServiciosInmobiliarios(int idServicioInmobiliario, int idHabitacion) {
+	public HabitacionesServiciosInmobiliarios(
+			@JsonProperty( value = "id_servicioIn") Integer idServicioInmobiliario, 
+			@JsonProperty ( value = "id_hab")Integer idHabitacion) {
 		super();
 		this.idServicioInmobiliario = idServicioInmobiliario;
 		this.idHabitacion = idHabitacion;

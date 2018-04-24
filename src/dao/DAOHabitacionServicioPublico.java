@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import vos.HabitacionesServicioPublico;
 
 public class DAOHabitacionServicioPublico 
@@ -78,18 +80,18 @@ public class DAOHabitacionServicioPublico
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public HabitacionesServicioPublico findHabitacionesServicioPublicoById(Integer id) throws SQLException, Exception 
+	public List<HabitacionesServicioPublico> findHabitacionesServicioPublicoById(Integer id) throws SQLException, Exception 
 	{
-		HabitacionesServicioPublico HabitacionesServicioPublico = null;
+		List<HabitacionesServicioPublico> HabitacionesServicioPublico = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ID_habitacion = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			HabitacionesServicioPublico = convertResultSetToHabitacionesServicioPublico(rs);
+			HabitacionesServicioPublico.add(convertResultSetToHabitacionesServicioPublico(rs));
 		}
 
 		return HabitacionesServicioPublico;

@@ -3583,7 +3583,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
 		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
-		daoHabitacionesSer.setConn(conn);
+		daoHabitacionSerPub.setConn(conn);
 
 
 		Oferta ofertaF = daoOferta.findOfertaById(oferta);
@@ -3597,11 +3597,18 @@ public class AlohAndesTransactionManager <K extends Operador>
 			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
 			act.setIdOferta(oferta);
 			act.setIdHostal(hostal);
-			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
-			sisa.setIdServicioInmobiliario(sIn);
-			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
-			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
-			noka.setIdServicioPublico(sPub);
+			List<HabitacionesServiciosInmobiliarios> sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			for (HabitacionesServiciosInmobiliarios habitacion : sisa) 
+			{
+				habitacion.setIdServicioInmobiliario(sIn);
+				daoHabitacionesSer.updateHabitacionesServicioInmobiliario(habitacion);
+			}
+			List<HabitacionesServicioPublico> noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			for (HabitacionesServicioPublico habitacion : noka) 
+			{
+				habitacion.setIdServicioPublico(sPub);
+				daoHabitacionSerPub.updateHabitacionesServicioPublico((habitacion));
+			}
 			daoHabitacion.updateHabitacion(act);
 		}
 	}
@@ -3624,24 +3631,26 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdHotel(hostal);
 		daoOferta.updateOferta(ofertta);
+		List<Habitacion> habs = new ArrayList<>();
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
 			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
 			act.setIdOferta(oferta);
-			act.setIdHostal(hostal);
-			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
-			sisa.setIdServicioInmobiliario(sIn);
-			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
-			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
-			noka.setIdServicioPublico(sPub);
+			act.setIdHotel(hostal);
+			List<HabitacionesServiciosInmobiliarios> sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			for (HabitacionesServiciosInmobiliarios habitacion : sisa) 
+			{
+				habitacion.setIdServicioInmobiliario(sIn);
+				daoHabitacionesSer.updateHabitacionesServicioInmobiliario(habitacion);
+			}
+			List<HabitacionesServicioPublico> noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			for (HabitacionesServicioPublico habitacion : noka) 
+			{
+				habitacion.setIdServicioPublico(sPub);
+				daoHabitacionSerPub.updateHabitacionesServicioPublico((habitacion));
+			}
 			daoHabitacion.updateHabitacion(act);
 		}
-
-		int numReservas = ofertta.getNumReservas();
-		numReservas++;
-		ofertta.setNumReservas(numReservas);
-		daoOferta.updateOferta(ofertta);
-
 	}
 
 
@@ -3662,23 +3671,26 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdViviendaU(viviendau);
 		daoOferta.updateOferta(ofertta);
+		List<Habitacion> habs = new ArrayList<>();
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
 			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
 			act.setIdOferta(oferta);
 			act.setIdViviendaU(viviendau);
-			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
-			sisa.setIdServicioInmobiliario(sIn);
-			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
-			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
-			noka.setIdServicioPublico(sPub);
+			List<HabitacionesServiciosInmobiliarios> sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			for (HabitacionesServiciosInmobiliarios habitacion : sisa) 
+			{
+				habitacion.setIdServicioInmobiliario(sIn);
+				daoHabitacionesSer.updateHabitacionesServicioInmobiliario(habitacion);
+			}
+			List<HabitacionesServicioPublico> noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			for (HabitacionesServicioPublico habitacion : noka) 
+			{
+				habitacion.setIdServicioPublico(sPub);
+				daoHabitacionSerPub.updateHabitacionesServicioPublico((habitacion));
+			}
 			daoHabitacion.updateHabitacion(act);
 		}
-
-		int numReservas = ofertta.getNumReservas();
-		numReservas++;
-		ofertta.setNumReservas(numReservas);
-		daoOferta.updateOferta(ofertta);
 	}
 
 	/**
@@ -3697,23 +3709,26 @@ public class AlohAndesTransactionManager <K extends Operador>
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdPersona(persona);
 		daoOferta.updateOferta(ofertta);
+		List<Habitacion> habs = new ArrayList<>();
 		for (int i = 0; i < habitaciones.size(); i++) 
 		{
 			Habitacion act = daoHabitacion.findHabitacionById(habitaciones.get(i));
 			act.setIdOferta(oferta);
 			act.setIdPersona(persona);
-			HabitacionesServiciosInmobiliarios sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
-			sisa.setIdServicioInmobiliario(sIn);
-			daoHabitacionesSer.updateHabitacionesServicioInmobiliario(sisa);
-			HabitacionesServicioPublico noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
-			noka.setIdServicioPublico(sPub);
+			List<HabitacionesServiciosInmobiliarios> sisa = daoHabitacionesSer.findHabitacionesServicioInmobiliarioById(habitaciones.get(i));
+			for (HabitacionesServiciosInmobiliarios habitacion : sisa) 
+			{
+				habitacion.setIdServicioInmobiliario(sIn);
+				daoHabitacionesSer.updateHabitacionesServicioInmobiliario(habitacion);
+			}
+			List<HabitacionesServicioPublico> noka = daoHabitacionSerPub.findHabitacionesServicioPublicoById(habitaciones.get(i));
+			for (HabitacionesServicioPublico habitacion : noka) 
+			{
+				habitacion.setIdServicioPublico(sPub);
+				daoHabitacionSerPub.updateHabitacionesServicioPublico((habitacion));
+			}
 			daoHabitacion.updateHabitacion(act);
 		}
-
-		int numReservas = ofertta.getNumReservas();
-		numReservas++;
-		ofertta.setNumReservas(numReservas);
-		daoOferta.updateOferta(ofertta);
 	}
 
 	//TODO FIN OFERTA INICIO RESERVA
@@ -3953,6 +3968,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			DAOHabitacion daoHab = new DAOHabitacion();
 			DAOReserva daoRes = new DAOReserva();
 			DAOCliente daoCli = new DAOCliente();
+			DAOHabitacionesServicioInmobiliarioSerInm daoHSerIn = new DAOHabitacionesServicioInmobiliarioSerInm();
+			DAOHabitacionServicioPublico daoHSerPu = new DAOHabitacionServicioPublico();
 			ArrayList<Habitacion> habs = daoHab.getHabitacions();
 			ArrayList<Habitacion> habs1 = new ArrayList<>();
 			ArrayList<Cliente> listaClientes = daoCli.getClientes();
@@ -3961,6 +3978,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			for (Cliente cliente : listaClientes) 
 			{
 				ArrayList<Habitacion> habsi = new ArrayList<>();
+				ArrayList<Integer> listaServIn = new ArrayList<>();
+				ArrayList<Integer> listaServPu = new ArrayList<>();
 				for (Habitacion habitacion : habs) 
 				{
 					Reserva res = daoRes.findReservaById(habitacion.getIdReserva());
@@ -3978,11 +3997,24 @@ public class AlohAndesTransactionManager <K extends Operador>
 						habsi.add(habitacion);
 					}
 					fecha = masBajo;
+					
+					List<HabitacionesServiciosInmobiliarios> listaS = new ArrayList<>();
+					listaS.addAll(daoHSerIn.findHabitacionesServicioInmobiliarioById(habitacion.getId()));
+					for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : listaS) 
+					{
+						listaServIn.add(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario());
+					}
+					List<HabitacionesServicioPublico> listaSP = new ArrayList<>();
+					listaSP.addAll(daoHSerPu.findHabitacionesServicioPublicoById(habitacion.getId()));
+					for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : listaS) 
+					{
+						listaServIn.add(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario());
+					}
 				}
 				Integer duracion = fecha.compareTo(new Date());
 				
 				Integer cantidad = habsi.size();
-				reque.requerimientoRF7(new ReservaColectiva(cantidad, 1, 1, Habitacion.TipoHabitacion.SUITE, cantidad, DATE.getCurrentDate(), duracion, cliente.getId(), null))
+				reque.requerimientoRF7(new ReservaColectiva(cantidad, null, null, "SUITE", cantidad, new Date().toString(), "" +duracion, cliente.getId(), null));
 			}
 
 			rta = daoOferta.findOfertaById(id);
@@ -3997,6 +4029,17 @@ public class AlohAndesTransactionManager <K extends Operador>
 			e.getMessage();
 			return rta;
 		}
+	}
+	
+	
+	public Oferta activarOferta(Oferta oferta) throws SQLException, Exception
+	{
+		
+		DAOOferta daoOferta = new DAOOferta();
+		oferta.setVigente(true);
+		daoOferta.updateOferta(oferta);
+		return oferta;
+		
 	}
 
 }

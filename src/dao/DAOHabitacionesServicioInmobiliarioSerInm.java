@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vos.HabitacionesServiciosInmobiliarios;
 
@@ -79,18 +80,18 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public HabitacionesServiciosInmobiliarios findHabitacionesServicioInmobiliarioById (Integer id) throws SQLException, Exception 
+	public List<HabitacionesServiciosInmobiliarios> findHabitacionesServicioInmobiliarioById (Integer id) throws SQLException, Exception 
 	{
-		HabitacionesServiciosInmobiliarios HabitacionesServicioInmobiliario = null;
+		List<HabitacionesServiciosInmobiliarios> HabitacionesServicioInmobiliario = null;
 
-		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ID_HABITACION = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			HabitacionesServicioInmobiliario = convertResultSetToHabitacionesServicioInmobiliario(rs);
+			HabitacionesServicioInmobiliario.add(convertResultSetToHabitacionesServicioInmobiliario(rs));
 		}
 
 		return HabitacionesServicioInmobiliario;
@@ -199,18 +200,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
 		String capacidad = resultSet.getString("ID_HABITACION");
-//		String precio = resultSet.getString("precio");
-//		String tamanio = resultSet.getString("tamanio");
-//		String ubicacion = resultSet.getString("ubicacion");
 		String id = resultSet.getString("ID_SERVICIO_INMOBILIARIO");
-//		String tipo = resultSet.getString("tipo");
-//		String idReserva = resultSet.getString("idReserva");
-//		String idOferta = resultSet.getString("idOferta");
-//		String idHotel = resultSet.getString("idHotel");
-//		String idHostal = resultSet.getString("idHostal");
-//		String idPersona = resultSet.getString("idPersona");
-//		String idViviendaU = resultSet.getString("idViviendaU");
-
 		/**
 		 * habitacionesServicioInmobiliario.getCapacidad(),
 					habitacionesServicioInmobiliario.getId(), 
