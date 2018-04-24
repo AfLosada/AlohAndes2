@@ -633,10 +633,10 @@ public class RequerimientosService <K extends Operador>
 
 	//TODO Requerimiento RF8
 
-	@PUT
+	@GET
 	@Path( "/RF8/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
-	public Response requerimientoRF8( @PathParam(" id") Integer id)
+	public Response requerimientoRF8( @PathParam("id") Integer id)
 	{
 		DAOReserva daoReserva = new DAOReserva();
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
@@ -666,7 +666,7 @@ public class RequerimientosService <K extends Operador>
 	//TODO Requerimiento RF9
 	
 
-	@PUT
+	@GET
 	@Path( "/RF9/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response requerimientoRF9(@PathParam ("id")Integer id)
@@ -674,7 +674,6 @@ public class RequerimientosService <K extends Operador>
 		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
 		Oferta reservas;
-		//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 		reservas = tm.cancelarOferta(id);
 		return Response.status(200).entity(reservas).build();
 	}
@@ -682,7 +681,7 @@ public class RequerimientosService <K extends Operador>
 	//TODO Requerimiento RF10
 	
 	@PUT
-	@Path( "/RF9/{id: \\d+}" )
+	@Path( "/RF10/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response requerimientoRF10(@PathParam ("id") Integer id)
 	{
@@ -692,7 +691,7 @@ public class RequerimientosService <K extends Operador>
 		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
 		DAOOferta daoOferta = new DAOOferta();
-		//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		
 		reservas = tm.activarOferta(daoOferta.findOfertaById(id));
 		return Response.status(200).entity(reservas).build();
 		}
