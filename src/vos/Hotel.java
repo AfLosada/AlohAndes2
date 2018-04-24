@@ -7,35 +7,35 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class Hotel extends Operador 
 {
 	@JsonProperty( value = "capacidad_Hotel")
-	private int capacidad;
+	private Integer capacidad;
 	
 
 	@JsonProperty( value = "id_Hotel")
-	private int id;
+	private Integer id_Hotel;
 	
 	
-	public Hotel(@JsonProperty( value = "camara_Comercio")boolean camaraComercio,@JsonProperty( value = "nombre") String nombreOperador,@JsonProperty( value = "superIntendencia_Turismo") boolean superIntendenciaTurismo,@JsonProperty( value = "capacidad_operador") int capacidad,
-			@JsonProperty( value = "id_hotel")int id_Hotel) {
+	public Hotel(@JsonProperty( value = "camara_Comercio")boolean camaraComercio,@JsonProperty( value = "nombre") String nombreOperador,@JsonProperty( value = "superIntendencia_Turismo") boolean superIntendenciaTurismo,@JsonProperty( value = "capacidad_operador") Integer capacidad,
+			@JsonProperty( value = "id_hotel")Integer id_Hotel) {
 		super(camaraComercio, nombreOperador, superIntendenciaTurismo);
 		this.capacidad = capacidad;
-		this.id = id_Hotel;
+		this.id_Hotel = id_Hotel;
 	}
 
 	
 
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
 
-	public int getIdHotel() {
-		return id;
+	public Integer getIdHotel() {
+		return id_Hotel;
 	}
 
-	public void setIdHotel(int idHotel) {
-		this.id = idHotel;
+	public void setIdHotel(Integer idHotel) {
+		this.id_Hotel = idHotel;
 	}
 }

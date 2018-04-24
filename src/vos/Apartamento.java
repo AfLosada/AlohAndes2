@@ -37,7 +37,7 @@ public class Apartamento
 			@JsonProperty( value = "precio_apto") Double precio,
 			@JsonProperty (value = "id_Persona") Integer idPersonaNatural,
 			@JsonProperty ( value = "id_Oferta") Integer idOferta,
-			@JsonProperty( value = "incluyeServicios") Boolean incluyeServicios) {
+			@JsonProperty( value = "incluye_servicios") Boolean incluyeServicios) {
 		super();
 		this.amoblado = amoblado;
 		this.capacidad_apto= capacidad;
@@ -119,10 +119,12 @@ public class Apartamento
 		this.id_oferta = idOferta;
 	}
 
-	public String toString(boolean amoblado2) 
+	public String toString(Boolean amoblado2) 
 	{
 		String rta = "F";
-		if(amoblado2)
+		
+		if(amoblado2 != null)
+			if(amoblado2)
 			rta = "T";
 		return rta;
 	}

@@ -115,7 +115,7 @@ public class DAOApartamento
 									apartamento.getPrecio(),
 									apartamento.getIdPersonaNatural(),
 									apartamento.getIdOferta(),
-									apartamento.getIncluyeServicios());
+									apartamento.toString(apartamento.getIncluyeServicios()));
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
