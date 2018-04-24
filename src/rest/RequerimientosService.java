@@ -493,7 +493,7 @@ public class RequerimientosService <K extends Operador>
 
 	//TODO RF7
 	@PUT
-	@Path("/requerimientos/RF7")
+	@Path("/RF7")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response requerimientoRF7(ReservaColectiva reCo)

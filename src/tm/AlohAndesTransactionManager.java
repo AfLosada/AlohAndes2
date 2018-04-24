@@ -18,6 +18,7 @@ import dao.*;
 import oracle.sql.DATE;
 import rest.RequerimientosService;
 import vos.*;
+import vos.Habitacion.TipoHabitacion;
 
 public class AlohAndesTransactionManager <K extends Operador>
 {
@@ -3974,6 +3975,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			ArrayList<Habitacion> habs1 = new ArrayList<>();
 			ArrayList<Cliente> listaClientes = daoCli.getClientes();
 			Date fecha = new Date();
+			TipoHabitacion tipo = null;
 			
 			for (Cliente cliente : listaClientes) 
 			{
@@ -4008,13 +4010,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 					listaSP.addAll(daoHSerPu.findHabitacionesServicioPublicoById(habitacion.getId()));
 					for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : listaS) 
 					{
-						listaServIn.add(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario());
+						listaServPu.add(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario());
 					}
+					tipo = habitacion.getTipo();
 				}
 				Integer duracion = fecha.compareTo(new Date());
 				
 				Integer cantidad = habsi.size();
-				reque.requerimientoRF7(new ReservaColectiva(cantidad, null, null, "SUITE", cantidad, new Date().toString(), "" +duracion, cliente.getId(), null));
+				reque.requerimientoRF7(new ReservaColectiva(cantidad, listaServIn, listaServPu,"" + tipo.toString() , cantidad, new Date().toString(), "" +duracion, cliente.getId(), new ArrayList<Reserva>()));
 			}
 
 			rta = daoOferta.findOfertaById(id);
