@@ -501,6 +501,8 @@ public class RequerimientosService <K extends Operador>
 		try
 		{
 			Integer id = reCo.getId();
+			String duracion = reCo.getDuracion();
+			String fecha = reCo.getFecha();
 			List<Integer> servicioIn = reCo.getIdSInm();
 			List<Integer> servicioPub = reCo.getIdSPub();
 			Integer cantidad = reCo.getCantidad();
@@ -520,6 +522,8 @@ public class RequerimientosService <K extends Operador>
 
 			List<Boolean> seEnc = new ArrayList<>();
 			List<Boolean> seEnc2 = new ArrayList<>();
+			
+			daoReserva.addReserva(new Reserva(false, duracion, fecha, idReserva, false, "", null, null, null, null, null, idCliente, new ArrayList<>));
 
 			for (int i = 0; i < habs.size(); i++) 
 			{

@@ -3932,7 +3932,15 @@ public class AlohAndesTransactionManager <K extends Operador>
 	//TODO ACTIVAR-DESHABILITAR OFERTAS
 	public String cancelarOferta(Integer id)
 	{
-		
+		try
+		{
+			DAOOferta daoOferta = new DAOOferta();
+			DAOHabitacion daoHab = new DAOHabitacion();
+		}
+		catch (Exception e)
+		{
+			
+		}
 	}
 	
 }
