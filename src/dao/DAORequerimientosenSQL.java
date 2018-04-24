@@ -1068,3 +1068,4 @@ public class DAORequerimientosenSQL
 				Integer.parseInt(duracion), mie, tipoPub, Integer.parseInt(costoPub), tipoIn, Integer.parseInt(costoIn));
 
 	}
+}
