@@ -6,12 +6,17 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import dao.*;
+import oracle.sql.DATE;
+import rest.RequerimientosService;
 import vos.*;
 
 public class AlohAndesTransactionManager <K extends Operador>
@@ -119,9 +124,13 @@ public class AlohAndesTransactionManager <K extends Operador>
 	 * @return Objeto Connection, el cual hace referencia a la conexion a la base de datos
 	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
 	 */
-	public Connection darConexion() throws SQLException {
+	public Connection darConexion() throws SQLException 
+	{
 		System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
-		return DriverManager.getConnection(url, user, password);
+		Connection coni = DriverManager.getConnection(url, user, password);
+		coni.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		coni.setAutoCommit(false);
+		return coni;
 	}
 
 
@@ -146,6 +155,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 			//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			apartamento = daoApartamento.getApartamentos();
+			conn.commit();
 		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
@@ -3929,18 +3939,64 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 
+	
+	RequerimientosService<Operador> reque = new RequerimientosService();
+	
 	//TODO ACTIVAR-DESHABILITAR OFERTAS
-	public String cancelarOferta(Integer id)
+	public Oferta cancelarOferta(Integer id)
 	{
+		Oferta rta = null;
+
 		try
 		{
 			DAOOferta daoOferta = new DAOOferta();
 			DAOHabitacion daoHab = new DAOHabitacion();
-		}
-		catch (Exception e)
-		{
+			DAOReserva daoRes = new DAOReserva();
+			DAOCliente daoCli = new DAOCliente();
+			ArrayList<Habitacion> habs = daoHab.getHabitacions();
+			ArrayList<Habitacion> habs1 = new ArrayList<>();
+			ArrayList<Cliente> listaClientes = daoCli.getClientes();
+			Date fecha = new Date();
 			
+			for (Cliente cliente : listaClientes) 
+			{
+				ArrayList<Habitacion> habsi = new ArrayList<>();
+				for (Habitacion habitacion : habs) 
+				{
+					Reserva res = daoRes.findReservaById(habitacion.getIdReserva());
+					Integer idCli = res.getIdCliente();
+					String fechAct = res.getFecha();
+					SimpleDateFormat DT = new SimpleDateFormat("dd-mm-aaaa");
+					Date fechaa = DT.parse(fechAct);
+					Date masBajo = new Date();
+					if(fechaa.before(masBajo))
+					{
+						masBajo = fechaa;
+					}
+					if(idCli == cliente.getId())
+					{
+						habsi.add(habitacion);
+					}
+					fecha = masBajo;
+				}
+				Integer duracion = fecha.compareTo(new Date());
+				
+				Integer cantidad = habsi.size();
+				reque.requerimientoRF7(new ReservaColectiva(cantidad, 1, 1, Habitacion.TipoHabitacion.SUITE, cantidad, DATE.getCurrentDate(), duracion, cliente.getId(), null))
+			}
+
+			rta = daoOferta.findOfertaById(id);
+			rta.setVigente(false);
+
+			daoOferta.updateOferta(rta);
+
+			return rta;
+		}
+		catch ( Exception e)
+		{
+			e.getMessage();
+			return rta;
 		}
 	}
-	
+
 }

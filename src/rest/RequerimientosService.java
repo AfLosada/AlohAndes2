@@ -501,8 +501,6 @@ public class RequerimientosService <K extends Operador>
 		try
 		{
 			Integer id = reCo.getId();
-			String duracion = reCo.getDuracion();
-			String fecha = reCo.getFecha();
 			List<Integer> servicioIn = reCo.getIdSInm();
 			List<Integer> servicioPub = reCo.getIdSPub();
 			Integer cantidad = reCo.getCantidad();
@@ -522,8 +520,9 @@ public class RequerimientosService <K extends Operador>
 
 			List<Boolean> seEnc = new ArrayList<>();
 			List<Boolean> seEnc2 = new ArrayList<>();
+			Double doble = 0.0;
 			
-			daoReserva.addReserva(new Reserva(false, duracion, fecha, idReserva, false, "", null, null, null, null, null, idCliente, new ArrayList<>));
+			daoReserva.addReserva(new Reserva(false, reCo.getDuracion(), reCo.getFecha(), idReserva, false, "", doble, null, null, null, null, idCliente, new ArrayList<Integer>()));
 
 			for (int i = 0; i < habs.size(); i++) 
 			{
@@ -649,16 +648,18 @@ public class RequerimientosService <K extends Operador>
 			{
 				if(habitacion.getIdReserva() == id)
 				{
-					delete
+					tm.cancelarReserva(id);
 				}
 			}
-			
+			return Response.status(200).entity(reservita).build();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
 

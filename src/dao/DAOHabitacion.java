@@ -177,6 +177,25 @@ public class DAOHabitacion
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	
+	
+	public ArrayList<Habitacion> findHabsPorCliente(Integer id) throws SQLException
+	{
+		ArrayList<Habitacion> habs = new ArrayList<>();
+
+		String sql = String.format("SELECT * FROM %1$s.HABITACION WHERE ID_Cliente = %2$d", USUARIO, id); 
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+			habs.add(convertResultSetToHabitacion(rs));
+		}
+
+		return habs;
+	}
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------
