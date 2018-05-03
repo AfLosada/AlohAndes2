@@ -6,7 +6,6 @@
     <libelement value="jar://$MODULE_DIR$/WebContent/WEB-INF/lib/javax.ws.rs.jar!/" />
     <conelement value="org.eclipse.jst.j2ee.internal.web.container" />
     <conelement value="org.eclipse.jst.j2ee.internal.module.container" />
-    <conelement value="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 10.0 Runtime" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
@@ -47,7 +46,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 10.0 Runtime" level="application" />
     <orderEntry type="jdk" jdkName="JavaSE-1.7" jdkType="JavaSDK" />
   </component>
 </module>

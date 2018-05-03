@@ -3621,12 +3621,20 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarOfertaHotel(Integer hostal, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
 		DAOHotel daoHotel = new DAOHotel();
+		daoHotel.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		daoServicioPub.setConn(conn);
 		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		daoServicioInm.setConn(conn);
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
+		daoHabitacionSerPub.setConn(conn);
+		
 
 
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
@@ -3663,12 +3671,19 @@ public class AlohAndesTransactionManager <K extends Operador>
 	{
 		DAOViviendaUniversitaria daoViviendau = new DAOViviendaUniversitaria();
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoViviendau.setConn(conn);
+		daoHabitacion.setConn(conn);
 		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		daoServicioPub.setConn(conn);
 		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		daoServicioInm.setConn(conn);
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
-
+		daoHabitacionSerPub.setConn(conn);
+		
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdViviendaU(viviendau);
 		daoOferta.updateOferta(ofertta);
@@ -3700,13 +3715,20 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarOfertaPersonaNatural(Integer persona, Integer oferta, List<Integer> habitaciones, Integer sPub, Integer sIn) throws SQLException, Exception
 	{
 		DAOPersonaNatural daoPersona = new DAOPersonaNatural();
+		daoPersona.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOServicioPublico daoServicioPub = new DAOServicioPublico();
+		daoServicioPub.setConn(conn);
 		DAOServicioInmobiliario daoServicioInm = new DAOServicioInmobiliario();
+		daoServicioInm.setConn(conn);
 		DAOHabitacionesServicioInmobiliarioSerInm daoHabitacionesSer = new DAOHabitacionesServicioInmobiliarioSerInm();
+		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
-
+		daoHabitacionSerPub.setConn(conn);
+		
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdPersona(persona);
 		daoOferta.updateOferta(ofertta);
@@ -3737,8 +3759,11 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarReservaHotel(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
+		daoReserva.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 
 
 		for(int  i = 0; i<habitaciones.size();i++)
@@ -3768,8 +3793,11 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarReservaHostal(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
+		daoReserva.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 
 
 		for(int  i = 0; i<habitaciones.size();i++)
@@ -3799,8 +3827,11 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarReservaPersonaNatural(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
+		daoReserva.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 
 
 		for(int  i = 0; i<habitaciones.size();i++)
@@ -3830,8 +3861,11 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public void agregarReservaVecino(Integer cliente, Integer reserva, List<Integer> habitaciones, Integer hotel) throws SQLException, Exception
 	{
 		DAOReserva daoReserva = new DAOReserva();
+		daoReserva.setConn(conn);
 		DAOHabitacion daoHabitacion = new DAOHabitacion();
+		daoHabitacion.setConn(conn);
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 
 
 		for(int  i = 0; i<habitaciones.size();i++)
@@ -3968,6 +4002,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoHotel> usoHotel() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoHotel> rta = daoRequerimientos.getUsoHotel();
 		return rta;		
 	}
@@ -3975,6 +4010,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoHostal> usoHostal() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoHostal> rta = daoRequerimientos.getUsoHostal();
 		return rta;		
 	}
@@ -3982,6 +4018,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoPersona> usoPersona() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoPersona> rta = daoRequerimientos.getUsoPersona();
 		return rta;		
 	}
@@ -3989,6 +4026,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoVivienda> usoViviendaU() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoVivienda> rta = daoRequerimientos.getUsoVivienda();
 		return rta;		
 	}
@@ -3998,6 +4036,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoCliente> usoGeneralCliente(Integer idCliente) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoCliente> rta = daoRequerimientos.getUsoUsuario(idCliente);
 		return rta;		
 	}
@@ -4005,6 +4044,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoEspecificoCliente> usoEspecificoCliente(Integer idCliente) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		daoRequerimientos.setTransaccionalidad();
 		ArrayList<VOUsoEspecificoCliente> rta = daoRequerimientos.getUsoEspecificoUsuario(idCliente);
 		return rta;		
 	}
@@ -4045,7 +4085,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		ArrayList<VOClienteReservas> rta = daoRequerimientos.getClienteFrecuenteReservas();
 		return rta;		
 	}
-	
+
 	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
@@ -4077,12 +4117,15 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 	//TODO DESHABILITAR RESERVA
 
-	public String cancelarReserva(Integer id)
+	public Reserva cancelarReserva(Integer id) throws SQLException
 	{
 		try
 		{
 			DAOHabitacion daoHabs = new DAOHabitacion();
+			daoHabs.setConn(conn);
 			List<Habitacion> listaHabs = daoHabs.getHabitacions();
+			DAOReserva daoRes = new DAOReserva();
+			daoRes.setConn(conn);
 			for (Habitacion habitacion2 : listaHabs) 
 			{
 				if(habitacion2.getIdReserva() == id)
@@ -4091,16 +4134,18 @@ public class AlohAndesTransactionManager <K extends Operador>
 					daoHabs.updateHabitacion(habitacion2);
 				}
 			}
-			return "Se deshabilitó la reserva";
+			return daoRes.findReservaById(id);
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return e.getMessage();
+			conn.rollback();
+			return null;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return e.getMessage();
+			conn.rollback();
+			return null;
 		}
 	}
 
@@ -4188,12 +4233,152 @@ public class AlohAndesTransactionManager <K extends Operador>
 	{
 
 		DAOOferta daoOferta = new DAOOferta();
+		daoOferta.setConn(conn);
 		oferta.setVigente(true);
 		daoOferta.updateOferta(oferta);
 		return oferta;
 
 	}
 
+
+
+	//TODO Crear una reserva colectiva
+
+	public ReservaColectiva crearReservaColectiva(ReservaColectiva reCo) throws SQLException
+	{
+		List<Integer> servicioIn = reCo.getIdSInm();
+		List<Integer> servicioPub = reCo.getIdSPub();
+		Integer cantidad = reCo.getCantidad();
+		Integer idReserva = reCo.getId();
+		Integer idCliente = reCo.getIdCliente();
+
+		ArrayList<Reserva> reservas = new ArrayList<>();
+		DAOReserva daoReserva = new DAOReserva();
+		DAOHabitacion daoHabs = new DAOHabitacion();
+		DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
+		DAOServicioPublico daoSPub = new DAOServicioPublico();
+
+		try
+		{
+
+			ArrayList<Reserva> xd2 = daoReserva.getReservas();
+			ArrayList<Habitacion> habs = daoHabs.getHabitacions();
+
+			ArrayList<Habitacion> listaSirven = new ArrayList<>();
+
+			List<Boolean> seEnc = new ArrayList<>();
+			List<Boolean> seEnc2 = new ArrayList<>();
+			Double doble = 0.0;
+
+			daoReserva.addReserva(new Reserva(false, reCo.getDuracion(), reCo.getFecha(), idReserva, false, "", doble, null, null, null, null, idCliente, new ArrayList<Integer>()));
+
+			for (int i = 0; i < habs.size(); i++) 
+			{
+				Habitacion actual = habs.get(i);
+				List<ServicioPublico> xd = daoSPub.findServicioPublicoByHab(actual.getId());
+				List<ServicioInmobiliario> xd1 = daoSIn.findServicioInmobiliariosByHab(actual.getId());
+
+				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
+				{
+					for (Integer laLegit: servicioPub) 
+					{
+						for (ServicioPublico servicioPubli : xd) 
+						{
+							if(laLegit == servicioPubli.getId())
+							{
+								seEnc.add(true);
+							}
+						}
+					}
+					for (Integer laLegit: servicioPub) 
+					{
+						for (ServicioInmobiliario servicioInmobiliario : xd1) 
+						{
+							if(laLegit == servicioInmobiliario.getId())
+							{
+								seEnc2.add(true);
+							}
+						}
+					}
+				}
+				listaSirven.add(actual);
+			}
+
+			List<Habitacion> rtaFinal = new ArrayList<>();
+
+			if(listaSirven.size() >= cantidad)
+			{
+				for (int i = 0; i <= cantidad; i++) 
+				{
+					Habitacion actual = listaSirven.get(i);
+					actual.setIdReserva(idReserva);
+					daoHabs.updateHabitacion(actual);
+				}
+
+				reCo.setHabitaciones(rtaFinal);
+
+				List<Integer> listaHostal = new ArrayList<>();
+				List<Integer> listaHotel = new ArrayList<>();
+				List<Integer> listaPersona = new ArrayList<>();
+				List<Integer> listaViviendaUniversitaria = new ArrayList<>();
+
+				for (int i = 0; i < rtaFinal.size(); i++) 
+				{
+					Habitacion actual = rtaFinal.get(i);
+					if(actual.getIdHostal() != null)
+					{
+						listaHostal.add(actual.getId());
+					}
+					else if (actual.getIdHotel() != null)
+					{
+						listaHotel.add(actual.getId());
+					}
+					else if (actual.getIdPersona() != null)
+					{
+						listaPersona.add(actual.getId());
+					}
+					else
+					{
+						listaViviendaUniversitaria.add(actual.getId());
+					}
+				}
+
+
+				List<Reserva> reserva = new ArrayList<>();
+				RequerimientosService<Operador> reSe = new RequerimientosService<Operador>();
+
+				for (int i = 0; i < listaHostal.size(); i++) 
+				{
+					Habitacion actual = daoHabs.findHabitacionById(listaHostal.get(i));
+					reSe.createReservaHostal(new VOReservaHabitaciones( listaHostal, actual.getIdHostal(), idReserva, idCliente));
+
+				}
+				for (int i = 0; i < listaHotel.size(); i++) 
+				{
+					Habitacion actual = daoHabs.findHabitacionById(listaHotel.get(i));
+					reSe.createReservaHotel(new VOReservaHabitaciones( listaHotel, actual.getIdHotel(), idReserva, idCliente));
+				}
+				for (int i = 0; i < listaPersona.size(); i++) 
+				{
+					Habitacion actual = daoHabs.findHabitacionById(listaPersona.get(i));
+					reSe.createReservaPersonaNatural( actual.getIdPersona(), idReserva, listaPersona, idCliente);
+				}
+				for (int i = 0; i < listaViviendaUniversitaria.size(); i++) 
+				{
+					Habitacion actual = daoHabs.findHabitacionById(listaViviendaUniversitaria.get(i));
+					reSe.createReservaViviendaUniversitaria(actual.getIdViviendaU(), idReserva, listaViviendaUniversitaria, idCliente);
+				}
+			}
+			conn.commit();
+			return reCo;
+		}
+		catch(Exception e)
+		{
+			conn.rollback();
+			return reCo;
+		}
+
+	}
 
 
 }
