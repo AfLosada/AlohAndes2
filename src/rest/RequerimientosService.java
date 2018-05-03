@@ -498,6 +498,7 @@ public class RequerimientosService <K extends Operador>
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response requerimientoRF7(ReservaColectiva reCo)
 	{
+		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 		try
 		{
 			tm.crearReservaColectiva(reCo);

@@ -4244,24 +4244,27 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 	//TODO Crear una reserva colectiva
 
-	public ReservaColectiva crearReservaColectiva(ReservaColectiva reCo) throws SQLException
+	public ReservaColectiva crearReservaColectiva(ReservaColectiva reCo) throws Exception
 	{
 		List<Integer> servicioIn = reCo.getIdSInm();
 		List<Integer> servicioPub = reCo.getIdSPub();
 		Integer cantidad = reCo.getCantidad();
 		Integer idReserva = reCo.getId();
 		Integer idCliente = reCo.getIdCliente();
+		this.conn = darConexion();
 
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		DAOReserva daoReserva = new DAOReserva();
+		daoReserva.setConn(conn);
 		DAOHabitacion daoHabs = new DAOHabitacion();
+		daoHabs.setConn(conn);
 		DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
+		daoSIn.setConn(conn);
 		DAOServicioPublico daoSPub = new DAOServicioPublico();
+		daoSPub.setConn(conn);
 
 		try
 		{
-
-			ArrayList<Reserva> xd2 = daoReserva.getReservas();
 			ArrayList<Habitacion> habs = daoHabs.getHabitacions();
 
 			ArrayList<Habitacion> listaSirven = new ArrayList<>();
@@ -4270,7 +4273,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			List<Boolean> seEnc2 = new ArrayList<>();
 			Double doble = 0.0;
 
-			daoReserva.addReserva(new Reserva(false, reCo.getDuracion(), reCo.getFecha(), idReserva, false, "", doble, null, null, null, null, idCliente, new ArrayList<Integer>()));
+			daoReserva.addReserva(new Reserva(false, reCo.getDuracion(), reCo.getFecha(), idReserva, false, "", doble, null, null, null, null, idCliente));
 
 			for (int i = 0; i < habs.size(); i++) 
 			{
@@ -4375,7 +4378,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		catch(Exception e)
 		{
 			conn.rollback();
-			return reCo;
+			throw e;
 		}
 
 	}

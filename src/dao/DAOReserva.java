@@ -112,7 +112,7 @@ public class DAOReserva {
 	 */
 	public void addReserva(Reserva reserva) throws SQLException, Exception {
 
-		int dur = Integer.parseInt(reserva.getDuracion());
+		Integer dur = Integer.parseInt((reserva.getDuracion()));
 		
 		if(dur <= 3)
 		{
@@ -286,8 +286,9 @@ public class DAOReserva {
 		String duracion = resultSet.getString("DURACION");
 		String fecha = resultSet.getString("FECHA");
 		String pagoAnticipado = resultSet.getString("PAGO_ANTICIPADO");
-		if(pagoAnticipado.equals("1"))
+		if(pagoAnticipado != null)
 		{
+			if(pagoAnticipado.equals("1"))
 			rta2 = true;
 		}
 		String id = resultSet.getString("ID_RESERVA");
@@ -330,7 +331,7 @@ public class DAOReserva {
 		
 		
 
-		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14, new ArrayList<Integer>());
+		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14);
 
 		return beb;
 	}
