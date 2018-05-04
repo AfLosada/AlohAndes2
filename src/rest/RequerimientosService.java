@@ -54,6 +54,9 @@ import vos.VOIndicePersona;
 import vos.VOIndiceVivendaU;
 import vos.VOOfertaHabitaciones;
 import vos.VOReservaHabitaciones;
+import vos.VOUsoHostal;
+import vos.VOUsoHotel;
+import vos.VOUsoPersona;
 import vos.Vecino;
 import vos.ViviendaUniversitaria;
 @Path("/requerimientos")
@@ -610,22 +613,79 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	//RC4----------------------------------------------------------------------------
+//	@GET
+//	@Path("/requerimientos/disponible/hotel")
+//	@Consumes({ MediaType.APPLICATION_JSON })
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	public Response getDisponibleHotel() {
+//
+//		try {
+//			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+//
+//			ArrayList<VODisponible> sisa = tm.disponibilidadHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico)();
+//			return Response.status(200).entity(sisa).build();
+//		} 
+//		catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//	}
+	
+	
+	//RC5----------------------------------------------------------------------------
 	@GET
-	@Path("/requerimientos/disponible/hotel")
+	@Path("/requerimientos/uso/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getDisponibleHotel() {
+	public Response getUsoHotel() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			ArrayList<VODisponible> sisa = tm.disponibilidadHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico)();
+			ArrayList<VOUsoHotel> sisa = tm.usoHotel();
 			return Response.status(200).entity(sisa).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
+	
+	@GET
+	@Path("/requerimientos/uso/hostal")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUsoHostal() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOUsoHostal> sisa = tm.usoHostal();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	
+	@GET
+	@Path("/requerimientos/uso/persona")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUsoPersona() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOUsoPersona> sisa = tm.usoPersona();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	
+	
 	//-------------------------------------------------------------------------------------------
 	//FIN REQUERIMIENTOS DE CONSULTA
 	//-------------------------------------------------------------------------------------------
