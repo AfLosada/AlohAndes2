@@ -43,10 +43,15 @@ import vos.Reserva;
 import vos.ReservaColectiva;
 import vos.ServicioInmobiliario;
 import vos.ServicioPublico;
+import vos.VODisponible;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
 import vos.VOExtraViviendaUniversitaria;
 import vos.VOHostalExtra;
+import vos.VOIndiceHostal;
+import vos.VOIndiceHotel;
+import vos.VOIndicePersona;
+import vos.VOIndiceVivendaU;
 import vos.VOOfertaHabitaciones;
 import vos.VOReservaHabitaciones;
 import vos.Vecino;
@@ -445,10 +450,10 @@ public class RequerimientosService <K extends Operador>
 
 	//RC1------------------------------------------------------------------
 	@GET
-	@Path("/requerimientos/indice/hostal")
+	@Path("/requerimientos/dinero/hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getIndiceHostal() {
+	public Response getDineroHostal() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
@@ -462,10 +467,10 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/hotel")
+	@Path("/requerimientos/dinero/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getIndiceHotel() {
+	public Response getDineroHotel() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
@@ -479,10 +484,10 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/persona")
+	@Path("/requerimientos/dinero/persona")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getIndicePersona() {
+	public Response getDineroPersona() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
@@ -496,10 +501,10 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/viviendau")
+	@Path("/requerimientos/dinero/viviendau")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getIndiceViviendaU() {
+	public Response getDineroViviendaU() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
@@ -534,6 +539,93 @@ public class RequerimientosService <K extends Operador>
 
 	//RC3----------------------------------------------------------------------------
 
+	@GET
+	@Path("/requerimientos/indice/hotel")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceHotel() {
+
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOIndiceHotel> sisa = tm.ocupacionHoteles();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/hostal")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceHostal() {
+
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOIndiceHostal> sisa = tm.ocupacionHostales();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/persona")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndicePersona() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOIndicePersona> sisa = tm.ocupacionPersonas();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/viviendau")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceViviendaU() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOIndiceVivendaU> sisa = tm.ocupacionViviendaU();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	//RC4----------------------------------------------------------------------------
+	@GET
+	@Path("/requerimientos/disponible/hotel")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getDisponibleHotel() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VODisponible> sisa = tm.disponibilidadHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico)();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 	//-------------------------------------------------------------------------------------------
 	//FIN REQUERIMIENTOS DE CONSULTA
 	//-------------------------------------------------------------------------------------------
