@@ -162,7 +162,7 @@ public class DAORequerimientosenSQL
 
 
 	//---------------------------------------------------------------------------------
-	//RC2--20 Ofertas más reservadas
+	//RC2--20 Ofertas mas reservadas
 	//---------------------------------------------------------------------------------
 
 	public ArrayList<Oferta> get20Ofertas() throws SQLException, Exception {
@@ -187,12 +187,12 @@ public class DAORequerimientosenSQL
 	}
 
 	//---------------------------------------------------------------------------------
-	//RC3--Mostrar el indice de ocupación de cada una de las ofertas
+	//RC3--Mostrar el indice de ocupacion de cada una de las ofertas
 	//---------------------------------------------------------------------------------
 
 	/*IMPORTANTE*/
-	/*Se entenderá el indice de ocupacion a partir de la siguiente interpretación: Si una oferta está ocupada es por que 
-	ésta tiene una reserva a su nombre. A partir de esto, se entiende que el indice de ocupacion se evidencia con el 
+	/*Se entendera el indice de ocupacion a partir de la siguiente interpretacion: Si una oferta esta ocupada es por que 
+	esta tiene una reserva a su nombre. A partir de esto, se entiende que el indice de ocupacion se evidencia con el 
 	numero de reservas actuales y el numero de reservas historicas*/
 
 	public ArrayList<VOIndiceHotel> getIndiceOfertasHotel() throws SQLException, Exception {
@@ -305,8 +305,8 @@ public class DAORequerimientosenSQL
 		prepStm.executeQuery();
 		return habitacions;
 	}
-	
-	
+
+
 	public ArrayList<VODisponible> getAlojamientosDisponiblesHostal(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception {
 		ArrayList<VODisponible> habitacions = new ArrayList<>();
@@ -327,8 +327,8 @@ public class DAORequerimientosenSQL
 		prepStm.executeQuery();
 		return habitacions;
 	}
-	
-	
+
+
 	public ArrayList<VODisponible> getAlojamientosDisponiblesPersona(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception {
 		ArrayList<VODisponible> habitacions = new ArrayList<>();
@@ -349,8 +349,8 @@ public class DAORequerimientosenSQL
 		prepStm.executeQuery();
 		return habitacions;
 	}
-	
-	
+
+
 	public ArrayList<VODisponible> getAlojamientosDisponiblesViviendaU(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception {
 		ArrayList<VODisponible> habitacions = new ArrayList<>();
@@ -671,8 +671,8 @@ public class DAORequerimientosenSQL
 		prepStm.executeQuery();
 		return habitacions;
 	}
-	
-	
+
+
 	/*----------------Caso en el que cliente frecuente se identifica por numero de reservas------- */
 
 	public ArrayList<VOClienteReservas> getClienteFrecuenteReservas()throws SQLException, Exception{
@@ -696,7 +696,7 @@ public class DAORequerimientosenSQL
 
 
 	//-----------------------------------------------------------------------------
-	//MÉTODOS EXTRAS PARA EL DESARROLLO DE LOS REQUERIMIENTOS DE CONSULTA 
+	//METODOS EXTRAS PARA EL DESARROLLO DE LOS REQUERIMIENTOS DE CONSULTA 
 	//-----------------------------------------------------------------------------
 
 	public Oferta convertResultSetToOferta(ResultSet resultSet) throws SQLException {
@@ -982,8 +982,8 @@ public class DAORequerimientosenSQL
 		return rta = new VOFechaIngresos (fecha,Integer.parseInt(valor));
 
 	}
-	
-	
+
+
 	private VOClienteDuracion convertResultSetToFrecuenteDuracion(ResultSet rs) throws SQLException {
 
 		String id = rs.getString("ID_CLIENTE");
@@ -995,8 +995,8 @@ public class DAORequerimientosenSQL
 		return rta = new VOClienteDuracion(Integer.parseInt(id), nombre, tipo, Integer.parseInt(tiempo));
 
 	}
-	
-	
+
+
 	private VOClienteReservas convertResultSetToFrecuenteReservas(ResultSet rs) throws SQLException {
 
 		String id = rs.getString("ID_CLIENTE");
@@ -1011,13 +1011,13 @@ public class DAORequerimientosenSQL
 			vig = true;
 		}
 
-		
+
 
 		VOClienteReservas rta;
 		return rta = new VOClienteReservas(Integer.parseInt(id), Integer.parseInt(num), vig, tipo, nombre, Integer.parseInt(edad));
 
 	}
-	
+
 	private VODisponible convertResultSetToDisponible(ResultSet rs) throws SQLException {
 
 		String idServP= rs.getString("ID_SERVICIO_PUBLICO");
@@ -1040,7 +1040,7 @@ public class DAORequerimientosenSQL
 		if(confir.equals('T')) {
 			miem = true;
 		}
-		
+
 		String fech = rs.getString("FECHA");
 		String tiempo = rs.getString("TIEMPO_CANCELACION");
 		String valor = rs.getString("VALOR");

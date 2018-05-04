@@ -46,6 +46,7 @@ import vos.ServicioPublico;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
 import vos.VOExtraViviendaUniversitaria;
+import vos.VOHostalExtra;
 import vos.VOOfertaHabitaciones;
 import vos.VOReservaHabitaciones;
 import vos.Vecino;
@@ -437,9 +438,82 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
+	//--------------------------------------------------------------------------------------
+	// REQUERIMIENTOS DE CONSULTA
+	//--------------------------------------------------------------------------------------
 
-	//TODO REQ CONSULTA
 
+	//RC1------------------------------------------------------------------
+	@GET
+	@Path("/requerimientos/indice/hostal")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceHostal() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOHostalExtra> hostal = tm.operadoresConCosas1();
+			return Response.status(200).entity(hostal).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/hotel")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceHotel() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOExtraHotel> hostal = tm.operadoresConCosas2();
+			return Response.status(200).entity(hostal).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/persona")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndicePersona() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOExtraPersona> hostal = tm.operadoresConCosas3();
+			return Response.status(200).entity(hostal).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("/requerimientos/indice/viviendau")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getIndiceViviendaU() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOExtraViviendaUniversitaria> hostal = tm.operadoresConCosas4();
+			return Response.status(200).entity(hostal).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+
+	//RC2----------------------------------------------------------------------------
 	@GET
 	@Path("/requerimientos/20ofertas")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -458,38 +532,11 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
+	//RC3----------------------------------------------------------------------------
 
-	@POST
-	@Path("/requerimientos/cosasoperadores")
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getCosasOperadores() {
-
-		try {
-			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
-
-			ArrayList sisa = tm.operadoresConCosas1();
-			ArrayList<VOExtraHotel> b = tm.operadoresConCosas2();
-			ArrayList<VOExtraPersona> c = tm.operadoresConCosas3();
-			ArrayList<VOExtraViviendaUniversitaria> d = tm.operadoresConCosas4();
-			for(Integer i = 0; i<b.size(); i++)
-			{
-				sisa.add(b.get(i));
-			}
-			for(Integer i = 0; i<c.size(); i++)
-			{
-				sisa.add(c.get(i));
-			}
-			for(Integer i = 0; i<d.size(); i++)
-			{
-				sisa.add(d.get(i));
-			}
-			return Response.status(200).entity(sisa).build();
-		} 
-		catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-	}
+	//-------------------------------------------------------------------------------------------
+	//FIN REQUERIMIENTOS DE CONSULTA
+	//-------------------------------------------------------------------------------------------
 
 	//TODO RF7
 	@PUT
@@ -531,9 +578,9 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-	
+
 	//TODO Requerimiento RF9
-	
+
 
 	@PUT	
 	@Path( "/RF9/{id: \\d+}" )
@@ -546,9 +593,9 @@ public class RequerimientosService <K extends Operador>
 		reservas = tm.cancelarOferta(id);
 		return Response.status(200).entity(reservas).build();
 	}
-	
+
 	//TODO Requerimiento RF10
-	
+
 	@PUT
 	@Path( "/RF10/{id: \\d+}" )
 	@Produces( { MediaType.APPLICATION_JSON } )
@@ -557,12 +604,12 @@ public class RequerimientosService <K extends Operador>
 		Oferta reservas = null;
 		try
 		{
-		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-		DAOOferta daoOferta = new DAOOferta();
-		
-		reservas = tm.activarOferta(daoOferta.findOfertaById(id));
-		return Response.status(200).entity(reservas).build();
+			DAOOferta daoOferta = new DAOOferta();
+
+			reservas = tm.activarOferta(daoOferta.findOfertaById(id));
+			return Response.status(200).entity(reservas).build();
 		}
 		catch (Exception e)
 		{

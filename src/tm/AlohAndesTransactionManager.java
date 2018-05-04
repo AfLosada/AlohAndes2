@@ -3923,15 +3923,47 @@ public class AlohAndesTransactionManager <K extends Operador>
 		}
 	}
 
-	//TODO REQUERIMIENTOS DE CONSULTA
+	//----------------------------------------------------------------------------------
+	//REQUERIMIENTOS DE CONSULTA
+	//----------------------------------------------------------------------------------
+	
+	
+	//Requerimiento de consulta 1
+	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOHostalExtra> rta1 = daoRequerimientos.getDineroHostal();
+		return rta1;
+	}
 
+	public ArrayList<VOExtraHotel> operadoresConCosas2() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraHotel> rta1 = daoRequerimientos.getDineroHotel();
+		return rta1;
+	}
+
+	public ArrayList<VOExtraPersona> operadoresConCosas3() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraPersona> rta1 = daoRequerimientos.getDineroPersona();
+		return rta1;
+	}
+
+	public ArrayList<VOExtraViviendaUniversitaria> operadoresConCosas4() throws SQLException, Exception
+	{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		ArrayList<VOExtraViviendaUniversitaria> rta1 = daoRequerimientos.getDineroViviendaUniversitaria();
+		return rta1;
+	}
+	
+	//Requerimiento de consulta 2
 	public ArrayList<Oferta> operadoresMejores() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<vos.Oferta> rta = daoRequerimientos.get20Ofertas();
 		return rta;		
 	}
-
 
 	//Requerimiento de consulta 3
 
@@ -4084,34 +4116,6 @@ public class AlohAndesTransactionManager <K extends Operador>
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		ArrayList<VOClienteReservas> rta = daoRequerimientos.getClienteFrecuenteReservas();
 		return rta;		
-	}
-
-	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
-	{
-		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		ArrayList<VOHostalExtra> rta1 = daoRequerimientos.getDineroHostal();
-		return rta1;
-	}
-
-	public ArrayList<VOExtraHotel> operadoresConCosas2() throws SQLException, Exception
-	{
-		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		ArrayList<VOExtraHotel> rta1 = daoRequerimientos.getDineroHotel();
-		return rta1;
-	}
-
-	public ArrayList<VOExtraPersona> operadoresConCosas3() throws SQLException, Exception
-	{
-		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		ArrayList<VOExtraPersona> rta1 = daoRequerimientos.getDineroPersona();
-		return rta1;
-	}
-
-	public ArrayList<VOExtraViviendaUniversitaria> operadoresConCosas4() throws SQLException, Exception
-	{
-		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		ArrayList<VOExtraViviendaUniversitaria> rta1 = daoRequerimientos.getDineroViviendaUniversitaria();
-		return rta1;
 	}
 
 
