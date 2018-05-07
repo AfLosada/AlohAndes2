@@ -616,23 +616,74 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	//RC4----------------------------------------------------------------------------
-//	@GET
-//	@Path("/requerimientos/disponible/hotel")
-//	@Consumes({ MediaType.APPLICATION_JSON })
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public Response getDisponibleHotel() {
-//
-//		try {
-//			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
-//
-//			ArrayList<VODisponible> sisa = tm.disponibilidadHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico)();
-//			return Response.status(200).entity(sisa).build();
-//		} 
-//		catch (Exception e) {
-//			return Response.status(500).entity(doErrorMessage(e)).build();
-//		}
-//	}
 	
+	@GET
+	@Path("/requerimientos/disponible/hotel/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getDisponibleHotel(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VODisponible> sisa = tm.disponibilidadHotel(diaInic, diaFin, mesInic, mesFin, tipoServicioInmobiliario, tipoServicioPublico);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	@GET
+	@Path("/requerimientos/disponible/hostal/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getDisponibleHostal(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VODisponible> sisa = tm.disponibilidadHostal(diaInic, diaFin, mesInic, mesFin, tipoServicioInmobiliario, tipoServicioPublico);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	@GET
+	@Path("/requerimientos/disponible/persona/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getDisponiblePersona(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VODisponible> sisa = tm.disponibilidadPersona(diaInic, diaFin, mesInic, mesFin, tipoServicioInmobiliario, tipoServicioPublico);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	@GET
+	@Path("/requerimientos/disponible/vivienda/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getDisponibleViviendaU(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VODisponible> sisa = tm.disponibilidadViviendaU(diaInic, diaFin, mesInic, mesFin, tipoServicioInmobiliario, tipoServicioPublico);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 	
 	//RC5----------------------------------------------------------------------------
 	@GET
