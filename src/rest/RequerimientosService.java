@@ -54,9 +54,12 @@ import vos.VOIndicePersona;
 import vos.VOIndiceVivendaU;
 import vos.VOOfertaHabitaciones;
 import vos.VOReservaHabitaciones;
+import vos.VOUsoCliente;
+import vos.VOUsoEspecificoCliente;
 import vos.VOUsoHostal;
 import vos.VOUsoHotel;
 import vos.VOUsoPersona;
+import vos.VOUsoVivienda;
 import vos.Vecino;
 import vos.ViviendaUniversitaria;
 @Path("/requerimientos")
@@ -683,8 +686,65 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-
 	
+	
+	@GET
+	@Path("/requerimientos/uso/viviendaU")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUsoVivienda() {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOUsoVivienda> sisa = tm.usoViviendaU();
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	//RC6----------------------------------------------------------------------------
+
+	/*----------------Uso general de la aplicacion------- */
+	@GET
+	@Path("/requerimientos/uso/general/{id: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUsoGeneralAplicacion(@PathParam("id") Integer id) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOUsoCliente> sisa = tm.usoGeneralCliente(id);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	/*----------------Detalles especificos(si es que  se tienen)------- */
+	
+	@Path("/requerimientos/uso/especifico/{id: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getUsoEspecificoAplicacion(@PathParam("id") Integer id) {
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOUsoEspecificoCliente> sisa = tm.usoEspecificoCliente(id);
+			return Response.status(200).entity(sisa).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	
+	//RC7----------------------------------------------------------------------------
 	
 	//-------------------------------------------------------------------------------------------
 	//FIN REQUERIMIENTOS DE CONSULTA
