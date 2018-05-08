@@ -112,7 +112,9 @@ public class DAOReserva {
 	 */
 	public void addReserva(Reserva reserva) throws SQLException, Exception {
 
-		Integer dur = Integer.parseInt((reserva.getDuracion()));
+		Integer dur = 0;
+		if(reserva.getDuracion() != null)
+			dur = reserva.getDuracion();
 		
 		if(dur <= 3)
 		{
@@ -122,7 +124,7 @@ public class DAOReserva {
 		{
 			throw new Exception ("La duracion debe ser minimo de una semana");
 		}
-	   if(reserva.getIdViviendaU() != 0){
+	   if(reserva.getIdViviendaU() != null){
 		   DAOCliente cliente = new DAOCliente();
 		   String tipo = cliente.findClienteById(reserva.getIdCliente()).getTipo();
 		   if( tipo != "ESTUDIANTE" || tipo != "PROFESOR" || tipo != "EMPLEADO" || tipo != "PROFESOR_VISITANTE"){
@@ -132,7 +134,7 @@ public class DAOReserva {
 	   
 	
 	
-		String sql = String.format("INSERT INTO %1$s.RESERVA (CONFIRMADA, DURACION, FECHA, ID_RESERVA , PAGO_ANTICIPADO, TIEMPO_CANCELACION, VALOR , ID_HOSTAL, ID_PERSONA, ID_HOTEL, ID_VIVIENDAU, ID_CLIENTE) VALUES (%2$s, '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', '%8$s', '%9$s', '%10$s', '%11$s', '%12$s')", 
+		String sql = String.format("INSERT INTO %1$s.RESERVA (CONFIRMADA, DURACION, FECHA, ID_RESERVA , PAGO_ANTICIPADO, TIEMPO_CANCELACION, VALOR , ID_HOSTAL, ID_PERSONA, ID_HOTEL, ID_VIVIENDAU) VALUES ('%2$s', '%3$s', '%4$s', '%5$s', '%6$s', '%7$s', %8$s, %9$s, %10$s, %11$s, %12$s)", 
 				USUARIO, 
 				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
@@ -140,13 +142,20 @@ public class DAOReserva {
 				reserva.getId(),
 				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
+				reserva.getValor(),
 				reserva.getidHostal(),
+				reserva.getIdPersona(),
 				reserva.getIdHotel(),
-				reserva.getIdViviendaU(),
-				reserva.getIdCliente());
+				reserva.getIdViviendaU());
 		System.out.println(sql);
-
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		sql = String.format("INSERT INTO %1$s.RESERVAS_CLIENTES (ID_RESERVA, ID_CLIENTE) VALUES (%2$s, %3$s)", USUARIO, reserva.getId(), reserva.getIdCliente());
+
+		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
@@ -165,7 +174,7 @@ public class DAOReserva {
 		StringBuilder sql = new StringBuilder();
 		sql.append (String.format ("UPDATE %s.RESERVA ", USUARIO));
 		sql.append (String.format (
-				"SET CONFIRMADA = '%1$s', DURACION = '%2$s', FECHA = '%3$s' , ID_RESERVA = '%4$s', PAGO_ANTICIPADO = '%5$s', TIEMPO_CANCELACION = '%6$s', ID_HOSTAL = %7$s, ID_PERSONA = %8$s, ID_HOTEL = %9$s, ID_PERSONA = %10$s, ID_HOTEL = %11$s, ID_VIVIENDAU = %12$s, ID_CLIENTE = %13$s",
+				"SET CONFIRMADA = '%1$s', DURACION = '%2$s', FECHA = '%3$s' , ID_RESERVA = '%4$s', PAGO_ANTICIPADO = '%5$s', TIEMPO_CANCELACION = '%6$s', ID_HOSTAL = %7$s, ID_PERSONA = %8$s, ID_HOTEL = '%9$s', ID_VIVIENDAU = %10$s, ID_CLIENTE = %11$s",
 				reserva.toString(reserva.isConfirmada()),
 				reserva.getDuracion(),
 				reserva.getFecha(),
@@ -173,6 +182,7 @@ public class DAOReserva {
 				reserva.toString(reserva.isPagoAnticipado()),
 				reserva.getTiempoCancelacion(),
 				reserva.getidHostal(),
+				reserva.getIdPersona(),
 				reserva.getIdHotel(),
 				reserva.getIdViviendaU(),
 				reserva.getIdCliente()));
@@ -321,17 +331,23 @@ public class DAOReserva {
 		{
 			rta13 =Integer.parseInt(idViviendaU);
 		}
-		String idCliente = resultSet.getString("ID_CLIENTE");
+		
+		StringBuilder sql = new StringBuilder();
+		String IDCLIENTE = sql.append(String.format("SELECT ID_CLIENTE FROM %1%s.RESERVAS_CLIENTES WHERE ID_RESERVA = %2$s", USUARIO, Integer.parseInt(id))).toString();
 
+		
 		Integer rta14 = null;
-		if(idCliente != null)
+		if(IDCLIENTE != null)
 		{
-			rta14 =Integer.parseInt(idCliente);
+			rta14 = Integer.parseInt(IDCLIENTE);
 		}
-		
-		
+		Integer rta15 = null;
+		if(duracion != null)
+		{
+			rta15 = Integer.parseInt(duracion);
+		}
 
-		Reserva beb = new Reserva(rta1, duracion, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14);
+		Reserva beb = new Reserva(rta1, rta15, fecha, Integer.parseInt(id), rta2, tiempoCancelacion, Double.parseDouble(valor), rta10, rta11, rta12, rta13, rta14);
 
 		return beb;
 	}

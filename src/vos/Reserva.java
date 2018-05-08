@@ -21,7 +21,7 @@ public class Reserva
 
 
 	@JsonProperty( value = "duracion")
-	private String duracion;
+	private Integer duracion;
 
 	@JsonProperty( value = "fecha")
 	private String fecha;
@@ -61,7 +61,7 @@ public class Reserva
 
 	public Reserva(
 			@JsonProperty( value = "confirmada" )boolean confirmada,
-			@JsonProperty( value = "duracion" ) String duracion,
+			@JsonProperty( value = "duracion" ) Integer duracion,
 			@JsonProperty( value = "fecha" ) String fecha,
 			@JsonProperty( value = "idReserva" ) Integer id,
 			@JsonProperty( value = "pagoAnticipado" ) boolean pagoAnticipado,
@@ -103,13 +103,13 @@ public class Reserva
 
 
 
-	public String getDuracion() {
+	public Integer getDuracion() {
 		return duracion;
 	}
 
 
 
-	public void setDuracion(String duracion) {
+	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
 

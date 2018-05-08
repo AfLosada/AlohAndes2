@@ -61,6 +61,7 @@ public class ReservaColectiva
 		this.idSInm = idSInm;
 		this.tipo = tipo;
 		this.cantidad = cantidad;
+		this.duracion = duracion;
 		this.fecha = fecha;
 		this.idCliente = idCliente;
 		this.reservas = reservas;

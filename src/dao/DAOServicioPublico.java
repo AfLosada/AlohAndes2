@@ -110,13 +110,13 @@ public class DAOServicioPublico
 		{
 			List<ServicioPublico> ServicioInmobiliario = new ArrayList<>();
 
-			String sql = String.format("SELECT * FROM %1$s.HABITACIONES_PUBLICO WHERE ID_HABITACION = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.HABITACIONES_SERVICIOSPUBLICOS WHERE ID_HABITACION = %2$d", USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
 			
-			
+			ServicioInmobiliario.add(convertResultSetToServicioPublico(rs));
 			
 			if(rs.next()) {
 				ServicioInmobiliario.add(convertResultSetToServicioPublico(rs));

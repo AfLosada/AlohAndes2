@@ -4262,10 +4262,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 		daoReserva.setConn(conn);
 		DAOHabitacion daoHabs = new DAOHabitacion();
 		daoHabs.setConn(conn);
-		DAOServicioInmobiliario daoSIn = new DAOServicioInmobiliario();
+		DAOHabitacionesServicioInmobiliarioSerInm daoSIn = new DAOHabitacionesServicioInmobiliarioSerInm();
 		daoSIn.setConn(conn);
-		DAOServicioPublico daoSPub = new DAOServicioPublico();
+		DAOHabitacionServicioPublico daoSPub = new DAOHabitacionServicioPublico();
 		daoSPub.setConn(conn);
+		DAOServicioInmobiliario daoSIIN = new DAOServicioInmobiliario();
+		daoSIIN.setConn(conn);
+		DAOServicioPublico daoSPPUB = new DAOServicioPublico();
+		daoSPPUB.setConn(conn);
 
 		try
 		{
@@ -4277,38 +4281,61 @@ public class AlohAndesTransactionManager <K extends Operador>
 			List<Boolean> seEnc2 = new ArrayList<>();
 			Double doble = 0.0;
 
-			daoReserva.addReserva(new Reserva(false, reCo.getDuracion(), reCo.getFecha(), idReserva, false, "", doble, null, null, null, null, idCliente));
+			
+			
+			daoReserva.addReserva(new Reserva(false, Integer.parseInt(reCo.getDuracion()), "31-07-2120", idReserva, false, "40", doble, null, null, null, null, idCliente));
 
 			for (int i = 0; i < habs.size(); i++) 
 			{
 				Habitacion actual = habs.get(i);
-				List<ServicioPublico> xd = daoSPub.findServicioPublicoByHab(actual.getId());
-				List<ServicioInmobiliario> xd1 = daoSIn.findServicioInmobiliariosByHab(actual.getId());
-
-				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
-				{
-					for (Integer laLegit: servicioPub) 
-					{
-						for (ServicioPublico servicioPubli : xd) 
-						{
-							if(laLegit == servicioPubli.getId())
-							{
-								seEnc.add(true);
-							}
-						}
-					}
-					for (Integer laLegit: servicioPub) 
-					{
-						for (ServicioInmobiliario servicioInmobiliario : xd1) 
-						{
-							if(laLegit == servicioInmobiliario.getId())
-							{
-								seEnc2.add(true);
-							}
-						}
-					}
-				}
+				
+//				List<HabitacionesServicioPublico> xd = daoSPub.findHabitacionesServicioPublicoById((actual.getId()));
+//				List<HabitacionesServiciosInmobiliarios> xd1 = daoSIn.findHabitacionesServicioInmobiliarioById((actual.getId()));
+//				
+//				List<ServicioInmobiliario> listaSIN = new ArrayList<>();
+//				List<ServicioPublico> listaSPub = new ArrayList<>();
+//				
+//				for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : xd1) 
+//				{
+//					listaSIN.add(daoSIIN.findServicioInmobiliarioById(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario()));
+//				}
+//				
+//
+//				for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
+//				{
+//					listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
+//				}
+//
+//				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
+//				{
+//					if(!xd.isEmpty())
+//					{
+//					for (Integer laLegit: servicioPub) 
+//					{
+//						for (ServicioPublico servicioPubli : listaSPub) 
+//						{
+//							if(laLegit == servicioPubli.getId())
+//							{
+//								seEnc.add(true);
+//							}
+//						}
+//					}
+//					}
+//					
+//					for (Integer laLegit: servicioIn) 
+//					{
+//						for (ServicioInmobiliario servicioInmobiliario : listaSIN) 
+//						{
+//							if(laLegit == servicioInmobiliario.getId())
+//							{
+//								seEnc2.add(true);
+//							}
+//						}
+//					}
+//				}
+				if(seEnc.size() == reCo.getIdSInm().size() && seEnc2.size() == reCo.getIdSPub().size())
 				listaSirven.add(actual);
+				
 			}
 
 			List<Habitacion> rtaFinal = new ArrayList<>();
@@ -4350,8 +4377,6 @@ public class AlohAndesTransactionManager <K extends Operador>
 					}
 				}
 
-
-				List<Reserva> reserva = new ArrayList<>();
 				RequerimientosService<Operador> reSe = new RequerimientosService<Operador>();
 
 				for (int i = 0; i < listaHostal.size(); i++) 
