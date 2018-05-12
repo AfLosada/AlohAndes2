@@ -4289,50 +4289,50 @@ public class AlohAndesTransactionManager <K extends Operador>
 			{
 				Habitacion actual = habs.get(i);
 				
-//				List<HabitacionesServicioPublico> xd = daoSPub.findHabitacionesServicioPublicoById((actual.getId()));
-//				List<HabitacionesServiciosInmobiliarios> xd1 = daoSIn.findHabitacionesServicioInmobiliarioById((actual.getId()));
-//				
-//				List<ServicioInmobiliario> listaSIN = new ArrayList<>();
-//				List<ServicioPublico> listaSPub = new ArrayList<>();
-//				
-//				for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : xd1) 
-//				{
-//					listaSIN.add(daoSIIN.findServicioInmobiliarioById(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario()));
-//				}
-//				
-//
-//				for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
-//				{
-//					listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
-//				}
-//
-//				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
-//				{
-//					if(!xd.isEmpty())
-//					{
-//					for (Integer laLegit: servicioPub) 
-//					{
-//						for (ServicioPublico servicioPubli : listaSPub) 
-//						{
-//							if(laLegit == servicioPubli.getId())
-//							{
-//								seEnc.add(true);
-//							}
-//						}
-//					}
-//					}
-//					
-//					for (Integer laLegit: servicioIn) 
-//					{
-//						for (ServicioInmobiliario servicioInmobiliario : listaSIN) 
-//						{
-//							if(laLegit == servicioInmobiliario.getId())
-//							{
-//								seEnc2.add(true);
-//							}
-//						}
-//					}
-//				}
+				List<HabitacionesServicioPublico> xd = daoSPub.findHabitacionesServicioPublicoById((actual.getId()));
+				List<HabitacionesServiciosInmobiliarios> xd1 = daoSIn.findHabitacionesServicioInmobiliarioById((actual.getId()));
+				
+				List<ServicioInmobiliario> listaSIN = new ArrayList<>();
+				List<ServicioPublico> listaSPub = new ArrayList<>();
+				
+				for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : xd1) 
+				{
+					listaSIN.add(daoSIIN.findServicioInmobiliarioById(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario()));
+				}
+				
+
+				for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
+				{
+					listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
+				}
+
+				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
+				{
+					if(!xd.isEmpty())
+					{
+					for (Integer laLegit: servicioPub) 
+					{
+						for (ServicioPublico servicioPubli : listaSPub) 
+						{
+							if(laLegit == servicioPubli.getId())
+							{
+								seEnc.add(true);
+							}
+						}
+					}
+					}
+					
+					for (Integer laLegit: servicioIn) 
+					{
+						for (ServicioInmobiliario servicioInmobiliario : listaSIN) 
+						{
+							if(laLegit == servicioInmobiliario.getId())
+							{
+							seEnc2.add(true);
+							}
+						}
+				}
+				}
 				if(seEnc.size() == reCo.getIdSInm().size() && seEnc2.size() == reCo.getIdSPub().size())
 				listaSirven.add(actual);
 				
