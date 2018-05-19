@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import vos.Oferta;
 import vos.VOClienteDuracion;
 import vos.VOClienteReservas;
+import vos.VOConsumo;
+import vos.VOConsumoVersion2;
 import vos.VODisponible;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
@@ -20,6 +22,7 @@ import vos.VOIndiceHostal;
 import vos.VOIndiceHotel;
 import vos.VOIndicePersona;
 import vos.VOIndiceVivendaU;
+import vos.VOSemanas;
 import vos.VOUsoCliente;
 import vos.VOUsoEspecificoCliente;
 import vos.VOUsoHostal;
@@ -377,7 +380,7 @@ public class DAORequerimientosenSQL
 
 		ResultSet rs = prepStm.executeQuery();
 		rs = prepStmt.executeQuery();
-		
+
 		while (rs.next()) {
 			habitacions.add(convertResultSetToDisponible(rs));
 		}
@@ -655,8 +658,6 @@ public class DAORequerimientosenSQL
 	//RC8--Encontrar los clientes frecuentes
 	//---------------------------------------------------------------------------------
 
-
-
 	/*----------------Caso en el que cliente frecuente se identifica por duracion------- */
 
 	/* Para indicar el tipo de alojamiento se debe ingresar la palabra que representa el identificador de ese tipo e.g.: 
@@ -690,7 +691,7 @@ public class DAORequerimientosenSQL
 
 	public ArrayList<VOClienteReservas> getClienteFrecuenteReservas()throws SQLException, Exception{
 		ArrayList<VOClienteReservas> habitacions = new ArrayList<>();
-		String sql = String.format(" SELECT * FROM ((SELECT COUNT(ID_CLIENTE) NUMERO_RESERVAS, ID_CLIENTE FROM RESERVAS_CLIENTES  GROUP BY ID_CLIENTE) NATURAL JOIN CLIENTE) WHERE NUMERO_RESERVAS>=3", USUARIO);
+		String sql = String.format("SELECT * FROM ((SELECT COUNT(ID_CLIENTE) NUMERO_RESERVAS, ID_CLIENTE FROM RESERVAS_CLIENTES  GROUP BY ID_CLIENTE) NATURAL JOIN CLIENTE) WHERE NUMERO_RESERVAS>=3", USUARIO);
 		String sql1 = String.format("COMMIT",USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -705,6 +706,190 @@ public class DAORequerimientosenSQL
 		}
 		prepStm.executeQuery();
 		return habitacions;
+	}
+
+	//---------------------------------------------------------------------------------
+	//RC10--Consultar consumo en Alohandes Version 1
+	//---------------------------------------------------------------------------------
+
+	//Administrador
+
+	public ArrayList<VOConsumo> getConsumoPrimeraVersionAdministrador(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin)throws SQLException, Exception{
+		ArrayList<VOConsumo> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)",USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumo(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+	//Cliente Especifico
+
+	public ArrayList<VOConsumo> getConsumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli)throws SQLException, Exception{
+		ArrayList<VOConsumo> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM (SELECT * FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)) WHERE ID_CLIENTE = %7$d", USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumo(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+
+	//---------------------------------------------------------------------------------
+	//RC11--Consultar consumo en Alohandes Version 2
+	//---------------------------------------------------------------------------------
+
+	//Administrador
+
+	public ArrayList<VOConsumoVersion2> getConsumoSegundaVersionAdmin(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin)throws SQLException, Exception{
+		ArrayList<VOConsumoVersion2> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID_CLIENTE NOT IN(SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES NATURAL JOIN %1$s.RESERVA WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %2$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %3$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %5$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)) AND ID_CLIENTE = %6$d",USUARIO, diaInic, diaFin, mesInic, mesFin);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumoVersion(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+	//Cliente Especifico
+
+	public ArrayList<VOConsumoVersion2> getConsumoSegundaVersionCliente(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer cliente)throws SQLException, Exception{
+		ArrayList<VOConsumoVersion2> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE WHERE ID_CLIENTE NOT IN(SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES NATURAL JOIN %1$s.RESERVA WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %2$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %3$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %5$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)) AND ID_CLIENTE = %6$d",USUARIO, diaInic, diaFin, mesInic, mesFin, cliente);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumoVersion(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+	//---------------------------------------------------------------------------------
+	//RC12--Consultar funcionamiento
+	//---------------------------------------------------------------------------------
+
+	public ArrayList<VOSemanas> getSemanaDeFecha()throws SQLException, Exception{
+		ArrayList<VOSemanas> consum = new ArrayList<>();
+		String sql = String.format("SELECT ofi.ID_OFERTA,ofi.ID_HOSTAL, ofi.ID_HOTEL, ofi.ID_PERSONA, ofi.ID_VIVIENDAU, SEMANA, FECHA, ID_RESERVA NUM_RESERVAS FROM (%1$s.OFERTA ofi INNER JOIN (SELECT * FROM (SELECT ID_RESERVA, TO_NUMBER(TO_CHAR(TO_DATE(FECHAS_DAT,'DD/MM/YYYY'),'IW')) SEMANA, FECHA, ID_HOSTAL, ID_HOTEL, ID_VIVIENDAU, ID_PERSONA FROM (SELECT ID_RESERVA,TO_DATE(FECHA,'DD-MM-YYYY') FECHAS_DAT, CONFIRMADA, ID_HOTEL, ID_VIVIENDAU, ID_PERSONA, ID_HOSTAL,FECHA FROM %1$s.RESERVA)))t1 ON (ofi.ID_HOSTAL = t1.ID_HOSTAL OR ofi.ID_HOSTAL is Null AND t1.id_HOSTAL is Null) AND (ofi.ID_HOTEL = t1.ID_HOTEL OR ofi.ID_HOTEL is Null AND t1.id_HOTEL is Null) AND (ofi.ID_VIVIENDAU = t1.ID_VIVIENDAU OR ofi.ID_VIVIENDAU is Null AND t1.id_VIVIENDAU is Null) AND (ofi.ID_PERSONA = t1.ID_PERSONA OR ofi.ID_PERSONA is Null AND t1.id_PERSONA IS NULL)) ORDER BY SEMANA",USUARIO);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToSemanas(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	} 
+
+	//---------------------------------------------------------------------------------
+	//RC13--Consultar los Buenos Clientes
+	//---------------------------------------------------------------------------------
+
+	//Con Reservas una vez al mes
+
+	public ArrayList<VOConsumoVersion2> getClientesReservasMes(Integer mes)throws SQLException, Exception{
+		ArrayList<VOConsumoVersion2> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE NATURAL JOIN(SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES NATURAL JOIN (SELECT ID_RESERVA FROM %1$s.RESERVA WHERE (TO_NUMBER(SUBSTR(FECHA,4, 2))) = %2$d))",USUARIO, mes);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumoVersion(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+	//Con Reservas en alojamientos costosos (costo > 40000 COP)
+
+	public ArrayList<VOConsumoVersion2> getClientesReservasCostosas()throws SQLException, Exception{
+		ArrayList<VOConsumoVersion2> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE NATURAL JOIN (SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES NATURAL JOIN (SELECT res.ID_RESERVA FROM (%1$s.RESERVA res INNER JOIN %1$s.HABITACION hab ON res.ID_RESERVA = hab.ID_RESERVA) WHERE PRECIO > 40000))", USUARIO);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumoVersion(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
+	}
+
+
+	//Con Reservas en Suites
+
+	public ArrayList<VOConsumoVersion2> getClientesReservasSuite()throws SQLException, Exception{
+		ArrayList<VOConsumoVersion2> consum = new ArrayList<>();
+		String sql = String.format("SELECT * FROM %1$s.CLIENTE NATURAL JOIN (SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES NATURAL JOIN(SELECT res.ID_RESERVA FROM (%1$s.RESERVA res INNER JOIN %1$s.HABITACION hab ON res.ID_RESERVA = hab.ID_RESERVA) WHERE TIPO = 'SUITE'))",USUARIO);
+		String sql1 = String.format("COMMIT", USUARIO);
+
+		PreparedStatement prepStmt  = conn.prepareStatement(sql);
+		PreparedStatement prepStm = conn.prepareStatement(sql1);
+		recursos.add(prepStmt);
+		recursos.add(prepStm);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		while(rs.next()){
+			consum.add(convertResultSetToConsumoVersion(rs));
+		}
+		prepStm.executeQuery();
+		return consum;
 	}
 
 
@@ -1071,11 +1256,28 @@ public class DAORequerimientosenSQL
 		if(miem.equals('T')) {
 			vig = true;
 		}
-
-
-
 		VOClienteReservas rta;
 		return rta = new VOClienteReservas(Integer.parseInt(id), Integer.parseInt(num), vig, tipo, nombre, Integer.parseInt(edad));
+	}
+
+
+	private VOConsumo convertResultSetToConsumo(ResultSet rs) throws SQLException {
+
+		String idHotel = rs.getString("ID_HOTEL");
+		String idHostal = rs.getString("ID_HOSTAL");
+		String idPersona = rs.getString("ID_PERSONA");
+		String idViviendaU = rs.getString("ID_VIVIENDAU");
+		String idCliente = rs.getString("ID_CLIENTE");
+		String idOfer = rs.getString("ID_OFERTA");
+		String fecha = rs.getString("FECHA");
+		String valor = rs.getString("VALOR");
+		String duracion  = rs.getString("DURACION");
+		String idRes = rs.getString("ID_RESERVA");
+
+		VOConsumo rta;
+		return rta = new VOConsumo(Integer.parseInt(idHotel), Integer.parseInt(idHostal), Integer.parseInt(idPersona), 
+				Integer.parseInt(idViviendaU), Integer.parseInt(idCliente), Integer.parseInt(idOfer), Integer.parseInt(valor),
+				Integer.parseInt(duracion), Integer.parseInt(idRes), fecha);
 
 	}
 
@@ -1104,13 +1306,13 @@ public class DAORequerimientosenSQL
 		{
 			try
 			{
-			String hostal = rs.getString("ID_HOSTAL");
-			VODisponible rta;
-			return rta = new VODisponible(Integer.parseInt(idServP), Integer.parseInt(idServIn), Integer.parseInt(habitacion), null,
-					null, null,null, null, Integer.parseInt(reserva), Integer.parseInt(oferta),null,
-					Integer.parseInt(hostal), null,null,null, null, null,null,
-					null, null, null, null, null,
-					null, null, tipoPub, Integer.parseInt(costoPub), tipoIn, Integer.parseInt(costoIn));
+				String hostal = rs.getString("ID_HOSTAL");
+				VODisponible rta;
+				return rta = new VODisponible(Integer.parseInt(idServP), Integer.parseInt(idServIn), Integer.parseInt(habitacion), null,
+						null, null,null, null, Integer.parseInt(reserva), Integer.parseInt(oferta),null,
+						Integer.parseInt(hostal), null,null,null, null, null,null,
+						null, null, null, null, null,
+						null, null, tipoPub, Integer.parseInt(costoPub), tipoIn, Integer.parseInt(costoIn));
 			}
 			catch(SQLException e2)
 			{
@@ -1136,11 +1338,33 @@ public class DAORequerimientosenSQL
 				}
 			}
 		}
+	}
 
+	private VOConsumoVersion2 convertResultSetToConsumoVersion(ResultSet rs) throws SQLException {
 
+		String idCliente = rs.getString("ID_CLIENTE");
+		String miembro = rs.getString("MIEMBRO_COMUNIDAD");
+		String tipo = rs.getString("TIPO_CLIENTE");
+		String nombre = rs.getString("NOMBRE_CLIENTE");
+		String edad = rs.getString("EDAD");
 
+		VOConsumoVersion2 rta;
+		return rta = new VOConsumoVersion2(Integer.parseInt(idCliente), miembro, tipo, nombre, Integer.parseInt(edad));
+	}
+	
+	private VOSemanas convertResultSetToSemanas(ResultSet rs) throws SQLException {
 
-		
+		String idOferta = rs.getString("ID_OFERTA");
+		String idHostal = rs.getString("ID_HOSTAL");
+		String idHotel = rs.getString("ID_HOTEL");
+		String idPersona = rs.getString("ID_PERSONA");
+		String vivienda = rs.getString("ID_VIVIENDAU");
+		String semana = rs.getString("SEMANA");
+		String fecha = rs.getString("FECHA");
+		String numero = rs.getString("NUM_RESERVAS");
 
+		VOSemanas rta;
+		return rta = new VOSemanas(Integer.parseInt(idOferta), Integer.parseInt(idHostal), Integer.parseInt(idHotel),
+				Integer.parseInt(idPersona), Integer.parseInt(vivienda), Integer.parseInt(semana), fecha, Integer.parseInt(numero));
 	}
 }

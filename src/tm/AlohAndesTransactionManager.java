@@ -1,6 +1,7 @@
 package tm;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Properties;
 
 import dao.*;
-import oracle.sql.DATE;
 import rest.RequerimientosService;
 import vos.*;
 import vos.Habitacion.TipoHabitacion;
@@ -4159,9 +4159,17 @@ public class AlohAndesTransactionManager <K extends Operador>
 		ArrayList<VOClienteReservas> rta = daoRequerimientos.getClienteFrecuenteReservas();
 		return rta;		
 	}
+	
+	//Requerimiento de consulta 10
+	
+	//Requerimiento de consulta 11
+	
+	//Requerimiento de consulta 12
+	
+	//Requerimiento de consulta 13
 
 
-	//TODO DESHABILITAR RESERVA
+	//DESHABILITAR RESERVA
 
 	public Reserva cancelarReserva(Integer id) throws SQLException
 	{
