@@ -343,7 +343,7 @@ public class RequerimientosService <K extends Operador>
 	//TODO Reserva
 
 	@POST
-	@Path("/requerimientos/reserva/hotel")
+	@Path("reserva/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createReservaHotel(VOReservaHabitaciones voRe) throws SQLException {
@@ -363,7 +363,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@POST
-	@Path("/requerimientos/reserva/Hostal")
+	@Path("reserva/Hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createReservaHostal(VOReservaHabitaciones voRe) throws SQLException {
@@ -383,7 +383,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@POST
-	@Path("/requerimientos/reserva/viviendauniversitaria")
+	@Path("reserva/viviendauniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createReservaViviendaUniversitaria(Integer idVivienda, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
@@ -409,7 +409,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@POST
-	@Path("/requerimientos/reserva/personanatural")
+	@Path("reserva/personanatural")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createReservaPersonaNatural(Integer idPersona, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
@@ -429,7 +429,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@POST
-	@Path("/requerimientos/reserva/viviendauniversitaria")
+	@Path("reserva/viviendauniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createReservaVecino(Integer idVecino, Integer idReserva, List<Integer> identificadores, Integer idCliente) throws SQLException {
