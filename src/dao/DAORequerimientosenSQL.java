@@ -714,9 +714,9 @@ public class DAORequerimientosenSQL
 
 	//Administrador
 
-	public ArrayList<VOConsumo> getConsumoPrimeraVersionAdministrador(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin)throws SQLException, Exception{
+	public ArrayList<VOConsumo> getConsumoPrimeraVersionAdministrador(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, String criterio)throws SQLException, Exception{
 		ArrayList<VOConsumo> consum = new ArrayList<>();
-		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)",USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin);
+		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018) ORDER BY %7$s ",USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin, criterio);
 		String sql1 = String.format("COMMIT", USUARIO);
 
 		PreparedStatement prepStmt  = conn.prepareStatement(sql);
@@ -735,9 +735,9 @@ public class DAORequerimientosenSQL
 
 	//Cliente Especifico
 
-	public ArrayList<VOConsumo> getConsumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli)throws SQLException, Exception{
+	public ArrayList<VOConsumo> getConsumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli, String criterio)throws SQLException, Exception{
 		ArrayList<VOConsumo> consum = new ArrayList<>();
-		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM (SELECT * FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)) WHERE ID_CLIENTE = %7$d", USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+		String sql = String.format("SELECT * FROM (SELECT ID_HOTEL, ID_HOSTAL, ID_PERSONA, ID_VIVIENDAU, ID_CLIENTE, ID_OFERTA, FECHA, VALOR, DURACION, ID_RESERVA FROM (SELECT * FROM ((SELECT ID_OFERTA, ID_HOTEL FROM %1$s.OFERTA WHERE ID_OFERTA = %2$d) NATURAL JOIN %1$s.RESERVA) NATURAL JOIN %1$s.RESERVAS_CLIENTES) WHERE (TO_NUMBER(SUBSTR(FECHA,1, 2)) > %3$d AND TO_NUMBER(SUBSTR(FECHA,1, 2)) < %4$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) >= %5$d AND TO_NUMBER(SUBSTR(FECHA,4, 2)) < %6$d AND TO_NUMBER(SUBSTR(FECHA,7, 4)) = 2018)) WHERE ID_CLIENTE = %7$d ORDER BY %8$s ", USUARIO, idOferta, diaInic, diaFin, mesInic, mesFin, IdCli, criterio);
 		String sql1 = String.format("COMMIT", USUARIO);
 
 		PreparedStatement prepStmt  = conn.prepareStatement(sql);

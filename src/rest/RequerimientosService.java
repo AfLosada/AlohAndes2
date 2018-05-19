@@ -898,14 +898,14 @@ public class RequerimientosService <K extends Operador>
 	//RC10----------------------------------------------------------------------------
 
 	@GET
-	@Path("consumoPrimeraAdmin/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}")
+	@Path("consumoPrimeraAdmin/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{criterio: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getConsumoPrimeraAdmin(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin){
+	public Response getConsumoPrimeraAdmin(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("criterio") String criterio){
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionAdmin(idOferta, diaInic, diaFin, mesInic, mesFin);
+			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionAdmin(idOferta, diaInic, diaFin, mesInic, mesFin, criterio);
 			return Response.status(200).entity(resp).build();
 		}
 		catch(Exception e){
@@ -915,14 +915,14 @@ public class RequerimientosService <K extends Operador>
 
 
 	@GET
-	@Path("consumoPrimeraCliente/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{idCliente: \\d+}")
+	@Path("consumoPrimeraCliente/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{idCliente: \\d+}/{criterio: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getConsumoPrimeraCliente(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli){
+	public Response getConsumoPrimeraCliente(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli, @PathParam("criterio") String criterio){
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
-			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli, criterio);
 			return Response.status(200).entity(resp).build();
 		}
 		catch(Exception e){
