@@ -936,7 +936,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("consumoSegundaAdmin/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getConsumoSegundaAdmin(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin){
+	public Response getConsumoSegundaAdmin( @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin){
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
@@ -952,7 +952,7 @@ public class RequerimientosService <K extends Operador>
 	@Path("consumoSegundaCliente/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{idCliente: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getConsumoSegundaCliente(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli){
+	public Response getConsumoSegundaCliente( @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli){
 		try{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 

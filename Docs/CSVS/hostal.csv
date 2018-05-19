@@ -1,80 +1,64 @@
 NOMBRE,ID_HOSTAL,CAPACIDAD_HOSTAL,HORA_APERTURA,HORA_CIERRA,RECEPCION24_HORAS,CAMARA_COMERCIO,SUPERINTENDENCIA_TURISMO
-Mr Sandman Motel,1,578,9:51,19:37,78,F,T,T
-Horton Smith House,2,110,5:25,8:47,97,F,T,T
-Pontiac Lodge,3,839,7:59,20:6,33,T,T,T
-MT Ashland Inn Bed & Breakfast,4,400,4:35,15:44,71,T,F,T
-Waterfall Gardens Private Sts,5,373,0:31,23:56,37,T,F,F
-Holiday Inn Express-Findlay,6,180,7:40,14:14,50,F,F,F
-Boise World Wide Church Of God,7,654,9:18,10:31,23,F,T,F
-Skyler Inn,8,269,9:36,19:3,92,F,T,T
-Hyatt Place-Itasca,9,2,0:0,10:57,36,T,T,T
-Best Western-Palm Coast,10,32,2:35,0:8,71,F,T,F
-Elk Horn Mountain Inn,11,335,7:47,8:9,47,T,F,T
-Best Western-University,12,687,6:19,17:20,37,T,F,T
-Lawrence Manor,13,236,10:39,15:52,44,T,F,T
-Casino Queen Hotel,14,83,0:9,11:33,20,F,F,F
-Hyatt Hotel,15,239,0:42,10:28,95,F,T,F
-Sand Dollar Motel Inc,16,762,0:42,19:31,90,T,T,F
-Royal Hampton Motor Inn,17,202,0:28,23:46,44,T,F,T
-Holiday Inn Express-Findlay,18,290,11:3,13:32,62,F,T,F
-Casino Queen Hotel,19,529,3:16,8:32,28,F,T,F
-Liberty Homes,20,17,8:3,18:39,22,F,T,F
-Kidsloveusbornebooks,21,581,6:38,7:24,18,F,T,T
-Otero Dental Centers,22,497,5:20,1:43,49,T,T,F
-Apple Tree Bed & Breakfast,23,19,10:30,21:22,68,F,F,T
-Casino Queen Hotel,24,798,0:44,3:37,99,T,F,F
-Family Budget Inn,25,777,6:15,22:14,80,F,F,T
-White Swan Guest House,26,474,2:53,9:38,54,F,F,T
-Town & Country Resort At Stowe,27,359,3:43,23:28,32,F,T,T
-Gary Davisson,28,79,0:55,2:45,32,T,F,T
-School Haus Inn,29,165,9:10,11:34,38,F,T,T
-Rockin Horse Game Room The,30,290,6:30,18:47,62,F,F,F
-Blanco County Inn,31,453,1:0,21:34,67,T,F,F
-Great Falls Inn,32,542,4:30,21:21,93,T,T,F
-Doing Business At Super 8 Motel,33,277,9:19,21:22,50,F,T,T
-Kidsloveusbornebooks,34,246,6:40,22:43,48,T,T,T
-Habibi Leila,35,645,5:37,6:56,52,T,T,T
-White Swan Guest House,36,545,10:15,11:49,94,F,T,F
-Sunset Motel & Suites,37,326,9:25,21:43,79,T,F,F
-Fabricio Ferrari,38,118,6:11,22:30,40,F,F,F
-Coachman Motor Lodge,39,157,9:15,11:23,55,T,T,T
-Islander Inn,40,435,4:23,14:19,66,T,T,F
-The Troy-Bumpas Inn,41,24,0:18,20:25,41,T,T,T
-Governor's Rock Motel,42,792,9:24,14:54,78,F,T,F
-The Space Trader - Robots And,43,217,8:57,9:25,50,T,T,F
-Habibi Leila,44,642,7:33,21:38,45,T,F,F
-I L X Resorts Inc,45,31,6:56,19:40,81,F,F,F
-Liberty Homes,46,321,7:10,10:12,37,F,T,T
-Waterfall Gardens Private Sts,47,651,4:53,10:19,58,T,T,F
-Boise World Wide Church Of God,48,7,4:52,17:47,57,T,F,F
-Ridgewood Inn,49,830,8:20,21:44,19,F,T,F
-Elk Horn Mountain Inn,50,623,7:13,13:15,64,T,F,T
-Boise World Wide Church Of God,51,123,11:47,19:1,52,T,T,F
-Cameron Estate Inn,52,341,3:49,8:11,45,T,F,T
-MT Ashland Inn Bed & Breakfast,53,336,4:32,1:58,26,T,F,T
-Best Western Jicarilla Inn,54,502,4:10,9:51,33,F,T,T
-Deer Watch Inn,55,542,5:38,11:42,40,F,T,T
-Anton Boxrud Bed & Breakfast,56,619,0:48,1:12,53,F,F,T
-Djont / JPM Leasing LLC,57,717,7:46,10:51,25,T,T,F
-Days Inn-Penn State,58,197,4:35,1:40,96,T,F,T
-Djont / JPM Leasing LLC,59,486,1:0,21:46,39,T,F,T
-Elk Horn Mountain Inn,60,595,11:20,21:53,64,T,T,T
-Kidsloveusbornebooks,61,839,6:23,13:15,79,T,T,F
-Coachman Motor Lodge,62,494,0:25,1:8,44,F,T,F
-Pelican Shores,63,257,8:50,13:20,70,F,F,F
-Coachman Motor Lodge,64,424,9:15,14:38,23,F,T,F
-Rockin Horse Game Room The,65,224,1:38,11:42,34,T,T,F
-Savannah Lakes Resorts Marina,66,354,7:29,21:52,48,F,T,T
-Sybaris,67,9,3:1,5:33,56,F,T,F
-I L X Resorts Inc,68,511,0:20,7:34,89,F,T,F
-Ridgewood Inn,69,683,8:45,14:46,84,F,F,T
-Bay House Bed & Breakfast,70,884,9:3,17:25,42,T,T,F
-Blanco County Inn,71,897,7:1,1:2,49,T,F,F
-Pelican Shores,72,692,9:38,23:33,92,T,T,T
-I L X Resorts Inc,73,475,7:16,17:21,50,T,T,T
-The Space Trader - Robots And,74,475,3:12,12:36,55,T,T,F
-Drury Industries Inc,75,240,1:20,3:4,89,F,T,F
-M & M Motel,76,342,1:53,15:33,98,F,F,F
-Anton Boxrud Bed & Breakfast,77,624,4:27,21:13,52,F,F,T
-Pelican Shores,78,574,8:48,9:38,77,T,T,F
-Royal Palms Resort,79,784,2:35,0:15,24,F,F,F
+M & M Motel,17,267,11:33,20:11,46,F,T,T
+Rose Cottage,18,594,5:39,21:17,60,F,T,F
+Ramada-Speedway Casino,19,153,10:47,12:72,51,F,F,F
+Drury Industries Inc,20,87,9:17,23:14,81,T,F,T
+Skyler Inn,21,78,1:42,23:16,57,F,F,F
+Days Inn-Penn State,22,555,11:14,21:76,64,F,T,F
+Quality Inn Blue Springs,23,146,3:54,23:17,22,F,T,T
+Mg Hotels,24,844,12:4,0:5,43,F,F,F
+Kidsloveusbornebooks,25,492,5:44,13:24,52,T,F,T
+Best Western Jicarilla Inn,26,786,1:29,9:64,91,T,T,F
+Casino Queen Hotel,27,866,5:35,11:15,74,F,T,T
+Casino Queen Hotel,28,543,8:56,22:18,35,T,F,T
+Apple Tree Bed & Breakfast,29,731,6:47,7:33,74,F,F,T
+Kidsloveusbornebooks,30,607,6:8,19:27,89,T,T,T
+Sand Dollar Motel Inc,31,272,5:27,17:23,55,T,F,F
+Airy Mt Bed & Breakfast,32,100,5:53,17:28,92,F,T,F
+Sand Dollar Motel Inc,33,447,11:48,14:24,40,F,F,F
+Djont / JPM Leasing LLC,34,284,1:33,0:25,18,F,T,F
+Waterfall Gardens Private Sts,35,39,9:13,13:43,65,T,F,F
+Royal Palms Resort,36,515,8:37,1:23,81,F,T,F
+Mr Sandman Motel,37,426,9:15,20:9,76,T,T,T
+Governor's Rock Motel,38,745,6:59,13:25,22,F,F,F
+Ritz-Carlton Hotel Co Llc,39,193,1:57,14:71,21,F,F,T
+Doing Business At Super 8 Motel,40,123,8:14,17:9,63,T,T,T
+Hyatt Place-Itasca,41,308,10:6,16:49,94,T,F,F
+Patrick W Hart,42,195,0:29,4:26,30,F,T,F
+Casino Queen Hotel,43,239,0:16,16:47,98,F,T,T
+Casino Queen Hotel,44,406,3:58,8:37,89,T,F,T
+Skyler Inn,45,50,3:8,16:48,61,T,T,F
+Waterfall Gardens Private Sts,46,414,4:45,12:77,47,T,F,F
+Globalbestconsult,47,610,4:8,7:36,22,F,F,F
+Holiday Inn Express-Findlay,48,831,10:35,1:61,92,T,F,F
+Lake Shore Lodge & Conference,49,272,2:24,17:64,51,T,F,F
+Bay House Bed & Breakfast,50,240,4:4,5:29,20,F,F,F
+Pelican Shores,51,28,8:2,0:64,77,T,T,F
+Hyatt Place-Itasca,52,311,5:52,9:19,58,T,T,T
+Mg Hotels,53,395,10:9,19:49,65,T,F,F
+Best Western-University,54,609,5:8,15:60,97,F,F,T
+Fabricio Ferrari,55,178,6:52,9:18,24,F,T,F
+Habibi Leila,56,426,10:5,12:76,19,T,F,T
+Bison Hollow Bed & Breakfast,57,751,3:35,5:10,52,F,F,T
+Sand Dollar Motel Inc,58,695,11:27,12:27,53,T,T,T
+Boise World Wide Church Of God,59,225,6:8,18:63,94,F,F,T
+Apple Tree Bed & Breakfast,60,817,5:11,19:41,24,T,F,F
+Hyatt Hotel,61,524,11:19,23:46,39,T,T,F
+Kidsloveusbornebooks,62,312,8:45,21:49,75,T,T,F
+Holiday Inn Express-Findlay,63,125,1:54,7:56,78,F,T,F
+Fabricio Ferrari,64,56,4:38,16:22,89,F,F,F
+Mountain Thyme Bed & Breakfast Inn,65,533,1:56,16:58,72,F,F,F
+Liberty Homes,66,870,5:13,10:34,95,F,F,T
+Pinestead Reef Resort,67,81,3:26,12:68,91,T,F,T
+Royal Palms Resort,68,194,4:10,7:7,55,F,F,T
+Mountain Thyme Bed & Breakfast Inn,69,68,10:53,16:68,28,F,F,F
+Bay House Bed & Breakfast,70,779,7:21,18:37,53,F,F,T
+Otero Dental Centers,71,51,9:37,20:23,69,T,T,T
+Globalbestconsult,72,460,12:23,19:70,68,T,T,T
+Misty Mountain Lodge,73,387,8:41,21:75,44,T,F,F
+Deer Watch Inn,74,169,3:37,19:40,87,F,T,F
+DE Queen Country Club & Ldgng,75,349,9:9,16:26,84,T,T,T
+Family Budget Inn,76,376,4:20,5:41,29,T,F,T
+Bison Hollow Bed & Breakfast,77,437,11:5,13:0,25,F,F,T
+Town & Country Resort At Stowe,78,433,9:51,14:27,82,T,T,F
+Bison Hollow Bed & Breakfast,79,197,1:32,20:29,37,F,F,T

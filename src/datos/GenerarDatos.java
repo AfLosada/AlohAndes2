@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,9 +18,16 @@ public class GenerarDatos
 	
 	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
 	
+	public static int NUM_HOSTALES = 80;
+	public static int NUM_HOTELES = 60;
+	public static int NUM_VIVIENDAU = 387;
+	public static int NUM_PERSONAS = 20000;
+	
 	private String[] tipoCliente = {"EMPLEADO","PROFESOR","ESTUDIANTE"};
 	
 	private ArrayList<String> nombresPersonas;
+	
+	private HashMap<Integer, Integer[]> hashOferta = new HashMap<>();
 	
 	
 	public void cargarNombresPersonas()
@@ -66,6 +74,9 @@ public class GenerarDatos
 	}
 	
 	
+	/**
+	 * @throws FileNotFoundException
+	 */
 	public void crearCliente() throws FileNotFoundException
 	{
 		File f = new File(DIRECCION + "clientes.csv");
@@ -86,7 +97,7 @@ public class GenerarDatos
 		sb.append("MIEMBRO_COMUNIDAD");
 		sb.append('\n');
 
-		for(int pos = 1; pos < 70000;pos++)
+		for(int pos = 17; pos < 70001;pos++)
 		{
 			sb.append(nombresPersonas.get(r.nextInt(nombresPersonas.size())) + " " + nombresPersonas.get(r.nextInt(nombresPersonas.size())));
 			sb.append(',');
@@ -172,19 +183,19 @@ public class GenerarDatos
 		}
 		
 		
-		for(int pos = 1; pos < nombresHoteles.size();pos++)
+		for(int pos = 17; pos < NUM_HOSTALES;pos++)
 		{
-			sb.append(nombresHoteles.get(r.nextInt(nombresHoteles.size())));
+			sb.append(nombresHoteles.get(r.nextInt(NUM_HOSTALES)));
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
 			sb.append((int)Math.floor(Math.random() * 900));
 			sb.append(',');
-			int horaI =(int)Math.floor(Math.random() * 13)%12;
-			sb.append(horaI + ":" + ((int)Math.floor(Math.random() * 61))%60);
+			int horaI =(int)Math.floor(Math.random() * 13)%13;
+			sb.append(horaI + ":" + ((int)Math.floor(Math.random() * (61)))%60);
 			sb.append(',');
 			int asd = ((int)new Random().nextInt(24-horaI+1) + horaI+1)%24;
-			sb.append( asd+ ":" + (int)Math.floor(Math.random() * 61)%60);
+			sb.append( asd+ ":" + (int)Math.floor(Math.random() * (61))%60);
 			sb.append(',');
 			sb.append((int)(new Random()).nextInt(100-18) + 18);
 			sb.append(',');
@@ -270,17 +281,17 @@ public class GenerarDatos
 		
 		for(int pos = 1; pos < nombresHoteles.size();pos++)
 		{
-			sb.append(nombresHoteles.get(r.nextInt(nombresHoteles.size())));
+			sb.append(nombresHoteles.get(r.nextInt(NUM_HOTELES)));
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
 			sb.append((int)Math.floor(Math.random() * 900));
 			sb.append(',');
 			int horaI =(int)Math.floor(Math.random() * 13)%12;
-			sb.append(horaI + ":" + ((int)Math.floor(Math.random() * 61))%60);
+			sb.append(horaI + ":" + ((int)Math.floor(Math.random() * (NUM_HOTELES+1)))%NUM_HOTELES);
 			sb.append(',');
 			int asd = ((int)new Random().nextInt(24-horaI+1) + horaI+1)%24;
-			sb.append( asd+ ":" + (int)Math.floor(Math.random() * 61)%60);
+			sb.append( asd+ ":" + (int)Math.floor(Math.random() * (NUM_HOTELES+1))%NUM_HOTELES);
 			sb.append(',');
 			sb.append((int)(new Random()).nextInt(100-18) + 18);
 			sb.append(',');
@@ -336,7 +347,7 @@ public class GenerarDatos
 		
 		for(int pos = 1; pos < 20000;pos++)
 		{
-			sb.append(nombresPersonas.get(r.nextInt(nombresPersonas.size())) + nombresPersonas.get(r.nextInt(nombresPersonas.size())));
+			sb.append(nombresPersonas.get(r.nextInt(NUM_PERSONAS)) + nombresPersonas.get(r.nextInt(NUM_PERSONAS)));
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
@@ -405,7 +416,7 @@ public class GenerarDatos
 			}
 		}
 		
-		PrintWriter pw = new PrintWriter(new File("viviendau.csv"));
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "viviendau.csv"));
 		StringBuilder sb = new StringBuilder();
 		sb.append("ID_VIVIENDAU");
 		sb.append(',');
@@ -425,8 +436,10 @@ public class GenerarDatos
 		
 		Random r = new Random();
 
-		for(int pos = 1; pos < 10000;pos++)
+		for(int pos = 1; pos < NUM_VIVIENDAU;pos++)
 		{
+			
+			
 			sb.append(pos);
 			sb.append(',');
 			String amoblamiento = "F";
@@ -470,61 +483,92 @@ public class GenerarDatos
 		System.out.println("viviendau");
 	}
 	
-	public void crearVentaMenu() throws FileNotFoundException
+	public void crearOferta() throws FileNotFoundException
 	{
-		PrintWriter pw = new PrintWriter(new File("ventaMenu.csv"));
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "oferta.csv"));
 		StringBuilder sb = new StringBuilder();
-		sb.append("IDVENTA");
+		sb.append("ID_OFERTA");
 		sb.append(',');
-		sb.append("IDMENU");
+		sb.append("NUM_RESERVAS");
 		sb.append(',');
-		sb.append("CANTIDAD");
+		sb.append("ID_HOSTAL");
 		sb.append(',');
-		sb.append("IDRESTAURANTE");
+		sb.append("ID_HOTEL");
 		sb.append(',');
-		sb.append("PRECIO");
+		sb.append("ID_VIVIENDAU");
 		sb.append(',');
-		sb.append("CAMBIOFUERTE");
+		sb.append("ID_PERSONA");
 		sb.append(',');
-		sb.append("CAMBIOPOSTRE");
-		sb.append(',');
-		sb.append("CAMBIOENTRADA");
-		sb.append(',');
-		sb.append("CAMBIOBEBIDA");
-		sb.append(',');
-		sb.append("CAMBIOACOMPAÑAMIENTO");
+		sb.append("VIGENTE");
 		sb.append('\n');
 
-		for(int pos = 500000; pos < 1000000;pos++)
+		for(int pos = 0; pos < 10000;pos++)
 		{
+
+			Integer[] garu = new Integer[4];
+			
 			sb.append(pos);
 			sb.append(',');
-			int idmen = ThreadLocalRandom.current().nextInt(1, 999999 + 1);
-			sb.append(idmen);
+			sb.append(Math.floorDiv((int)Math.random() * 10000, 50));
 			sb.append(',');
-			sb.append(1);
-			sb.append(',');
-			int rest = ThreadLocalRandom.current().nextInt(1, 999999 + 1);
-			sb.append(rest);
-			sb.append(',');
-			int precio = ThreadLocalRandom.current().nextInt(20000, 40000 + 1);
-			sb.append(precio);
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
+			boolean ya2 = false;
+			int ya = 0;
+			if(Math.random() > 0.5 && !ya2)
+			{
+				int xd = (int)Math.floor(Math.random()*(NUM_HOSTALES+1))%(NUM_HOSTALES+1);
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[0] = xd; 
+			}
+			if(Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				int xd = (int)Math.floor(Math.random()*(NUM_HOTELES+1)%((NUM_HOTELES+1)));
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[1] = xd;
+			}
+			if (Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				sb.append(',');
+				int xd = (int)Math.floor(Math.random()*(NUM_VIVIENDAU+1))%(NUM_VIVIENDAU+1);
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[2] = xd;
+			}
+			if((Math.random() > 0.5 && !ya2) )
+			{
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				int xd = (int)Math.floor(Math.random()*(NUM_VIVIENDAU+1))%(NUM_VIVIENDAU+1);
+				sb.append(',');
+				sb.append(xd);
+				sb.append(',');
+				garu[3] = xd;
+			}
+			String bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
 			sb.append('\n');
+			hashOferta.put(pos, garu);
 		}
-		
 		pw.write(sb.toString());
 		pw.close();
-		System.out.println("ventaMenu");
+		System.out.println("ofertas");
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
@@ -535,7 +579,8 @@ public class GenerarDatos
 		temp.crearHostales();
 		temp.crearHoteles();
 		temp.crearPersona();
-//		temp.crearVentaPlato();
+		temp.crearViviendaU();
+		temp.crearOferta();
 //		temp.crearMenu();
 //		temp.crearVentaMenu();
 	}
