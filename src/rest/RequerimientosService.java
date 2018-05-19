@@ -821,7 +821,7 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-	
+
 	@GET
 	@Path("fecha/mayoringresos/{tipo: .+}/{mes: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -891,16 +891,16 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-	
+
 	//RC10----------------------------------------------------------------------------
-	
+
 	//RC11----------------------------------------------------------------------------
-	
+
 	//RC12----------------------------------------------------------------------------
-	
+
 	//RC13----------------------------------------------------------------------------
-	
-	
+
+
 
 
 	//-------------------------------------------------------------------------------------------

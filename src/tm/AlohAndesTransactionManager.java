@@ -1,7 +1,6 @@
 package tm;
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -3924,7 +3923,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	//----------------------------------------------------------------------------------
-	//REQUERIMIENTOS DE CONSULTA
+	//INICIO REQUERIMIENTOS DE CONSULTA
 	//----------------------------------------------------------------------------------
 
 
@@ -3976,7 +3975,6 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	//Requerimiento de consulta 3
-
 	public ArrayList<VOIndiceHotel> ocupacionHoteles() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
@@ -4014,49 +4012,47 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	//Requerimiento de consulta 4
-
 	public ArrayList<VODisponible> disponibilidadHotel(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
-	{
+			{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesHotel(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
-	}
+			}
 
 	public ArrayList<VODisponible> disponibilidadHostal(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
-	{
+			{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
-	}
+			}
 
 	public ArrayList<VODisponible> disponibilidadPersona(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
-	{
+			{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesPersona(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
-	}
+			}
 
 	public ArrayList<VODisponible> disponibilidadViviendaU(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFinal,
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
-	{
+			{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesViviendaU(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
-	}
+			}
 
 	//Requerimiento de consulta 5
-
 	public ArrayList<VOUsoHotel> usoHotel() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
@@ -4094,7 +4090,6 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	//Requerimiento de consulta 6
-
 	public ArrayList<VOUsoCliente> usoGeneralCliente(Integer idCliente) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
@@ -4159,14 +4154,82 @@ public class AlohAndesTransactionManager <K extends Operador>
 		ArrayList<VOClienteReservas> rta = daoRequerimientos.getClienteFrecuenteReservas();
 		return rta;		
 	}
-	
+
 	//Requerimiento de consulta 10
-	
+	public ArrayList<VOConsumo> consumoPrimeraVersionAdmin(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin) throws SQLException, Exception{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionAdministrador(idOferta, diaInic, diaFin, mesInic, mesFin);
+		return rta;
+	}
+
+	public ArrayList<VOConsumo> consumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli) throws SQLException, Exception{
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+		return rta;
+	}
 	//Requerimiento de consulta 11
-	
+	public ArrayList<VOConsumoVersion2> consumoSegundaVersionAdmin(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin) throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumoVersion2> rta = daoRequerimientos.getConsumoSegundaVersionAdmin(diaInic, diaFin, mesInic, mesFin);
+		return rta;
+	}
+
+	public ArrayList<VOConsumoVersion2> consumoSegundaVersionCliente(Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer cliente) throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumoVersion2> rta = daoRequerimientos.getConsumoSegundaVersionCliente(diaInic, diaFin, mesInic, mesFin, cliente);
+		return rta;	
+	}
+
 	//Requerimiento de consulta 12
-	
+	public ArrayList<VOSemanas> semanasDeFecha() throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos =  new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOSemanas> rta = daoRequerimientos.getSemanaDeFecha();
+		return rta;	
+	}
 	//Requerimiento de consulta 13
+	public ArrayList<VOConsumoVersion2> clientesConReservasAlMes(Integer mes) throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumoVersion2> rta = daoRequerimientos.getClientesReservasMes(mes);
+		return rta;
+	}
+
+	public ArrayList<VOConsumoVersion2> clientesConReservasCostosas() throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumoVersion2> rta = daoRequerimientos.getClientesReservasCostosas();
+		return rta;	
+	}
+
+	public ArrayList<VOConsumoVersion2> clientesConReservasEnSuites() throws SQLException, Exception{
+
+		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
+		ArrayList<VOConsumoVersion2> rta = daoRequerimientos.getClientesReservasSuite();
+		return rta;
+	}
+
+	//----------------------------------------------------------------------------------
+	//FIN REQUERIMIENTOS DE CONSULTA
+	//----------------------------------------------------------------------------------
 
 
 	//DESHABILITAR RESERVA
@@ -4339,7 +4402,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 			List<Boolean> seEnc = new ArrayList<>();
 			List<Boolean> seEnc2 = new ArrayList<>();
 			Double doble = 0.0;
-			
+
 			daoReserva.addReserva(new Reserva(false, Integer.parseInt(reCo.getDuracion()), "31-07-2120", idReserva, false, "40", doble, null, null, null, null, idCliente));
 
 			for (int i = 0; i < habs.size(); i++) 
@@ -4361,7 +4424,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 
 				if(xd != null)
 				{
-					
+
 					for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
 					{
 						listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
@@ -4372,19 +4435,19 @@ public class AlohAndesTransactionManager <K extends Operador>
 				{
 					if( xd != null)
 					{
-					if(!xd.isEmpty())
-					{
-						for (Integer laLegit: servicioPub) 
+						if(!xd.isEmpty())
 						{
-							for (ServicioPublico servicioPubli : listaSPub) 
+							for (Integer laLegit: servicioPub) 
 							{
-								if(laLegit == servicioPubli.getId())
+								for (ServicioPublico servicioPubli : listaSPub) 
 								{
-									seEnc.add(true);
+									if(laLegit == servicioPubli.getId())
+									{
+										seEnc.add(true);
+									}
 								}
 							}
 						}
-					}
 					}
 
 					for (Integer laLegit: servicioIn) 
