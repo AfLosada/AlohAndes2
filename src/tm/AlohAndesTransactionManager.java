@@ -4156,19 +4156,19 @@ public class AlohAndesTransactionManager <K extends Operador>
 	}
 
 	//Requerimiento de consulta 10
-	public ArrayList<VOConsumo> consumoPrimeraVersionAdmin(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin) throws SQLException, Exception{
+	public ArrayList<VOConsumo> consumoPrimeraVersionAdmin(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin,String criterio) throws SQLException, Exception{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
-		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionAdministrador(idOferta, diaInic, diaFin, mesInic, mesFin);
+		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionAdministrador(idOferta, diaInic, diaFin, mesInic, mesFin, criterio);
 		return rta;
 	}
 
-	public ArrayList<VOConsumo> consumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli) throws SQLException, Exception{
+	public ArrayList<VOConsumo> consumoPrimeraVersionCliente(Integer idOferta, Integer diaInic, Integer diaFin, Integer mesInic, Integer mesFin, Integer IdCli, String criterio) throws SQLException, Exception{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
 		conn = darConexion();
 		daoRequerimientos.setConn(conn);
-		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+		ArrayList<VOConsumo> rta = daoRequerimientos.getConsumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli, criterio);
 		return rta;
 	}
 	//Requerimiento de consulta 11
