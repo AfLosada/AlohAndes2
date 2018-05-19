@@ -46,6 +46,8 @@ import vos.ServicioInmobiliario;
 import vos.ServicioPublico;
 import vos.VOClienteDuracion;
 import vos.VOClienteReservas;
+import vos.VOConsumo;
+import vos.VOConsumoVersion2;
 import vos.VODisponible;
 import vos.VOExtraHotel;
 import vos.VOExtraPersona;
@@ -59,6 +61,7 @@ import vos.VOIndicePersona;
 import vos.VOIndiceVivendaU;
 import vos.VOOfertaHabitaciones;
 import vos.VOReservaHabitaciones;
+import vos.VOSemanas;
 import vos.VOUsoCliente;
 import vos.VOUsoEspecificoCliente;
 import vos.VOUsoHostal;
@@ -894,20 +897,151 @@ public class RequerimientosService <K extends Operador>
 
 	//RC10----------------------------------------------------------------------------
 
+	@GET
+	@Path("consumoPrimeraAdmin/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoPrimeraAdmin(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin){
+		try{
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionAdmin(idOferta, diaInic, diaFin, mesInic, mesFin);
+			return Response.status(200).entity(resp).build();
+		}
+		catch(Exception e){
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+
+	@GET
+	@Path("consumoPrimeraCliente/{idOferta: \\d+}/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{idCliente: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoPrimeraCliente(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli){
+		try{
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumo> resp = tm.consumoPrimeraVersionCliente(idOferta, diaInic, diaFin, mesInic, mesFin, IdCli);
+			return Response.status(200).entity(resp).build();
+		}
+		catch(Exception e){
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
 	//RC11----------------------------------------------------------------------------
+
+	@GET
+	@Path("consumoSegundaAdmin/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoSegundaAdmin(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin){
+		try{
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumoVersion2> resp = tm.consumoSegundaVersionAdmin( diaInic, diaFin, mesInic, mesFin);
+			return Response.status(200).entity(resp).build();
+		}
+		catch(Exception e){
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+	@GET
+	@Path("consumoSegundaCliente/{diai: \\d+}/{diaf: \\d+}/{mesi: \\d+}/{mesf: \\d+}/{idCliente: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getConsumoSegundaCliente(@PathParam("idOferta") Integer idOferta, @PathParam("diai") Integer diaInic, @PathParam("diaf") Integer diaFin, @PathParam("mesi") Integer mesInic, @PathParam("mesf") Integer mesFin, @PathParam("idCliente") Integer IdCli){
+		try{
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumoVersion2> resp = tm.consumoSegundaVersionCliente(diaInic, diaFin, mesInic, mesFin, IdCli);
+			return Response.status(200).entity(resp).build();
+		}
+		catch(Exception e){
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 	//RC12----------------------------------------------------------------------------
 
+	@GET
+	@Path("semanasFecha")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getSemanasDeFecha(){
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOSemanas> resp = tm.semanasDeFecha();
+			return Response.status(200).entity(resp).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
 	//RC13----------------------------------------------------------------------------
+	@GET
+	@Path("clientesConReservasMes/{mes: \\d+}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientesConReservasAlMes(@PathParam("mes") Integer mes){
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumoVersion2> resp = tm.clientesConReservasAlMes(mes);
+			return Response.status(200).entity(resp).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 
+	@GET
+	@Path("clientesConReservasCostosas")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientesConReservasCostosas(){
 
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumoVersion2> resp = tm.clientesConReservasCostosas();
+			return Response.status(200).entity(resp).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+
+
+	@GET
+	@Path("clientesConReservasSuites")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getClientesConReservasSuites(){
+
+		try {
+			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
+
+			ArrayList<VOConsumoVersion2> resp = tm.clientesConReservasEnSuites();
+			return Response.status(200).entity(resp).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 
 	//-------------------------------------------------------------------------------------------
 	//FIN REQUERIMIENTOS DE CONSULTA
 	//-------------------------------------------------------------------------------------------
 
-	//TODO RF7
+	//RF7
 	@PUT
 	@Path("/RF7")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -926,7 +1060,7 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	//TODO Requerimiento RF8
+	//RF8
 
 	@GET
 	@Path( "/RF8/{id: \\d+}" )
@@ -945,7 +1079,7 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	//TODO Requerimiento RF9
+	//RF9
 
 
 	@PUT	
@@ -960,7 +1094,7 @@ public class RequerimientosService <K extends Operador>
 		return Response.status(200).entity(reservas).build();
 	}
 
-	//TODO Requerimiento RF10
+	//RF10
 
 	@PUT
 	@Path( "/RF10/{id: \\d+}" )
@@ -984,4 +1118,5 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(reservas).build();
 		}
 	}
+
 }
