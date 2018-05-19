@@ -11,10 +11,10 @@ public class ServicioInmobiliario {
 	//
 
 	@JsonProperty( value = "costo")
-	private double costo;
+	private Double costo;
 
 	@JsonProperty( value = "id")
-	private int id;
+	private Integer id;
 
 	@JsonProperty( value = "tipo")
 	private String tipo;

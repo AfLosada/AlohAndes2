@@ -107,18 +107,17 @@ public class DAOServicioInmobiliario
 	 */
 	public ServicioInmobiliario findServicioInmobiliarioById(Integer id) throws SQLException, Exception 
 	{
-		ServicioInmobiliario ServicioInmobiliario = null;
+		ServicioInmobiliario ServicioInmobiliario = new ServicioInmobiliario(id, id, null);
 
-		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.SERVICIO_INMOBILIARIO WHERE ID_SERVICIO_INMOBILIARIO = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		rs.next();
 
-		if(rs.next()) {
-			ServicioInmobiliario = convertResultSetToServicioInmobiliario(rs);
-		}
-
+		ServicioInmobiliario = convertResultSetToServicioInmobiliario(rs);
+		
 		return ServicioInmobiliario;
 	}
 

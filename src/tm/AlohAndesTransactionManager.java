@@ -3634,7 +3634,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 		daoHabitacionSerPub.setConn(conn);
-		
+
 
 
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
@@ -3683,7 +3683,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 		daoHabitacionSerPub.setConn(conn);
-		
+
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdViviendaU(viviendau);
 		daoOferta.updateOferta(ofertta);
@@ -3728,7 +3728,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		daoHabitacionesSer.setConn(conn);
 		DAOHabitacionServicioPublico daoHabitacionSerPub =  new DAOHabitacionServicioPublico();
 		daoHabitacionSerPub.setConn(conn);
-		
+
 		Oferta ofertta = daoOferta.findOfertaById(oferta);
 		ofertta.setIdPersona(persona);
 		daoOferta.updateOferta(ofertta);
@@ -3926,12 +3926,14 @@ public class AlohAndesTransactionManager <K extends Operador>
 	//----------------------------------------------------------------------------------
 	//REQUERIMIENTOS DE CONSULTA
 	//----------------------------------------------------------------------------------
-	
-	
+
+
 	//Requerimiento de consulta 1
 	public ArrayList<VOHostalExtra> operadoresConCosas1() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOHostalExtra> rta1 = daoRequerimientos.getDineroHostal();
 		return rta1;
 	}
@@ -3939,6 +3941,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOExtraHotel> operadoresConCosas2() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOExtraHotel> rta1 = daoRequerimientos.getDineroHotel();
 		return rta1;
 	}
@@ -3946,6 +3950,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOExtraPersona> operadoresConCosas3() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOExtraPersona> rta1 = daoRequerimientos.getDineroPersona();
 		return rta1;
 	}
@@ -3953,14 +3959,18 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOExtraViviendaUniversitaria> operadoresConCosas4() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOExtraViviendaUniversitaria> rta1 = daoRequerimientos.getDineroViviendaUniversitaria();
 		return rta1;
 	}
-	
+
 	//Requerimiento de consulta 2
 	public ArrayList<Oferta> operadoresMejores() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<vos.Oferta> rta = daoRequerimientos.get20Ofertas();
 		return rta;		
 	}
@@ -3970,6 +3980,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOIndiceHotel> ocupacionHoteles() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOIndiceHotel> rta = daoRequerimientos.getIndiceOfertasHotel();
 		return rta;		
 	}
@@ -3977,6 +3989,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOIndiceHostal> ocupacionHostales() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOIndiceHostal> rta = daoRequerimientos.getIndiceOfertasHostal();
 		return rta;		
 	}
@@ -3984,6 +3998,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOIndicePersona> ocupacionPersonas() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOIndicePersona> rta = daoRequerimientos.getIndiceOfertasPersona();
 		return rta;		
 	}
@@ -3991,6 +4007,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOIndiceVivendaU> ocupacionViviendaU() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOIndiceVivendaU> rta = daoRequerimientos.getIndiceOfertasViviendaU();
 		return rta;		
 	}
@@ -4001,6 +4019,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesHotel(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
 	}
@@ -4009,6 +4029,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesHostal(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
 	}
@@ -4017,6 +4039,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesPersona(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
 	}
@@ -4025,6 +4049,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 			String tipoServicioInmobiliario, String tipoServicioPublico) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VODisponible> rta = daoRequerimientos.getAlojamientosDisponiblesViviendaU(diaInic, diaFin, mesInic, mesFinal, tipoServicioInmobiliario, tipoServicioPublico);
 		return rta;		
 	}
@@ -4034,7 +4060,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoHotel> usoHotel() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoHotel> rta = daoRequerimientos.getUsoHotel();
 		return rta;		
 	}
@@ -4042,7 +4069,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoHostal> usoHostal() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoHostal> rta = daoRequerimientos.getUsoHostal();
 		return rta;		
 	}
@@ -4050,7 +4078,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoPersona> usoPersona() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoPersona> rta = daoRequerimientos.getUsoPersona();
 		return rta;		
 	}
@@ -4058,7 +4087,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoVivienda> usoViviendaU() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoVivienda> rta = daoRequerimientos.getUsoVivienda();
 		return rta;		
 	}
@@ -4068,7 +4098,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoCliente> usoGeneralCliente(Integer idCliente) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoCliente> rta = daoRequerimientos.getUsoUsuario(idCliente);
 		return rta;		
 	}
@@ -4076,7 +4107,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOUsoEspecificoCliente> usoEspecificoCliente(Integer idCliente) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
-		daoRequerimientos.setTransaccionalidad();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOUsoEspecificoCliente> rta = daoRequerimientos.getUsoEspecificoUsuario(idCliente);
 		return rta;		
 	}
@@ -4085,6 +4117,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOFechaDemanda> fechaMayorDemanda(String tipoAlojamiento, Integer mes) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOFechaDemanda> rta = daoRequerimientos.getFechaMayorDemanda(tipoAlojamiento, mes);
 		return rta;		
 	}
@@ -4092,6 +4126,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOFechaIngresos> fechaMayorIngresos(String tipoAlojamiento, Integer mes) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOFechaIngresos> rta = daoRequerimientos.getFechaMayorIngresos(tipoAlojamiento, mes);
 		return rta;		
 	}
@@ -4099,6 +4135,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOFechaDemanda> fechaMenorDemanda(String tipoAlojamiento, Integer mes) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOFechaDemanda> rta = daoRequerimientos.getFechaMenorDemanda(tipoAlojamiento, mes);
 		return rta;		
 	}
@@ -4107,6 +4145,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOClienteDuracion> clienteFrecuenteDuracion(String tipoAlojamiento, Integer identificadorAlojamiento) throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOClienteDuracion> rta = daoRequerimientos.getClienteFrecuenteDuracion(tipoAlojamiento, identificadorAlojamiento);
 		return rta;		
 	}
@@ -4114,6 +4154,8 @@ public class AlohAndesTransactionManager <K extends Operador>
 	public ArrayList<VOClienteReservas> clienteFrecuenteReservas() throws SQLException, Exception
 	{
 		DAORequerimientosenSQL daoRequerimientos = new DAORequerimientosenSQL();
+		conn = darConexion();
+		daoRequerimientos.setConn(conn);
 		ArrayList<VOClienteReservas> rta = daoRequerimientos.getClienteFrecuenteReservas();
 		return rta;		
 	}
@@ -4126,6 +4168,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 		try
 		{
 			DAOHabitacion daoHabs = new DAOHabitacion();
+			conn = darConexion();
 			daoHabs.setConn(conn);
 			List<Habitacion> listaHabs = daoHabs.getHabitacions();
 			DAOReserva daoRes = new DAOReserva();
@@ -4159,16 +4202,23 @@ public class AlohAndesTransactionManager <K extends Operador>
 	//TODO ACTIVAR-DESHABILITAR OFERTAS
 	public Oferta cancelarOferta(Integer id)
 	{
-		Oferta rta = null;
+		Oferta rta = new Oferta(id, id, false, id, id, id, id);
 
 		try
 		{
+			conn = darConexion();
 			DAOOferta daoOferta = new DAOOferta();
+			daoOferta.setConn(conn);
 			DAOHabitacion daoHab = new DAOHabitacion();
+			daoHab.setConn(conn);
 			DAOReserva daoRes = new DAOReserva();
+			daoRes.setConn(conn);
 			DAOCliente daoCli = new DAOCliente();
+			daoCli.setConn(conn);
 			DAOHabitacionesServicioInmobiliarioSerInm daoHSerIn = new DAOHabitacionesServicioInmobiliarioSerInm();
+			daoHSerIn.setConn(conn);
 			DAOHabitacionServicioPublico daoHSerPu = new DAOHabitacionServicioPublico();
+			daoHSerPu.setConn(conn);
 			ArrayList<Habitacion> habs = daoHab.getHabitacions();
 			ArrayList<Habitacion> habs1 = new ArrayList<>();
 			ArrayList<Cliente> listaClientes = daoCli.getClientes();
@@ -4237,6 +4287,7 @@ public class AlohAndesTransactionManager <K extends Operador>
 	{
 
 		DAOOferta daoOferta = new DAOOferta();
+		conn = darConexion();
 		daoOferta.setConn(conn);
 		oferta.setVigente(true);
 		daoOferta.updateOferta(oferta);
@@ -4280,64 +4331,69 @@ public class AlohAndesTransactionManager <K extends Operador>
 			List<Boolean> seEnc = new ArrayList<>();
 			List<Boolean> seEnc2 = new ArrayList<>();
 			Double doble = 0.0;
-
-			
 			
 			daoReserva.addReserva(new Reserva(false, Integer.parseInt(reCo.getDuracion()), "31-07-2120", idReserva, false, "40", doble, null, null, null, null, idCliente));
 
 			for (int i = 0; i < habs.size(); i++) 
 			{
 				Habitacion actual = habs.get(i);
-				
+
 				List<HabitacionesServicioPublico> xd = daoSPub.findHabitacionesServicioPublicoById((actual.getId()));
 				List<HabitacionesServiciosInmobiliarios> xd1 = daoSIn.findHabitacionesServicioInmobiliarioById((actual.getId()));
-				
+
 				List<ServicioInmobiliario> listaSIN = new ArrayList<>();
 				List<ServicioPublico> listaSPub = new ArrayList<>();
-				
-				for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : xd1) 
+				if(xd1 != null)
 				{
-					listaSIN.add(daoSIIN.findServicioInmobiliarioById(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario()));
+					for (HabitacionesServiciosInmobiliarios habitacionesServiciosInmobiliarios : xd1) 
+					{
+						listaSIN.add(daoSIIN.findServicioInmobiliarioById(habitacionesServiciosInmobiliarios.getIdServicioInmobiliario()));
+					}
 				}
-				
 
-				for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
+				if(xd != null)
 				{
-					listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
+					
+					for (HabitacionesServicioPublico habitacionesServiciosInmobiliarios : xd) 
+					{
+						listaSPub.add(daoSPPUB.findServicioPublicoById(habitacionesServiciosInmobiliarios.getIdServicioPublico()));
+					}
 				}
 
 				if(actual.getTipo().equals(reCo.getTipo()) && actual.getIdReserva() == null)
 				{
+					if( xd != null)
+					{
 					if(!xd.isEmpty())
 					{
-					for (Integer laLegit: servicioPub) 
-					{
-						for (ServicioPublico servicioPubli : listaSPub) 
+						for (Integer laLegit: servicioPub) 
 						{
-							if(laLegit == servicioPubli.getId())
+							for (ServicioPublico servicioPubli : listaSPub) 
 							{
-								seEnc.add(true);
+								if(laLegit == servicioPubli.getId())
+								{
+									seEnc.add(true);
+								}
 							}
 						}
 					}
 					}
-					
+
 					for (Integer laLegit: servicioIn) 
 					{
 						for (ServicioInmobiliario servicioInmobiliario : listaSIN) 
 						{
 							if(laLegit == servicioInmobiliario.getId())
 							{
-							seEnc2.add(true);
+								seEnc2.add(true);
 							}
 						}
-				}
+					}
 				}
 				if(seEnc.size() == reCo.getIdSInm().size() && seEnc2.size() == reCo.getIdSPub().size())
-				listaSirven.add(actual);
-				
-			}
+					listaSirven.add(actual);
 
+			}
 			List<Habitacion> rtaFinal = new ArrayList<>();
 
 			if(listaSirven.size() >= cantidad)

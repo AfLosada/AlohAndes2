@@ -88,9 +88,9 @@ public class DAOReserva {
 	 */
 	public Reserva findReservaById(Integer id) throws SQLException, Exception 
 	{
-		Reserva Reserva = null;
+		Reserva Reserva = new Reserva(false, id, null, id, false, null, id, id, id, id, id, id);
 
-		String sql = String.format("SELECT * FROM %1$s.RESERVA WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.RESERVA WHERE ID_RESERVA = %2$d", USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -213,7 +213,7 @@ public class DAOReserva {
 	}
 
 
-	public void cancelarReserva(Reserva reserva) throws ParseException {
+	public void cancelarReserva(Reserva reserva) throws ParseException, SQLException {
 		// TODO Auto-generated method stub
 		String tiempoCanc = reserva.getTiempoCancelacion();
 		Date fecha = new SimpleDateFormat("mmdd-mm-yyyy").parse(tiempoCanc);
@@ -240,6 +240,9 @@ public class DAOReserva {
 					reserva.getIdCliente()));
 			sql.append ("WHERE ID = " + reserva.getId());
 			System.out.println(sql);
+			PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
+			recursos.add(prepStmt);
+			prepStmt.executeQuery();
 		}
 	}
 
@@ -333,8 +336,16 @@ public class DAOReserva {
 		}
 		
 		StringBuilder sql = new StringBuilder();
-		String IDCLIENTE = sql.append(String.format("SELECT ID_CLIENTE FROM %1%s.RESERVAS_CLIENTES WHERE ID_RESERVA = %2$s", USUARIO, Integer.parseInt(id))).toString();
+		
+		String IDCLIENTE = sql.append(String.format("SELECT ID_CLIENTE FROM %1$s.RESERVAS_CLIENTES WHERE ID_RESERVA = %2$s", USUARIO, Integer.parseInt(id))).toString();
 
+		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		if(rs.next())
+		{
+			IDCLIENTE = rs.getString("ID_CLIENTE");
+		}
 		
 		Integer rta14 = null;
 		if(IDCLIENTE != null)

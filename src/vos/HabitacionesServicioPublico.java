@@ -1,15 +1,18 @@
 package vos;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class HabitacionesServicioPublico 
 {
 	
 	//
 	// Atributos
 	//
-	
-	private int idServicioPublico;
-	
-	private int idHabitacion;
+	@JsonProperty(value = "id_servicio_publico")
+	private Integer idServicioPublico;
+
+	@JsonProperty(value = "id_habitacion")
+	private Integer idHabitacion;
 	
 	
 	//
@@ -20,7 +23,9 @@ public class HabitacionesServicioPublico
 	 * @param idServicioPublico
 	 * @param idHabitacion
 	 */
-	public HabitacionesServicioPublico(int idServicioPublico, int idHabitacion) {
+	public HabitacionesServicioPublico(
+			@JsonProperty(value = "ID_SERVICIO_PUBLICO")Integer idServicioPublico, 
+			@JsonProperty(value = "ID_HABITACION")Integer idHabitacion) {
 		this.idServicioPublico = idServicioPublico;
 		this.idHabitacion = idHabitacion;
 	}
@@ -32,25 +37,25 @@ public class HabitacionesServicioPublico
 	/**
 	 * @return the idServicioPublico
 	 */
-	public int getIdServicioPublico() {
+	public Integer getIdServicioPublico() {
 		return idServicioPublico;
 	}
 	/**
 	 * @param idServicioPublico the idServicioPublico to set
 	 */
-	public void setIdServicioPublico(int idServicioPublico) {
+	public void setIdServicioPublico(Integer idServicioPublico) {
 		this.idServicioPublico = idServicioPublico;
 	}
 	/**
 	 * @return the idHabitacion
 	 */
-	public int getIdHabitacion() {
+	public Integer getIdHabitacion() {
 		return idHabitacion;
 	}
 	/**
 	 * @param idHabitacion the idHabitacion to set
 	 */
-	public void setIdHabitacion(int idHabitacion) {
+	public void setIdHabitacion(Integer idHabitacion) {
 		this.idHabitacion = idHabitacion;
 	}
 	

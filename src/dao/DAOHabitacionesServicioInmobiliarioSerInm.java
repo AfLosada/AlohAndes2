@@ -20,7 +20,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A881810";
+	public final static String USUARIO = "ISIS2304A811810";
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -82,7 +82,7 @@ public class DAOHabitacionesServicioInmobiliarioSerInm {
 	 */
 	public List<HabitacionesServiciosInmobiliarios> findHabitacionesServicioInmobiliarioById (Integer id) throws SQLException, Exception 
 	{
-		List<HabitacionesServiciosInmobiliarios> HabitacionesServicioInmobiliario = null;
+		List<HabitacionesServiciosInmobiliarios> HabitacionesServicioInmobiliario = new ArrayList<>();
 
 		String sql = String.format("SELECT * FROM %1$s.HABITACIONES_INMOBILIARIOS WHERE ID_HABITACION = %2$d", USUARIO, id); 
 

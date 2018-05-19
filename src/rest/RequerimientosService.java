@@ -1,6 +1,7 @@
 package rest;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -319,7 +320,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@PUT
-	@Path("/oferta/viviendaUniversitaria")
+	@Path("oferta/viviendaUniversitaria")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response createOfertaViviendaUniversitaria(VOOfertaHabitaciones vohab) throws SQLException {
@@ -460,24 +461,27 @@ public class RequerimientosService <K extends Operador>
 
 	//RC1------------------------------------------------------------------
 	@GET
-	@Path("/requerimientos/dinero/hostal")
+	@Path("dinero/hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDineroHostal() {
 
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
-
+			System.out.println(tm);
 			ArrayList<VOHostalExtra> hostal = tm.operadoresConCosas1();
+			System.out.println(hostal);
 			return Response.status(200).entity(hostal).build();
 		} 
 		catch (Exception e) {
+			System.out.println(e);
+			System.out.println(e.getMessage());
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
 
 	@GET
-	@Path("/requerimientos/dinero/hotel")
+	@Path("dinero/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDineroHotel() {
@@ -493,7 +497,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/dinero/persona")
+	@Path("dinero/persona")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDineroPersona() {
@@ -510,7 +514,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/dinero/viviendau")
+	@Path("dinero/viviendau")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDineroViviendaU() {
@@ -530,7 +534,7 @@ public class RequerimientosService <K extends Operador>
 	//RC2----------------------------------------------------------------------------
 
 	@GET
-	@Path("/requerimientos/20ofertas")
+	@Path("20ofertas")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getOfertasCool() {
@@ -550,12 +554,10 @@ public class RequerimientosService <K extends Operador>
 	//RC3----------------------------------------------------------------------------
 
 	@GET
-	@Path("/requerimientos/indice/hotel")
+	@Path("indice/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getIndiceHotel() {
-
-
 		try {
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
@@ -568,7 +570,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/hostal")
+	@Path("indice/hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getIndiceHostal() {
@@ -586,7 +588,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/persona")
+	@Path("indice/persona")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getIndicePersona() {
@@ -603,7 +605,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/indice/viviendau")
+	@Path("indice/viviendau")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getIndiceViviendaU() {
@@ -622,12 +624,13 @@ public class RequerimientosService <K extends Operador>
 	//RC4----------------------------------------------------------------------------
 
 	@GET
-	@Path("/requerimientos/disponible/hotel/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Path("disponible/hotel/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: .+}/{tipoPub: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDisponibleHotel(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
 
 		try {
+			System.out.println("SOY HGAY!");
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
 			ArrayList<VODisponible> sisa = tm.disponibilidadHotel(diaInic, diaFin, mesInic, mesFin, tipoServicioInmobiliario, tipoServicioPublico);
@@ -639,7 +642,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/disponible/hostal/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Path("disponible/hostal/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: .+}/{tipoPub: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDisponibleHostal(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
@@ -656,7 +659,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/disponible/persona/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Path("disponible/persona/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: .+}/{tipoPub: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDisponiblePersona(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
@@ -673,7 +676,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/disponible/vivienda/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: \\D+}/{tipoPub: \\D+}")
+	@Path("disponible/vivienda/{diaInic: \\d+}/{diaFin: \\d+}/{mesInic: \\d+}/{mesFin: \\d+}/{tipoInmo: .+}/{tipoPub: .+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getDisponibleViviendaU(@PathParam("diaInic") Integer diaInic,@PathParam("diaFin") Integer diaFin, @PathParam("mesInic") Integer mesInic, @PathParam("mesFin") Integer mesFin,@PathParam("tipoInmo") String tipoServicioInmobiliario, @PathParam("tipoPub") String tipoServicioPublico) {
@@ -691,7 +694,7 @@ public class RequerimientosService <K extends Operador>
 
 	//RC5----------------------------------------------------------------------------
 	@GET
-	@Path("/requerimientos/uso/hotel")
+	@Path("uso/hotel")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoHotel() {
@@ -708,7 +711,7 @@ public class RequerimientosService <K extends Operador>
 	}
 
 	@GET
-	@Path("/requerimientos/uso/hostal")
+	@Path("uso/hostal")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoHostal() {
@@ -726,7 +729,7 @@ public class RequerimientosService <K extends Operador>
 
 
 	@GET
-	@Path("/requerimientos/uso/persona")
+	@Path("uso/persona")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoPersona() {
@@ -744,7 +747,7 @@ public class RequerimientosService <K extends Operador>
 
 
 	@GET
-	@Path("/requerimientos/uso/viviendaU")
+	@Path("uso/viviendaU")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoVivienda() {
@@ -764,7 +767,7 @@ public class RequerimientosService <K extends Operador>
 
 	/*----------------Uso general de la aplicacion------- */
 	@GET
-	@Path("/requerimientos/uso/general/{id: \\d+}")
+	@Path("uso/general/{id: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoGeneralAplicacion(@PathParam("id") Integer id) {
@@ -782,7 +785,8 @@ public class RequerimientosService <K extends Operador>
 
 	/*----------------Detalles especificos(si es que  se tienen)------- */
 
-	@Path("/requerimientos/uso/especifico/{id: \\d+}")
+	@GET
+	@Path("uso/especifico/{id: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getUsoEspecificoAplicacion(@PathParam("id") Integer id) {
@@ -801,7 +805,8 @@ public class RequerimientosService <K extends Operador>
 
 	//RC7----------------------------------------------------------------------------
 
-	@Path("/requerimientos/fecha/mayordemanda/{tipo: \\D+}/{mes: \\d+}")
+	@GET
+	@Path("fecha/mayordemanda/{tipo: .+}/{mes: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFechaMayorDemanda(@PathParam("tipo") String tipo, @PathParam("mes") Integer mes) {
@@ -816,8 +821,9 @@ public class RequerimientosService <K extends Operador>
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
-
-	@Path("/requerimientos/fecha/mayoringresos/{tipo: \\D+}/{mes: \\d+}")
+	
+	@GET
+	@Path("fecha/mayoringresos/{tipo: .+}/{mes: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFechaMayorIngresos(@PathParam("tipo") String tipo, @PathParam("mes") Integer mes) {
@@ -833,7 +839,8 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	@Path("/requerimientos/fecha/menordemanda/{tipo: \\D+}/{mes: \\d+}")
+	@GET
+	@Path("fecha/menordemanda/{tipo: .+}/{mes: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFechaMenorDemanda(@PathParam("tipo") String tipo, @PathParam("mes") Integer mes) {
@@ -851,7 +858,8 @@ public class RequerimientosService <K extends Operador>
 
 	//RC8----------------------------------------------------------------------------
 
-	@Path("/requerimientos/clienteduracion/{tipo: \\D+}/{id: \\d+}")
+	@GET
+	@Path("clienteduracion/{tipo: .+}/{id: \\d+}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getClientePorDuracion(@PathParam("tipo") String tipo, @PathParam("id") Integer identificador) {
@@ -867,7 +875,8 @@ public class RequerimientosService <K extends Operador>
 		}
 	}
 
-	@Path("/requerimientos/clientereserva")
+	@GET
+	@Path("clientereserva")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getClientePorReseva() {
@@ -914,14 +923,11 @@ public class RequerimientosService <K extends Operador>
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response requerimientoRF8( @PathParam("id") Integer id)
 	{
+		AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 		try 
 		{
 			Reserva reservita = tm.cancelarReserva(id);
 			return Response.status(200).entity(reservita).build();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return Response.status(500).entity(doErrorMessage(e)).build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -951,12 +957,14 @@ public class RequerimientosService <K extends Operador>
 	@Produces( { MediaType.APPLICATION_JSON } )
 	public Response requerimientoRF10(@PathParam ("id") Integer id)
 	{
-		Oferta reservas = null;
+		Oferta reservas = new Oferta(id, id, false, id, id, id, id);
 		try
 		{
 			AlohAndesTransactionManager<K> tm = new AlohAndesTransactionManager<K>(getPath());
 
 			DAOOferta daoOferta = new DAOOferta();
+			Connection conn = tm.darConexion();
+			daoOferta.setConn(conn);
 
 			reservas = tm.activarOferta(daoOferta.findOfertaById(id));
 			return Response.status(200).entity(reservas).build();

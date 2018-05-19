@@ -61,7 +61,7 @@ public class DAOHabitacion
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
+		
 		while (rs.next()) {
 			habitacions.add(convertResultSetToHabitacion(rs));
 		}

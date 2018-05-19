@@ -133,10 +133,10 @@ public class DAOOferta
 	 */
 	public void updateOferta(Oferta oferta) throws SQLException, Exception {
 
-		StringBuilder sql = new StringBuilder();
-		sql.append (String.format ("UPDATE $s.OFERTA ", USUARIO));
-		sql.append (String.format (
-				"SET ID_OFERTA = %1$s, NUM_RESERVAS = %2$s, VIGENTE = '%3$s' , ID_HOSTAL = %4$s, ID_PERSONA = %5$s, ID_HOTEL = %6$s, ID_VIVIENDAU = %7$s",
+
+		String sql = (String.format (
+				"UPDATE %1$s.OFERTA SET ID_OFERTA = %2$s, NUM_RESERVAS = %3$s, VIGENTE = '%4$s' , ID_HOSTAL = %5$s, ID_PERSONA = %6$s, ID_HOTEL = %7$s, ID_VIVIENDAU = %8$s",
+				USUARIO,
 				oferta.getId(),
 				oferta.getNumReservas(),
 				oferta.toString(oferta.isVigente()),
@@ -144,10 +144,10 @@ public class DAOOferta
 				oferta.getIdPersona(),
 				oferta.getIdHotel(),
 				oferta.getIdViviendaU()));
-		sql.append (" WHERE ID_OFERTA = " + oferta.getId());
+		sql += (" WHERE ID_OFERTA = " + oferta.getId());
 		System.out.println(sql);
 
-		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}

@@ -82,9 +82,9 @@ public class DAOServicioPublico
 		 */
 		public ServicioPublico findServicioPublicoById(Integer id) throws SQLException, Exception 
 		{
-			ServicioPublico ServicioPublico = null;
+			ServicioPublico ServicioPublico = new ServicioPublico(id, id, null);
 
-			String sql = String.format("SELECT * FROM %1$s.SERVICIO_PUBLICO WHERE ID = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.SERVICIO_PUBLICO WHERE ID_SERVICIO_PUBLICO = %2$d", USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
