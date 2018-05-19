@@ -425,7 +425,7 @@ public class GenerarDatos
 		
 		Random r = new Random();
 
-		for(int pos = 1; pos < 1000001;pos++)
+		for(int pos = 1; pos < 10000;pos++)
 		{
 			sb.append(pos);
 			sb.append(',');
