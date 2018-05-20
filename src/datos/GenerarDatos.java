@@ -16,7 +16,7 @@ public class GenerarDatos
 	
 	
 	
-	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
+	public static String DIRECCION = "C:/Users/Valentina/Desktop/"; 
 	
 	public static int NUM_HOSTALES = 80;
 	public static int NUM_HOTELES = 60;
