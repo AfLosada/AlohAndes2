@@ -20,9 +20,9 @@ import javax.swing.plaf.ActionMapUIResource;
 public class GenerarDatos 
 {
 
-
-
-	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
+//"C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"
+	
+	public static String DIRECCION = "//Users//Valentina//Documents//Valentina//Cuarto Semestre//SisTrans//AlohAndes2//Docs//CSVS//"; 
 
 	public static Integer NUM_HOSTALES = 80;
 	public static Integer NUM_HOTELES = 60;
@@ -40,6 +40,12 @@ public class GenerarDatos
 	private String[] tipoHabitacion = {"SEMISUITE","ESTANDAR","DOBLE","SUITE"};
 
 	private String[] ubicacion = {"VISTA A LA CALLE","ULTIMO PISO","SEGUNDO PISO","ULTIMO PISO", "VISTA AL JARDIN"};
+	
+	private String[] carSeguro= {"COVERTURA PARCIAL", "COVERTURA TOTAL"}; //TAM2
+	
+	private String[] carVivienda = {"COLONIAL", "VISTA A LA MONTAÑA", "GRANDE", "ACABADOS EN MADERA","ESPACIOS AMPLIOS", "CERCA AL TRANSPORTE PUBLICO"}; //TAM6
+	
+	private String[] location= {"NORTE", "SUR", "ESTE", "OESTE"};//TAM4
 
 	private ArrayList<String> nombresPersonas;
 
@@ -461,8 +467,6 @@ public class GenerarDatos
 
 		for(Integer pos = 10001; pos < NUM_VIVIENDAU+10000;pos++)
 		{
-
-
 			sb.append(pos);
 			sb.append(',');
 			String amoblamiento = "F";
@@ -1007,6 +1011,7 @@ public class GenerarDatos
 		System.out.println("apartamento");
 	}
 	
+<<<<<<< HEAD
 	public void crearHabitacionesServiciosPublicos() throws FileNotFoundException
 	{
 
@@ -1053,10 +1058,95 @@ public class GenerarDatos
 	}
 
 	
+=======
+	public void crearVecino() throws FileNotFoundException
+	{
+
+		System.out.println("creando los vecinos");
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "vecino.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_VECINO");
+		sb.append(',');
+		sb.append("ID_PERSONA");
+		sb.append('\n');
+		
+
+		for(int pos = 312; pos < 20000+311;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(pos);
+			sb.append('\n');
+			
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("vecino");
+	}
+	
+	public void crearVivienda() throws FileNotFoundException
+	{
+		File f = new File(DIRECCION + "vivienda.csv");
+		f.getParentFile().mkdirs();
+		PrintWriter pw = new PrintWriter(f);
+		StringBuilder sb = new StringBuilder();
+
+		Random r = new Random();
+
+		sb.append("ID_VIVIENDA");
+		sb.append(',');
+		sb.append("CARACTERISTICAS_SEGURO");
+		sb.append(',');
+		sb.append("CARACTERISTICAS_VIVIENDA");
+		sb.append(',');
+		sb.append("PRECIO_VIVIENDA");
+		sb.append(',');
+		sb.append("ID_VECINO");
+		sb.append(',');
+		sb.append("CAPACIDAD");
+		sb.append(',');
+		sb.append("UBICACION");
+		sb.append(',');
+		sb.append("TIEMPO_USO");
+		sb.append(',');
+		sb.append('\n');
+
+		for(int pos = 312; pos < 20000+311;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(carSeguro[(int)Math.floor((Math.random() * 2))]);
+			sb.append(',');
+			sb.append(carVivienda[(int)Math.floor((Math.random() * 6))]);
+			sb.append(',');
+			Integer valor = ((Integer)(r.nextInt(700000-100000))+100000);
+			sb.append(valor);
+			sb.append(',');
+			sb.append(pos);
+			sb.append(',');
+			//capacidad de la vivienda
+			sb.append(r.nextInt((18-1)+1)+ 1);
+			sb.append(',');
+			sb.append(location[(int)Math.floor((Math.random() * 4))]);
+			sb.append(',');
+			//tiempo de uso de la vivienda
+			sb.append(r.nextInt((50-1)+1)+ 1);
+			sb.append(',');
+			sb.append('\n');
+		}
+
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("vivienda");
+	}
+
+>>>>>>> 1a6683409ca4d6d9196888082965a006ca7b528d
 
 	public static void main(String[] args) throws FileNotFoundException {
 
 		GenerarDatos temp = new GenerarDatos();
+<<<<<<< HEAD
 		temp.cargarNombresPersonas();
 		temp.crearCliente();
 		temp.crearHostales();
@@ -1070,6 +1160,24 @@ public class GenerarDatos
 		temp.crearApartamento();
 		temp.crearHabitacionesServiciosInmobiliarios();
 		temp.crearHabitacionesServiciosPublicos();
+=======
+
+//		temp.cargarNombresPersonas();
+//		temp.crearCliente();
+//		temp.crearHostales();
+//		temp.crearHoteles();
+//		temp.crearPersona();
+//		temp.crearViviendaU();
+//		temp.crearOferta();
+//		temp.crearReserva();
+//		temp.crearClienteReserva();
+//		temp.crearApartamento();
+//   	temp.crearVecino();
+		temp.crearVivienda();;
+        
+		//		temp.crearMenu();
+		//		temp.crearVentaMenu();
+>>>>>>> 1a6683409ca4d6d9196888082965a006ca7b528d
 	}
 
 }
