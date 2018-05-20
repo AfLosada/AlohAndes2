@@ -31,6 +31,10 @@ public class GenerarDatos
 	
 	private String[] tipoCliente = {"EMPLEADO","PROFESOR","ESTUDIANTE"};
 	
+	private String[] tipoHabitacion = {"SEMISUITE","ESTANDAR","DOBLE","SUITE"};
+	
+	private String[] ubicacion = {"VISTA A LA CALLE","ULTIMO PISO","SEGUNDO PISO","ULTIMO PISO", "VISTA AL JARDIN"};
+	
 	private ArrayList<String> nombresPersonas;
 	
 	private HashMap<Integer, Integer[]> hashOferta = new HashMap<>();
@@ -567,7 +571,133 @@ public class GenerarDatos
 				sb.append(',');
 				sb.append(',');
 				sb.append(',');
-				int xd = r.nextInt(311+20000-20000)+20000;
+				int xd = r.nextInt(311+NUM_PERSONAS-20000)+20000;
+				sb.append(xd);
+				sb.append(',');
+				garu[3] = xd;
+			}
+			String bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			sb.append('\n');
+			hashOferta.put(pos, garu);
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("ofertas");
+	}
+	
+	
+	public void crearHabitacion() throws FileNotFoundException
+	{
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "habitacion.csv"));
+		StringBuilder sb = new StringBuilder();
+		sb.append("ID_HABITACION");
+		sb.append(',');
+		sb.append("CAPACIDAD_HABITACION");
+		sb.append(',');
+		sb.append("PRECIO");
+		sb.append(',');
+		sb.append("TAMANIO");
+		sb.append(',');
+		sb.append("TIPO");
+		sb.append(',');
+		sb.append("UBICACION");
+		sb.append(',');
+		sb.append("ID_RESERVA");
+		sb.append(',');
+		sb.append("ID_OFERTA");
+		sb.append(',');
+		sb.append("ID_HOTEL");
+		sb.append(',');
+		sb.append("ID_PERSONA");
+		sb.append(',');
+		sb.append("ID_VIVIENDAU");
+		sb.append('\n');
+		
+		Random r = new Random();
+
+		//Revisar estos numeros
+		for(int pos = 104; pos < 100104;pos++)
+		{
+
+			Integer[] garu = new Integer[4];
+			
+			sb.append(pos);
+			sb.append(',');
+			//capacidad de la habitacion
+			sb.append(r.nextInt((6-1)+1)+ 1);
+			sb.append(',');
+			//Precio de la habitacion
+			int valor = ((int)(r.nextInt(100000-10000))+10000);
+			sb.append(valor);
+			sb.append(',');
+			//Tamanio de la habitacion
+			sb.append(r.nextInt((12-3)+1)+ 3);
+			sb.append(',');
+			//Tipo
+			sb.append(ubicacion[(int)Math.floor((Math.random() * 4))]);
+			sb.append(',');
+			//Ubicacion
+			sb.append(ubicacion[(int)Math.floor((Math.random() * 5))]);
+			sb.append(',');
+			
+			
+	        //oferta y sus alojamientos
+			
+			//generar un numero aleatorio que me de el id de la oferta
+			//Sacar la oferta del hash y encontrar sus alojamientos
+			
+			//identificar el id de la reserva
+			
+			
+			
+			
+			//esto es parte de oferta
+			boolean ya2 = false;
+			int ya = 0;
+			if(Math.random() > 0.5 && !ya2)
+			{
+				int xd = r.nextInt(45343+NUM_HOSTALES-45343)+45343;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[0] = xd; 
+			}
+			else if(Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				int xd = r.nextInt(10001+NUM_HOTELES-10000)+10001;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[1] = xd;
+			}
+			else if (Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				sb.append(',');
+				int xd = r.nextInt(10001+NUM_VIVIENDAU-10000)+10001;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[2] = xd;
+			}
+			else
+			{
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				int xd = r.nextInt(311+NUM_PERSONAS-20000)+20000;
 				sb.append(xd);
 				sb.append(',');
 				garu[3] = xd;
