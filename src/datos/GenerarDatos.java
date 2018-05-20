@@ -19,9 +19,9 @@ import javax.swing.plaf.ActionMapUIResource;
 public class GenerarDatos 
 {
 
-
-
-	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
+//"C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"
+	
+	public static String DIRECCION = "//Users//Valentina//Documents//Valentina//Cuarto Semestre//SisTrans//AlohAndes2//Docs//CSVS//"; 
 
 	public static int NUM_HOSTALES = 80;
 	public static int NUM_HOTELES = 60;
@@ -456,8 +456,6 @@ public class GenerarDatos
 
 		for(int pos = 10001; pos < NUM_VIVIENDAU+10000;pos++)
 		{
-
-
 			sb.append(pos);
 			sb.append(',');
 			String amoblamiento = "F";
@@ -980,20 +978,47 @@ public class GenerarDatos
 		pw.close();
 		System.out.println("apartamento");
 	}
+	
+	public void crearVecino() throws FileNotFoundException
+	{
+
+		System.out.println("creando los vecinos");
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "vecino.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_VECINO");
+		sb.append(',');
+		sb.append("ID_PERSONA");
+		sb.append('\n');
+		
+
+		for(int pos = 312; pos < 20000+311;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(pos);
+			sb.append('\n');
+			
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("apartamento");
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 
 		GenerarDatos temp = new GenerarDatos();
-		temp.cargarNombresPersonas();
-		temp.crearCliente();
-		temp.crearHostales();
-		temp.crearHoteles();
-		temp.crearPersona();
-		temp.crearViviendaU();
-		temp.crearOferta();
-		temp.crearReserva();
-		temp.crearClienteReserva();
-		temp.crearApartamento();
+//		temp.cargarNombresPersonas();
+//		temp.crearCliente();
+//		temp.crearHostales();
+//		temp.crearHoteles();
+//		temp.crearPersona();
+//		temp.crearViviendaU();
+//		temp.crearOferta();
+//		temp.crearReserva();
+//		temp.crearClienteReserva();
+//		temp.crearApartamento();
+		temp.crearVecino();
 		//		temp.crearMenu();
 		//		temp.crearVentaMenu();
 	}
