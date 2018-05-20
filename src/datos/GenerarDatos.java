@@ -23,6 +23,12 @@ public class GenerarDatos
 	public static int NUM_VIVIENDAU = 387;
 	public static int NUM_PERSONAS = 20000;
 	
+
+	public static int IDS_HOSTALES = 80;
+	public static int IDS_HOTELES = 60;
+	public static int IDS_VIVIENDAU = 387;
+	public static int IDS_PERSONAS = 20000;
+	
 	private String[] tipoCliente = {"EMPLEADO","PROFESOR","ESTUDIANTE"};
 	
 	private ArrayList<String> nombresPersonas;
@@ -125,7 +131,7 @@ public class GenerarDatos
 
 	public void crearHostales() throws FileNotFoundException
 	{
-		File f = new File(DIRECCION + "hostal.csv");
+		File f = new File(DIRECCION + "hostales.csv");
 		f.getParentFile().mkdirs();
 		PrintWriter pw = new PrintWriter(f);
 		StringBuilder sb = new StringBuilder();
@@ -183,9 +189,14 @@ public class GenerarDatos
 		}
 		
 		
-		for(int pos = 17; pos < NUM_HOSTALES;pos++)
+		for(int pos = 45343; pos < 45343 + NUM_HOSTALES;pos++)
 		{
-			sb.append(nombresHoteles.get(r.nextInt(NUM_HOSTALES)));
+			String sisa = nombresHoteles.get(r.nextInt(NUM_HOSTALES));
+			if(sisa.length() >= 32)
+			{
+				sisa = sisa.substring(0, 30);
+			}
+			sb.append(sisa);
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
@@ -196,8 +207,6 @@ public class GenerarDatos
 			sb.append(',');
 			int asd = ((int)new Random().nextInt(24-horaI+1) + horaI+1)%24;
 			sb.append( asd+ ":" + (int)Math.floor(Math.random() * (61))%60);
-			sb.append(',');
-			sb.append((int)(new Random()).nextInt(100-18) + 18);
 			sb.append(',');
 			String miembro = "F";
 			if(Math.random() >= 0.5)
@@ -238,7 +247,9 @@ public class GenerarDatos
 		
 		sb.append("NOMBRE");
 		sb.append(',');
-		sb.append("ID_HOSTAL");
+		sb.append("ID_HOTEL");
+		sb.append(',');
+		sb.append("CAPACIDAD_HOTEL");
 		sb.append(',');
 		sb.append("CAMARA_COMERCIO");
 		sb.append(',');
@@ -279,21 +290,13 @@ public class GenerarDatos
 		}
 		
 		
-		for(int pos = 1; pos < nombresHoteles.size();pos++)
+		for(int pos = 10001; pos < 10000+10001;pos++)
 		{
 			sb.append(nombresHoteles.get(r.nextInt(NUM_HOTELES)));
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
-			sb.append((int)Math.floor(Math.random() * 900));
-			sb.append(',');
-			int horaI =(int)Math.floor(Math.random() * 13)%12;
-			sb.append(horaI + ":" + ((int)Math.floor(Math.random() * (NUM_HOTELES+1)))%NUM_HOTELES);
-			sb.append(',');
-			int asd = ((int)new Random().nextInt(24-horaI+1) + horaI+1)%24;
-			sb.append( asd+ ":" + (int)Math.floor(Math.random() * (NUM_HOTELES+1))%NUM_HOTELES);
-			sb.append(',');
-			sb.append((int)(new Random()).nextInt(100-18) + 18);
+			sb.append((int)(Math.random()*800));
 			sb.append(',');
 			String miembro = "F";
 			if(Math.random() >= 0.5)
@@ -303,13 +306,6 @@ public class GenerarDatos
 			sb.append(miembro);
 			sb.append(',');
 			miembro = "F";
-			if(Math.random() >= 0.5)
-			{
-				miembro = "T";
-			}
-			sb.append(miembro);
-			sb.append(',');
-			 miembro = "F";
 			if(Math.random() >= 0.5)
 			{
 				miembro = "T";
@@ -345,7 +341,7 @@ public class GenerarDatos
 		sb.append("MIEMBRO_COMUNIDAD");
 		sb.append('\n');
 		
-		for(int pos = 1; pos < 20000;pos++)
+		for(int pos = 312; pos < 20000+311;pos++)
 		{
 			sb.append(nombresPersonas.get(r.nextInt(NUM_PERSONAS)) + nombresPersonas.get(r.nextInt(NUM_PERSONAS)));
 			sb.append(',');
@@ -422,6 +418,8 @@ public class GenerarDatos
 		sb.append(',');
 		sb.append("AMOBLAMIENTO");
 		sb.append(',');
+		sb.append("CAPACIDAD_VIVIENDA");
+		sb.append(',');
 		sb.append("DURACION_SERVICIO");
 		sb.append(',');
 		sb.append("CAMARA_COMERCIO");
@@ -431,12 +429,11 @@ public class GenerarDatos
 		sb.append("NOMBRE");
 		sb.append(',');
 		sb.append("PORTERIA24_HORAS");
-		sb.append(',');
 		sb.append('\n');
 		
 		Random r = new Random();
 
-		for(int pos = 1; pos < NUM_VIVIENDAU;pos++)
+		for(int pos = 10001; pos < NUM_VIVIENDAU+10000;pos++)
 		{
 			
 			
@@ -449,7 +446,7 @@ public class GenerarDatos
 			}
 			sb.append(amoblamiento);
 			sb.append(',');
-			sb.append((int)Math.floor(Math.random()) * 501);
+			sb.append(r.nextInt(46));
 			sb.append(',');
 			sb.append(r.nextInt(365-1)+1);
 			sb.append(',');
@@ -467,7 +464,12 @@ public class GenerarDatos
 			}
 			sb.append(amoblamiento);
 			sb.append(',');
-			sb.append(nombresHoteles.get(pos));
+			String sisa = nombresHoteles.get(pos%nombresHoteles.size());
+			if(sisa.length() >=32)
+			{
+				sisa = sisa.substring(0, 30);
+			}
+			sb.append(sisa);
 			sb.append(',');
 			amoblamiento = "F";
 			if(Math.random() > 0.5)
@@ -501,8 +503,10 @@ public class GenerarDatos
 		sb.append(',');
 		sb.append("VIGENTE");
 		sb.append('\n');
+		
+		Random r = new Random();
 
-		for(int pos = 0; pos < 10000;pos++)
+		for(int pos = 104; pos < 100104;pos++)
 		{
 
 			Integer[] garu = new Integer[4];
@@ -515,7 +519,7 @@ public class GenerarDatos
 			int ya = 0;
 			if(Math.random() > 0.5 && !ya2)
 			{
-				int xd = (int)Math.floor(Math.random()*(NUM_HOSTALES+1))%(NUM_HOSTALES+1);
+				int xd = r.nextInt(45343+NUM_HOSTALES-45343)+45343;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
@@ -524,10 +528,10 @@ public class GenerarDatos
 				ya2 = true;
 				garu[0] = xd; 
 			}
-			if(Math.random() > 0.5 && !ya2)
+			else if(Math.random() > 0.5 && !ya2)
 			{
 				sb.append(',');
-				int xd = (int)Math.floor(Math.random()*(NUM_HOTELES+1)%((NUM_HOTELES+1)));
+				int xd = r.nextInt(10001+NUM_HOTELES-10000)+10001;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
@@ -535,24 +539,23 @@ public class GenerarDatos
 				ya2 = true;
 				garu[1] = xd;
 			}
-			if (Math.random() > 0.5 && !ya2)
+			else if (Math.random() > 0.5 && !ya2)
 			{
 				sb.append(',');
 				sb.append(',');
-				int xd = (int)Math.floor(Math.random()*(NUM_VIVIENDAU+1))%(NUM_VIVIENDAU+1);
+				int xd = r.nextInt(10001+NUM_VIVIENDAU-10000)+10001;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
 				ya2 = true;
 				garu[2] = xd;
 			}
-			if((Math.random() > 0.5 && !ya2) )
+			else
 			{
 				sb.append(',');
 				sb.append(',');
 				sb.append(',');
-				int xd = (int)Math.floor(Math.random()*(NUM_VIVIENDAU+1))%(NUM_VIVIENDAU+1);
-				sb.append(',');
+				int xd = r.nextInt(311+20000-20000)+20000;
 				sb.append(xd);
 				sb.append(',');
 				garu[3] = xd;
