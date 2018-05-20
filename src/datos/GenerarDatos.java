@@ -16,7 +16,7 @@ public class GenerarDatos
 	
 	
 	
-	public static String DIRECCION = "C:/Users/Valentina/Desktop/"; 
+	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
 	
 	public static int NUM_HOSTALES = 80;
 	public static int NUM_HOTELES = 60;
@@ -574,6 +574,136 @@ public class GenerarDatos
 		System.out.println("ofertas");
 	}
 	
+	
+	public void crearReserva() throws FileNotFoundException
+	{
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "reserva.csv"));
+		StringBuilder sb = new StringBuilder();
+		sb.append("ID_OFERTA");
+		sb.append(',');
+		sb.append("CONFIRMADA");
+		sb.append(',');
+		sb.append("FECHA");
+		sb.append(',');
+		sb.append("TIEMPO_CANCELACION");
+		sb.append(',');
+		sb.append("VALOR");
+		sb.append(',');
+		sb.append("ID_HOSTAL");
+		sb.append(',');
+		sb.append("ID_HOTEL");
+		sb.append(',');
+		sb.append("ID_VIVIENDAU");
+		sb.append(',');
+		sb.append("ID_PERSONA");
+		sb.append(',');
+		sb.append("DURACION");
+		sb.append(',');
+		sb.append("PAGO_ANTICIPADO");
+		sb.append('\n');
+		
+		Random r = new Random();
+
+		for(int pos = 104; pos < 500104;pos++)
+		{
+
+			Integer[] garu = new Integer[4];
+			
+			sb.append(pos);
+			sb.append(',');
+			String bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			sb.append(',');
+			
+			//Generador de fechas
+			
+			String fecha ="" +  ((int)(Math.random() *28)) +  "-" + ((int)(Math.random() *12)) + "-2018";
+			sb.append(fecha);
+			sb.append(',');
+			//Generador de horas
+			String hora = "" + ((int)(Math.random() *24)) + ":" + ((int)(Math.random() * 60));
+			sb.append(hora);
+			sb.append(',');
+			
+			int valor = ((int)(r.nextInt(400000-1000))+1000);
+			sb.append(valor);
+			sb.append(',');
+			
+			boolean ya2 = false;
+			int ya = 0;
+			if(Math.random() > 0.5 && !ya2)
+			{
+				int xd = r.nextInt(45343+NUM_HOSTALES-45343)+45343;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[0] = xd; 
+			}
+			else if(Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				int xd = r.nextInt(10001+NUM_HOTELES-10000)+10001;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[1] = xd;
+			}
+			else if (Math.random() > 0.5 && !ya2)
+			{
+				sb.append(',');
+				sb.append(',');
+				int xd = r.nextInt(10001+NUM_VIVIENDAU-10000)+10001;
+				sb.append(xd);
+				sb.append(',');
+				sb.append(',');
+				ya2 = true;
+				garu[2] = xd;
+			}
+			else
+			{
+				sb.append(',');
+				sb.append(',');
+				sb.append(',');
+				int xd = r.nextInt(311+20000-20000)+20000;
+				sb.append(xd);
+				sb.append(',');
+				garu[3] = xd;
+			}
+			bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			sb.append(',');
+			
+			//duracion
+			int duracion = ((int)(Math.random() * 365));
+			sb.append(duracion);
+			sb.append(',');
+			bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			sb.append('\n');
+			hashOferta.put(pos, garu);
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("reserva");
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		GenerarDatos temp = new GenerarDatos();
@@ -584,6 +714,7 @@ public class GenerarDatos
 		temp.crearPersona();
 		temp.crearViviendaU();
 		temp.crearOferta();
+		temp.crearReserva();
 //		temp.crearMenu();
 //		temp.crearVentaMenu();
 	}
