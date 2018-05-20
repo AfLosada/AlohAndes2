@@ -1006,6 +1006,53 @@ public class GenerarDatos
 		pw.close();
 		System.out.println("apartamento");
 	}
+	
+	public void crearHabitacionesServiciosPublicos() throws FileNotFoundException
+	{
+
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "habitacionesserviciospublicos.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_HABITACION");
+		sb.append(',');
+		sb.append("ID_SERVICIO_PUBLICO");
+		sb.append('\n');
+		for(Integer pos =104; pos < 600104;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(r.nextInt(54-45)+45);
+			sb.append('\n');
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("habitacionesserviciospublicos");
+	}
+
+	
+	public void crearHabitacionesServiciosInmobiliarios() throws FileNotFoundException
+	{
+
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "habitacionesserviciosinmobiliarios.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_HABITACION");
+		sb.append(',');
+		sb.append("ID_SERVICIO_INMOBILIARIO");
+		sb.append('\n');
+		for(Integer pos =104; pos < 600104;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(r.nextInt(58-41)+41);
+			sb.append('\n');
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("habitacionesserviciosinmobiliarios");
+	}
+
+	
 
 	public static void main(String[] args) throws FileNotFoundException {
 
@@ -1021,8 +1068,8 @@ public class GenerarDatos
 		temp.crearClienteReserva();
 		temp.crearHabitacion();
 		temp.crearApartamento();
-		//		temp.crearMenu();
-		//		temp.crearVentaMenu();
+		temp.crearHabitacionesServiciosInmobiliarios();
+		temp.crearHabitacionesServiciosPublicos();
 	}
 
 }
