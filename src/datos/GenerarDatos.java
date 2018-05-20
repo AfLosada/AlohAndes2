@@ -34,7 +34,9 @@ public class GenerarDatos
 	private ArrayList<String> nombresPersonas;
 	
 	private HashMap<Integer, Integer[]> hashOferta = new HashMap<>();
-	
+
+	private HashMap<Integer, Integer> hashReserva = new HashMap<>();
+
 	
 	public void cargarNombresPersonas()
 	{
@@ -604,7 +606,7 @@ public class GenerarDatos
 		
 		Random r = new Random();
 
-		for(int pos = 104; pos < 500104;pos++)
+		for(int pos = 667; pos < 500667;pos++)
 		{
 
 			Integer[] garu = new Integer[4];
@@ -697,11 +699,32 @@ public class GenerarDatos
 			}
 			sb.append(bulean);
 			sb.append('\n');
-			hashOferta.put(pos, garu);
 		}
 		pw.write(sb.toString());
 		pw.close();
 		System.out.println("reserva");
+	}
+	
+	public void crearClienteReserva() throws FileNotFoundException
+	{
+
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "reservaclientes.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_RESERVA");
+		sb.append(',');
+		sb.append("ID_CLIENTE");
+		sb.append('\n');
+		for(int pos = 667; pos < 500667;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			sb.append(r.nextInt(70001-17)+17);
+			sb.append('\n');
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("reservaclientes");
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
@@ -715,6 +738,8 @@ public class GenerarDatos
 		temp.crearViviendaU();
 		temp.crearOferta();
 		temp.crearReserva();
+		temp.crearClienteReserva();
+		
 //		temp.crearMenu();
 //		temp.crearVentaMenu();
 	}
