@@ -40,6 +40,12 @@ public class GenerarDatos
 	private String[] tipoHabitacion = {"SEMISUITE","ESTANDAR","DOBLE","SUITE"};
 
 	private String[] ubicacion = {"VISTA A LA CALLE","ULTIMO PISO","SEGUNDO PISO","ULTIMO PISO", "VISTA AL JARDIN"};
+	
+	private String[] carSeguro= {"COVERTURA PARCIAL", "COVERTURA TOTAL"}; //TAM2
+	
+	private String[] carVivienda = {"COLONIAL", "VISTA A LA MONTAÑA", "GRANDE", "ACABADOS EN MADERA","ESPACIOS AMPLIOS", "CERCA AL TRANSPORTE PUBLICO"}; //TAM6
+	
+	private String[] location= {"NORTE", "SUR", "ESTE", "OESTE"};//TAM4
 
 	private ArrayList<String> nombresPersonas;
 
@@ -1060,45 +1066,38 @@ public class GenerarDatos
 
 		for(int pos = 312; pos < 20000+311;pos++)
 		{
-			sb.append(nombresPersonas.get(r.nextInt(NUM_PERSONAS)) + nombresPersonas.get(r.nextInt(NUM_PERSONAS)));
+			sb.append(pos);
+			sb.append(',');
+			sb.append(carSeguro[(int)Math.floor((Math.random() * 2))]);
+			sb.append(',');
+			sb.append(carVivienda[(int)Math.floor((Math.random() * 6))]);
+			sb.append(',');
+			Integer valor = ((Integer)(r.nextInt(700000-100000))+100000);
+			sb.append(valor);
 			sb.append(',');
 			sb.append(pos);
 			sb.append(',');
-			sb.append((int)(new Random()).nextInt(100-18) + 18);
+			//capacidad de la vivienda
+			sb.append(r.nextInt((18-1)+1)+ 1);
 			sb.append(',');
-			String miembro = "F";
-			if(Math.random() >= 0.5)
-			{
-				miembro = "T";
-			}
-			sb.append(miembro);
+			sb.append(location[(int)Math.floor((Math.random() * 4))]);
 			sb.append(',');
-			miembro = "F";
-			if(Math.random() >= 0.5)
-			{
-				miembro = "T";
-			}
-			sb.append(miembro);
+			//tiempo de uso de la vivienda
+			sb.append(r.nextInt((50-1)+1)+ 1);
 			sb.append(',');
-			miembro = "F";
-			if(Math.random() >= 0.5)
-			{
-				miembro = "T";
-			}
-			sb.append(miembro);
 			sb.append('\n');
 		}
 
 		pw.write(sb.toString());
 		pw.close();
-		System.out.println("persona");
+		System.out.println("vivienda");
 	}
 
 
 	public static void main(String[] args) throws FileNotFoundException {
 
 		GenerarDatos temp = new GenerarDatos();
-<<<<<<< HEAD
+
 //		temp.cargarNombresPersonas();
 //		temp.crearCliente();
 //		temp.crearHostales();
@@ -1109,20 +1108,9 @@ public class GenerarDatos
 //		temp.crearReserva();
 //		temp.crearClienteReserva();
 //		temp.crearApartamento();
-		temp.crearVecino();
-=======
-		temp.cargarNombresPersonas();
-		temp.crearCliente();
-		temp.crearHostales();
-		temp.crearHoteles();
-		temp.crearPersona();
-		temp.crearViviendaU();
-		temp.crearOferta();
-		temp.crearReserva();
-		temp.crearClienteReserva();
-		temp.crearHabitacion();
-		temp.crearApartamento();
->>>>>>> origin/master
+//   	temp.crearVecino();
+		temp.crearVivienda();;
+        
 		//		temp.crearMenu();
 		//		temp.crearVentaMenu();
 	}
