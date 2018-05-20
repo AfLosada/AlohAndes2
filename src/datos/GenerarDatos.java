@@ -36,6 +36,8 @@ public class GenerarDatos
 	private HashMap<Integer, Integer[]> hashOferta = new HashMap<>();
 
 	private HashMap<Integer, Integer> hashReserva = new HashMap<>();
+	
+	private HashMap<Integer, Integer> hashPersona = new HashMap<>();
 
 	
 	public void cargarNombresPersonas()
@@ -561,6 +563,7 @@ public class GenerarDatos
 				sb.append(xd);
 				sb.append(',');
 				garu[3] = xd;
+				hashPersona.put(xd, pos);
 			}
 			String bulean = "F";
 			if(Math.random() > 0.5)
@@ -680,14 +683,6 @@ public class GenerarDatos
 				sb.append(',');
 				garu[3] = xd;
 			}
-			bulean = "F";
-			if(Math.random() > 0.5)
-			{
-				bulean = "T";
-			}
-			sb.append(bulean);
-			sb.append(',');
-			
 			//duracion
 			int duracion = ((int)(Math.random() * 365));
 			sb.append(duracion);
@@ -727,6 +722,63 @@ public class GenerarDatos
 		System.out.println("reservaclientes");
 	}
 	
+	public void crearApartamento() throws FileNotFoundException
+	{
+
+		PrintWriter pw = new PrintWriter(new File(DIRECCION + "apartamento.csv"));
+		StringBuilder sb = new StringBuilder();
+		Random r = new Random();
+		sb.append("ID_APARTAMENTO");
+		sb.append(',');
+		sb.append("AMOBLADO");
+		sb.append(',');
+		sb.append("CAPACIDAD_APTO");
+		sb.append(',');
+		sb.append("PRECIO_APTO");
+		sb.append(',');
+		sb.append("ID_PERSONA");
+		sb.append(',');
+		sb.append("ID_OFERTA");
+		sb.append(',');
+		sb.append("INCLUYE_SERVICIOS");
+		sb.append('\n');
+		for(int pos = 124; pos < 100125;pos++)
+		{
+			sb.append(pos);
+			sb.append(',');
+			String bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			sb.append(',');
+			int capacidad = r.nextInt(10-1)+10;
+			sb.append(capacidad);
+			sb.append(',');
+			int precio = (r.nextInt(1000-1)+1)*1000;
+			sb.append(precio);
+			sb.append(',');
+			int persona = r.nextInt(311+20000-20000)+20000;
+			int oferta = hashPersona.get(persona);
+			sb.append(persona);
+			sb.append(',');
+			sb.append(oferta);
+			sb.append(',');
+			bulean = "F";
+			if(Math.random() > 0.5)
+			{
+				bulean = "T";
+			}
+			sb.append(bulean);
+			
+			sb.append('\n');
+		}
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("apartamento");
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		GenerarDatos temp = new GenerarDatos();
@@ -739,7 +791,7 @@ public class GenerarDatos
 		temp.crearOferta();
 		temp.crearReserva();
 		temp.crearClienteReserva();
-		
+		temp.crearApartamento();
 //		temp.crearMenu();
 //		temp.crearVentaMenu();
 	}
