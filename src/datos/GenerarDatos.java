@@ -38,6 +38,14 @@ public class GenerarDatos
 	private HashMap<Integer, Integer> hashReserva = new HashMap<>();
 	
 	private HashMap<Integer, Integer> hashPersona = new HashMap<>();
+	
+	//Hash para cada proveedor y su oferta
+	
+
+	private HashMap<Integer, Integer> hashHotelOferta = new HashMap<>();
+	private HashMap<Integer, Integer> hashHostalOferta = new HashMap<>();
+	private HashMap<Integer, Integer> hashPersonaOferta = new HashMap<>();
+	private HashMap<Integer, Integer> hashViviendaUOferta = new HashMap<>();
 
 	
 	public void cargarNombresPersonas()
