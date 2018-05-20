@@ -1002,8 +1002,72 @@ public class GenerarDatos
 		}
 		pw.write(sb.toString());
 		pw.close();
-		System.out.println("apartamento");
+		System.out.println("vecino");
 	}
+	
+	public void crearVivienda() throws FileNotFoundException
+	{
+		File f = new File(DIRECCION + "vivienda.csv");
+		f.getParentFile().mkdirs();
+		PrintWriter pw = new PrintWriter(f);
+		StringBuilder sb = new StringBuilder();
+
+		Random r = new Random();
+
+		sb.append("ID_VIVIENDA");
+		sb.append(',');
+		sb.append("CARACTERISTICAS_SEGURO");
+		sb.append(',');
+		sb.append("CARACTERISTICAS_VIVIENDA");
+		sb.append(',');
+		sb.append("PRECIO_VIVIENDA");
+		sb.append(',');
+		sb.append("ID_VECINO");
+		sb.append(',');
+		sb.append("CAPACIDAD");
+		sb.append(',');
+		sb.append("UBICACION");
+		sb.append(',');
+		sb.append("TIEMPO_USO");
+		sb.append(',');
+		sb.append('\n');
+
+		for(int pos = 312; pos < 20000+311;pos++)
+		{
+			sb.append(nombresPersonas.get(r.nextInt(NUM_PERSONAS)) + nombresPersonas.get(r.nextInt(NUM_PERSONAS)));
+			sb.append(',');
+			sb.append(pos);
+			sb.append(',');
+			sb.append((int)(new Random()).nextInt(100-18) + 18);
+			sb.append(',');
+			String miembro = "F";
+			if(Math.random() >= 0.5)
+			{
+				miembro = "T";
+			}
+			sb.append(miembro);
+			sb.append(',');
+			miembro = "F";
+			if(Math.random() >= 0.5)
+			{
+				miembro = "T";
+			}
+			sb.append(miembro);
+			sb.append(',');
+			miembro = "F";
+			if(Math.random() >= 0.5)
+			{
+				miembro = "T";
+			}
+			sb.append(miembro);
+			sb.append('\n');
+		}
+
+		pw.write(sb.toString());
+		pw.close();
+		System.out.println("persona");
+	}
+
 
 	public static void main(String[] args) throws FileNotFoundException {
 
