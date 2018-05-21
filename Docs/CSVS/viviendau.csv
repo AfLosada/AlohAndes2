@@ -1,0 +1,387 @@
+ID_VIVIENDAU,AMOBLAMIENTO,CAPACIDAD_VIVIENDA,DURACION_SERVICIO,CAMARA_COMERCIO,SUPERINTENDENCIA_TURISMO,NOMBRE,PORTERIA24_HORAS
+10001,F,32,334,F,T,Time and Life Building (1937),F
+10002,T,45,46,T,T,Time-Life Building (1959),T
+10003,T,0,19,T,F,Time Warner Center (2004),F
+10004,T,21,200,T,F,Times Square Tower (2004),F
+10005,F,25,269,F,T,Times Tower (1904),F
+10006,T,34,137,F,F,Time Warner Building (1947),T
+10007,T,9,318,T,T,Tishman Building (1957),F
+10008,T,22,261,T,F,Tribeca Bridge Tower (1998),F
+10009,T,26,145,F,F,Tribeca Park (1999),F
+10010,F,38,349,F,F,Tribeca Pointe (1999),T
+10011,T,7,190,T,T,Trinity Building (1905),T
+10012,F,30,356,F,F,Trump Tower (1983),T
+10013,T,39,352,T,F,Trump International Hotel & To,T
+10014,T,43,341,T,F,Trump Place,F
+10015,F,11,330,F,F,Trump World Tower (2001),F
+10016,T,42,120,F,T,(1 & 2) U.N. Plaza – Park Hyat,T
+10017,F,11,191,T,T,Union Carbide Building (1960),F
+10018,T,45,250,F,F,United Nations Secretariat (19,F
+10019,T,33,292,F,F,Universal Pictures Building (1,F
+10020,F,24,272,F,T,University Plaza (1966),F
+10021,T,40,333,F,F,Uris Building (1972),T
+10022,T,42,223,F,T,U.S. Courthouse (1936),T
+10023,T,23,61,T,T,U.S. Plywood Building (1963),T
+10024,F,42,256,T,T,U.S. Steel Building (1972),T
+10025,F,43,42,T,F,V33 (under construction),F
+10026,F,43,247,F,F,Verdesian (2006),F
+10027,T,13,141,F,F,Victory (2002),F
+10028,T,29,94,F,F,Visionaire (2008),T
+10029,F,22,206,F,F,Waldorf Astoria Hotel (1931),T
+10030,F,9,44,F,F,Waterside (1974),F
+10031,F,29,301,F,T,The Westport (2003),T
+10032,T,36,15,F,F,Western Union Building (1930),F
+10033,F,33,269,T,T,The Whitehall Building (1904),T
+10034,F,33,267,F,F,Whitehall Building Annex (1911),F
+10035,T,15,350,F,T,The Windermere (1881),F
+10036,T,24,89,F,T,Woolworth Building (1913),F
+10037,F,39,46,F,F,World Trade Center (1973) dest,F
+10038,F,31,101,F,F,World Trade Center Tower #1 (2,F
+10039,F,2,244,F,T,W. R. Grace Building (1974),T
+10040,F,41,244,F,T,Reinhard Mucha. Hidden Tracks.,F
+10041,T,16,255,T,F,Williamsburg Gallery Crawl,T
+10042,T,16,161,F,F,Folkert De Jong at James Cohan,F
+10043,F,15,254,F,T,John Chamberlain at Pace Galle,F
+10044,F,13,282,T,F,Fountain Art Fair,F
+10045,T,17,69,F,T,Archives,T
+10046,F,12,92,F,T,December 2013,T
+10047,T,24,159,T,T,September 2011,F
+10048,F,16,237,T,F,May 2011,F
+10049,F,6,121,T,F,March 2011,F
+10050,F,33,107,T,F,January 2011,F
+10051,F,26,28,F,F,December 2010,F
+10052,F,41,210,F,F,October 2010,T
+10053,T,29,299,T,T,September 2010,F
+10054,F,38,193,T,T,August 2010,F
+10055,F,20,281,T,F,July 2010,T
+10056,T,15,349,F,T,June 2010,F
+10057,T,14,31,F,F,May 2010,F
+10058,F,24,7,F,T,March 2010,T
+10059,T,16,305,T,T,February 2010,T
+10060,F,8,293,T,F,December 2009,T
+10061,T,44,144,F,T,September 2009,F
+10062,F,17,173,F,F,1 Astor Plaza (1972),T
+10063,T,12,80,F,T,1 Bryant Park (2008),T
+10064,T,21,127,T,T,1 Carnegie Hill (2006),T
+10065,F,18,67,T,T,1 Central Park (2004),F
+10066,F,43,216,T,F,1 Dag Hammarskjold Plaza (1972),F
+10067,F,32,186,F,F,1 Fifth Avenue (1929),F
+10068,T,45,263,F,T,1 Financial Square (1987),F
+10069,F,25,186,T,T,1 Grand Army Plaza (2008),F
+10070,T,28,344,F,F,1 Liberty Plaza (1972),F
+10071,F,33,308,F,T,1 N.Y. Plaza (1969),T
+10072,F,43,248,F,T,1 Penn Plaza (1972),T
+10073,F,44,319,T,F,1 Rockefeller Plaza (1937),F
+10074,T,0,313,F,T,1 Seaport Plaza (1983),T
+10075,T,26,147,F,T,1 Times Square (1904),F
+10076,T,2,210,F,F,1 Union Square South (1999),F
+10077,T,24,172,F,T,1 Wall Street (1931),F
+10078,F,24,51,F,F,1 World Financial Center (1986),T
+10079,F,26,128,T,T,1 World Trade Center (1972) de,F
+10080,F,9,259,F,T,1 Word Trade Center (2013),T
+10081,F,22,282,T,T,1 Worldwide Plaza (1989),T
+10082,F,20,99,T,F,10 Columbus Circle (2003),T
+10083,F,24,236,F,F,10 E 40th Street (1928),T
+10084,T,44,25,F,F,100 Park Avenue (1949),F
+10085,T,31,260,F,T,100 U.N. Plaza (1986),F
+10086,T,7,173,F,T,100 William Street (1974),F
+10087,T,44,55,T,T,1001 Fifth Avenue (1979),F
+10088,T,43,112,F,F,101 Park Avenue (1985),T
+10089,T,41,142,T,T,101 Warren St (2008),F
+10090,T,4,154,F,T,101 West End Avenue (2000),F
+10091,F,25,191,T,F,11 Times Square,T
+10092,T,7,22,F,F,110 East 42nd Street (1923),T
+10093,T,33,324,T,T,1133 Sixth Avenue (1969),F
+10094,T,6,206,T,T,1166 Sixth Avenue (1973),T
+10095,F,44,171,F,F,12 Metrotech Center,T
+10096,T,36,168,F,T,120 Wall Street (1930),F
+10097,T,13,211,F,F,127 John Street (1971),F
+10098,T,7,20,F,T,1270 Sixth Avenue (1932),T
+10099,F,19,98,T,T,130 Liberty Street (1974),F
+10100,T,2,187,T,F,135 East 57th Street (1987),F
+10101,F,43,188,T,T,15 Columbus Circle (1970),F
+10102,F,21,54,T,F,15 William Street (2005),F
+10103,T,36,263,F,T,1515 Broadway (1972),F
+10104,F,35,113,F,T,1585 Broadway (1989),F
+10105,F,27,330,F,T,165 Charles Street (2005),F
+10106,F,26,316,F,T,17 State Street (1988),F
+10107,F,10,292,F,T,173 Perry Street (2002),T
+10108,T,23,284,F,T,1739 Broadway (2002),T
+10109,T,39,98,F,T,175 East 96th Street (1992),F
+10110,F,13,165,T,T,176 Perry Street (2002),T
+10111,F,20,174,F,F,2 Broadway (1959),F
+10112,T,40,31,F,T,2 Columbus Circle (1965),F
+10113,T,25,225,T,T,2 Dag Hammarskjold Plaza,F
+10114,T,41,64,T,F,2 N.Y. Plaza (1971),F
+10115,F,17,144,T,T,2 Penn Plaza (1968),F
+10116,F,5,66,T,T,2 Times Square,F
+10117,T,40,307,T,T,2 World Financial Center (1987),F
+10118,T,17,202,F,F,2 World Trade Center (1973),F
+10119,F,37,105,T,F,20 River Terrace (2003),T
+10120,T,37,164,T,T,20 Exchange Place (1931),F
+10121,F,20,360,T,T,20 Times Square,F
+10122,T,29,82,F,T,200 Water Street (1971),T
+10123,T,11,108,T,F,211 North End Avenue (2006),F
+10124,F,0,228,T,T,211 West 56th Street (1982),F
+10125,T,18,164,F,T,22 River Terrace (2001),T
+10126,T,32,110,T,F,230 West 56th Street (2002),T
+10127,F,27,123,F,F,240 Riverside Boulevard at Tru,T
+10128,F,22,259,F,T,275 Madison Avenue (1931),T
+10129,T,8,145,F,T,3 Times Square (2001),T
+10130,F,12,8,T,T,3 World Financial Center (1985),F
+10131,F,30,51,T,F,30 Broad Street (1932),F
+10132,T,11,301,F,T,30 Hudson Street (2003),T
+10133,F,25,65,T,T,33 Vestry Street (under constr,T
+10134,F,40,92,F,F,300 Madison Avenue (2003),T
+10135,T,35,107,F,T,325 Fifth Avenue (2006),F
+10136,T,1,233,T,T,33 Maiden Lane (1986),T
+10137,T,37,27,F,F,34 River Terrace (1999),F
+10138,F,12,255,T,F,320 West 38th Street (2009),F
+10139,T,39,271,T,T,343 West 42nd Street (2002),T
+10140,T,26,127,T,T,345 Park Avenue (1969),T
+10141,T,44,250,T,T,350 West 50th Street (1989),T
+10142,F,9,235,F,F,383 Madison Avenue (2002),F
+10143,F,0,52,F,F,4 N.Y. Plaza (1969),F
+10144,T,33,285,T,T,4 Times Square (1999),F
+10145,F,13,27,F,F,4 World Financial Center (1986),T
+10146,T,13,115,F,T,40 Wall Street (1930),T
+10147,T,5,154,T,F,41 River Terrace (1999),T
+10148,F,26,165,F,F,402 East 67th Street (2008),F
+10149,T,8,41,T,T,425 Fifth Avenue (2003),T
+10150,F,7,342,F,F,48 Wall Street (1927),T
+10151,T,35,295,F,T,497 Greenwich Street (2004),T
+10152,T,19,58,F,T,5 Times Square (2003),T
+10153,T,1,225,T,F,500 Fifth Avenue (1931),T
+10154,T,24,204,T,F,50 East 42nd Street (1916),F
+10155,F,20,343,T,T,505 Fifth Avenue (2005),F
+10156,F,32,28,F,F,505 Greenwich Street (2004),T
+10157,F,29,217,T,F,520 Madison Avenue (1982),T
+10158,F,37,46,F,F,55 Water Street (1972),T
+10159,F,41,172,F,F,59 Maiden Lane (1966),T
+10160,F,43,35,F,F,599 Lexington Avenue (1986),F
+10161,F,13,291,T,T,60 Wall Street (1989),F
+10162,F,43,8,T,T,600 West 42nd Street (2010),T
+10163,T,3,345,T,F,601 Lexington Avenue (1977),T
+10164,F,2,313,T,T,63 Wall Street (1929),T
+10165,F,13,320,F,F,666 Fifth Avenue (1957),F
+10166,T,3,110,T,T,7 Times Square (2003),T
+10167,F,45,188,T,T,7 World Trade Center (1985),T
+10168,F,39,194,F,T,70 Little West Street (2008),F
+10169,F,14,335,F,F,70 Pine Street (1932),T
+10170,T,38,357,F,F,712 Fifth Avenue (1990),T
+10171,T,28,213,F,T,731 Lexington (2004),T
+10172,F,30,200,T,T,745 Seventh Avenue (2001),T
+10173,T,28,201,F,F,750 Seventh Avenue (1989),T
+10174,F,40,97,T,T,77 Water Street (1970),F
+10175,F,4,111,F,F,777 Third Avenue (1963),T
+10176,T,10,108,F,F,80 South Street (2006),T
+10177,F,3,288,F,T,85 Broad Street (1983),T
+10178,T,27,179,T,T,845 UN Plaza (2001),F
+10179,F,22,144,F,F,860-870 U.N. Plaza (1966),T
+10180,F,27,17,F,T,88 Pine Street (1973),F
+10181,F,13,342,F,T,885 Third Avenue – Lipstick (1,T
+10182,T,20,334,T,T,9 W 57th Street (1974),F
+10183,F,37,167,T,F,90 West Street (1907),F
+10184,F,15,258,F,F,Adams Building (1914),T
+10185,T,14,348,F,T,American Brands Building (1967),F
+10186,F,32,139,F,F,American International Buildin,T
+10187,T,4,146,F,F,American Radiator Building (19,T
+10188,T,7,238,T,F,American Standard Building (19,F
+10189,T,1,78,F,F,American Tract Society Buildin,F
+10190,T,27,285,T,F,The Andover (1975),F
+10191,F,40,85,F,T,Annenberg Building (1974),T
+10192,T,35,113,T,T,AOL Time Warner Center (2004),F
+10193,T,31,363,T,F,Arthur A. Schomburg Plaza (197,F
+10194,F,11,263,T,F,Astor Place (2005),F
+10195,T,2,11,F,F,AT&T Building (1932),T
+10196,T,40,286,F,T,(ex-)AT&T Building (1984),F
+10197,T,17,291,T,T,AT&T Long Lines Building (1974),T
+10198,F,16,316,F,F,Avalon Riverview (2002),T
+10199,F,6,238,F,F,The Bamford (1982),F
+10200,F,7,152,F,F,Bankers Trust Co. Building (19,T
+10201,F,6,266,F,T,Bankers Trust Plaza (1974),T
+10202,F,40,176,T,T,Bank of America Tower (2008),F
+10203,F,40,245,F,T,Bank of Manhattan Building (19,F
+10204,F,21,139,F,T,Bank of New York Building (48 ,T
+10205,F,15,307,T,T,Bank of New York Building II (,T
+10206,F,30,95,T,F,The Barclay (1985),F
+10207,F,11,363,F,T,Barclay Tower (2005),T
+10208,F,15,241,T,T,Barclay-Vesey Building (1927),F
+10209,T,29,167,F,T,Bayard-Condict Building (1899),F
+10210,F,30,194,T,F,Beekman Tower (1928),F
+10211,F,10,26,T,F,The Belmont (1981),T
+10212,T,43,55,F,F,Beresford Apartments (1929),F
+10213,T,30,166,T,F,Bertelsmann Building (1990),T
+10214,F,10,21,F,T,Bloomberg Tower(2004),T
+10215,T,31,318,F,T,Bowery Savings Bank (1923),T
+10216,F,9,39,T,T,Briar Hill (1959),F
+10217,T,19,342,F,T,The Bristol (1975),F
+10218,T,43,273,F,T,The Brittany (1995),F
+10219,T,25,122,T,F,Bush Tower (1918),F
+10220,T,41,101,T,F,The Caldwell (1972),T
+10221,T,41,237,T,F,The Cambridge (1970),T
+10222,F,28,269,F,F,Canada House (1957),T
+10223,T,20,67,F,T,Candler Building (1914),T
+10224,T,40,349,T,F,Carnegie Hall Tower (1990),T
+10225,F,2,105,T,T,Carnegie Mews (1982),T
+10226,T,12,178,F,T,CBS Building (1964),T
+10227,F,30,134,F,F,Celanese Building (1973),F
+10228,F,3,344,T,T,Central Park Place (1988),T
+10229,T,34,95,F,F,Century Apartments (1931),T
+10230,F,7,73,F,F,Chanin Building (1929),T
+10231,T,28,276,T,T,Chase Manhattan Bank (1961),T
+10232,T,44,208,F,F,Chatham Towers (1965),T
+10233,T,29,259,T,T,Chemical Bank Building (1964),T
+10234,T,0,109,T,F,Chrysler Building (1930),F
+10235,T,24,181,T,T,Chrysler Building East (1952),F
+10236,T,31,215,T,T,CIBC World Markets (2003),T
+10237,F,13,11,F,F,Citigroup Center (1977),T
+10238,F,42,216,F,F,Cities Service Building (1932),T
+10239,F,33,59,F,F,City Bank Farmers Trust Co. Bu,T
+10240,T,7,264,T,F,Citylights (1997),F
+10241,T,11,145,T,T,Cityspire (1987),F
+10242,F,40,113,T,T,Columbus Centre (2003),T
+10243,T,8,341,F,T,Condé Nast Building (1999),F
+10244,F,18,286,F,F,Confucius Plaza (1976),T
+10245,T,21,348,F,F,Continental Center (1983),T
+10246,F,6,324,T,T,Corning Glass Building (1959),T
+10247,F,5,287,F,T,Crown Building (1921),F
+10248,T,38,26,T,T,Dag Hammarskjold Tower (1984),T
+10249,F,7,55,T,F,Daily News Building (1930),F
+10250,T,24,202,T,T,Deutsche Bank Building (1974),F
+10251,F,33,342,T,T,Doubletree Guest Suites (1990),T
+10252,T,32,246,F,F,Downtown Athletic Club (1930),T
+10253,F,10,282,F,F,Durst Tower (1999),F
+10254,T,15,152,F,F,Eldorado Apartments (1931),T
+10255,T,42,118,T,F,Empire State Building (1931),F
+10256,F,13,254,T,T,Equitable Building I (1915),T
+10257,F,28,351,F,T,Equitable Building II (1961),F
+10258,T,25,65,F,F,Equitable Center (1986),T
+10259,F,13,125,F,F,Ernst & Young National Headqua,T
+10260,T,27,261,F,T,Essex House (1930),T
+10261,T,36,7,T,F,Exxon Building (1971),T
+10262,T,11,6,F,F,The Fairmont (1979),T
+10263,T,43,179,T,F,Flatiron Building (1902),F
+10264,T,8,22,F,F,Four Seasons Hotel (1993),F
+10265,T,22,311,T,F,Freedom Tower (2013),T
+10266,F,7,199,F,F,Fuller Building (1929),T
+10267,F,30,105,F,F,Galleria (1975),F
+10268,T,13,300,T,F,GE Building (1933),F
+10269,F,7,342,F,F,General Electric Tower (1931),F
+10270,F,26,264,F,T,General Motors Building (1968),F
+10271,F,16,124,F,F,Goldman Sachs Tower (2003),F
+10272,F,42,8,T,T,Grace Building (1974),F
+10273,T,41,338,F,T,The Grand Tier (2004),F
+10274,T,40,171,T,T,Group Health Insurance Buildin,F
+10275,F,2,89,F,F,Gulf & Western Building (1970),F
+10276,T,4,180,T,F,The Hamilton (1986),F
+10277,F,22,60,F,F,Hampton Court (2004),F
+10278,T,15,198,F,T,Hearst Magazine Building (2006),T
+10279,T,36,336,F,F,Helena (2004),F
+10280,T,16,47,T,F,Helmsley Building (1929),F
+10281,F,40,110,F,F,Helmsley Palace Hotel (1980),F
+10282,T,16,279,F,T,Heckscher Building (1916),F
+10283,T,11,79,T,T,Home Insurance Company Buildin,F
+10284,F,6,293,T,F,IBM Building (1983),T
+10285,F,12,187,T,F,InterActiveCorp Headquarters (,F
+10286,T,10,182,T,T,Interchem Building (1969),F
+10287,T,36,293,F,T,International Building (1935),F
+10288,F,9,253,F,F,Irving Trust Co. Building (193,T
+10289,T,34,47,T,F,Jacob Ruppert Brewery Project ,F
+10290,T,4,275,F,F,Javits Federal Office Building,F
+10291,T,17,105,F,T,J.P. Morgan Bank Headquarters ,T
+10292,T,5,147,F,F,Kent Building (1952),F
+10293,F,22,212,F,T,Lehman Brothers Building (2001),F
+10294,T,28,258,T,F,Lefcourt Colonial Building (19,T
+10295,F,17,46,F,T,Lever Building (1952),T
+10296,T,29,5,T,T,Liberty Plaza (2005),T
+10297,F,7,33,T,T,Lincoln Building (1930),T
+10298,T,10,108,F,T,Lipstick Building (1986),F
+10299,F,13,351,T,F,The Lucerne(1991),T
+10300,F,10,84,T,T,LVMH Tower (1999),F
+10301,T,11,204,T,T,Majestic Apartments (1930),F
+10302,T,26,153,T,T,Manufacturers Hanover Trust Bu,F
+10303,T,40,138,T,F,Marc (2004),T
+10304,T,8,214,F,T,Marine Midland Bank (1967),T
+10305,T,25,85,T,F,The Marlowe (1987),T
+10306,T,43,181,T,F,Marriott East Side Hotel (1924),T
+10307,F,30,113,T,F,Marriott Marquis Hotel (1985),T
+10308,F,40,54,F,F,Marriott Brooklyn,T
+10309,F,18,207,F,F,McGraw-Hill Building I (330 W ,F
+10310,T,14,200,F,T,McGraw-Hill Building II (1221 ,F
+10311,F,0,86,F,F,Met Life Building (1963),T
+10312,T,29,345,F,T,Metropolitan Life Insurance Co,T
+10313,T,28,296,T,F,Metropolitan Tower (1988),T
+10314,T,4,200,F,F,Milan (2004),F
+10315,T,11,48,T,F,Millennium Broadway Hotel (199,F
+10316,T,34,221,F,F,Millennium Hilton Hotel (1992),T
+10317,T,3,170,T,F,Milstein Tower,T
+10318,F,43,236,F,F,Mobil Building (1956),T
+10319,T,40,21,F,T,The Monterey (1992),F
+10320,F,17,106,T,T,MONY Tower (1950),F
+10321,F,16,17,F,F,Morgan Stanley Building (1585 ,T
+10322,F,45,357,F,T,Morgan Stanley Dean Witter Pla,T
+10323,F,31,86,T,F,Morton Square (2003),F
+10324,F,26,146,T,F,Municipal Building (1914),T
+10325,F,2,189,F,T,Museum Tower (1984),T
+10326,T,24,154,F,F,National Westminster Bank USA ,T
+10327,F,45,306,T,T,Nelson Tower (1931),F
+10328,F,27,322,F,T,New York Central Building (192,F
+10329,T,12,318,T,F,New Yorker Hotel (1930),F
+10330,F,32,165,F,F,New York Hilton Hotel (1963),T
+10331,F,45,356,T,F,New York Merchandise Mart (197,T
+10332,T,10,133,T,F,New York Palace Hotel (1980),F
+10333,T,25,196,F,F,New York Times Tower (2006),T
+10334,F,12,244,T,T,New York World Building (1890),T
+10335,F,45,64,T,T,N.Y. Life Insurance Co. Buildi,F
+10336,T,1,217,F,T,N.Y. Telephone Co. Building (M,F
+10337,F,30,147,T,T,N.Y. Telephone Co. Building (M,T
+10338,F,19,35,F,T,N.Y. Telephone Co. Switching S,T
+10339,T,27,331,T,F,N.Y. Telephone Co. Switching S,F
+10340,F,12,343,F,T,Olympic Tower (1976),F
+10341,F,30,73,T,T,On Prospect Park (2008),F
+10342,F,4,258,T,T,One Bryant Park (2008),T
+10343,F,35,152,F,T,One Carnegie Hill (2006),T
+10344,F,28,141,F,F,One Dag Hammarskjold Plaza (19,T
+10345,T,15,21,F,T,One Fifth Avenue (1929),F
+10346,F,12,145,F,F,One Penn Plaza (1972),F
+10347,T,19,91,F,F,One Union Square South (1999),F
+10348,F,26,79,T,F,Orion (2005),F
+10349,T,21,211,F,T,Pan Am Building (1963),F
+10350,T,31,94,T,T,Panhellenic Hotel (1928),F
+10351,F,21,166,T,T,Paramount Building (1927),T
+10352,F,4,168,T,T,Paramount Plaza (1968),T
+10353,F,40,350,F,T,Paramount Tower (1998),F
+10354,T,39,70,T,T,Park Avenue Place (2004),F
+10355,F,17,299,F,T,Park Avenue Plaza (1981),F
+10356,T,31,59,F,T,Park Imperial (2002),F
+10357,F,21,92,F,T,Park Lane Hotel (1971),F
+10358,F,18,249,F,F,Park Row Building (1899),T
+10359,F,15,327,F,F,The Pavilion (1963),F
+10360,T,14,217,F,T,Pennmark (2001),F
+10361,F,40,314,T,T,Perry West (2002),F
+10362,F,29,337,F,F,Philip Morris Inc. Building (1,T
+10363,F,40,259,T,F,Piaget Building (1978),T
+10364,T,10,355,T,T,Pierre (1928),F
+10365,T,34,3,F,F,Random House Building (2002),F
+10366,F,23,128,T,T,RCA Building (1933),T
+10367,F,23,251,F,F,Realty Building (1907),F
+10368,F,13,126,T,F,The Regent (1981),T
+10369,T,12,191,T,T,Reuters Building (2001),T
+10370,T,15,220,F,T,Ritz Tower (1925),F
+10371,F,5,136,T,F,RKO Building (1932),F
+10372,T,12,113,F,T,San Remo Apartments (1930),F
+10373,F,26,34,F,F,Seagram Building (1958),F
+10374,T,23,240,F,T,Seward Park Houses Extension (,T
+10375,F,13,239,F,T,Sheraton Centre (1962),T
+10376,F,23,255,T,T,Silver Towers (2010),T
+10377,F,24,60,F,T,Singer Tower (1908),F
+10378,T,11,285,T,F,Socony-Mobil Building (1956),F
+10379,T,32,21,F,F,Solaire (2003),T
+10380,F,30,86,T,T,Solow Building (1974),F
+10381,T,6,343,F,T,The Somerset (1977),T
+10382,F,22,151,T,F,Sony Building (1984),F
+10383,T,45,195,F,F,South Park Tower (1986),F
+10384,T,14,176,T,T,Standard Oil Building (1922),F
+10385,T,26,178,T,F,The Stratford (1969),T
+10386,T,6,151,F,T,Taino Towers (1979),T

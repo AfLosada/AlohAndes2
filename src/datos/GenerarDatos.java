@@ -22,7 +22,7 @@ public class GenerarDatos
 
 //"C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"
 	
-	public static String DIRECCION = "//Users//Valentina//Documents//Valentina//Cuarto Semestre//SisTrans//AlohAndes2//Docs//CSVS//"; 
+	public static String DIRECCION = "C:\\Users\\Andres Losada\\git\\java-server-master\\Docs\\CSVS\\"; 
 
 	public static Integer NUM_HOSTALES = 80;
 	public static Integer NUM_HOTELES = 60;
@@ -548,7 +548,7 @@ public class GenerarDatos
 			Integer ya = 0;
 			if(Math.random() > 0.5 && !ya2)
 			{
-				Integer xd = r.nextInt(45343+NUM_HOSTALES-45343)+45343;
+				Integer xd = r.nextInt(45422-45344)+45343;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
@@ -562,7 +562,7 @@ public class GenerarDatos
 			else if(Math.random() > 0.5 && !ya2)
 			{
 				sb.append(',');
-				Integer xd = r.nextInt(10001+NUM_HOTELES-10000)+10001;
+				Integer xd = r.nextInt(20000-10002)+10001;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
@@ -576,7 +576,7 @@ public class GenerarDatos
 			{
 				sb.append(',');
 				sb.append(',');
-				Integer xd = r.nextInt(10001+NUM_VIVIENDAU-10000)+10001;
+				Integer xd = r.nextInt(10386-10002)+10001;
 				sb.append(xd);
 				sb.append(',');
 				sb.append(',');
@@ -590,7 +590,7 @@ public class GenerarDatos
 				sb.append(',');
 				sb.append(',');
 				sb.append(',');
-				Integer xd = r.nextInt(311+NUM_PERSONAS-20000)+20000;
+				Integer xd = r.nextInt(20310-313)+312;
 				sb.append(xd);
 				sb.append(',');
 				garu[3] = xd;
@@ -652,7 +652,7 @@ public class GenerarDatos
 			sb.append(r.nextInt((6-1)+1)+ 1);
 			sb.append(',');
 			//Precio de la habitacion
-			Integer valor = ((Integer)(r.nextInt(100000-10000))+10000);
+			Integer valor = ((Integer)(r.nextInt(600104-10001))+10000);
 			sb.append(valor);
 			sb.append(',');
 			//Tamanio de la habitacion
@@ -694,8 +694,13 @@ public class GenerarDatos
 			if(tipo == 0)
 			{
 				Integer xd = id;
-	//			System.out.println(hashHostalOferta.containsKey(xd));
-				sb.append(hashHostalOferta2.get(xd));
+	//			System.out.println(hashHostalOferta.containsKey(xd));;
+				Integer kool = hashHostalOferta.get(xd);
+				if(kool == null)
+				{
+					kool = r.nextInt(100104-105)+104;
+				}
+				sb.append(kool);
 				sb.append(',');
 				sb.append(xd);
 				sb.append(',');
@@ -710,7 +715,11 @@ public class GenerarDatos
 			{
 				Integer xd = id;
 		//		System.out.println(hashHotelOferta.containsKey(xd));
-				Integer kool = hashHotelOferta2.get(xd);
+				Integer kool = hashHotelOferta.get(xd);
+				if(kool == null)
+				{
+					kool = r.nextInt(100104-105)+104;
+				}
 				sb.append(kool);
 				sb.append(',');
 				//1
@@ -727,6 +736,10 @@ public class GenerarDatos
 				Integer xd = id;
 			//	System.out.println(hashPersonaOferta.containsKey(xd));
 				Integer kool = hashPersonaOferta.get(xd);
+				if(kool == null)
+				{
+					kool = r.nextInt(100104-105)+104;
+				}
 				sb.append(kool);
 				sb.append(',');
 				//1
@@ -742,7 +755,12 @@ public class GenerarDatos
 			{
 				Integer xd = id;
 			//	System.out.println(hashViviendaUOferta.containsKey(xd));
-				sb.append(hashViviendaUOferta.get(xd));
+				Integer kool =hashViviendaUOferta.get(xd);
+				if(kool == null)
+				{
+					kool = r.nextInt(100104-105)+104;
+				}
+				sb.append(kool);
 				sb.append(',');
 				sb.append(',');
 				sb.append(',');
@@ -786,13 +804,13 @@ public class GenerarDatos
 
 		Random r = new Random();
 
-		Collection<Integer> jasgasgo1 = hashHostalOferta.values();
+		Collection<Integer> jasgasgo1 = hashHostalOferta2.values();
 		Iterator<Integer> it1 = jasgasgo1.iterator();
-		Collection<Integer> jasgasgo2 = hashHotelOferta.values();
+		Collection<Integer> jasgasgo2 = hashHotelOferta2.values();
 		Iterator<Integer> it2 = jasgasgo2.iterator();
-		Collection<Integer> jasgasgo3 = hashViviendaUOferta.values();
+		Collection<Integer> jasgasgo3 = hashViviendaUOferta2.values();
 		Iterator<Integer> it3 = jasgasgo3.iterator();
-		Collection<Integer> jasgasgo4 = hashPersonaOferta.values();
+		Collection<Integer> jasgasgo4 = hashPersonaOferta2.values();
 		Iterator<Integer> it4 = jasgasgo4.iterator();
 
 		for(Integer pos = 667; pos < 500667;pos++)
@@ -812,7 +830,7 @@ public class GenerarDatos
 
 			//Generador de fechas
 
-			String fecha ="" +  ((int)(Math.random() *28)) +  "-" + ((int)(Math.random() *12)) + "-2018";
+			String fecha ="0" +  ((int)(Math.random() *28)) +  "-0" + ((int)(Math.random() *12)) + "-2018";
 			sb.append(fecha);
 			sb.append(',');
 			//Generador de horas
@@ -1011,7 +1029,6 @@ public class GenerarDatos
 		System.out.println("apartamento");
 	}
 	
-<<<<<<< HEAD
 	public void crearHabitacionesServiciosPublicos() throws FileNotFoundException
 	{
 
@@ -1058,7 +1075,6 @@ public class GenerarDatos
 	}
 
 	
-=======
 	public void crearVecino() throws FileNotFoundException
 	{
 
@@ -1141,12 +1157,10 @@ public class GenerarDatos
 		System.out.println("vivienda");
 	}
 
->>>>>>> 1a6683409ca4d6d9196888082965a006ca7b528d
-
 	public static void main(String[] args) throws FileNotFoundException {
 
 		GenerarDatos temp = new GenerarDatos();
-<<<<<<< HEAD
+
 		temp.cargarNombresPersonas();
 		temp.crearCliente();
 		temp.crearHostales();
@@ -1160,24 +1174,7 @@ public class GenerarDatos
 		temp.crearApartamento();
 		temp.crearHabitacionesServiciosInmobiliarios();
 		temp.crearHabitacionesServiciosPublicos();
-=======
 
-//		temp.cargarNombresPersonas();
-//		temp.crearCliente();
-//		temp.crearHostales();
-//		temp.crearHoteles();
-//		temp.crearPersona();
-//		temp.crearViviendaU();
-//		temp.crearOferta();
-//		temp.crearReserva();
-//		temp.crearClienteReserva();
-//		temp.crearApartamento();
-//   	temp.crearVecino();
-		temp.crearVivienda();;
-        
-		//		temp.crearMenu();
-		//		temp.crearVentaMenu();
->>>>>>> 1a6683409ca4d6d9196888082965a006ca7b528d
 	}
 
 }
